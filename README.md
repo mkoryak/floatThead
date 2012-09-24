@@ -16,6 +16,6 @@ This approach has the following disadvantages:
 *   Events must be cloned. Any code that has a reference to the old (now hidden) head will break.
 *   Because the cloned header no longer exists inside the original table, styles may break.
 
-jquery.loatThead does not clone your header, so events bound to it still work. Any libraries that hold a reference to the header (such as datatables or tablesorter) work without any issues.
+jquery.floatThead does not clone your header, so events bound to it still work. Any libraries that hold a reference to the header (such as datatables or tablesorter) work without any issues.
 
 
