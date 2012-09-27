@@ -5,7 +5,7 @@
     <title>jQuery.floatThead</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
 
-    <script type='text/javascript' src="../jquery.floatThead.js"></script>
+    <script type='text/javascript' src="./../jquery.floatThead.js"></script>
     <script type='text/javascript' src="./lib/bootstrap.js"></script>
     <script type='text/javascript' src="./lib/underscore-min.js"></script>
     <link href="./lib/bootstrap.css" media="screen" rel="stylesheet" type="text/css"/>
@@ -29,6 +29,7 @@
                 <li><a href="#usage">Usage</a></li>
                 <li><a href="#options">Options</a></li>
                 <li><a href="#examples">Examples</a></li>
+                <li><a href="datatables.htm">Datatables Example</a></li>
             </ul>
         </div>
     </div>
@@ -65,11 +66,11 @@
 			<div class='main-demo'>
 				<div class='cta'>
 					<h1>Demo</h1>
-					Convert table to floating headers: &nbsp;&nbsp;&nbsp;<button class="btn btn-success run-main-demo" type="button">Run floatThead <i class='icon-play icon-white'></i></button><br/>
+					<button class="btn btn-success run-main-demo" style='width: ' type="button">Run floatThead <i class='icon-play icon-white'></i></button><br/>
 				</div>
 				<div class='wrapper small'>
-					<table class="table demo0 large template">
-						<thead> <tr> <th><a href="#">Header 1</a></th> <th><a href="#">Header 2</a></th> <th><a href="#">Header 3</a></th> </tr> </thead>
+					<table class="table demo0 large template table-bordered table-striped">
+						<thead> <tr> <th><a href="#" id='demoHeader1'>Header 1</a></th> <th><a href="#" id='demoHeader2'>Header 2</a></th> <th><a href="#" id='demoHeader3'>Header...3</a></th> </tr> </thead>
 						<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr></tbody>
 					</table>
 				</div>
@@ -92,7 +93,7 @@
 		<b>Page scrolling</b> is the default. Initialize floatThead without any params to use it. <code>$('table').floatThead()</code>
 		<br/><br/>
 		<b>Internal scrolling</b> takes a bit more work. You must specify a container element inside of which the table will scroll. 
-		This element must be created by you. Usually a div will wrap the table with overflow:auto and a size smaller than the table.<br/>
+		You must create this element. Usually a div will wrap the table with overflow:auto and a size smaller than the table.<br/>
 <pre>
 var $table = $('table.demo'); 
 $table.floatThead({
@@ -234,18 +235,37 @@ $('table.demo2').floatThead({
     		scrollingTop: 41
     	});
 
+		var $demoTable = $("table.demo0");
+		$demoTable.find('#demoHeader1').on('click', function(){
+			alert('Click event fired');
+			return false;
+		}).text('click me');
+		$demoTable.find('#demoHeader2').on('mouseover', function(){
+			$(this).closest('th').css('background-color', '#ccc');
+		}).on('mouseout', function(){
+			$(this).closest('th').css('background-color', '#eee');
+		}).text('mouse over me');
+		
 		$(".run-main-demo").click(function(){
 			var $button = $(this);
-			$("table.demo0").floatThead({
-				scrollingTop: 41,
-				scrollContainer: function($table){
-					return $table.closest('.wrapper');
-				}
-			});
-			$button.tooltip("show");
-			setTimeout(function(){
-				$button.tooltip("hide");
-			}, 5000);
+			
+			
+			if($button.is('.btn-danger')){
+				$demoTable.floatThead('destroy');
+				$button.html("Run floatThead  <i class='icon-play icon-white'></i>").removeClass('btn-danger').addClass('btn-success');
+			} else {
+				$demoTable.floatThead({
+					scrollingTop: 41,
+					scrollContainer: function($table){
+						return $table.closest('.wrapper');
+					}
+				});
+				$button.tooltip("show");
+				setTimeout(function(){
+					$button.tooltip("hide");
+				}, 5000);
+				$button.html("Remove floatThead  <i class='icon-trash icon-white'></i>").addClass('btn-danger').removeClass('btn-success');
+			}
 		}).tooltip({
 			trigger: "manual",
 			title: "Now try scrolling around in the table",
