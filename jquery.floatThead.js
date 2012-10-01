@@ -354,9 +354,9 @@ $.fn.floatThead = function(map){
         var calculateFloatContainerPos = calculateFloatContainerPosFn($floatContainer, $newHead, $window, $table, $scrollContainer, scrollbarOffset);
         var repositionFloatContainer = repositionFloatContainerFn($floatContainer, $table, $scrollContainer, scrollbarOffset);
         
-        repositionFloatContainer(calculateFloatContainerPos());
-        var flow = reflow($table, $floatContainer, headerMap);
         
+        var flow = reflow($table, $floatContainer, headerMap);
+        repositionFloatContainer(calculateFloatContainerPos()); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
         
         
         
@@ -379,7 +379,7 @@ $.fn.floatThead = function(map){
         };
         $window.bind('scroll.floatTHead', scrollEvent);
         $scrollContainer.bind('scroll.floatTHead', scrollEvent);
-        windowResize(opts.debouceResizeMs, windowResizeEvent);
+        windowResize(opts.debounceResizeMs, windowResizeEvent);
         $table.bind('reflow', reflowEvent);
         if(isDatatable($table)){
             $table.bind('sort',   reflowEvent)
