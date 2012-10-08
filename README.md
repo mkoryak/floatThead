@@ -3,19 +3,34 @@ jquery.floatThead
 
 Float the table header without losing your events or styles.  
 
-[DEMO](http://programmingdrunk.com/floatThead/)
+[DEMOS and Documentation](http://programmingdrunk.com/floatThead/)
 
 
 
 Why do we need another plugin that does this?
----------------------
+=============================================
 
-All other floating header plugins work by cloning the existing header, hiding it and then using it to help calculate the cloned header's column sizes.  
-This approach has the following disadvantages:  
+I was fed up the current state of floating header plugins. They either lose your styles or lose your events, or dont support the edge cases.  
+This is why i wrote jQuery.floatThead.
 
-*   Events must be cloned. Any code that has a reference to the old (now hidden) head will break.
-*   Because the cloned header no longer exists inside the original table, styles may break.
+Features:
+---------
 
-jquery.floatThead does not clone your header, so events bound to it still work. Any libraries that hold a reference to the header (such as datatables or tablesorter) work without any issues.
+-   Floats the table header - so that the user can always see it
+-   Supports tables with inner scroll bars, or whole page scrolling
+-   Horizonal or vertical scrolling
+-   Doesnt clone the thead - so your events stay bound
+-   Doesnt mess with your styles
+-   Works on any table
+-   Requires no special css
+-   Works with datatables out of the box
+
+Requirements:
+-------------
+
+-   jQuery 1.7.x or better
+-   Underscore.js 1.3 or better
+-   IE7, IE8, IE9, FF10+ or Chrome15+. (in ie7 tables with colspans arent supported)
+
 
 
