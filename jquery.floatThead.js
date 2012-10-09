@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * Date: 10/04/12
+ * Date: 10/09/12
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,8 +16,12 @@
  * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
  *
  * @author Misha Koryak
- * @version 0.6 
+ * @version 0.6.1
  */
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name jquery.floatThead.min.js
+// ==/ClosureCompiler==
 (function( $ ) {
   
 var $window = $(window);
@@ -279,7 +283,7 @@ $.fn.floatThead = function(map){
         var oldTop = null; 
         var oldLeft = null;
         var oldScrollLeft = null;
-        return function(pos, setWidth){
+        return function(pos, setWidth, setHeight){
             var scrollLeft = $scrollContainer.scrollLeft();
             if(oldTop != pos.top || oldLeft != pos.left){
                 $floatContainer.css({
@@ -289,12 +293,28 @@ $.fn.floatThead = function(map){
                 oldTop = pos.top;
                 oldLeft = pos.left;
             }
+            if(setWidth){
+                var width;
+                if(false && $scrollContainer.length){ //TODO: this doesnt work on datatables exaample 2
+                    var tableWidth = $table.outerWidth();
+                    var containerWidth = $scrollContainer.width();
+                    width = tableWidth < containerWidth ? tableWidth : containerWidth;
+                } else {
+                    width = $scrollContainer.width() || $table.outerWidth();
+                }
+                $floatContainer.width(width - scrollbarOffset.vertical);
+            }
+            if(setHeight){ //TODO: we use these things elsewhere, create a 'global' dict of these useful things and pass that around
+                var $floatTable = $floatContainer.find("table");
+                var $sizerRow = $table.find('thead tr.size-row');
+                var $sizerCells = $sizerRow.find('>td');
+                var height = $floatTable.outerHeight();
+                $sizerCells.outerHeight(height);
+                $sizerRow.outerHeight(height);
+            }
             if(oldScrollLeft != scrollLeft){
                 $floatContainer.scrollLeft(scrollLeft);
                 oldScrollLeft = scrollLeft;
-            }
-            if(setWidth){
-                $floatContainer.width(($scrollContainer.width() || $table.outerWidth()) - scrollbarOffset.vertical);
             }
         }
     };
@@ -366,7 +386,7 @@ $.fn.floatThead = function(map){
             calculateScrollBarSize();
             flow = reflow($table, $floatContainer, numCols);
             calculateFloatContainerPos = calculateFloatContainerPosFn($floatContainer, $newHead, $window, $table, $scrollContainer, scrollbarOffset);
-            repositionFloatContainer(calculateFloatContainerPos(), true);
+            repositionFloatContainer(calculateFloatContainerPos(), true, true);
         };
         var reflowEvent = function(){
             repositionFloatContainer(calculateFloatContainerPos(), true);
