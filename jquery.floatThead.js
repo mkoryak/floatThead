@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * Date: 10/15/12
+ * Date: 10/17/12
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,7 +16,7 @@
  * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
  *
  * @author Misha Koryak
- * @version 0.7
+ * @version 0.7.1
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -207,23 +207,25 @@ $.fn.floatThead = function(map){
                     $table.css(layoutAuto);
                     $floatTable.css(layoutAuto);
                     for(i=0; i < numCols; i++){
-						var $rowCell = $rowCells.eq(i);
-						var rowWidth = $rowCell.outerWidth(true);
-						//TODO: check this logic more
-						if(i == 0 && $.browser.mozilla && ($rowCell.css('border-left-width') || $rowCell.css('border-right-width'))){
-							rowWidth--;
-						}
+                        var $rowCell = $rowCells.eq(i);
+                        var rowWidth = $rowCell.outerWidth(true);
+                        //TODO: check this logic more
+                        if(i == 0 && $.browser.mozilla && ($rowCell.css('border-left-width') || $rowCell.css('border-right-width'))){
+                            rowWidth--;
+                        }
                         $headerCells.eq(i).outerWidth(rowWidth);
                         $sizerCells.eq(i).outerWidth(rowWidth);
                     }
+                    setHeaderHeight();
                     $floatTable.append($header); //append because colgroup must go first in chrome
                     $table.css(layoutFixed);
                     $floatTable.css(layoutFixed);
                 } else {
+                    setHeaderHeight();
+                    $floatTable.append($header);
                     $table.css(layoutAuto);
                     $floatTable.css(layoutAuto);
                 }
-                setHeaderHeight();
             };
             flow();
             return flow;
@@ -257,7 +259,6 @@ $.fn.floatThead = function(map){
                 $scrollContainer.scrollTop(scrollingContainerTop);
             }
             return function(){
-                locked = scrollbarOffset.vertical > 0; //no scroll bars 
                 var windowTop = $window.scrollTop();
                 scrollingContainerTop = $scrollContainer.scrollTop();
                 var top;
