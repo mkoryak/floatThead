@@ -2,12 +2,12 @@
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * Date: 10/23/12
+ * Date: 10/29/12
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
  * Dependancies:
- * jquery 1.7.0 + [required]
+ * jquery 1.8.0 + [required] OR jquery 1.7.0 + jquery UI core
  * underscore.js 1.3.0 + [required]
  *
  * http://notetodogself.blogspot.com
@@ -16,7 +16,7 @@
  * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
  *
  * @author Misha Koryak
- * @version 0.7.2
+ * @version 0.7.3
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -222,11 +222,15 @@ $.fn.floatThead = function(map){
                         $headerCells.eq(i).outerWidth(rowWidth);
                         $sizerCells.eq(i).outerWidth(rowWidth);
                     }
-                    $table.width($table.width());
+					var prefTableWidth = $table.width();
                     setHeaderHeight();
                     $floatTable.append($header); //append because colgroup must go first in chrome
                     $table.css(layoutFixed);
                     $floatTable.css(layoutFixed);
+					var tableWidth = $table.width();
+					if(Math.abs(prefTableWidth - tableWidth) > 1){// see: https://github.com/mkoryak/floatThead/pull/3
+						$table.width(prefTableWidth);
+					}
                 } else {
                     setHeaderHeight();
                     $floatTable.append($header);
