@@ -32,7 +32,6 @@
 $.floatThead = {
     defaults: {
         cellTag: 'th',
-        mixedModeScrolling: false, //calculate on the go if page scrolling or container scrolling should be used. if container has no vertical scroll bars, use page scrolling
         zIndex: 1001, //zindex of the floating thead (actually a container div)
         debounceResizeMs: 1,
         scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
@@ -273,9 +272,6 @@ $.fn.floatThead = function(map){
                 var top, left;
                 var windowTop = $window.scrollTop();
                 scrollingContainerTop = $scrollContainer.scrollTop();
-                if(opts.mixedModeScrolling){
-                    locked = scrollbarOffset.vertical > 0; //no scroll bars 
-                }
                 if(locked){ //inner scrolling
                     tableOffset = $table.offset(); 
                     if (tableContainerGap > scrollingContainerTop) {
