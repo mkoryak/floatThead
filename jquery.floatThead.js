@@ -222,7 +222,6 @@ $.fn.floatThead = function(map){
                         $headerCells.eq(i).outerWidth(rowWidth);
                         $sizerCells.eq(i).outerWidth(rowWidth);
                     }
-                    $table.width($table.width());
                     setHeaderHeight();
                     $floatTable.append($header); //append because colgroup must go first in chrome
                     $table.css(layoutFixed);
