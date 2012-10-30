@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * Date: 10/29/12
+ * Date: 10/30/12
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,7 +16,7 @@
  * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
  *
  * @author Misha Koryak
- * @version 0.7.3
+ * @version 0.7.4
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -38,13 +38,12 @@ $.floatThead = {
         scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
         scrollContainer: function($table){
             return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
-        }
+        },
+        floatTableClass: 'floatThead-table'
     }            
 };
   
 var $window = $(window);
-var winWidth = $window.width();
-var winHeight = $window.height();
 var floatTheadCreated = 0;
 /**
  * debounce and fix window resize event for ie7. ie7 is evil and will fire window resize event when ANY dom element is resized.
@@ -52,13 +51,15 @@ var floatTheadCreated = 0;
  * @param cb
  */
 function windowResize(debounceMs, cb){
+    var winWidth = $window.width();
+    var winHeight = $window.height();
     var debouncedCb = _.debounce(function(){
         if($.browser.msie && parseFloat($.browser.version) <= 8.0) { 
             var winWidthNew = $window.width();
             var winHeightNew = $window.height();
             if(winWidth != winWidthNew || winHeight != winHeightNew){
-                winWidth = $window.width();
-                winHeight = $window.height();
+                winWidth = winWidthNew;
+                winHeight = winHeightNew;
                 cb();
             }
         } else {
@@ -115,7 +116,7 @@ $.fn.floatThead = function(map){
         return this;
     }
     var opts = $.extend({}, $.floatThead.defaults, map);
-    this.filter(':not(.floatThead-table)').each(function(){
+    this.filter(':not(.'+opts.floatTableClass+')').each(function(){
         var $table = $(this);
         if($table.data('floatThead-attached')){
             return true; //continue the each loop 
@@ -146,7 +147,7 @@ $.fn.floatThead = function(map){
         $floatTable.append($floatColGroup);
         $floatContainer.append($floatTable);
         $floatTable.attr('class', $table.attr('class'));
-        $floatTable.addClass('floatThead-table').css('margin', 0); //must have no margins or you wont be able to click on things under floating table
+        $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you wont be able to click on things under floating table
         $table.after($floatContainer);
         
         $floatContainer.css({
@@ -394,7 +395,7 @@ $.fn.floatThead = function(map){
         //attach some useful functions to the table. 
         $table.data('floatThead-attached', {
             destroy: function(){
-                $table.css('table-layout', 'auto');
+                $table.css(layoutAuto);
                 $newHead.replaceWith($header);
                 $table.unbind('reflow');
                 reflowEvent = windowResizeEvent = scrollEvent = function() {};
@@ -408,7 +409,7 @@ $.fn.floatThead = function(map){
                 }
             },
             reflow: function(){
-                $table.trigger('reflow');
+                reflowEvent();
             },
             setHeaderHeight: function(){
                 setHeaderHeight();
