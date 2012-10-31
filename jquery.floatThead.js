@@ -16,7 +16,7 @@
  * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
  *
  * @author Misha Koryak
- * @version 0.8
+ * @version 0.8.1
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -130,7 +130,7 @@ $.fn.floatThead = function(map){
 		if($header.length == 0){
             throw new Error('jQuery.floatThead must be run on a table that contains a <thead> element');
         }
-		var borderCollapse = $table.css('borderCollapse') == 'collapse';
+		var useTableColgroup = true; 
 
         var scrollingTop, scrollingBottom;
         var scrollbarOffset = {vertical: 0, horizontal: 0};
@@ -146,19 +146,23 @@ $.fn.floatThead = function(map){
         var $floatColGroup = $("<colgroup/>");
         var $tableColGroup = $("<colgroup/>");
         var $floatContainer = $('<div style="overflow: hidden;"></div>');
-        var $newHead = $("<thead/>");
-        var $sizerRow = $('<tr class="size-row"></tr>');
+        var $newHeader = $("<thead/>");
+        var $sizerRow = $('<tr class="size-row"/>');
         var $sizerCells = $([]);
         var $tableCells = $([]); //used for sizing - either $sizerCells or $tableColGroup cols. $tableColGroup cols are only created in chrome for borderCollapse:collapse because of a chrome bug.
         var $headerCells = $([]);
 
-        $newHead.append($sizerRow);
-		
-        $table.prepend($newHead);
-		if(borderCollapse){
+        $newHeader.append($sizerRow);
+	
+        $header.detach();
+        $table.prepend($newHeader); 
+
+		if(useTableColgroup){
 			$table.prepend($tableColGroup);
 		}
+
         $floatTable.append($floatColGroup);
+      
         $floatContainer.append($floatTable);
        
         $floatTable.attr('class', $table.attr('class'));
@@ -174,6 +178,8 @@ $.fn.floatThead = function(map){
         
         var layoutFixed = {'table-layout': 'fixed'};
         var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
+
+
 
         function setHeaderHeight(){
             var headerHeight = $header.outerHeight(true);
@@ -205,7 +211,7 @@ $.fn.floatThead = function(map){
 				cells = cells.join('');
 				$sizerRow.html(cells);
 				$tableCells = $sizerCells = $sizerRow.find('>td');
-				if(borderCollapse){
+				if(useTableColgroup){
 					$tableColGroup.html(cols);
 					$tableCells = $tableColGroup.find('col');
 				} 
@@ -232,6 +238,7 @@ $.fn.floatThead = function(map){
                 var $rowCells = $table.find('tbody tr:first>td');
 
                 if($rowCells.length == numCols && numCols > 0){
+                    $newHeader.detach();
                     $table.prepend($header);
                     $table.css(layoutAuto);
                     $floatTable.css(layoutAuto);
@@ -239,7 +246,7 @@ $.fn.floatThead = function(map){
                         var $rowCell = $rowCells.eq(i);
                         var rowWidth = $rowCell.outerWidth(true);
                         //TODO: check this logic more
-                        //if(i == 0 && !borderCollapse && $.browser.mozilla && ($rowCell.css('border-left-width') || $rowCell.css('border-right-width'))){
+                        //if(i == 0 && $.browser.mozilla && ($rowCell.css('border-left-width') || $rowCell.css('border-right-width'))){
                         //    rowWidth--;
                         //}
 						$headerCells.eq(i).outerWidth(rowWidth);
@@ -248,6 +255,7 @@ $.fn.floatThead = function(map){
 					var prefTableWidth = $table.width();
 					
 					$floatTable.append($header); //append because colgroup must go first in chrome
+                    $table.prepend($newHeader);
 					$table.css(layoutFixed);
 					$floatTable.css(layoutFixed);
 					var tableWidth = $table.width();
@@ -422,7 +430,7 @@ $.fn.floatThead = function(map){
             destroy: function(){
                 $table.css(layoutAuto);
 				$tableColGroup.remove();
-                $newHead.replaceWith($header);
+                $newHeader.replaceWith($header);
                 $table.unbind('reflow');
                 reflowEvent = windowResizeEvent = scrollEvent = function() {};
                 $scrollContainer.unbind('scroll.floatTHead');
