@@ -1,8 +1,8 @@
 /**
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
- * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * Date: 10/31/12
+ * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
+ * Date: 11/01/12
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
