@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 11/01/12
+ * Date: 11/02/12
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,7 +16,7 @@
  * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
  *
  * @author Misha Koryak
- * @version 0.8.1
+ * @version 0.8.2
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -126,7 +126,7 @@ $.fn.floatThead = function(map){
             throw new Error('jQuery.floatThead must be run on a table element. ex: $("table").floatThead();');
         }
 		var $header = $table.find('thead:first');
-		
+		var $tbody = $table.find('tbody:first');
 		if($header.length == 0){
             throw new Error('jQuery.floatThead must be run on a table that contains a <thead> element');
         }
@@ -235,7 +235,7 @@ $.fn.floatThead = function(map){
             
 			var flow = function(){
                 var i;
-                var $rowCells = $table.find('tbody tr:first>td');
+                var $rowCells = $tbody.find('tr:first>td');
 
                 if($rowCells.length == numCols && numCols > 0){
                     $newHeader.detach();
@@ -255,7 +255,7 @@ $.fn.floatThead = function(map){
 					var prefTableWidth = $table.width();
 					
 					$floatTable.append($header); //append because colgroup must go first in chrome
-                    $table.prepend($newHeader);
+                    $tbody.before($newHeader);
 					$table.css(layoutFixed);
 					$floatTable.css(layoutFixed);
 					var tableWidth = $table.width();
@@ -280,7 +280,6 @@ $.fn.floatThead = function(map){
          * @return {Function}
          */
         function calculateFloatContainerPosFn(){
-            var locked = $scrollContainer.length > 0; //i want to be able to later make this optional
             var scrollingContainerTop = $scrollContainer.scrollTop();
             
             //this floatEnd calc was moved out of the returned function because we assume the table height doesnt change (otherwise we must reinit by calling calculateFloatContainerPosFn)
@@ -296,16 +295,29 @@ $.fn.floatThead = function(map){
             } else {
                 floatEnd = tableOffset.top - scrollingTop - floatContainerHeight + scrollingBottom + scrollbarOffset.horizontal;
             }
-            if($.browser.msie && locked){
+            if($.browser.msie && locked){ //TODO does this still work?
                 //fix top +/- 1px bug - it bounces around 
                 $scrollContainer.scrollTop(0);
                 tableOriginalOffsetTop = $table.offset().top;
                 $scrollContainer.scrollTop(scrollingContainerTop);
             }
-            return function(){
+			var windowTop = $window.scrollTop();
+			var windowLeft = $window.scrollLeft();
+			var scrollContainerLeft =  $scrollContainer.scrollLeft();
+            scrollingContainerTop = $scrollContainer.scrollTop();
+            return function(eventType){
+                if(eventType == 'windowScroll'){
+					windowTop = $window.scrollTop();
+				} else if(eventType == 'containerScroll'){
+					scrollingContainerTop = $scrollContainer.scrollTop();
+					scrollContainerLeft =  $scrollContainer.scrollLeft();
+				} else if(eventType != 'init') {
+					windowTop = $window.scrollTop();
+					scrollingContainerTop = $scrollContainer.scrollTop();
+					scrollContainerLeft =  $scrollContainer.scrollLeft();
+				}
                 var top, left;
-                var windowTop = $window.scrollTop();
-                scrollingContainerTop = $scrollContainer.scrollTop();
+
                 if(locked){ //inner scrolling
                     tableOffset = $table.offset(); 
                     if (tableContainerGap > scrollingContainerTop) {
@@ -318,17 +330,17 @@ $.fn.floatThead = function(map){
                         top = tableOffset.top + scrollingContainerTop  - windowTop - tableContainerGap;
                         //headers stop at the top of the viewport
                     }
-                    left = tableOffset.left + $scrollContainer.scrollLeft() - $window.scrollLeft();
+                    left = tableOffset.left + scrollContainerLeft - windowLeft;
                 } else { //window scrolling
                     var tableHeight = $table.outerHeight();
                     if(windowTop > floatEnd + tableHeight){
-                        top = tableHeight + scrollingTop - (windowTop - floatEnd); 
-                    } else if (tableOffset.top > windowTop + scrollingTop - scrollingContainerTop) {
-                        top = tableOffset.top + scrollingContainerTop - windowTop;
+                        top = tableHeight + scrollingTop - windowTop + floatEnd; 
+                    } else if (tableOffset.top > windowTop + scrollingTop) {
+                        top = tableOffset.top - windowTop;
                     } else {
                         top = scrollingTop;
                     }
-                    left = tableOffset.left - $window.scrollLeft();
+                    left = tableOffset.left - windowLeft;
                 }
                 return {top: top, left: left};
             }
@@ -394,28 +406,32 @@ $.fn.floatThead = function(map){
 		var calculateFloatContainerPos = calculateFloatContainerPosFn();
         var repositionFloatContainer = repositionFloatContainerFn();
 		
-        repositionFloatContainer(calculateFloatContainerPos(), true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
+        repositionFloatContainer(calculateFloatContainerPos('init'), true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
         
-        var scrollEvent = function(){ 
-            repositionFloatContainer(calculateFloatContainerPos(), false);
+        var windowScrollEvent = function(){ 
+            repositionFloatContainer(calculateFloatContainerPos('windowScroll'), false);
         };
+		var containerScrollEvent = function(){ 
+            repositionFloatContainer(calculateFloatContainerPos('containerScroll'), false);
+        };
+		
         var windowResizeEvent = function(){
             updateScrollingOffsets();
             calculateScrollBarSize();
             flow = reflow();
             calculateFloatContainerPos = calculateFloatContainerPosFn();
             repositionFloatContainer = repositionFloatContainerFn();
-            repositionFloatContainer(calculateFloatContainerPos(), true, true);
+            repositionFloatContainer(calculateFloatContainerPos('resize'), true, true);
         };
         var reflowEvent = _.debounce(function(){
             calculateScrollBarSize();
             updateScrollingOffsets();
             calculateFloatContainerPos = calculateFloatContainerPosFn();
-            repositionFloatContainer(calculateFloatContainerPos(), true);
+            repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
             flow = reflow();
         }, 1);
-        $window.bind('scroll.floatTHead', scrollEvent);
-        $scrollContainer.bind('scroll.floatTHead', scrollEvent);
+        $window.bind('scroll.floatTHead', windowScrollEvent);
+        $scrollContainer.bind('scroll.floatTHead', containerScrollEvent);
         windowResize(opts.debounceResizeMs, windowResizeEvent);
         $table.bind('reflow', reflowEvent);
         if(isDatatable($table)){
@@ -432,7 +448,7 @@ $.fn.floatThead = function(map){
 				$tableColGroup.remove();
                 $newHeader.replaceWith($header);
                 $table.unbind('reflow');
-                reflowEvent = windowResizeEvent = scrollEvent = function() {};
+                reflowEvent = windowResizeEvent = containerScrollEvent = windowScrollEvent = function() {};
                 $scrollContainer.unbind('scroll.floatTHead');
                 $floatContainer.remove();
                 $table.data('floatThead-attached', false);
