@@ -16,7 +16,7 @@
  * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
  *
  * @author Misha Koryak
- * @version 0.8.2
+ * @version 0.8.3
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -35,10 +35,17 @@ $.floatThead = {
         zIndex: 1001, //zindex of the floating thead (actually a container div)
         debounceResizeMs: 1,
         scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
-		//TODO: this got lost somewhere - needs to be re-implemented
+        //TODO: this got lost somewhere - needs to be re-implemented
         scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
         scrollContainer: function($table){
             return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
+        },
+        getSizingRow: function($table, $cols){
+            if($.browser.mozilla){
+                return $cols;
+            } else {
+                return $table.find('tbody tr:first>td');
+            }
         },
         floatTableClass: 'floatThead-table'
     }            
@@ -125,12 +132,12 @@ $.fn.floatThead = function(map){
         if(!$table.is('table')){
             throw new Error('jQuery.floatThead must be run on a table element. ex: $("table").floatThead();');
         }
-		var $header = $table.find('thead:first');
-		var $tbody = $table.find('tbody:first');
-		if($header.length == 0){
+        var $header = $table.find('thead:first');
+        var $tbody = $table.find('tbody:first');
+        if($header.length == 0){
             throw new Error('jQuery.floatThead must be run on a table that contains a <thead> element');
         }
-		var useTableColgroup = true; 
+        var useTableColgroup = true; 
 
         var scrollingTop, scrollingBottom;
         var scrollbarOffset = {vertical: 0, horizontal: 0};
@@ -153,18 +160,15 @@ $.fn.floatThead = function(map){
         var $headerCells = $([]);
 
         $newHeader.append($sizerRow);
-	
         $header.detach();
         $table.prepend($newHeader); 
 
-		if(useTableColgroup){
-			$table.prepend($tableColGroup);
-		}
+        if(useTableColgroup){
+            $table.prepend($tableColGroup);
+        }
 
         $floatTable.append($floatColGroup);
-      
         $floatContainer.append($floatTable);
-       
         $floatTable.attr('class', $table.attr('class'));
         $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you wont be able to click on things under floating table
         $table.after($floatContainer);
@@ -178,8 +182,6 @@ $.fn.floatThead = function(map){
         
         var layoutFixed = {'table-layout': 'fixed'};
         var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
-
-
 
         function setHeaderHeight(){
             var headerHeight = $header.outerHeight(true);
@@ -207,14 +209,14 @@ $.fn.floatThead = function(map){
                     cells.push('<td/>');
                     cols.push('<col/>');
                 }
-				cols = cols.join('');
-				cells = cells.join('');
-				$sizerRow.html(cells);
-				$tableCells = $sizerCells = $sizerRow.find('>td');
-				if(useTableColgroup){
-					$tableColGroup.html(cols);
-					$tableCells = $tableColGroup.find('col');
-				} 
+                cols = cols.join('');
+                cells = cells.join('');
+                $sizerRow.html(cells);
+                $tableCells = $sizerCells = $sizerRow.find('>td');
+                if(useTableColgroup){
+                    $tableColGroup.html(cols);
+                    $tableCells = $tableColGroup.find('col');
+                } 
                 $floatColGroup.html(cols);
                 
                 if($.browser.msie && parseFloat($.browser.version) == 7.0){
@@ -232,10 +234,9 @@ $.fn.floatThead = function(map){
          */
         function reflow(){
             var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
-            
-			var flow = function(){
+            var flow = function(){
                 var i;
-                var $rowCells = $tbody.find('tr:first>td');
+                var $rowCells = opts.getSizingRow($table, $tableCells);
 
                 if($rowCells.length == numCols && numCols > 0){
                     $newHeader.detach();
@@ -245,29 +246,19 @@ $.fn.floatThead = function(map){
                     for(i=0; i < numCols; i++){
                         var $rowCell = $rowCells.eq(i);
                         var rowWidth = $rowCell.outerWidth(true);
-                        //TODO: check this logic more
-                        //if(i == 0 && $.browser.mozilla && ($rowCell.css('border-left-width') || $rowCell.css('border-right-width'))){
-                        //    rowWidth--;
-                        //}
-						$headerCells.eq(i).outerWidth(rowWidth);
-						$tableCells.eq(i).outerWidth(rowWidth);
+                        $headerCells.eq(i).outerWidth(rowWidth);
+                        $tableCells.eq(i).outerWidth(rowWidth);
                     }
-					var prefTableWidth = $table.width();
-					
-					$floatTable.append($header); //append because colgroup must go first in chrome
+                    $floatTable.append($header); //append because colgroup must go first in chrome
                     $tbody.before($newHeader);
-					$table.css(layoutFixed);
-					$floatTable.css(layoutFixed);
-					var tableWidth = $table.width();
-					if(Math.abs(prefTableWidth - tableWidth) > 1){// see: https://github.com/mkoryak/floatThead/pull/3
-						$table.width(prefTableWidth);
-					}
-					setHeaderHeight();
+                    $table.css(layoutFixed);
+                    $floatTable.css(layoutFixed);
+                    setHeaderHeight();
                 } else { 
                     $floatTable.append($header);
                     $table.css(layoutAuto);
                     $floatTable.css(layoutAuto);
-					setHeaderHeight();
+                    setHeaderHeight();
                 }
             };
             flow();
@@ -287,7 +278,6 @@ $.fn.floatThead = function(map){
             var tableContainerGap = 0;
             var floatContainerHeight = $floatContainer.height();
             var tableOffset = $table.offset();
-			var floatTableHeight = $floatTable.height();
             var tableOriginalOffsetTop = null; //used to fix a bouncing bug in ie. only calculated for locked && ie
             if(locked){
                 var containerOffset = $scrollContainer.offset();
@@ -301,21 +291,21 @@ $.fn.floatThead = function(map){
                 tableOriginalOffsetTop = $table.offset().top;
                 $scrollContainer.scrollTop(scrollingContainerTop);
             }
-			var windowTop = $window.scrollTop();
-			var windowLeft = $window.scrollLeft();
-			var scrollContainerLeft =  $scrollContainer.scrollLeft();
+            var windowTop = $window.scrollTop();
+            var windowLeft = $window.scrollLeft();
+            var scrollContainerLeft =  $scrollContainer.scrollLeft();
             scrollingContainerTop = $scrollContainer.scrollTop();
             return function(eventType){
                 if(eventType == 'windowScroll'){
-					windowTop = $window.scrollTop();
-				} else if(eventType == 'containerScroll'){
-					scrollingContainerTop = $scrollContainer.scrollTop();
-					scrollContainerLeft =  $scrollContainer.scrollLeft();
-				} else if(eventType != 'init') {
-					windowTop = $window.scrollTop();
-					scrollingContainerTop = $scrollContainer.scrollTop();
-					scrollContainerLeft =  $scrollContainer.scrollLeft();
-				}
+                    windowTop = $window.scrollTop();
+                } else if(eventType == 'containerScroll'){
+                    scrollingContainerTop = $scrollContainer.scrollTop();
+                    scrollContainerLeft =  $scrollContainer.scrollLeft();
+                } else if(eventType != 'init') {
+                    windowTop = $window.scrollTop();
+                    scrollingContainerTop = $scrollContainer.scrollTop();
+                    scrollContainerLeft =  $scrollContainer.scrollLeft();
+                }
                 var top, left;
 
                 if(locked){ //inner scrolling
@@ -401,20 +391,19 @@ $.fn.floatThead = function(map){
         //finish up. create all calculation functions and bind them to events
         calculateScrollBarSize();
         
-        
         var flow = reflow();
-		var calculateFloatContainerPos = calculateFloatContainerPosFn();
+        var calculateFloatContainerPos = calculateFloatContainerPosFn();
         var repositionFloatContainer = repositionFloatContainerFn();
-		
+        
         repositionFloatContainer(calculateFloatContainerPos('init'), true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
         
         var windowScrollEvent = function(){ 
             repositionFloatContainer(calculateFloatContainerPos('windowScroll'), false);
         };
-		var containerScrollEvent = function(){ 
+        var containerScrollEvent = function(){ 
             repositionFloatContainer(calculateFloatContainerPos('containerScroll'), false);
         };
-		
+        
         var windowResizeEvent = function(){
             updateScrollingOffsets();
             calculateScrollBarSize();
@@ -445,7 +434,7 @@ $.fn.floatThead = function(map){
         $table.data('floatThead-attached', {
             destroy: function(){
                 $table.css(layoutAuto);
-				$tableColGroup.remove();
+                $tableColGroup.remove();
                 $newHeader.replaceWith($header);
                 $table.unbind('reflow');
                 reflowEvent = windowResizeEvent = containerScrollEvent = windowScrollEvent = function() {};
