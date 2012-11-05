@@ -298,11 +298,13 @@ $.fn.floatThead = function(map){
             return function(eventType){
                 if(eventType == 'windowScroll'){
                     windowTop = $window.scrollTop();
+                    windowLeft = $window.scrollLeft();
                 } else if(eventType == 'containerScroll'){
                     scrollingContainerTop = $scrollContainer.scrollTop();
                     scrollContainerLeft =  $scrollContainer.scrollLeft();
                 } else if(eventType != 'init') {
                     windowTop = $window.scrollTop();
+                    windowLeft = $window.scrollLeft();
                     scrollingContainerTop = $scrollContainer.scrollTop();
                     scrollContainerLeft =  $scrollContainer.scrollLeft();
                 }
@@ -337,14 +339,7 @@ $.fn.floatThead = function(map){
         }
         
         function setFloatWidth(){
-            var width;
-            if(false && $scrollContainer.length){ //TODO: this doesnt work on datatables exaample 2
-                var tableWidth = $table.outerWidth();
-                var containerWidth = $scrollContainer.width();
-                width = tableWidth < containerWidth ? tableWidth : containerWidth;
-            } else {
-                width = $scrollContainer.width() || $table.outerWidth();
-            }
+            var width = $scrollContainer.width() || $table.outerWidth();
             $floatContainer.width(width - scrollbarOffset.vertical);
             $floatTable.outerWidth($table.outerWidth());
         }
