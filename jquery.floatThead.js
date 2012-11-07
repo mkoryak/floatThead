@@ -83,16 +83,12 @@ function windowResize(debounceMs, cb){
  */
 function scrollbarWidth() {
     var scrollbarWidth = 0;                    
-    if ($.browser.msie && parseFloat($.browser.version) == 7.0 ) {
-        scrollbarWidth = 15; //hack until i can find a workaround
-    } else {
-        var $div = $('<div/>')
-        .css({ width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: -1000 })
-        .prependTo('body').append('<div/>').find('div')
-        .css({ width: '100%', height: 200 });
-        scrollbarWidth = 100 - $div.width();
-        $div.parent().remove();
-    }
+    var $div = $('<div/>')
+    .css({ width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: -1000 })
+    .prependTo('body').append('<div/>').find('div')
+    .css({ width: '100%', height: 200 });
+    scrollbarWidth = 100 - $div.width();
+    $div.parent().remove();
     return scrollbarWidth;
 }
 
@@ -113,6 +109,9 @@ function isDatatable($table){
     return false;
 }
 $.fn.floatThead = function(map){
+    if($.browser.msie && parseFloat($.browser.version) <= 7.0){
+        return this; //no more crappy browser support. 
+    }
     if(_.isString(map)){
         var command = map;
         this.filter('table').each(function(){
@@ -137,16 +136,13 @@ $.fn.floatThead = function(map){
         if($header.length == 0){
             throw new Error('jQuery.floatThead must be run on a table that contains a <thead> element');
         }
-        var useTableColgroup = true; 
 
         var scrollingTop, scrollingBottom;
         var scrollbarOffset = {vertical: 0, horizontal: 0};
         var scWidth = scrollbarWidth();
-        
         var lastColumnCount = 0; //used by columnNum()
         var $scrollContainer = opts.scrollContainer($table);
        
-
         var locked = $scrollContainer.length > 0; 
         
         var $floatTable = $("<table/>");
@@ -162,11 +158,8 @@ $.fn.floatThead = function(map){
         $newHeader.append($sizerRow);
         $header.detach();
         $table.prepend($newHeader); 
-
-        if(useTableColgroup){
-            $table.prepend($tableColGroup);
-        }
-
+        $table.prepend($tableColGroup);
+        
         $floatTable.append($floatColGroup);
         $floatContainer.append($floatTable);
         $floatTable.attr('class', $table.attr('class'));
@@ -212,18 +205,13 @@ $.fn.floatThead = function(map){
                 cols = cols.join('');
                 cells = cells.join('');
                 $sizerRow.html(cells);
-                $tableCells = $sizerCells = $sizerRow.find('>td');
-                if(useTableColgroup){
-                    $tableColGroup.html(cols);
-                    $tableCells = $tableColGroup.find('col');
-                } 
-                $floatColGroup.html(cols);
+                $tableCells = $sizerRow.find('>td');
+                $tableColGroup.html(cols);
+                $tableCells = $tableColGroup.find('col');
                 
-                if($.browser.msie && parseFloat($.browser.version) == 7.0){
-                    $headerCells = $headerColumns; //on ie7 we will not support colspans as a result of this
-                } else {
-                    $headerCells = $floatColGroup.find("col");
-                }
+                $floatColGroup.html(cols);
+                $headerCells = $floatColGroup.find("col");
+                
             }
             return count;
         }
@@ -339,9 +327,15 @@ $.fn.floatThead = function(map){
         }
         
         function setFloatWidth(){
-            var width = $scrollContainer.width() || $table.outerWidth();
+            var tableWidth = $table.outerWidth();
+            var width = $scrollContainer.width() || tableWidth;
             $floatContainer.width(width - scrollbarOffset.vertical);
-            $floatTable.outerWidth($table.outerWidth());
+            if(locked){
+                var percent = 100 * tableWidth / width;
+                $floatTable.css('width', percent+'%');
+            } else {
+                $floatTable.outerWidth(tableWidth);
+            }
         }
         /**
          * returns a function that caches old floating container position and only updates css when the position changes
@@ -410,11 +404,12 @@ $.fn.floatThead = function(map){
         var reflowEvent = _.debounce(function(){
             calculateScrollBarSize();
             updateScrollingOffsets();
+            flow = reflow();
             calculateFloatContainerPos = calculateFloatContainerPosFn();
             repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
-            flow = reflow();
         }, 1);
         $window.bind('scroll.floatTHead', windowScrollEvent);
+        $window.bind('load.floatTHead', reflowEvent); //for tables with images
         $scrollContainer.bind('scroll.floatTHead', containerScrollEvent);
         windowResize(opts.debounceResizeMs, windowResizeEvent);
         $table.bind('reflow', reflowEvent);
@@ -440,6 +435,7 @@ $.fn.floatThead = function(map){
                 if(floatTheadCreated == 0){
                     $window.unbind('scroll.floatTHead');
                     $window.unbind('resize.floatTHead');
+                    $window.unbind('load.floatTHead');
                 }
             },
             reflow: function(){
