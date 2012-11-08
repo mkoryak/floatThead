@@ -30,7 +30,7 @@ Requirements:
 
 -   jQuery 1.8.x or better (or jQuery 1.7.x and jQuery UI core)
 -   Underscore.js 1.3 or better
--   IE7, IE8, IE9, FF10+ or Chrome15+. (in ie7 tables with colspans arent supported)
+-   IE8, IE9, FF10+ or Chrome15+.
 
 
 
