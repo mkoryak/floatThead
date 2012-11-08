@@ -182,6 +182,19 @@ $.fn.floatThead = function(map){
             $sizerCells.outerHeight(headerHeight);
         }
         
+                
+        function setFloatWidth(){
+            var tableWidth = $table.outerWidth();
+            var width = $scrollContainer.width() || tableWidth;
+            $floatContainer.width(width - scrollbarOffset.vertical);
+            if(locked){
+                var percent = 100 * tableWidth / (width - scrollbarOffset.vertical);
+                $floatTable.css('width', percent+'%');
+            } else {
+                $floatTable.outerWidth(tableWidth);
+            }
+        }
+        
         function updateScrollingOffsets(){
             scrollingTop = (_.isFunction(opts.scrollingTop) ? opts.scrollingTop($table) : opts.scrollingTop) || 0;
             scrollingBottom = (_.isFunction(opts.scrollingBottom) ? opts.scrollingBottom($table) : opts.scrollingBottom) || 0;
@@ -323,18 +336,6 @@ $.fn.floatThead = function(map){
                     left = tableOffset.left - windowLeft;
                 }
                 return {top: top, left: left};
-            }
-        }
-        
-        function setFloatWidth(){
-            var tableWidth = $table.outerWidth();
-            var width = $scrollContainer.width() || tableWidth;
-            $floatContainer.width(width - scrollbarOffset.vertical);
-            if(locked){
-                var percent = 100 * tableWidth / width;
-                $floatTable.css('width', percent+'%');
-            } else {
-                $floatTable.outerWidth(tableWidth);
             }
         }
         /**
