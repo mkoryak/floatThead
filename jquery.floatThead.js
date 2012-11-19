@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 11/16/12
+ * Date: 11/19/12
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,7 +16,7 @@
  * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
  *
  * @author Misha Koryak
- * @version 0.9-DEV
+ * @version 0.9.1
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -303,7 +303,6 @@ $.fn.floatThead = function(map){
             //this floatEnd calc was moved out of the returned function because we assume the table height doesnt change (otherwise we must reinit by calling calculateFloatContainerPosFn)
             var floatEnd;
             var tableContainerGap = 0;
-            //TODO: hmm
 
             var floatContainerHeight = $floatContainer.height();
             var tableOffset = $table.offset();
@@ -337,10 +336,11 @@ $.fn.floatThead = function(map){
                     scrollingContainerTop = $scrollContainer.scrollTop();
                     scrollContainerLeft =  $scrollContainer.scrollLeft();
                 }
+                tableOffset = $table.offset();
+                
                 var top, left;
 
                 if(locked && useAbsolutePositioning){
-                    tableOffset = $table.offset();
                     if (tableContainerGap > scrollingContainerTop) {
                         top = tableContainerGap;
                     } else {
@@ -349,7 +349,6 @@ $.fn.floatThead = function(map){
                     }
                     left = scrollContainerLeft;
                 } else if(locked && !useAbsolutePositioning){ //inner scrolling
-                    tableOffset = $table.offset(); 
                     if (tableContainerGap > scrollingContainerTop) {
                         if($.browser.msie){ //todo: which versions of ie need this? 9 doesnt seem to
                             top = tableOriginalOffsetTop - windowTop - scrollingContainerTop;
@@ -459,9 +458,6 @@ $.fn.floatThead = function(map){
             calculateFloatContainerPos = calculateFloatContainerPosFn();
             repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
         }, 1);
-        if(opts.absolutePositionScrollContainer && locked){
-
-        }
         $window.bind('scroll.floatTHead', windowScrollEvent);
         $window.bind('load.floatTHead', reflowEvent); //for tables with images
         $scrollContainer.bind('scroll.floatTHead', containerScrollEvent);
