@@ -18,7 +18,7 @@ Features:
 
 -   Floats the table header - so that the user can always see it
 -   Supports tables with inner scroll bars, or whole page scrolling
--   Horizonal or vertical scrolling
+-   Horizontal or vertical scrolling
 -   Doesnt clone the thead - so your events stay bound
 -   Doesnt mess with your styles
 -   Works on any table
