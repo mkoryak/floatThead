@@ -13,7 +13,7 @@
  * http://notetodogself.blogspot.com
  * http://programmingdrunk.com/floatThead/
  *
- * Tested on FF13+, Chrome 21, IE9, IE8, IE7 (but tables with colspans are not supported in ie7)
+ * Tested on FF13+, Chrome 21, IE9, IE8
  *
  * @author Misha Koryak
  * @version 0.9.5
