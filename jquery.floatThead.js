@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 12/28/12
+ * Date: 12/19/12
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -62,10 +62,17 @@ var ie = $.browser.msie;
  */
 function windowResize(debounceMs, cb){
     var winWidth = $window.width();
+    var winHeight = $window.height();
     var debouncedCb = _.debounce(function(){
-        var winWidthNew = $window.width();
-        if(winWidth != winWidthNew){
-            winWidth = winWidthNew;
+        if($.browser.msie && parseFloat($.browser.version) <= 8.0) { 
+            var winWidthNew = $window.width();
+            var winHeightNew = $window.height();
+            if(winWidth != winWidthNew || winHeight != winHeightNew){
+                winWidth = winWidthNew;
+                winHeight = winHeightNew;
+                cb();
+            }
+        } else {
             cb();
         }
     }, debounceMs);
@@ -379,7 +386,7 @@ $.fn.floatThead = function(map){
                 }
 
                 tableOffset = $table.offset();
-                var top, left, tableHeight;
+                var top, left;
 
                 //absolute positioning
                 if(locked && useAbsolutePositioning){ //inner scrolling
@@ -396,7 +403,7 @@ $.fn.floatThead = function(map){
                     }
                     left = 0;
                 } else if(!locked && useAbsolutePositioning) { //window scrolling
-                    tableHeight = $table.outerHeight();
+                    var tableHeight = $table.outerHeight();
                     if(windowTop > floatEnd + tableHeight){
                         top = tableHeight - floatContainerHeight; //scrolled past table
                     } else if (tableOffset.top > windowTop + scrollingTop) {
@@ -420,10 +427,9 @@ $.fn.floatThead = function(map){
                     }
                     left = tableOffset.left + scrollContainerLeft - windowLeft;
                 } else if(!locked && !useAbsolutePositioning) { //window scrolling
-                    tableHeight = $table.outerHeight();
+                    var tableHeight = $table.outerHeight();
                     if(windowTop > floatEnd + tableHeight){
                         top = tableHeight + scrollingTop - windowTop + floatEnd; 
-                        unfloat();
                     } else if (tableOffset.top > windowTop + scrollingTop) {
                         top = tableOffset.top - windowTop;
                         refloat();
@@ -432,7 +438,7 @@ $.fn.floatThead = function(map){
                     }
                     left = tableOffset.left - windowLeft;
                 }
-
+                console.log(top);
                 return {top: top, left: left};
             };
             return positionFn;
@@ -446,7 +452,11 @@ $.fn.floatThead = function(map){
             var oldLeft = null;
             var oldScrollLeft = null;
             return function(pos, setWidth, setHeight){
-                if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
+                if(pos == null){
+                    return;
+                }
+                var scrollLeft = $scrollContainer.scrollLeft();
+                if(oldTop != pos.top || oldLeft != pos.left){
                     $floatContainer.css({
                         top: pos.top,
                         left: pos.left
@@ -460,7 +470,6 @@ $.fn.floatThead = function(map){
                 if(setHeight){ 
                     setHeaderHeight();
                 }
-                var scrollLeft = $scrollContainer.scrollLeft();
                 if(oldScrollLeft != scrollLeft){
                     $floatContainer.scrollLeft(scrollLeft);
                     oldScrollLeft = scrollLeft;
