@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 12/19/12
+ * Date: 1/7/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,7 +16,7 @@
  * Tested on FF13+, Chrome 21, IE9, IE8
  *
  * @author Misha Koryak
- * @version 0.9.5
+ * @version 0.9.6
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -62,17 +62,10 @@ var ie = $.browser.msie;
  */
 function windowResize(debounceMs, cb){
     var winWidth = $window.width();
-    var winHeight = $window.height();
     var debouncedCb = _.debounce(function(){
-        if($.browser.msie && parseFloat($.browser.version) <= 8.0) { 
-            var winWidthNew = $window.width();
-            var winHeightNew = $window.height();
-            if(winWidth != winWidthNew || winHeight != winHeightNew){
-                winWidth = winWidthNew;
-                winHeight = winHeightNew;
-                cb();
-            }
-        } else {
+        var winWidthNew = $window.width();
+        if(winWidth != winWidthNew){
+            winWidth = winWidthNew;
             cb();
         }
     }, debounceMs);
@@ -187,6 +180,8 @@ $.fn.floatThead = function(map){
                 var positionCss = $container.css('position');
                 var relativeToScrollContainer = (positionCss == "relative" || positionCss == "absolute");
                 if(!relativeToScrollContainer || alwaysWrap){
+                    var css = {"paddingLeft": $container.css('paddingLeft'), "paddingRight": $container.css('paddingRight')};
+                    $floatContainer.css(css);
                     $container = $container.wrap("<div style='position: relative; clear:both;'></div>").parent();
                     wrappedContainer = true;
                 }
@@ -199,6 +194,8 @@ $.fn.floatThead = function(map){
                 makeRelative($table);
                 $table.after($floatContainer);
             }
+        } else {
+            $table.after($floatContainer);
         }
         
 
@@ -210,7 +207,7 @@ $.fn.floatThead = function(map){
         });
         updateScrollingOffsets();
         
-        var layoutFixed = {'table-layout': useAbsolutePositioning ? 'absolute' : 'fixed'};
+        var layoutFixed = {'table-layout': 'fixed'};
         var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
 
         function setHeaderHeight(){
@@ -272,10 +269,10 @@ $.fn.floatThead = function(map){
         function refloat(){
             if(!headerFloated){
                 headerFloated = true; 
-                $floatTable.append($header); //append because colgroup must go first in chrome
-                $tbody.before($newHeader);
                 $table.css(layoutFixed);
                 $floatTable.css(layoutFixed);
+                $floatTable.append($header); //append because colgroup must go first in chrome
+                $tbody.before($newHeader);
                 setHeaderHeight();
             }
         }
@@ -386,7 +383,7 @@ $.fn.floatThead = function(map){
                 }
 
                 tableOffset = $table.offset();
-                var top, left;
+                var top, left, tableHeight;
 
                 //absolute positioning
                 if(locked && useAbsolutePositioning){ //inner scrolling
@@ -395,15 +392,14 @@ $.fn.floatThead = function(map){
                         gap = gap > 0 ? gap : 0;
                         top = gap;
             //            unfloat(); //more trouble than its worth
-                    }
-                     else {
+                    } else {
                         top = wrappedContainer ? 0 : scrollingContainerTop;
             //            refloat(); //more trouble than its worth
                         //headers stop at the top of the viewport
                     }
                     left = 0;
                 } else if(!locked && useAbsolutePositioning) { //window scrolling
-                    var tableHeight = $table.outerHeight();
+                    tableHeight = $table.outerHeight();
                     if(windowTop > floatEnd + tableHeight){
                         top = tableHeight - floatContainerHeight; //scrolled past table
                     } else if (tableOffset.top > windowTop + scrollingTop) {
@@ -427,9 +423,10 @@ $.fn.floatThead = function(map){
                     }
                     left = tableOffset.left + scrollContainerLeft - windowLeft;
                 } else if(!locked && !useAbsolutePositioning) { //window scrolling
-                    var tableHeight = $table.outerHeight();
+                    tableHeight = $table.outerHeight();
                     if(windowTop > floatEnd + tableHeight){
                         top = tableHeight + scrollingTop - windowTop + floatEnd; 
+                        unfloat();
                     } else if (tableOffset.top > windowTop + scrollingTop) {
                         top = tableOffset.top - windowTop;
                         refloat();
@@ -438,7 +435,7 @@ $.fn.floatThead = function(map){
                     }
                     left = tableOffset.left - windowLeft;
                 }
-                console.log(top);
+
                 return {top: top, left: left};
             };
             return positionFn;
@@ -452,11 +449,7 @@ $.fn.floatThead = function(map){
             var oldLeft = null;
             var oldScrollLeft = null;
             return function(pos, setWidth, setHeight){
-                if(pos == null){
-                    return;
-                }
-                var scrollLeft = $scrollContainer.scrollLeft();
-                if(oldTop != pos.top || oldLeft != pos.left){
+                if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
                     $floatContainer.css({
                         top: pos.top,
                         left: pos.left
@@ -470,6 +463,7 @@ $.fn.floatThead = function(map){
                 if(setHeight){ 
                     setHeaderHeight();
                 }
+                var scrollLeft = $scrollContainer.scrollLeft();
                 if(oldScrollLeft != scrollLeft){
                     $floatContainer.scrollLeft(scrollLeft);
                     oldScrollLeft = scrollLeft;
