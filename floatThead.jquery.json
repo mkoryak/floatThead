@@ -2,7 +2,7 @@
   "name": "jquery.floatThead",
 	"title": "jQuery Float Table Headers",
 	"description": "Float any table's header. Scroll the contents while the header stays in the viewport",
-	"version": "0.9.6",
+	"version": "0.9.6.1",
 
 	"author": {
 		"name": "misha koryak",
@@ -12,9 +12,6 @@
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/mkoryak/floatThead.git"
-	},
-	"bugs": {
-		"url": "https://github.com/mkoryak/floatThead/issues"
 	},
 	"licenses": [
 		{
