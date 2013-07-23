@@ -28,9 +28,12 @@
 
 //browser stuff
 var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
-var isOldChrome = (function(){
-  //old versions of chrome couldnt read the width of <col> elements
-  return $('<table><colgroup><col style="width: 10px;"></colgroup></table>').find('col').width() !== 10;
+var isChrome = (function(){
+  var $table = $("<table><colgroup><col></colgroup><tbody><tr><td style='width:10px'></td></tbody></table>");
+  $('body').append($table);
+  var width = $table.find('col').width();
+  $table.remove();
+  return width == 0;
 })();
 
 /**
@@ -50,7 +53,7 @@ $.floatThead = {
             return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
         },
         getSizingRow: function($table, $cols){
-            if(isOldChrome){
+            if(isChrome){
                 return $table.find('tbody tr:visible:first>td');
             } else {
                 return $cols;
