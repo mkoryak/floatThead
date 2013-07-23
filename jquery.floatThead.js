@@ -1,10 +1,8 @@
 /*!
- * @preserve jQuery.floatThead
- * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
+ * jQuery.floatThead
+ * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- */
-
- /* Date: 8/23/13
+ * Date: 8/23/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -24,6 +22,11 @@
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name jquery.floatThead.min.js
 // ==/ClosureCompiler==
+/**
+ * @preserve jQuery.floatThead 0.9.7
+ * Copyright (c) 2013 Misha Koryak - https://github.com/mkoryak/floatThead
+ * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
+ */
 (function( $ ) {
 
 //browser stuff
