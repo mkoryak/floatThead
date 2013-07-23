@@ -1,22 +1,24 @@
-/**
- * jQuery.floatThead
+/*!
+ * @preserve jQuery.floatThead
  * Copyright (c) 2012 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 1/7/13
+ */
+
+ /* Date: 8/23/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
- * Dependancies:
- * jquery 1.8.0 + [required] OR jquery 1.7.0 + jquery UI core
+ * Dependencies:
+ * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
  * underscore.js 1.3.0 + [required]
  *
  * http://notetodogself.blogspot.com
  * http://programmingdrunk.com/floatThead/
  *
- * Tested on FF13+, Chrome 21, IE9, IE8
+ * Tested on FF13+, Chrome 21+, IE9, IE8
  *
  * @author Misha Koryak
- * @version 0.9.6
+ * @version 0.9.7
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -24,7 +26,13 @@
 // ==/ClosureCompiler==
 (function( $ ) {
 
-    
+//browser stuff
+var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
+var isOldChrome = (function(){
+  //old versions of chrome couldnt read the width of <col> elements
+  return $('<table><colgroup><col style="width: 10px;"></colgroup></table>').find('col').width() !== 10;
+})();
+
 /**
  * provides a default config object. You can modify this after including this script if you want to change the init defaults
  * @type {Object}
@@ -42,10 +50,10 @@ $.floatThead = {
             return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
         },
         getSizingRow: function($table, $cols){
-            if($.browser.mozilla){
-                return $cols;
-            } else {
+            if(isOldChrome){
                 return $table.find('tbody tr:visible:first>td');
+            } else {
+                return $cols;
             }
         },
         floatTableClass: 'floatThead-table'
@@ -54,12 +62,12 @@ $.floatThead = {
   
 var $window = $(window);
 var floatTheadCreated = 0;
-var ie = $.browser.msie;
 /**
  * debounce and fix window resize event for ie7. ie7 is evil and will fire window resize event when ANY dom element is resized.
  * @param debounceMs
  * @param cb
  */
+
 function windowResize(debounceMs, cb){
     var winWidth = $window.width();
     var debouncedCb = _.debounce(function(){
@@ -77,12 +85,11 @@ function windowResize(debounceMs, cb){
  * @return {Number}
  */
 function scrollbarWidth() {
-    var scrollbarWidth = 0;                    
     var $div = $('<div/>')
     .css({ width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: -1000 })
     .prependTo('body').append('<div/>').find('div')
     .css({ width: '100%', height: 200 });
-    scrollbarWidth = 100 - $div.width();
+    var scrollbarWidth = 100 - $div.width();
     $div.parent().remove();
     return scrollbarWidth;
 }
@@ -104,7 +111,7 @@ function isDatatable($table){
     return false;
 }
 $.fn.floatThead = function(map){
-    if($.browser.msie && parseFloat($.browser.version) <= 7.0){
+    if(ieVersion < 8){
         return this; //no more crappy browser support. 
     }
     if(_.isString(map)){
@@ -152,7 +159,7 @@ $.fn.floatThead = function(map){
        
         var locked = $scrollContainer.length > 0;
         var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
-        var absoluteToFixedOnScroll = ie && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
+        var absoluteToFixedOnScroll = ieVersion && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
         var $floatTable = $("<table/>");
         var $floatColGroup = $("<colgroup/>");
         var $tableColGroup = $("<colgroup/>");
