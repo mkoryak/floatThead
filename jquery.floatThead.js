@@ -31,13 +31,13 @@
 
 //browser stuff
 var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
-var isChrome = (function(){
+var isChrome = function(){
   var $table = $("<table><colgroup><col></colgroup><tbody><tr><td style='width:10px'></td></tbody></table>");
   $('body').append($table);
   var width = $table.find('col').width();
   $table.remove();
   return width == 0;
-})();
+};
 
 /**
  * provides a default config object. You can modify this after including this script if you want to change the init defaults
@@ -135,7 +135,9 @@ $.fn.floatThead = function(map){
         return ret;
     }
     var opts = $.extend({}, $.floatThead.defaults, map);
-    
+    $(function(){
+      isChrome = isChrome(); //need to call this after dom ready.
+    });
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
         var $table = $(this);
