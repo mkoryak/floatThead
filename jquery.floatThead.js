@@ -55,13 +55,6 @@ $.floatThead = {
         scrollContainer: function($table){
             return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
         },
-        getSizingRow: function($table, $cols, $fthCells){
-            if(isChrome){
-                return $fthCells;
-            } else {
-                return $cols;
-            }
-        },
         floatTableClass: 'floatThead-table'
     }            
 };
@@ -338,7 +331,7 @@ $.fn.floatThead = function(map){
             var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
             var flow = function(){
                 var badReflow = false;
-                var $rowCells = opts.getSizingRow($table, $tableCells, $fthCells);
+                var $rowCells = isChrome ? $fthCells : $tableCells;
                 if($rowCells.length == numCols && numCols > 0){
                     unfloat();
                     for(var i=0; i < numCols; i++){
