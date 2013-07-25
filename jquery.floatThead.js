@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 8/23/13
+ * Date: 8/25/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,14 +16,14 @@
  * Tested on FF13+, Chrome 21+, IE9, IE8
  *
  * @author Misha Koryak
- * @version 0.9.7
+ * @version 1.0.0
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name jquery.floatThead.min.js
 // ==/ClosureCompiler==
 /**
- * @preserve jQuery.floatThead 0.9.7
+ * @preserve jQuery.floatThead 1.0.0
  * Copyright (c) 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
  */
@@ -55,9 +55,9 @@ $.floatThead = {
         scrollContainer: function($table){
             return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
         },
-        getSizingRow: function($table, $cols){
+        getSizingRow: function($table, $cols, $fthCells){
             if(isChrome){
-                return $table.find('tbody tr:visible:first>td');
+                return $fthCells;
             } else {
                 return $cols;
             }
@@ -68,6 +68,8 @@ $.floatThead = {
   
 var $window = $(window);
 var floatTheadCreated = 0;
+
+
 /**
  * debounce and fix window resize event for ie7. ie7 is evil and will fire window resize event when ANY dom element is resized.
  * @param debounceMs
@@ -120,6 +122,14 @@ $.fn.floatThead = function(map){
     if(ieVersion < 8){
         return this; //no more crappy browser support. 
     }
+
+    isChrome = isChrome(); //need to call this after dom ready, and now it is.
+    if(isChrome){
+        //because chrome cant read <col> width, these elements are used for sizing the table. Need to create new elements because they must be unstyled by user's css.
+        document.createElement('fthtr'); //tr
+        document.createElement('fthtd'); //td
+        document.createElement('fthfoot'); //tfoot
+    }
     if(_.isString(map)){
         var command = map;
         var ret = this;
@@ -135,9 +145,7 @@ $.fn.floatThead = function(map){
         return ret;
     }
     var opts = $.extend({}, $.floatThead.defaults, map);
-    $(function(){
-      isChrome = isChrome(); //need to call this after dom ready.
-    });
+    
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
         var $table = $(this);
@@ -164,6 +172,7 @@ $.fn.floatThead = function(map){
             useAbsolutePositioning = opts.scrollContainer($table).length;
         } 
 
+        var $fthGrp = $('<fthfoot style="display:table-footer-group;"/>');
        
         var locked = $scrollContainer.length > 0;
         var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
@@ -171,24 +180,29 @@ $.fn.floatThead = function(map){
         var $floatTable = $("<table/>");
         var $floatColGroup = $("<colgroup/>");
         var $tableColGroup = $("<colgroup/>");
+        var $fthRow = $('<fthrow style="display:table-row;height:0;"/>'); //created unstyled elements
         var $floatContainer = $('<div style="overflow: hidden;"></div>');
         var $newHeader = $("<thead/>");
         var $sizerRow = $('<tr class="size-row"/>');
         var $sizerCells = $([]);
         var $tableCells = $([]); //used for sizing - either $sizerCells or $tableColGroup cols. $tableColGroup cols are only created in chrome for borderCollapse:collapse because of a chrome bug.
         var $headerCells = $([]);
-
+        var $fthCells = $([]); //created elements
+       
         $newHeader.append($sizerRow);
         $header.detach();
+
         $table.prepend($newHeader); 
         $table.prepend($tableColGroup);
-        
+        if(isChrome){
+            $fthGrp.append($fthRow);
+            $table.append($fthGrp);
+        }
+
         $floatTable.append($floatColGroup);
         $floatContainer.append($floatTable);
         $floatTable.attr('class', $table.attr('class'));
         $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you wont be able to click on things under floating table
-
-
 
         if(useAbsolutePositioning){
             var makeRelative = function($container, alwaysWrap){
@@ -261,18 +275,25 @@ $.fn.floatThead = function(map){
             }, 0);
             if(count != lastColumnCount){
                 lastColumnCount = count;
-                var cells = [], cols = [];
+                var cells = [], cols = [], psuedo = [];
                 for(var x = 0; x < count; x++){
                     cells.push('<'+opts.cellTag+' class="floatThead-col-'+x+'"/>');
                     cols.push('<col/>');
+                    psuedo.push("<fthcell style='display:table-cell;height:0;width:auto;'/>");
                 }
+
                 cols = cols.join('');
                 cells = cells.join('');
+
+                if(isChrome){
+                    psuedo = psuedo.join('');
+                    $fthRow.html(psuedo);
+                    $fthCells = $fthRow.find('fthcell')
+                }
+
                 $sizerRow.html(cells);
-                $tableCells = $sizerRow.find('>'+opts.cellTag);
                 $tableColGroup.html(cols);
                 $tableCells = $tableColGroup.find('col');
-                
                 $floatColGroup.html(cols);
                 $headerCells = $floatColGroup.find("col");
                 
@@ -317,7 +338,7 @@ $.fn.floatThead = function(map){
             var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
             var flow = function(){
                 var badReflow = false;
-                var $rowCells = opts.getSizingRow($table, $tableCells);
+                var $rowCells = opts.getSizingRow($table, $tableCells, $fthCells);
                 if($rowCells.length == numCols && numCols > 0){
                     unfloat();
                     for(var i=0; i < numCols; i++){
@@ -567,6 +588,7 @@ $.fn.floatThead = function(map){
             destroy: function(){
                 $table.css(layoutAuto);
                 $tableColGroup.remove();
+                $fthGrp.remove();
                 $newHeader.replaceWith($header);
                 $table.unbind('reflow');
                 reflowEvent = windowResizeEvent = containerScrollEvent = windowScrollEvent = function() {};
