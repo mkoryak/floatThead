@@ -520,7 +520,7 @@ $.fn.floatThead = function(map){
         var calculateFloatContainerPos = calculateFloatContainerPosFn();
         var repositionFloatContainer = repositionFloatContainerFn();
         
-        repositionFloatContainer(calculateFloatContainerPos('init'), true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
+        repositionFloatContainer(calculateFloatContainerPos('init'), true, true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
         
         var windowScrollDoneEvent = _.debounce(function(){
             repositionFloatContainer(calculateFloatContainerPos('windowScrollDone'), false);
