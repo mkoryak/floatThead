@@ -31,7 +31,8 @@
 
 //browser stuff
 var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
-var isChrome = function(){
+var isChrome = null;
+var isChromeCheck= function(){
   var $table = $("<table><colgroup><col></colgroup><tbody><tr><td style='width:10px'></td></tbody></table>");
   $('body').append($table);
   var width = $table.find('col').width();
@@ -116,12 +117,14 @@ $.fn.floatThead = function(map){
         return this; //no more crappy browser support. 
     }
 
-    isChrome = isChrome(); //need to call this after dom ready, and now it is.
-    if(isChrome){
-        //because chrome cant read <col> width, these elements are used for sizing the table. Need to create new elements because they must be unstyled by user's css.
-        document.createElement('fthtr'); //tr
-        document.createElement('fthtd'); //td
-        document.createElement('fthfoot'); //tfoot
+    if(isChrome == null){ //make sure this is done only once no matter how many times you call the plugin fn
+        isChrome = isChromeCheck(); //need to call this after dom ready, and now it is.
+        if(isChrome){
+            //because chrome cant read <col> width, these elements are used for sizing the table. Need to create new elements because they must be unstyled by user's css.
+            document.createElement('fthtr'); //tr
+            document.createElement('fthtd'); //td
+            document.createElement('fthfoot'); //tfoot
+        }
     }
     if(_.isString(map)){
         var command = map;
