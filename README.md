@@ -3,7 +3,7 @@ jquery.floatThead v1.0
 
 Float the table header without losing your events or styles.  
 
-[DEMOS and Documentation](http://programmingdrunk.com/floatThead/)
+[DEMOS and Documentation](http://mkoryak.github.io/floatThead/)
 
 
 
