@@ -28,7 +28,7 @@ Features:
 Requirements:
 -------------
 
--   jQuery 1.8.x or better (or jQuery 1.7.x and jQuery UI core)
+-   jQuery 1.8.x or better (1.9 compliant) (or jQuery 1.7.x and jQuery UI core)
 -   Underscore.js 1.3 or better
 -   IE8, IE9, FF10+ or Chrome15+.
 
