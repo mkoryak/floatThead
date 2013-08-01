@@ -1,4 +1,4 @@
-jquery.floatThead
+jquery.floatThead v1.0
 =================
 
 Float the table header without losing your events or styles.  
@@ -8,7 +8,7 @@ Float the table header without losing your events or styles.
 
 
 Why do we need another plugin that does this?
-=============================================
+------------
 
 I was fed up the current state of floating header plugins. They either lose your styles or lose your events, or dont support the edge cases.  
 This is why i wrote jQuery.floatThead.
