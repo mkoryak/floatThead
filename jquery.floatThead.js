@@ -87,13 +87,16 @@ function windowResize(debounceMs, cb){
  * @return {Number}
  */
 function scrollbarWidth() {
-    var $div = $('<div/>')
-    .css({ width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: -1000 })
-    .prependTo('body').append('<div/>').find('div')
-    .css({ width: '100%', height: 200 });
-    var scrollbarWidth = 100 - $div.width();
-    $div.parent().remove();
-    return scrollbarWidth;
+    var $div = $( //borrowed from anti-scroll
+        '<div style="width:50px;height:50px;overflow-y:scroll;'
+      + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
+      + '</div>'
+    );
+    $('body').append($div);
+    var w1 = $div.innerWidth();
+    var w2 = $('div', $div).innerWidth();
+    $div.remove();
+    return w1 - w2;
 }
 
 /**
