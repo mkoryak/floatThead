@@ -59,6 +59,11 @@
       scrollContainer: function($table){
         return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
       },
+      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE8,
+        // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
+        // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
+        return $table.find('tbody tr:visible:first>td');
+      },
       floatTableClass: 'floatThead-table'
     }
   };
@@ -330,6 +335,15 @@
           });
         }
       }
+      function getSizingRow($table, $cols, $fthCells, ieVersion){
+        if(isChrome){
+          return $fthCells;
+        } else if(ieVersion == 8) {
+          return opts.getSizingRow($table, $cols, $fthCells);
+        } else {
+          return $cols;
+        }
+      }
 
       /**
        * returns a function that updates the floating header's cell widths.
@@ -339,12 +353,14 @@
         var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
         var flow = function(){
           var badReflow = false;
-          var $rowCells = isChrome ? $fthCells : $tableCells;
+
+          var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
           if($rowCells.length == numCols && numCols > 0){
             unfloat();
             for(var i=0; i < numCols; i++){
               var $rowCell = $rowCells.eq(i);
               var rowWidth = $rowCell.outerWidth(true);
+              console.log("row width:", rowWidth)
               $headerCells.eq(i).outerWidth(rowWidth);
               $tableCells.eq(i).outerWidth(rowWidth);
             }
