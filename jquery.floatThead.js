@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 8/22/13
+ * Date: 8/24/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,14 +16,14 @@
  * Tested on FF13+, Chrome 21+, IE9, IE8
  *
  * @author Misha Koryak
- * @version 1.0.1
+ * @version 1.0.2
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name jquery.floatThead.min.js
 // ==/ClosureCompiler==
 /**
- * @preserve jQuery.floatThead 1.0.1
+ * @preserve jQuery.floatThead 1.0.2
  * Copyright (c) 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
  */
@@ -60,9 +60,9 @@
         return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
       },
       getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE8,
-        // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
-        // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
-        return $table.find('tbody tr:visible:first>td');
+      // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
+      // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
+          return $table.find('tbody tr:visible:first>td');
       },
       floatTableClass: 'floatThead-table'
     }
@@ -350,6 +350,7 @@
        * @return {Function}
        */
       function reflow(){
+        var i;
         var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
         var flow = function(){
           var badReflow = false;
@@ -357,15 +358,14 @@
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
           if($rowCells.length == numCols && numCols > 0){
             unfloat();
-            for(var i=0; i < numCols; i++){
+            for(i=0; i < numCols; i++){
               var $rowCell = $rowCells.eq(i);
               var rowWidth = $rowCell.outerWidth(true);
-              console.log("row width:", rowWidth)
               $headerCells.eq(i).outerWidth(rowWidth);
               $tableCells.eq(i).outerWidth(rowWidth);
             }
             refloat();
-            for(var i=0; i < numCols; i++){
+            for(i=0; i < numCols; i++){
               var hw = $headerCells.eq(i).outerWidth(true);
               var tw = $tableCells.eq(i).outerWidth(true);
               if(hw != tw){
@@ -475,20 +475,24 @@
               //headers stop at the top of the viewport
             }
             left = tableOffset.left + scrollContainerLeft - windowLeft;
-          } else if(!locked && !useAbsolutePositioning) { //window scrolling
+          } else if(!locked && !useAbsolutePositioning) { //window scrolling, fixed positioning
             tableHeight = $table.outerHeight();
             if(windowTop > floatEnd + tableHeight){
               top = tableHeight + scrollingTop - windowTop + floatEnd;
-              unfloat();
+              //scrolled past the bottom of the table
             } else if (tableOffset.top > windowTop + scrollingTop) {
               top = tableOffset.top - windowTop;
               refloat();
+              //scrolled past the top of the table
             } else {
+              //scrolling within the table
               top = scrollingTop;
             }
             left = tableOffset.left - windowLeft;
+            if(ieVersion == 8){
+              left++; //TODO: not a fan of this. need to figure out why this is needed or find a better way around it
+            }
           }
-
           return {top: top, left: left};
         };
         return positionFn;
