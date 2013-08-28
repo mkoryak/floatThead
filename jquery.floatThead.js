@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 8/24/13
+ * Date: 8/28/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,14 +16,14 @@
  * Tested on FF13+, Chrome 21+, IE9, IE8
  *
  * @author Misha Koryak
- * @version 1.0.2
+ * @version 1.1.0
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name jquery.floatThead.min.js
 // ==/ClosureCompiler==
 /**
- * @preserve jQuery.floatThead 1.0.2
+ * @preserve jQuery.floatThead 1.1.0
  * Copyright (c) 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
  */
@@ -60,9 +60,9 @@
         return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
       },
       getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE8,
-      // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
-      // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
-          return $table.find('tbody tr:visible:first>td');
+        // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
+        // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
+        return $table.find('tbody tr:visible:first>td');
       },
       floatTableClass: 'floatThead-table'
     }
@@ -439,19 +439,17 @@
           var top, left, tableHeight;
 
           //absolute positioning
-          if(locked && useAbsolutePositioning){ //inner scrolling
+          if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
               var gap = tableContainerGap - scrollingContainerTop;
               gap = gap > 0 ? gap : 0;
               top = gap;
-              //            unfloat(); //more trouble than its worth
             } else {
               top = wrappedContainer ? 0 : scrollingContainerTop;
-              //            refloat(); //more trouble than its worth
               //headers stop at the top of the viewport
             }
             left = 0;
-          } else if(!locked && useAbsolutePositioning) { //window scrolling
+          } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             tableHeight = $table.outerHeight();
             if(windowTop > floatEnd + tableHeight){
               top = tableHeight - floatContainerHeight; //scrolled past table
@@ -465,7 +463,7 @@
             left =  0;
 
             //fixed positioning:
-          } else if(locked && !useAbsolutePositioning){ //inner scrolling
+          } else if(locked && !useAbsolutePositioning){ //inner scrolling, fixed positioning
             if (tableContainerGap > scrollingContainerTop) {
               top = tableOffset.top - windowTop;
               unfloat();
@@ -610,7 +608,9 @@
           $table.css(layoutAuto);
           $tableColGroup.remove();
           isChrome && $fthGrp.remove();
-          $newHeader.replaceWith($header);
+          if($newHeader.parent().length){ //only if its in the dom
+            $newHeader.replaceWith($header);
+          }
           $table.unbind('reflow');
           reflowEvent = windowResizeEvent = containerScrollEvent = windowScrollEvent = function() {};
           $scrollContainer.unbind('scroll.floatTHead');
