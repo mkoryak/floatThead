@@ -1,4 +1,4 @@
-jquery.floatThead v1.0
+jquery.floatThead v1.1.0
 =================
 
 Float the table header without losing your events or styles.  
