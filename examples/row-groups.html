@@ -1,0 +1,168 @@
+---
+layout: default
+slug: row-groups
+base_url: "./../.."
+---
+
+
+<style type='text/css'>
+    body {
+        padding-top: 81px;
+    }
+
+    td, th {
+        border: 1px solid blue;
+        padding: 5px;
+    }
+    tr.grouping td {
+        background-color: #ccc;
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class='row'>
+    <div class='span12'>
+        <h1>Colspans in TBODY</h1>
+        <p>If you support IE8 and you have a table where the first visible row contains cells with colspans such as the example below,
+        you will need to pass an additional configuration option to floatThead. <code>getSizingRow: function($table){...}</code>.
+        </p>
+        <p>
+            <code>getSizingRow</code> should return a wrapped set of table cells within a table row. The length of the wrapped set should equal to the number of columns in the table.
+            <br/>
+            By default IE8 uses the first visible row for sizing, but in this example we cannot do that because the first visible row contains a single TD.
+        </p>
+        <br/><br/><br/>
+<pre>
+$(function(){
+    $('#demo').floatThead({
+        scrollingTop: pageTop,
+        getSizingRow: function($table){ // this is only called when using IE8
+            return $table.find('tbody tr:not(.grouping):visible:first>td');
+        }
+    });
+});
+</pre>
+
+
+            <table id='demo'>
+                <thead>
+                <tr>
+                    <th style="width: 100px;">Name</th>
+                    <th style="width: 50px;">type</th>
+                    <th style="width: 50px;">default</th>
+                    <th>description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="grouping">
+                    <td colspan="4">some group or something</td>
+                </tr>
+                <tr>
+                    <td>keyboard</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Closes the modal when escape key is pressed</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                <tr>
+                    <td>remote</td>
+                    <td>path</td>
+                    <td>false</td>
+                    <td><p>If a remote url is provided, content will be loaded via jQuery's <code>load</code> method and injected into the <code>.modal-body</code>. If you're using the data api, you may alternatively use the <code>href</code> tag to specify the remote source. An example of this is shown below:</p>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"remote.html"</span><span class="pln"> </span><span class="atn">data-target</span><span class="pun">=</span><span class="atv">"#modal"</span><span class="tag">&gt;</span><span class="pln">click me</span><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></td>
+                </tr><tr>
+                    <td>backdrop</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
+                </tr>
+                <tr>
+                    <td>keyboard</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Closes the modal when escape key is pressed</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                <tr>
+                    <td>remote</td>
+                    <td>path</td>
+                    <td>false</td>
+                    <td><p>If a remote url is provided, content will be loaded via jQuery's <code>load</code> method and injected into the <code>.modal-body</code>. If you're using the data api, you may alternatively use the <code>href</code> tag to specify the remote source. An example of this is shown below:</p>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"remote.html"</span><span class="pln"> </span><span class="atn">data-target</span><span class="pun">=</span><span class="atv">"#modal"</span><span class="tag">&gt;</span><span class="pln">click me</span><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></td>
+                </tr><tr>
+                    <td>backdrop</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
+                </tr>
+                <tr class="grouping">
+                    <td colspan="4">BLARG!!!!!</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                <tr>
+                    <td>remote</td>
+                    <td>path</td>
+                    <td>false</td>
+                    <td><p>If a remote url is provided, content will be loaded via jQuery's <code>load</code> method and injected into the <code>.modal-body</code>. If you're using the data api, you may alternatively use the <code>href</code> tag to specify the remote source. An example of this is shown below:</p>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"remote.html"</span><span class="pln"> </span><span class="atn">data-target</span><span class="pun">=</span><span class="atv">"#modal"</span><span class="tag">&gt;</span><span class="pln">click me</span><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></td>
+                </tr><tr>
+                    <td>backdrop</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
+                </tr>
+                <tr>
+                    <td>keyboard</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Closes the modal when escape key is pressed</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                <tr>
+                    <td>remote</td>
+                    <td>path</td>
+                    <td>false</td>
+                    <td><p>If a remote url is provided, content will be loaded via jQuery's <code>load</code> method and injected into the <code>.modal-body</code>. If you're using the data api, you may alternatively use the <code>href</code> tag to specify the remote source. An example of this is shown below:</p>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"remote.html"</span><span class="pln"> </span><span class="atn">data-target</span><span class="pun">=</span><span class="atv">"#modal"</span><span class="tag">&gt;</span><span class="pln">click me</span><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></td>
+                </tr>
+                </tbody>
+            </table>
+
+
+    </div>
+</div>
+
+<br><br><br><br><br><br><br>
+<script type="text/javascript">
+    $(function(){
+        $('#demo').floatThead({
+            scrollingTop: pageTop,
+            getSizingRow: function($table){ // this is only called when using IE8
+                return $table.find('tbody tr:not(.grouping):visible:first>td');
+            },
+            useAbsolutePositioning: false
+        });
+    });
+</script>

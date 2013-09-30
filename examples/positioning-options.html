@@ -1,0 +1,167 @@
+---
+layout: default
+slug: postioning-options
+base_url: "./../.."
+---
+
+
+<div class='row'>
+    <div class='span12' id='intro'>
+        <h1>Positioning Options Explained</h1>
+        There are 2 floating header options available to you to choose from. <b>absolute</b> positioning and <b>fixed</b> positioning. By default, if you dont specify a positioning to use, the plugin will use the following defaults:<br/>
+        If the table is page scrolling - use <b>fixed</b> positioning<br/>
+        If the table is inner scrolling - use <b>absolute</b> positioning<br/><br/>
+        Those defaults provide the best UX on IE<br/><br/>
+        Pros of <b>fixed</b> positioning:<br/>
+        <ul>
+            <li>Makes very little assumptions about your DOM and very little DOM modifications.</li>
+            <li>Looks good with window scrolling when table is floated at the top of viewport</li>
+        </ul>
+
+        Cons of <b>fixed</b> positioning:<br/>
+        <ul>
+            <li>Requires much more calculations than absolute positioning when used with inner scrolling</li>
+            <li>Supports at most 1 parent with scrollbars (and scrollbars on the page itself)</li>
+            <li>ANY changes in the dom that change table positioning required a reflow event</li>
+        </ul>
+        <br/>
+        Pros of <b>absolute</b> positioning:<br/>
+        <ul>
+            <li>Requires much less calculations to position the floating header.</li>
+            <li>Looks good with inner scrolling when table is floated at the top of scrolling container</li>
+        </ul>
+
+        Cons of <b>absolute</b> positioning:<br/>
+        <ul>
+            <li>Needs to make more assumptions about your DOM, modifies your DOM more</li>
+        </ul>
+        <br/><br/>
+    </div>
+</div>
+<div class='row'>
+    <div class='span12'>
+        <div class='wrap'>
+            <table id='demo'>
+                <thead>
+                <tr>
+                    <th class='name'>Name</th>
+                    <th >type</th>
+                    <th >default</th>
+                    <th>description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>backdrop</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
+                </tr>
+                <tr>
+                    <td>keyboard</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Closes the modal when escape key is pressed</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                <tr>
+                    <td>remote</td>
+                    <td>path</td>
+                    <td>false</td>
+                    <td><p>If a remote url is provided, content will be loaded via jQuery's <code>load</code> method and injected into the <code>.modal-body</code>. If you're using the data api, you may alternatively use the <code>href</code> tag to specify the remote source. An example of this is shown below:</p>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"remote.html"</span><span class="pln"> </span><span class="atn">data-target</span><span class="pun">=</span><span class="atv">"#modal"</span><span class="tag">&gt;</span><span class="pln">click me</span><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></td>
+                </tr><tr>
+                    <td>backdrop</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
+                </tr>
+                <tr>
+                    <td>keyboard</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Closes the modal when escape key is pressed</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                <tr>
+                    <td>remote</td>
+                    <td>path</td>
+                    <td>false</td>
+                    <td><p>If a remote url is provided, content will be loaded via jQuery's <code>load</code> method and injected into the <code>.modal-body</code>. If you're using the data api, you may alternatively use the <code>href</code> tag to specify the remote source. An example of this is shown below:</p>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"remote.html"</span><span class="pln"> </span><span class="atn">data-target</span><span class="pun">=</span><span class="atv">"#modal"</span><span class="tag">&gt;</span><span class="pln">click me</span><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></td>
+                </tr><tr>
+                    <td>backdrop</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
+                </tr>
+                <tr>
+                    <td>keyboard</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Closes the modal when escape key is pressed</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                <tr>
+                    <td>remote</td>
+                    <td>path</td>
+                    <td>false</td>
+                    <td><p>If a remote url is provided, content will be loaded via jQuery's <code>load</code> method and injected into the <code>.modal-body</code>. If you're using the data api, you may alternatively use the <code>href</code> tag to specify the remote source. An example of this is shown below:</p>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"remote.html"</span><span class="pln"> </span><span class="atn">data-target</span><span class="pun">=</span><span class="atv">"#modal"</span><span class="tag">&gt;</span><span class="pln">click me</span><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></td>
+                </tr><tr>
+                    <td>backdrop</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
+                </tr>
+                <tr>
+                    <td>keyboard</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Closes the modal when escape key is pressed</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                <tr>
+                    <td>remote</td>
+                    <td>path</td>
+                    <td>false</td>
+                    <td><p>If a remote url is provided, content will be loaded via jQuery's <code>load</code> method and injected into the <code>.modal-body</code>. If you're using the data api, you may alternatively use the <code>href</code> tag to specify the remote source. An example of this is shown below:</p>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"remote.html"</span><span class="pln"> </span><span class="atn">data-target</span><span class="pun">=</span><span class="atv">"#modal"</span><span class="tag">&gt;</span><span class="pln">click me</span><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div style='height: 1000px'>hi</div>
+<script type="text/javascript">
+    $(function(){
+        $('#demo').floatThead({
+            scrollingTop: pageTop(),
+            scrollContainer: function($table){
+                return $table.parent();
+            }
+        });
+        alignmentDebugger($('#demo'));
+    });
+</script>

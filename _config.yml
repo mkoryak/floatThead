@@ -1,0 +1,19 @@
+# Dependencies
+markdown:         rdiscount
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Server
+destination:      ./../floatThead/
+exclude:          [".gitignore"]
+port:             9002
+
+
+
+
+#js_url:           http://192.168.1.136:9002/jquery.floatThead.js
+#base_url:         ""
+base_url:         "/floatThead"
+js_url:           https://rawgithub.com/mkoryak/floatThead/master/jquery.floatThead.js

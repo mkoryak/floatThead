@@ -1,0 +1,82 @@
+---
+layout: default
+slug: exceptions
+base_url: "./../.."
+---
+
+
+<style type='text/css'>
+	body {
+		padding-top: 81px;
+	}
+	table {
+		border: 1px dashed red;
+	}
+	
+</style>
+
+<div class='row'>
+    <div class='span12'>
+        <h1>This will cause an exception 1</h1>
+        This table doesnt have a <code>thead</code> element. floatThead will throw an exception when you run on on this table.
+		
+
+           <table>
+            <tbody>
+             <tr>
+			 <td>no thead</td>
+			 <td>ha!</td>
+             </tr>
+            </tbody>
+          </table><br/>
+
+		<div class='alert alert-error demo0'></div>
+    </div>
+</div>
+<div class='row'>
+    <div class='span12'>
+        <h1>This will cause an exception 2</h1>
+        Running the plugin on anything but a <code>table</code> element will also cause an exception
+		
+        <div class='table'>
+           i am a div
+        </div>
+		<div class='alert alert-error demo1'></div>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='span12'>
+        <h1>Code</h1>
+<pre>
+try {
+  $('table').floatThead();
+} catch(e){
+  $('.alert-error.demo0').text(e.message);
+}
+
+try {
+  $('div.table').floatThead();
+} catch(e){
+  $('.alert-error.demo1').text(e.message);
+}
+</pre>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+		try {
+			$('table').floatThead();
+		} catch(e){
+			$('.alert-error.demo0').text(e.message);
+		}
+		
+		try {
+			$('.table').floatThead();
+		} catch(e){
+			$('.alert-error.demo1').text(e.message);
+		}
+    });
+	
+</script>

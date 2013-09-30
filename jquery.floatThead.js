@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 8/28/13
+ * Date: 8/29/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -308,7 +308,7 @@
       }
 
 
-      function refloat(){
+      function refloat(){ //make the thing float
         if(!headerFloated){
           headerFloated = true;
           $table.css(layoutFixed);
@@ -318,7 +318,7 @@
           setHeaderHeight();
         }
       }
-      function unfloat(){
+      function unfloat(){ //put the header back into the table
         if(headerFloated){
           headerFloated = false;
           $newHeader.detach();
@@ -338,7 +338,7 @@
       function getSizingRow($table, $cols, $fthCells, ieVersion){
         if(isChrome){
           return $fthCells;
-        } else if(ieVersion == 8) {
+        } else if(ieVersion) {
           return opts.getSizingRow($table, $cols, $fthCells);
         } else {
           return $cols;
@@ -352,7 +352,7 @@
       function reflow(){
         var i;
         var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
-        var flow = function(){
+        return function(){
           var badReflow = false;
 
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
@@ -381,7 +381,6 @@
           }
           return badReflow;
         };
-        return flow;
       }
 
       /**
@@ -411,8 +410,7 @@
 
 
 
-        var positionFn =  function(eventType){
-
+        return function(eventType){
           if(eventType == 'windowScroll'){
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
@@ -425,6 +423,10 @@
             scrollingContainerTop = $scrollContainer.scrollTop();
             scrollContainerLeft =  $scrollContainer.scrollLeft();
           }
+          if(isChrome && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
+            return;
+          }
+
           if(absoluteToFixedOnScroll){
             if(eventType == 'windowScrollDone'){
               changePositioning(true); //change to absolute
@@ -437,8 +439,8 @@
 
           tableOffset = $table.offset();
           var top, left, tableHeight;
+//        console.log("locked: "+locked+" use abs: "+useAbsolutePositioning)
 
-          //absolute positioning
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
               var gap = tableContainerGap - scrollingContainerTop;
@@ -461,8 +463,6 @@
               refloat(); //scrolling within table. header floated
             }
             left =  0;
-
-            //fixed positioning:
           } else if(locked && !useAbsolutePositioning){ //inner scrolling, fixed positioning
             if (tableContainerGap > scrollingContainerTop) {
               top = tableOffset.top - windowTop;
@@ -487,13 +487,9 @@
               top = scrollingTop;
             }
             left = tableOffset.left - windowLeft;
-            if(ieVersion == 8){
-              left++; //TODO: not a fan of this. need to figure out why this is needed or find a better way around it
-            }
           }
           return {top: top, left: left};
         };
-        return positionFn;
       }
       /**
        * returns a function that caches old floating container position and only updates css when the position changes
@@ -557,14 +553,18 @@
         repositionFloatContainer(calculateFloatContainerPos('containerScroll'), false);
       };
 
-      var windowResizeEvent = function(){
-        updateScrollingOffsets();
-        calculateScrollBarSize();
+      var ensureReflow = function(){
         flow = reflow();
         var badReflow = flow();
         if(badReflow){
           flow();
         }
+      };
+
+      var windowResizeEvent = function(){
+        updateScrollingOffsets();
+        calculateScrollBarSize();
+        ensureReflow();
         calculateFloatContainerPos = calculateFloatContainerPosFn();
         repositionFloatContainer = repositionFloatContainerFn();
         repositionFloatContainer(calculateFloatContainerPos('resize'), true, true);
@@ -572,11 +572,7 @@
       var reflowEvent = _.debounce(function(){
         calculateScrollBarSize();
         updateScrollingOffsets();
-        flow = reflow();
-        var badReflow = flow();
-        if(badReflow){
-          flow();
-        }
+        ensureReflow();
         calculateFloatContainerPos = calculateFloatContainerPosFn();
         repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
       }, 1);

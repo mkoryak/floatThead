@@ -1,0 +1,210 @@
+---
+base_url: "./.."
+---
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset="UTF-8">
+    <title>jQuery.floatThead</title>
+    {% include assets.html %}
+
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script><!-- needed for other plugins -->
+	<script type='text/javascript' src="{{ page.base_url }}/lib/other-libs/jquery.fixedheadertable.js"></script>
+	<script type='text/javascript' src="{{ page.base_url }}/lib/other-libs/jquery.stickytableheaders.js"></script>
+	<script type='text/javascript' src="{{ page.base_url }}/lib/other-libs/floatyHead.js"></script>
+
+</head>
+
+<style type='text/css'>
+
+    /* make it a bit more interesting */
+    table {
+		border-collapse: collapse;
+	}
+    td, th {
+       border: 1px groove blue;
+    }
+	th:first-child {
+		width: 25%;
+	}
+	
+
+
+/*styles required by other plugins can go here */
+
+
+.fht-table, .fht-table thead, .fht-table tfoot, .fht-table tbody, .fht-table tr, .fht-table th, .fht-table td {
+    font: inherit;
+    margin: 0;
+	padding: 8px;
+    vertical-align: top;
+}
+.fht-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.fht-table-wrapper, .fht-table-wrapper .fht-thead, .fht-table-wrapper .fht-tfoot, .fht-table-wrapper .fht-fixed-column .fht-tbody, .fht-table-wrapper .fht-fixed-body .fht-tbody, .fht-table-wrapper .fht-tbody {
+    overflow: hidden;
+    position: relative;
+}
+.fht-table-wrapper .fht-fixed-body .fht-tbody, .fht-table-wrapper .fht-tbody {
+    overflow: auto;
+}
+.fht-table-wrapper .fht-table .fht-cell {
+    height: 1px;
+    overflow: hidden;
+}
+.fht-table-wrapper .fht-fixed-column, .fht-table-wrapper .fht-fixed-body {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.fht-table-wrapper .fht-fixed-column {
+    z-index: 1;
+}
+
+</style>
+
+<body data-spy="scroll" data-target=".navbar">
+<a href="https://github.com/mkoryak/floatThead"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+<div class='container'>
+
+<div class='row'>
+	<div class='span12'>
+		<h1>Similar Plugins Compared</h1>
+		If you are interested to see how this plugin stacks up against a few others that float the table header, you've come the right place!<br/>
+		I found these libs on the first few pages of google and by searching stackoverflow. If you know of a good lib you would like me to include let me know on <a href='https://github.com/mkoryak/floatThead'>github</a>.
+		<br/><br/><br/>
+	</div>
+</div>
+<div class='row'>
+	<div class='span12'>
+		<h1><a href="https://github.com/mkoryak/floatThead" target="_blank">jquery.floatThead.js</a></h1>
+		Window scrolling:<br/><br/>
+		<table class="table  template table-bordered table-striped" id='ft1'>
+			<thead> <tr> <th><a href="#" class='demoHeader1'>click event</a></th> <th><a href="#" class='demoHeader2'>mouse event</a></th> <th><a href="#" class='demoHeader3'>bound plugin</a></th> </tr></thead>
+			<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr></tbody>
+		</table>
+		<br/>
+		<br/>
+		Internal scrolling:<br/><br/>
+		<div class='wrapper' style='height:200px'>
+			<table class="table huge template table-bordered table-striped" id='ft2'>
+				<thead> <tr> <th><a href="#" class='demoHeader1'>click event</a></th> <th><a href="#" class='demoHeader2'>mouse event</a></th> <th><a href="#" class='demoHeader3'>bound plugin</a></th> </tr></thead>
+				<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr></tbody>
+			</table>
+		</div>
+		<br/>
+		<br/>
+		<h1><a href="http://fixedheadertable.com" target="_blank">jquery.fixedheadertable.js</a></h1>
+		Window scrolling: (doesnt appear to be supported)<br/><br/>
+		This plugin requires some styles for it to work. <br/>
+		I had to modify those styles to match the bootstrap look because table classes arent being copied over to the floating elements.
+		
+		<table class="table  template table-bordered table-striped" id='fht1'>
+			<thead> <tr> <th><a href="#" class='demoHeader1'>click event</a></th> <th><a href="#" class='demoHeader2'>mouse event</a></th> <th><a href="#" class='demoHeader3'>bound plugin</a></th> </tr></thead>
+			<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr></tbody>
+		</table>
+		<br/>
+		<br/>
+		Internal scrolling:<br/><br/>
+		x-axis scrolling is not supported <small><b>BUT</b> this looks great in IE9!</small><br/><br/>
+		
+			<table class="table huge template table-bordered table-striped" id='fht2'>
+				<thead> <tr> <th><a href="#" class='demoHeader1'>click event</a></th> <th><a href="#" class='demoHeader2'>mouse event</a></th> <th><a href="#" class='demoHeader3'>bound plugin</a></th> </tr></thead>
+				<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr></tbody>
+			</table>
+		
+	</div>
+</div><div class='row'>
+	<div class='span12'>
+		<h1><a href="https://github.com/jmosbech/StickyTableHeaders" target="_blank">jquery.stickytableheaders.js</a></h1>
+		Window scrolling:<br/><br/>
+		<table class="table  template table-bordered table-striped" id='sth1'>
+			<thead> <tr> <th><a href="#" class='demoHeader1'>click event</a></th> <th><a href="#" class='demoHeader2'>mouse event</a></th> <th><a href="#" class='demoHeader3'>bound plugin</a></th> </tr></thead>
+			<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr></tbody>
+		</table>
+		<br/>
+		<br/>
+		Internal scrolling:<br/><br/>
+		Doesnt appear to support this or have any options for it. Moreover, it breaks really badly if you do try it, and makes the rest of this page unusable. So i am not including it.
+		<!--<div class='wrapper' style='height:300px'>
+			<table class="table huge template table-bordered table-striped" id='sth2'>
+				<thead> <tr> <th><a href="#" class='demoHeader1'>click event</a></th> <th><a href="#" class='demoHeader2'>mouse event</a></th> <th><a href="#" class='demoHeader3'>bound plugin</a></th> </tr></thead>
+				<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr></tbody>
+			</table>
+		</div> -->
+		<br/>
+		<br/>
+		<h1><a href="http://www.scottbuckingham.com/table-header/" target="_blank">floatyHead.js</a></h1>
+		Window scrolling:<br/><br/>
+		<table class="table template table-bordered table-striped" id='f1'>
+			<thead> <tr> <th><a href="#" class='demoHeader1'>click event</a></th> <th><a href="#" class='demoHeader2'>mouse event</a></th> <th><a href="#" class='demoHeader3'>bound plugin</a></th> </tr></thead>
+			<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr></tbody>
+		</table>
+		<br/>
+		<br/>
+		Internal scrolling:<br/><br/>
+		<div class='wrapper' style='height:300px'>
+			<table class="table huge template table-bordered table-striped" id='f2'>
+				<thead> <tr> <th><a href="#" class='demoHeader1'>click event</a></th> <th><a href="#" class='demoHeader2'>mouse event</a></th> <th><a href="#" class='demoHeader3'>bound plugin</a></th> </tr></thead>
+				<tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr></tbody>
+			</table>
+		</div>
+	</div>
+	
+</div>
+
+<div style='height:5500px'></div>
+
+<marquee>42</marquee>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    	
+		$('#ft1').floatThead({
+            scrollingTop: pageTop
+        });
+		$('#ft2').floatThead({
+			scrollContainer: function($table){
+				return $table.closest('.wrapper');
+			},
+            scrollingTop: pageTop
+		});
+		
+		$("#fht1").fixedHeaderTable();
+		$("#fht2").fixedHeaderTable({ height: '200'}); 
+		
+		$("#sth1").stickyTableHeaders();
+		$("#sth2").stickyTableHeaders(); 
+		
+		
+		$("#f1").floatyHead();
+		$("#f2").floatyHead(); 
+		
+		
+		
+		$('.demoHeader1').on('click', function(){
+			alert('Click event');
+			return false;
+		});
+		$('.demoHeader2').on('mouseover', function(){
+			$(this).closest('th').css('background-color', '#ccc');
+		}).on('mouseout', function(){
+			$(this).closest('th').css('background-color', '#eee');
+		});
+		
+		$(".demoHeader3").tooltip({
+			title: "My cat is awesome, he likes to lay on my keyboard.",
+			placement: "top"
+		});
+    });
+</script>
+
+</body>
+</html>

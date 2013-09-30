@@ -1,0 +1,80 @@
+---
+layout: default
+slug: big-table
+base_url: "./../.."
+---
+
+
+<style type='text/css'>
+	body {
+		padding-top: 81px;
+	}
+    .wrap {
+        overflow: auto;
+        height: 400px;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    td {
+        border-left: 1px solid #ccc;
+    }
+	table#demo2 {
+		width: 100%;
+	}
+</style>
+
+<div class='row'>
+    <div class='span12' id='intro'>
+        <h1>A really big table - inner scroll</h1>
+        Internal scrolling    
+
+<pre>
+$('#demo').floatThead({
+    scrollContainer: function($table){
+        return $table.closest('.wrap');
+    },
+    cellTag: 'td'
+});
+</pre>
+
+		
+        <div class='wrap' id='wrap'>
+            <table class='load-table' id='demo'><tr><td>Loading a huge table... wait</td></tr></table>
+        </div>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='span12'>
+        <h1>A really big table - page scroll</h1>
+        Page scrolling, table width 100% (should remain 100% after floating the headers)    
+
+<pre>
+$('#demo2').floatThead({
+    cellTag: 'td',
+	scrollingTop: pageTop
+});
+</pre>
+
+        <table class='load-table' id='demo2'><tr><td>Loading a huge table... wait</td></tr></table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).bind('tables-loaded', function(){
+        $('#demo').floatThead({
+            scrollContainer: function($table){
+                return $table.closest('.wrap');
+            },
+            cellTag: 'td'
+        });
+		
+		$('#demo2').floatThead({
+			cellTag: 'td',
+			scrollingTop: pageTop
+		});
+        alignmentDebugger($('#demo2'));
+    });
+	
+</script>

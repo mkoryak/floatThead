@@ -1,0 +1,183 @@
+---
+layout: default
+slug: window-scroll
+base_url: "./../.."
+---
+
+
+<style type='text/css'>
+    body {
+        padding-top: 81px;
+    }
+</style>
+
+    <div class='row'>
+        <div class='span12' id='intro'>
+            <h1>Common Use-Case: Window Scrolling</h1>
+            <p>
+                The table header sticks to the top of the page as you scroll down. This is done via absolute positioning it there, you can change it to use fixed positioning if you set <code>useAbsolutePositioning</code> to false.
+            </p>
+            <p>
+                Absolute positioning is a good default because you do not need to call <code>$table.floatThead("reflow")</code> if the table's position changes because of some changes in the DOM
+            </p>
+            <pre class="prettyprint">
+$('table').floatThead({
+    scrollingTop: pageTop,
+    useAbsolutePositioning: true //the default value
+});
+            </pre>
+
+            <p><a href="#" id="makeFixed">Re-initialize plugin with fixed positioning</a></p>
+            <p>floated header is using <strong id="posType">position:absolute</strong></p>
+
+            <div class='wrap' id='wrap'>
+                <table class='table'>
+                    <thead>
+                    <tr>
+                        <th style="width: 50px;">something</th>
+                        <th style="width: 50px;">type</th>
+                        <th style="width: 50px;">default</th>
+                        <th>description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>2 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>3 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>4 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>5 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>6 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>7 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>8 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>9 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>10 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>11 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>12 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>13 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>14 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>15 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>16 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>17 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>18 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>19 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>20 blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr><tr>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                        <td>blah blah blah</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            </div>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $('table').floatThead({
+                scrollingTop: pageTop
+            });
+          //  alignmentDebugger($('table'))
+            var useAbs = true;
+            $("#makeFixed").on("click", function(e){
+                e.preventDefault();
+                useAbs = !useAbs;
+                $('table').floatThead('destroy').floatThead({
+                    scrollingTop: pageTop,
+                    useAbsolutePositioning: useAbs
+                });
+                $(this).text("Re-initialize plugin with "+(useAbs ? "fixed" : "absolute") +" positioning");
+                $("#posType").text("position: "+(useAbs ? "absolute" : "fixed"))
+            })
+        });
+
+    </script>
+

@@ -1,0 +1,340 @@
+---
+layout: default
+slug: home
+base_url: "."
+---
+
+
+<div class='row'>
+    <div class='span12' id='intro'>
+        <div class='intro-container'>
+            <div class='row'>
+                <div class='span6'>
+                    <h1>Intro</h1>
+
+
+                    I was fed up the current state of floating header plugins. They either lose your styles or lose your events, or dont support the edge cases.<br/>
+                    This is why i wrote <b>jQuery.floatThead</b>.
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Floats the table header - so that the user can always see it</li>
+                        <li>Supports tables with inner scroll bars, or whole page scrolling</li>
+                        <li>Horizonal or vertical scrolling</li>
+                        <li>Doesnt clone the thead - so your events stay bound</li>
+                        <li>Doesnt mess with your styles</li>
+                        <li>Works on any table</li>
+                        <li>Requires no special css</li>
+                        <li>Works with datatables out of the box</li>
+                    </ul>
+                    <h4>Requirements:</h4>
+                    <ul>
+                        <li>jQuery 1.8.x or better (plugin is 1.9+ compliant)<small><strong>or</strong> jQuery 1.7.x + <a href="https://raw.github.com/jquery/jquery-ui/master/ui/jquery.ui.core.js" target='_blank'>jQuery UI core</a></small></li>
+                        <li>Underscore.js 1.3 or better</li>
+                        <li>IE8, IE9, FF10+ or Chrome15+</li>
+                    </ul>
+
+                </div>
+                <div class='span5 offset1'>
+                    <div class='main-demo'>
+                        <div class='cta'>
+                            <h1>Demo</h1>
+                            <button class="btn btn-success run-main-demo" type="button">Run floatThead <i class='icon-play icon-white'></i></button><br/>
+                        </div>
+                        <br/>
+                        <div class='wrapper small'>
+                            <table class="table demo0 large template table-bordered table-striped">
+                                <thead> <tr> <th><a href="#" id='demoHeader1'>Header 1</a></th> <th><a href="#" id='demoHeader2'>Header 2</a></th> <th><a href="#" id='demoHeader3'>Header...3</a></th> </tr> </thead>
+                                <tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+    </div>
+</div>
+<div class='row'>
+    <div class='span12' id='usage'>
+        <h1>Usage</h1>
+        There are 2 ways you can initialize the table:<br/><br/>
+        <ul>
+            <li><b>Internal scrolling</b><br/><small>The table is inside of a container with overflow:auto</small></li>
+            <li><b>Page scrolling</b><br/><small>Header becomes locked at the top of the page as user scrolls down</small></li>
+        </ul>
+        <b>Page scrolling</b> is the default. Initialize floatThead without any params to use it. <code>$('table').floatThead()</code>
+        <br/><br/>
+        <b>Internal scrolling</b> takes a bit more work. You must specify a container element inside of which the table will scroll.
+        You must create this element. Usually a div will wrap the table with overflow:auto and a size smaller than the table.<br/>
+<pre>
+var $table = $('table.demo');
+$table.floatThead({
+	scrollContainer: function($table){
+		return $table.closest('.wrapper');
+	}
+});
+</pre>
+    </div>
+</div>
+<br/>
+<div class='row'>
+    <div class='span12' id='options'>
+        <h1>Options</h1>
+        Note: all the options which are <b>function</b>s take a single argument: $table - the table who's header is being floated. ex: <code>function($table){ ... }</code></br>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th style="width: 100px;">Name</th>
+                <th style="width: 100px;">type</th>
+                <th style="width: 50px;">default</th>
+                <th>description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>scrollContainer</td>
+                <td>function</td>
+                <td>null</td>
+                <td>Defines a contaier element inside of which the table scrolls vertically and/or horizontally. <small>usually a wrapping div</small></td>
+            </tr><tr>
+                <td>scrollingTop</td>
+                <td>number or function</td>
+                <td>0</td>
+                <td>Offset from the top of the <b>window</b> where the floating header will 'stick' when scrolling down</td>
+            </tr><tr>
+                <td>useAbsolutePositioning</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Position the floated header using absolute positioning or using fixed positioning. Fixed positioning peforms better with tables that use window scrolling, but fails miserably on highly dynamic pages where DOM can be suddenly modified causing the location of the floated table to shift. (You should call <code>.floatThead('reflow')</code> in this case, but you cant always instrument your code to make that call.)</td>
+            </tr><tr>
+                <td>debounceResizeMs</td>
+                <td>number</td>
+                <td>1</td>
+                <td>The headers are repositioned on resize. Because this event has the potential to fire a bunch of times, it is debounced. This is the <a href='http://unscriptable.com/2009/03/20/debouncing-javascript-methods/' target='_blank'>debounce rate</a>.</td>
+            </tr><tr>
+                <td>zIndex</td>
+                <td>number</td>
+                <td>1001</td>
+                <td>z-index of the floating header</td>
+            </tr><tr>
+                <td>cellTag</td>
+                <td>string</td>
+                <td>th</td>
+                <td>Specifies which tag is used in the header to specify cells
+                    <br/><small><a href="/floatThead/examples/big-table.htm">example use</a></small>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class='row'>
+    <div class='span12' id='methods'>
+        <h1>Methods</h1>
+        <h4>.floatThead('destroy')</h4>
+        Removes the widget from the table
+		<pre>
+var $table = $('table.demo1');
+//float the headers
+$table.floatThead();
+//unfloat the headers
+$table.floatThead('destroy');</pre><br/>
+        <h4>.floatThead('reflow')</h4>
+        Cause header to realign itself to the correct position. Same as the <b>reflow</b> event below.
+		<pre>
+var $table = $('table.demo1');
+//float the headers
+$table.floatThead();
+$table.floatThead('reflow');</pre>
+    </div>
+</div>
+<div class='row'>
+    <div class='span12' id='events'>
+        <h1>Events</h1>
+        <h4>$table.trigger('reflow')</h4>
+        Given a table element $table that has been widgetized, a reflow event causes the header to realign itself to the correct position. This event must be triggered if the DOM is modifed in such a way that the widgetized table's location changes.
+		<pre>
+var $table = $('table.demo1');
+$table.floatThead();
+//change the location of the table in the dom:
+$table.css('marginTop', 100);
+//cause the floated header to be properly positioned again:
+$table.trigger('reflow');</pre>
+    </div>
+</div>
+<br/>
+<div class='row'>
+    <div class='span12' id='examples'>
+        <h1>Examples</h1>
+        <div class='row'>
+            <div class='span6'>
+                <h2>Internal Scrolling</h2>
+                <div class='desc'>
+                    Internal scrolling is used when the table is inside of a container smaller than itself.<br/>
+                    This also demonstrates the <b>reflow</b> method. When a DOM modification causes the table's location to change, you must call this method on the table.<br/><br/>
+                    <b>Code</b>
+<pre>
+var $demo1 = $('table.demo1');
+$demo1.floatThead({
+	scrollingTop: pageTop,
+	scrollContainer: function($table){
+		return $table.closest('.wrapper');
+	}
+});
+$('a#change-dom').click(function(){ //click to remove
+	$(this).parent().hide();
+	//DOM has changed. must reflow floatThead
+	$demo1.floatThead('reflow');
+});
+</pre>
+                </div>
+                <div class='wrapper' style='height: 400px'>
+                    <div style='padding: 20px; display:block; font-weight:bold;'>
+                        There might be some table controls here or something.. <a style='cursor:pointer;' id='change-dom'>Click to remove</a>
+                    </div>
+                    <div class='gimme-table' data-cls='demo1'></div>
+                </div>
+            </div>
+            <div class='span6'>
+                <h2>Page Scrolling</h2>
+                <div class='desc'>
+                    Page scrolling isused when you have a large table that takes up the whole screen.<br/>
+                    <b>Code</b>
+<pre>
+$('table.demo2').floatThead({
+	scrollingTop: pageTop,
+	// I need this offset because i dont
+	// want the table header to overlap
+	//my site navigation (its a global function)
+	useAbsolutePositioning: false
+	// absolutePositioning is better for
+	//highly dynamic sites
+	//(which this is not)
+});
+</pre>
+                </div>
+                <div class='gimme-table' data-cls='demo2'></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style='height:200px'></div>
+<div class='row'>
+    <div class='span12' id='issues'>
+        <h1>Known Issues</h1>
+        Issues list is pulled from github<br/><br/>
+        <ul>
+            <li>There are no issues! Yey!</li>
+        </ul>
+    </div>
+</div>
+<br/><br/>
+<div class='row'>
+    <div class='span12' id='download'>
+        <h1>Download</h1>
+
+
+        You can grab the latest non-minified version at <a href='https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.js'>github</a><br/>
+        and a minified version <a href='https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.min.js'>here</a> (4.6K <small>Minified version can lag behind latest version!!)</small> <br/>
+        To report issues, visit the project's <a href='https://github.com/mkoryak/floatThead'>github repository page</a>.
+
+
+
+
+    </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://api.github.com/repos/mkoryak/floatThead/issues",
+            dataType: "jsonp",
+            success: function (d) {
+                if(d && d.data){
+                    d = d.data;
+                    var $ul = $('#issues ul');
+                    $ul.empty();
+                    for(var i = 0; i < d.length; i++){
+                        var issue = d[i];
+                        if(issue.state == 'open'){
+                            $ul.append('<li><a href="'+issue.html_url+'" target="_blank">'+issue.title+'</a></li>');
+                        }
+                    }
+                }
+            }
+        });
+
+        var $tableTemplate = $('table.template');
+        $('.gimme-table').each(function(){
+            var $placeholder = $(this);
+            var cls = $placeholder.data('cls');
+            var $clone = $tableTemplate.clone();
+            $clone.attr('class', '').addClass('table').addClass(cls);
+            $placeholder.append($clone);
+        });
+
+
+
+
+        var $demoTable = $("table.demo0");
+        $demoTable.find('#demoHeader1').on('click', function(){
+            alert('Click event fired');
+            return false;
+        }).text('click me');
+        $demoTable.find('#demoHeader2').on('mouseover', function(){
+            $(this).closest('th').css('background-color', '#ccc');
+        }).on('mouseout', function(){
+                    $(this).closest('th').css('background-color', '#eee');
+                }).text('mouse over me');
+
+        $(".run-main-demo").click(function(){
+            var $button = $(this);
+
+
+            if($button.is('.btn-danger')){
+                $demoTable.floatThead('destroy');
+                $button.html("Run floatThead  <i class='icon-play icon-white'></i>").removeClass('btn-danger').addClass('btn-success');
+            } else {
+                $demoTable.floatThead({
+                    scrollingTop: pageTop(),
+                    scrollContainer: function($table){
+                        return $table.closest('.wrapper');
+                    },
+                    useAbsolutePositioning: true
+                });
+                $button.tooltip("show");
+                setTimeout(function(){
+                    $button.tooltip("hide");
+                }, 5000);
+                $button.html("Remove floatThead  <i class='icon-trash icon-white'></i>").addClass('btn-danger').removeClass('btn-success');
+            }
+        })
+                .tooltip({
+                    trigger: "manual",
+                    title: "Now try scrolling around in the table",
+                    placement: "top"
+                });
+
+
+
+
+        var $demo1 = $('table.demo1');
+        $demo1.floatThead({
+            scrollingTop: pageTop,
+            scrollContainer: function($table){
+                return $table.closest('.wrapper');
+            }
+        });
+        $('#change-dom').click(function(){
+            $(this).parent().hide();
+            $demo1.floatThead('reflow');
+        });
+        $('table.demo2, #options table').floatThead({
+            scrollingTop: pageTop,
+            useAbsolutePositioning: false
+        });
+    });
+</script>
