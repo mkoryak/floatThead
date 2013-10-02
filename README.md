@@ -3,7 +3,7 @@ jquery.floatThead v1.1.1
 
 Float the table header without losing your events or styles.  
 
-[DEMOS and Documentation](http://mkoryak.github.io/floatThead/)
+[DEMOS and Documentation](http://mkoryak.github.io/floatThead/)  
 Jekyll templates to generate the docs are in the [gh-pages branch](https://github.com/mkoryak/floatThead/tree/gh-pages)
 
 
