@@ -20,12 +20,12 @@ base_url: "./../.."
             <p>
                 Absolute positioning is a good default because you do not need to call <code>$table.floatThead("reflow")</code> if the table's position changes because of some changes in the DOM
             </p>
-            <pre class="prettyprint">
+{% highlight js %}
 $('table').floatThead({
     scrollingTop: pageTop,
     useAbsolutePositioning: true //the default value
 });
-            </pre>
+{% endhighlight %}
 
             <p><a href="#" id="makeFixed">Re-initialize plugin with fixed positioning</a></p>
             <p>floated header is using <strong id="posType">position:absolute</strong></p>

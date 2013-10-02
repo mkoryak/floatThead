@@ -53,7 +53,7 @@ base_url: "./.."
 <div class="row">
     <div class="span12">
         <h3>Code</h3>
-        <pre>
+{% highlight js %}
 $(document).ready(function () {
      var $table = $('#demo0');
      $table.dataTable({
@@ -66,7 +66,7 @@ $(document).ready(function () {
         scrollingTop: pageTop //i need this because of my floating header
     });
 });    
-        </pre>
+{% endhighlight %}
     </div>
 </div>
 <div class="row">
@@ -523,7 +523,7 @@ $(document).ready(function () {
 <div class="row">
     <div class="span12">
         <h3>Code</h3>
-            <pre>
+{% highlight js %}
 $(document).ready(function () {
     var $table2 = $('#demo1');
     $table2.dataTable({
@@ -540,8 +540,8 @@ $(document).ready(function () {
             return $wrapper;
         }
     });
-});    
-            </pre>
+});
+{% endhighlight %}
     </div>
 </div>
 <table cellpadding="0" cellspacing="0" border="0" class="bordered-table zebra-striped" id="demo1" style='width: 100%;'>
@@ -976,12 +976,12 @@ $(document).ready(function () {
         <div class="row">
             <div class="span12">
                 <h3>Code</h3>
-                    <pre>
+{% highlight js %}
 $(document).ready(function () {
     var oTable = $('#demo2').dataTable();
     new FixedHeader( oTable );
 });    
-                    </pre>
+{% endhighlight %}
                 This example shows the <a href='http://datatables.net/release-datatables/extras/FixedHeader/index.html'
                                           target='_blank'>FixedHeader plugin</a> written by datatable's author. I put it here to
                 compare it with my plugin. FixedHeader does not support inner scrolling.

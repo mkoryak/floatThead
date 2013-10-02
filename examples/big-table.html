@@ -27,16 +27,16 @@ base_url: "./../.."
 <div class='row'>
     <div class='span12' id='intro'>
         <h1>A really big table - inner scroll</h1>
-        Internal scrolling    
+        Internal scrolling
 
-<pre>
+{% highlight js %}
 $('#demo').floatThead({
     scrollContainer: function($table){
         return $table.closest('.wrap');
     },
     cellTag: 'td'
 });
-</pre>
+{% endhighlight %}
 
 		
         <div class='wrap' id='wrap'>

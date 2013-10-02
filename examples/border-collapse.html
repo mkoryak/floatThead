@@ -16,10 +16,10 @@ base_url: "./../.."
 	
 	
 	
-	table.s {
+	table.sep {
 		border-collapse: separate;
 	}
-	table.c {
+	table.col {
 		border-collapse: collapse;
 	}
     td, th {
@@ -30,18 +30,17 @@ base_url: "./../.."
 <div class='row'>
     <div class='span12' id='intro'>
         <h1>border-collapse: separate;</h1>
-        This demonstrates a really ugly table with ugly seperate borders. 
-
-<pre>
+        This demonstrates a really ugly table with ugly seperate borders.
+{% highlight js %}
 $('#demo').floatThead({
     scrollContainer: function($table){
         return $table.closest('.wrap');
     }
 });
-</pre>
+{% endhighlight %}
 
         <div class='wrap' id='wrap'>
-           <table id='demo' class='s'>
+           <table id='demo' class='sep'>
             <thead>
              <tr>
                <th style="width: 100px;">Name</th>
@@ -161,17 +160,17 @@ $('#demo').floatThead({
         This demonstrates a really ugly table with ugly collapsed borders. 
 		<br/><br/>
 
-
-<pre>
+{% highlight js %}
 $('#demo2').floatThead({
     scrollContainer: function($table){
         return $table.closest('.wrap');
     }
 });
-</pre>
+{% endhighlight %}
+
 
         <div class='wrap' id='wrap'>
-           <table id='demo2' class='c'>
+           <table id='demo2' class='col'>
             <thead>
              <tr>
 <!--             
