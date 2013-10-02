@@ -6,7 +6,7 @@ pygments:         true
 permalink:        pretty
 
 # Server
-destination:      ./../floatThead/
+destination:      ./compiled-docs/
 exclude:          [".gitignore"]
 port:             9002
 
