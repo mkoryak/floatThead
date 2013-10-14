@@ -1,5 +1,5 @@
 /*!
- * jQuery.floatThead
+ * jQuery.floatThead-DEV
  * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
  * Date: 8/29/13
@@ -16,14 +16,14 @@
  * Tested on FF13+, Chrome 21+, IE9, IE8
  *
  * @author Misha Koryak
- * @version 1.1.0
+ * @version 1.2.0-DEV
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name jquery.floatThead.min.js
 // ==/ClosureCompiler==
 /**
- * @preserve jQuery.floatThead 1.1.0
+ * @preserve jQuery.floatThead 1.2.0-DEV
  * Copyright (c) 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
  */
@@ -307,7 +307,6 @@
         return count;
       }
 
-
       function refloat(){ //make the thing float
         if(!headerFloated){
           headerFloated = true;
@@ -353,33 +352,28 @@
         var i;
         var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
         return function(){
-          var badReflow = false;
-
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
           if($rowCells.length == numCols && numCols > 0){
             unfloat();
             for(i=0; i < numCols; i++){
               var $rowCell = $rowCells.eq(i);
-              var rowWidth = $rowCell.outerWidth(true);
-              $headerCells.eq(i).outerWidth(rowWidth);
-              $tableCells.eq(i).outerWidth(rowWidth);
-            }
-            refloat();
-            for(i=0; i < numCols; i++){
-              var hw = $headerCells.eq(i).outerWidth(true);
-              var tw = $tableCells.eq(i).outerWidth(true);
-              if(hw != tw){
-                badReflow = true;
-                break;
+              if(ieVersion){
+                var rowWidth = $rowCell.outerWidth(true);
+                $headerCells.eq(i).outerWidth(rowWidth);
+                $tableCells.eq(i).outerWidth(rowWidth);
+              } else {
+                var rowWidth = $rowCell[0].offsetWidth;
+                $headerCells.eq(i).width(rowWidth);
+                $tableCells.eq(i).width(rowWidth);
               }
             }
+            refloat();
           } else {
             $floatTable.append($header);
             $table.css(layoutAuto);
             $floatTable.css(layoutAuto);
             setHeaderHeight();
           }
-          return badReflow;
         };
       }
 
@@ -555,10 +549,7 @@
 
       var ensureReflow = function(){
         flow = reflow();
-        var badReflow = flow();
-        if(badReflow){
-          flow();
-        }
+        flow();
       };
 
       var windowResizeEvent = function(){
