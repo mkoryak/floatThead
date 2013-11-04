@@ -40,4 +40,6 @@ FloatThead will not work properly in IE9 unless you have the following meta tag 
 <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
 ```
 
+With very big tables, you may also run into this exciting bug: http://stackoverflow.com/questions/5805956/internet-explorer-9-not-rendering-table-cells-properly  
+Watch for it.
 
