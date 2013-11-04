@@ -33,4 +33,11 @@ Requirements:
 -   The following meta tag to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code>
 
 
+Using with IE9 
+--------------
+FloatThead will not work properly in IE9 unless you have the following meta tag in the head of the page:  
+``` html 
+<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
+```
+
 
