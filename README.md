@@ -32,6 +32,10 @@ Requirements:
 -   IE8, IE9, FF10+ or Chrome15+.
 -   The following meta tag to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code>
 
+Demo & Docs:
+------------
+
+[DEMOS and Documentation](http://mkoryak.github.io/floatThead/)  
 
 Using with IE9 
 --------------
