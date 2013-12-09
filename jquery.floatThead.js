@@ -64,7 +64,8 @@
         // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
         return $table.find('tbody tr:visible:first>td');
       },
-      floatTableClass: 'floatThead-table'
+      floatTableClass: 'floatThead-table',
+      debug: true //print possible issues to console, if console exists.
     }
   };
 
@@ -88,6 +89,11 @@
       }
     }, debounceMs);
     $window.bind('resize.floatTHead', debouncedCb);
+  }
+
+
+  function debug(str){
+    window.console && window.console && window.console.log && window.console.log(str);
   }
 
   /**
@@ -142,7 +148,7 @@
       this.filter('table').each(function(){
         var obj = $(this).data('floatThead-attached');
         if(obj && _.isFunction(obj[command])){
-          r = obj[command]();
+          var r = obj[command]();
           if(typeof r !== 'undefined'){
             ret = r;
           }
@@ -151,6 +157,12 @@
       return ret;
     }
     var opts = $.extend({}, $.floatThead.defaults, map);
+
+    _.each(map, function(val, key){
+      if((!(key in $.floatThead.defaults)) && opts.debug){
+        debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (_.keys($.floatThead.defaults)).join(', '));
+      }
+    });
 
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
@@ -176,6 +188,11 @@
       var useAbsolutePositioning = opts.useAbsolutePositioning;
       if(useAbsolutePositioning == null){ //defaults: locked=true, !locked=false
         useAbsolutePositioning = opts.scrollContainer($table).length;
+      }
+      var $caption = $table.find("caption");
+      var haveCaption = $caption.length == 1;
+      if(haveCaption){
+        var captionAlignTop = ($caption.css("caption-side") || $caption.attr("align") || "top") === "top";
       }
 
       var $fthGrp = $('<fthfoot style="display:table-footer-group;"/>');
@@ -356,16 +373,10 @@
           if($rowCells.length == numCols && numCols > 0){
             unfloat();
             for(i=0; i < numCols; i++){
-              var $rowCell = $rowCells.eq(i);
-              if(ieVersion){
-                var rowWidth = $rowCell.outerWidth(true);
-                $headerCells.eq(i).outerWidth(rowWidth);
-                $tableCells.eq(i).outerWidth(rowWidth);
-              } else {
-                var rowWidth = $rowCell[0].offsetWidth;
-                $headerCells.eq(i).width(rowWidth);
-                $tableCells.eq(i).width(rowWidth);
-              }
+              var _rowcell = $rowCells.get(i);
+              var rowWidth = _rowcell.offsetWidth;
+              $headerCells.eq(i).width(rowWidth);
+              $tableCells.eq(i).width(rowWidth);
             }
             refloat();
           } else {
@@ -388,12 +399,16 @@
         //this floatEnd calc was moved out of the returned function because we assume the table height doesnt change (otherwise we must reinit by calling calculateFloatContainerPosFn)
         var floatEnd;
         var tableContainerGap = 0;
+        var captionHeight = haveCaption ? $caption.outerHeight(true) : 0;
 
         var floatContainerHeight = $floatContainer.height();
         var tableOffset = $table.offset();
         if(locked){
           var containerOffset = $scrollContainer.offset();
           tableContainerGap = tableOffset.top - containerOffset.top + scrollingContainerTop;
+          if(haveCaption && captionAlignTop){
+            tableContainerGap += captionHeight;
+          }
         } else {
           floatEnd = tableOffset.top - scrollingTop - floatContainerHeight + scrollingBottom + scrollbarOffset.horizontal;
         }
@@ -432,6 +447,9 @@
           }
 
           tableOffset = $table.offset();
+          if(haveCaption && captionAlignTop){
+            tableOffset.top += captionHeight;
+          }
           var top, left, tableHeight;
 //        console.log("locked: "+locked+" use abs: "+useAbsolutePositioning)
 
@@ -447,13 +465,13 @@
             left = 0;
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             tableHeight = $table.outerHeight();
-            if(windowTop > floatEnd + tableHeight){
-              top = tableHeight - floatContainerHeight; //scrolled past table
+            if(windowTop > floatEnd + tableHeight + captionHeight){
+              top = tableHeight - floatContainerHeight + captionHeight; //scrolled past table
             } else if (tableOffset.top > windowTop + scrollingTop) {
               top = 0; //scrolling to table
               unfloat();
             } else {
-              top = scrollingTop + windowTop - tableOffset.top + tableContainerGap;
+              top = scrollingTop + windowTop - tableOffset.top + tableContainerGap + captionHeight;
               refloat(); //scrolling within table. header floated
             }
             left =  0;
@@ -469,8 +487,8 @@
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           } else if(!locked && !useAbsolutePositioning) { //window scrolling, fixed positioning
             tableHeight = $table.outerHeight();
-            if(windowTop > floatEnd + tableHeight){
-              top = tableHeight + scrollingTop - windowTop + floatEnd;
+            if(windowTop > floatEnd + tableHeight + captionHeight){
+              top = tableHeight + scrollingTop - windowTop + floatEnd + captionHeight;
               //scrolled past the bottom of the table
             } else if (tableOffset.top > windowTop + scrollingTop) {
               top = tableOffset.top - windowTop;
