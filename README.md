@@ -12,6 +12,19 @@ Another plugin that does this?!
 
 I was fed up the current state of floating header plugins. They either lose your styles or lose your events, or don't support the edge cases.
 
+Install:
+--------
+Install using [Bower](http://bower.io/):
+  
+```bash
+bower install floatThead
+```
+  
+or download:  
+  
+- [development version](https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.js)  
+- [production version](https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.min.js)
+  
 Features:
 ---------
 
