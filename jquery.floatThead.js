@@ -1,22 +1,21 @@
 /*!
  * jQuery.floatThead
- * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
- * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 12/11/13
+ * Copyright (c) 2012 - 2013 Misha Koryak
+ * Licensed under Attribution-ShareAlike 4.0 International - http://creativecommons.org/licenses/by-sa/4.0/
+ * Date: 12/12/13
  *
+ * @author Misha Koryak
+ * @version 1.2.0
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
  * Dependencies:
  * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
  * underscore.js 1.3.0 + [required]
  *
- * http://notetodogself.blogspot.com
- * http://programmingdrunk.com/floatThead/
+ * http://mkoryak.github.io/floatThead/
  *
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10
  *
- * @author Misha Koryak
- * @version 1.2.0
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -24,8 +23,8 @@
 // ==/ClosureCompiler==
 /**
  * @preserve jQuery.floatThead 1.2.0
- * Copyright (c) 2013 Misha Koryak - https://github.com/mkoryak/floatThead
- * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2013 Misha Koryak - http://mkoryak.github.io/floatThead/
+ * Licensed under http://creativecommons.org/licenses/by-sa/4.0/
  */
 (function( $ ) {
   /**
@@ -54,7 +53,7 @@
   };
 
 
-//browser stuff
+  //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
   var isChrome = null;
   var isChromeCheck = function(){
@@ -162,7 +161,6 @@
         debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (_.keys($.floatThead.defaults)).join(', '));
       }
     });
-
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
       var $table = $(this);
@@ -450,7 +448,6 @@
             tableOffset.top += captionHeight;
           }
           var top, left, tableHeight;
-//        console.log("locked: "+locked+" use abs: "+useAbsolutePositioning)
 
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
