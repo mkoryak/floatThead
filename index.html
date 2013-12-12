@@ -17,7 +17,7 @@ base_url: "."
                     <h4>Features:</h4>
                     <ul>
                         <li>Floats the table header - so that the user can always see it</li>
-                        <li>Supports tables with inner scroll bars, or whole page scrolling</li>
+                        <li>Supports tables with inner scroll bars, or window scrolling</li>
                         <li>Horizontal or vertical scrolling</li>
                         <li>Doesn't clone the <code>thead</code> - so your events stay bound</li>
                         <li>Doesn't mess with your styles</li>
@@ -60,12 +60,12 @@ base_url: "."
         <h1>Usage</h1>
         There are 2 ways you can initialize the table:<br/><br/>
         <ul>
-            <li><b>Internal scrolling</b><br/><small>The table is inside of a container with overflow:auto</small></li>
-            <li><b>Page scrolling</b><br/><small>Header becomes locked at the top of the page as user scrolls down</small></li>
+            <li><b>Overflow scrolling</b><br/><small>The table is inside of a container with overflow:auto</small></li>
+            <li><b>Window scrolling</b><br/><small>Header becomes locked at the top of the page as user scrolls down</small></li>
         </ul>
-        <b>Page scrolling</b> is the default. Initialize floatThead without any params to use it. <code>$('table').floatThead()</code>
+        <b>Window scrolling</b> is the default. Initialize floatThead without any params to use it. <code>$('table').floatThead()</code>
         <br/><br/>
-        <b>Internal scrolling</b> takes a bit more work. You must specify a container element inside of which the table will scroll.
+        <b>Overflow scrolling</b> takes a bit more work. You must specify a container element inside of which the table will scroll.
         You must create this element. Usually a div will wrap the table with overflow:auto and a size smaller than the table.<br/>
 {% highlight js %}
 var $table = $('table.demo');
@@ -149,7 +149,7 @@ $table.floatThead({
 <div class='row'>
     <div class='span12' id='methods'>
         <h1>Methods</h1>
-        <h4>.floatThead('destroy')</h4>
+        <h4><code>.floatThead('destroy')</code></h4>
         Removes the widget from the table
 {% highlight js %}
 var $table = $('table.demo1');
@@ -159,8 +159,8 @@ $table.floatThead();
 $table.floatThead('destroy');
 {% endhighlight %}
         <br/>
-        <h4>.floatThead('reflow')</h4>
-        Cause header to realign itself to the correct position. Same as the <b>reflow</b> event below.
+        <h4><code>.floatThead('reflow')</code></h4>
+        Cause header to realign itself to the correct position. Same as the <code>reflow</code> event below.
 {% highlight js %}
 var $table = $('table.demo1');
 //float the headers
@@ -173,7 +173,7 @@ $table.floatThead('reflow');
 <div class='row'>
     <div class='span12' id='events'>
         <h1>Events</h1>
-        <h4>$table.trigger('reflow')</h4>
+        <h4><code>$table.trigger('reflow')</code></h4>
         Given a table element $table that has been widgetized, a reflow event causes the header to realign itself to the correct position. This event must be triggered if the DOM is modifed in such a way that the widgetized table's location changes.
 {% highlight js %}
 var $table = $('table.demo1');
@@ -191,11 +191,11 @@ $table.trigger('reflow');
         <h1>Examples</h1>
         <div class='row'>
             <div class='span6'>
-                <h2>Internal Scrolling</h2>
+                <h2>Overflow Scrolling</h2>
                 <div class='desc'>
-                    Internal scrolling is used when the table is inside of a container smaller than itself.<br/>
-                    This also demonstrates the <b>reflow</b> method. When a DOM modification causes the table's location to change, you must call this method on the table.<br/><br/>
-                    <b>Code</b>
+                    Overflow scrolling is used when the table is inside of a container smaller than itself with overflow:auto.<br/><br/>
+                    This also demonstrates the <b>reflow</b> method. When a DOM modification causes the table's location to change, you must call this method on the table.<br/>
+                    <br/>
 {% highlight js %}
 var $demo1 = $('table.demo1');
 $demo1.floatThead({
@@ -222,17 +222,17 @@ $('a#change-dom').click(function(){ //click to remove
                 <h2>Window Scrolling</h2>
                 <div class='desc'>
                     Window scrolling is used when you have a large table that takes up the whole screen.<br/>
-                    <b>Code</b>
+                    <br/>
 {% highlight js %}
 $('table.demo2').floatThead({
 	scrollingTop: pageTop,
-	// I need this offset because i dont
+	// I need this offset because I don't
 	// want the table header to overlap
 	//my site navigation (its a global function)
 	useAbsolutePositioning: false
 	// absolutePositioning is better for
-	//highly dynamic sites
-	//(which this is not)
+	// highly dynamic sites
+	// (which this is not)
 });
 {% endhighlight %}
                 </div>
@@ -279,7 +279,7 @@ bower install floatThead
         <h1>License</h1>
         <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons: Attribution-ShareAlike 4.0 International</a>
         <br/>
-        Copyright &copy; 2012-2013 Misha Koryak (my last name at gmail)
+        Copyright &copy; 2012-2013 Misha Koryak <small>(my last name at gmail)</small>
     </div>
 </div>
 <br/>
