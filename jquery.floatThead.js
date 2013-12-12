@@ -1,8 +1,8 @@
 /*!
- * jQuery.floatThead-DEV
+ * jQuery.floatThead
  * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 8/29/13
+ * Date: 12/11/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -13,21 +13,46 @@
  * http://notetodogself.blogspot.com
  * http://programmingdrunk.com/floatThead/
  *
- * Tested on FF13+, Chrome 21+, IE9, IE8
+ * Tested on FF13+, Chrome 21+, IE8, IE9, IE10
  *
  * @author Misha Koryak
- * @version 1.2.0-DEV
+ * @version 1.2.0
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name jquery.floatThead.min.js
 // ==/ClosureCompiler==
 /**
- * @preserve jQuery.floatThead 1.2.0-DEV
+ * @preserve jQuery.floatThead 1.2.0
  * Copyright (c) 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
  */
 (function( $ ) {
+  /**
+   * provides a default config object. You can modify this after including this script if you want to change the init defaults
+   * @type {Object}
+   */
+  $.floatThead = {
+    defaults: {
+      cellTag: 'th',
+      zIndex: 1001, //zindex of the floating thead (actually a container div)
+      debounceResizeMs: 1,
+      useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
+      scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
+      scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
+      scrollContainer: function($table){
+        return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
+      },
+      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE8,
+        // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
+        // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
+        return $table.find('tbody tr:visible:first>td');
+      },
+      floatTableClass: 'floatThead-table',
+      debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
+    }
+  };
+
 
 //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
@@ -41,32 +66,6 @@
     var width = $table.find('col').width();
     $table.remove();
     return width == 0;
-  };
-
-  /**
-   * provides a default config object. You can modify this after including this script if you want to change the init defaults
-   * @type {Object}
-   */
-  $.floatThead = {
-    defaults: {
-      cellTag: 'th',
-      zIndex: 1001, //zindex of the floating thead (actually a container div)
-      debounceResizeMs: 1,
-      useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesnt have scrollContainer=false
-      scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
-      //TODO: this got lost somewhere - needs to be re-implemented
-      scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
-      scrollContainer: function($table){
-        return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
-      },
-      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE8,
-        // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
-        // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
-        return $table.find('tbody tr:visible:first>td');
-      },
-      floatTableClass: 'floatThead-table',
-      debug: true //print possible issues to console, if console exists.
-    }
   };
 
   var $window = $(window);
@@ -199,7 +198,7 @@
 
       var locked = $scrollContainer.length > 0;
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
-      var absoluteToFixedOnScroll = ieVersion && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
+      var absoluteToFixedOnScroll = ieVersion <= 9 && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
       var $floatTable = $("<table/>");
       var $floatColGroup = $("<colgroup/>");
       var $tableColGroup = $("<colgroup/>");
