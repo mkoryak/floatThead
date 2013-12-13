@@ -42,7 +42,7 @@ Requirements:
 
 -   jQuery 1.8.x or better (1.9 compliant) (or jQuery 1.7.x and jQuery UI core)
 -   Underscore.js 1.3 or better
--   IE8, IE9, IE10, FF10+ or Chrome15+.
+-   IE8, IE9, IE10, IE11, FF10+ or Chrome15+.
 -   The following meta tag to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code>
 
 Demo & Docs:
