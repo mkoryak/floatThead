@@ -7,10 +7,10 @@ Float the table header without losing your events or styles.
 Jekyll templates to generate the docs are in the [gh-pages branch](https://github.com/mkoryak/floatThead/tree/gh-pages)
 
 
-Another plugin that does this?!
+Feedback needed on planned features
 ------------
 
-I was fed up the current state of floating header plugins. They either lose your styles or lose your events, or don't support the edge cases.
+See: [https://github.com/mkoryak/floatThead/issues/30](https://github.com/mkoryak/floatThead/issues/30)
 
 Install:
 --------
