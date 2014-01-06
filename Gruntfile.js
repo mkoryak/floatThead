@@ -11,16 +11,16 @@ module.exports = function(grunt) {
 				src: ['./_config.yml'],
 				dest: './_config.yml',
 				replacements: [{
-					from: /https:\/\/rawgithub\.com\/mkoryak\/floatThead\/master\//,
-					to: '/floatThead/'
+					from: /https:\/\/rawgithub\.com\/mkoryak\/floatThead\/master\/jquery\.floatThead\.min\.js/,
+					to: 'http://localhost:9002/floatThead/jquery.floatThead.js'
 				}]
 			},
 			prod: {
 				src: ['./_config.yml'],
 				dest: './_config.yml',
 				replacements: [{
-					from: /http:\/\/localhost:9002\/floatThead\//,
-					to: 'https://rawgithub.com/mkoryak/floatThead/master/'
+					from: /http:\/\/localhost:9002\/floatThead\/jquery\.floatThead\.js/,
+					to: 'https://rawgithub.com/mkoryak/floatThead/master/jquery.floatThead.min.js'
 				}]
 			}
 		},
