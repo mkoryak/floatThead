@@ -1,0 +1,20 @@
+{
+  "name": "floatThead_docs",
+  "version": "1.2.0",
+  "homepage": "https://github.com/mkoryak/floatThead",
+  "authors": [
+    "Misha Koryak <mkoryak@gmail.com>"
+  ],
+  "description": "docs for the jquery.floatThead plugin",
+  "license": "CC SA 4.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.0.3",
+    "jquery": "1.10.2",
+    "underscore": "~1.5.2"
+  }
+}

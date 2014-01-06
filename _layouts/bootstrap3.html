@@ -1,33 +1,36 @@
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset="utf-8">
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
-    <meta name="viewport" content="width=940, initial-scale=1.0">
     <title>jQuery.floatThead</title>
-    <script type="text/javascript">
-        window.isBS2 = true;
-    </script>
-    {% include assets.html %}
-</head>
-<style type='text/css'>
-    table.collapse {
-        border-collapse:collapse;
-    }
-    body {
-        padding-top: 81px;
-    }
-</style>
 
-<body data-spy="scroll" data-target=".navbar-first">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include assets-bs3.html %}
+    <script type="text/javascript">
+        window.isBS2 = false;
+    </script>
+</head>
+<body>
 <a href="https://github.com/mkoryak/floatThead"><img id="under-nav" style="position: absolute; top: 81px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
-<div class='container'>
+{% include header-bs3.html %}
 
-    {% include header.html %}
+<div class="container">
+
 
 
     {{ content }}
+
+    <!--
+    <ul class="bs-social-buttons">
+        <li>
+            <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=mkoryak&amp;repo=floatThead&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30" title="Star on GitHub"></iframe>
+        </li>
+        <li>
+            <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=mkoryak&amp;repo=floatThead&amp;type=fork&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30" title="Fork on GitHub"></iframe>
+        </li>
+    </ul>
+    -->
 
     <!-- Start of StatCounter Code for Default Guide -->
     <script type="text/javascript">

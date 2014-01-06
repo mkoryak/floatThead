@@ -14,13 +14,4 @@ baseurl:          /floatThead/
 # Site vars
 base_url:         "/floatThead"
 
-#for debugging the site locally:
-#js_url:           http://192.168.1.136:9002/floatThead/jquery.floatThead.js
-#js_url:           http://10.14.3.3:9002/floatThead/jquery.floatThead.js
-#js_url:           http://localhost:9002/floatThead/jquery.floatThead.js
-
-#point at gh_pages copy of the plugin:
-#js_url:           /floatThead/jquery.floatThead.js
-
-#for deploying to github:
-js_url:           https://rawgithub.com/mkoryak/floatThead/master/jquery.floatThead.js
+js_url:           /floatThead/jquery.floatThead.js

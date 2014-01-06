@@ -1,0 +1,15 @@
+.bs-social-buttons li {
+    display: inline-block;
+    line-height: 1;
+    padding: 5px 8px;
+}
+.bs-social-buttons {
+    display: inline-block;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.github-btn {
+    border: 0;
+    overflow: hidden;
+}
