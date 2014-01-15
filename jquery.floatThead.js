@@ -1,11 +1,7 @@
-/*!
- * jQuery.floatThead
- * Copyright (c) 2012 - 2013 Misha Koryak
- * Licensed under Attribution-ShareAlike 4.0 International - http://creativecommons.org/licenses/by-sa/4.0/
- * Date: 12/12/13
- *
- * @author Misha Koryak
- * @version 1.2.0
+// @preserve jQuery.floatThead 1.2.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
+
+/* @author Misha Koryak
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
  * Dependencies:
@@ -14,18 +10,13 @@
  *
  * http://mkoryak.github.io/floatThead/
  *
- * Tested on FF13+, Chrome 21+, IE8, IE9, IE10
+ * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
  *
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name jquery.floatThead.min.js
 // ==/ClosureCompiler==
-/**
- * @preserve jQuery.floatThead 1.2.0
- * Copyright (c) 2013 Misha Koryak - http://mkoryak.github.io/floatThead/
- * Licensed under http://creativecommons.org/licenses/by-sa/4.0/
- */
 (function( $ ) {
   /**
    * provides a default config object. You can modify this after including this script if you want to change the init defaults
@@ -397,6 +388,7 @@
         var floatEnd;
         var tableContainerGap = 0;
         var captionHeight = haveCaption ? $caption.outerHeight(true) : 0;
+		var captionScrollOffset = captionAlignTop ? captionHeight : -captionHeight;
 
         var floatContainerHeight = $floatContainer.height();
         var tableOffset = $table.offset();
@@ -461,13 +453,13 @@
             left = 0;
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             tableHeight = $table.outerHeight();
-            if(windowTop > floatEnd + tableHeight + captionHeight){
-              top = tableHeight - floatContainerHeight + captionHeight; //scrolled past table
+            if(windowTop > floatEnd + tableHeight + captionScrollOffset){
+              top = tableHeight - floatContainerHeight + captionScrollOffset; //scrolled past table
             } else if (tableOffset.top > windowTop + scrollingTop) {
               top = 0; //scrolling to table
               unfloat();
             } else {
-              top = scrollingTop + windowTop - tableOffset.top + tableContainerGap + captionHeight;
+              top = scrollingTop + windowTop - tableOffset.top + tableContainerGap + (captionAlignTop ? captionHeight : 0);
               refloat(); //scrolling within table. header floated
             }
             left =  0;
@@ -483,8 +475,8 @@
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           } else if(!locked && !useAbsolutePositioning) { //window scrolling, fixed positioning
             tableHeight = $table.outerHeight();
-            if(windowTop > floatEnd + tableHeight + captionHeight){
-              top = tableHeight + scrollingTop - windowTop + floatEnd + captionHeight;
+            if(windowTop > floatEnd + tableHeight + captionScrollOffset){
+              top = tableHeight + scrollingTop - windowTop + floatEnd + captionScrollOffset;
               //scrolled past the bottom of the table
             } else if (tableOffset.top > windowTop + scrollingTop) {
               top = tableOffset.top - windowTop;

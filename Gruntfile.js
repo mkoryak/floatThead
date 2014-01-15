@@ -26,6 +26,12 @@ module.exports = function(grunt) {
 		},
 
 		uglify: {
+			options: {
+				mangle: true,
+				compress: true,
+				report: true,
+				preserveComments: 'some'
+			},
 			floatThead: {
 				src: ['jquery.floatThead.js'],
 				dest: 'jquery.floatThead.min.js'
@@ -68,8 +74,11 @@ module.exports = function(grunt) {
 	// Run before pushing to github
 	grunt.registerTask('deploy', ['replace:prod', 'uglify']);
 
+	// Run jekyll serve without variable replacements
+	grunt.registerTask('serve', ['bgShell:jekyll', 'watch']);
+
 	grunt.registerTask('default', function(){
-		console.log("")
+		console.log("");
 		console.log("jquery.floatThead.js by Misha Koryak");
 		console.log("------------------------------------");
 		console.log("To run project in sandbox mode (with file watcher and server) run: grunt sandbox");
