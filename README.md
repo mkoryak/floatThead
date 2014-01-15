@@ -1,4 +1,4 @@
-jquery.floatThead v1.2.0
+jquery.floatThead v1.2.1
 =================
 
 Float the table header without losing your events or styles.  
@@ -57,7 +57,7 @@ Using with IE9
 --------------
 FloatThead will not work properly in IE9 unless you have the following meta tag in the head of the page:  
 ``` html 
-<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
+<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
 ```
 
 With very big tables, you may also run into this exciting bug: http://stackoverflow.com/questions/5805956/internet-explorer-9-not-rendering-table-cells-properly  
@@ -65,6 +65,11 @@ Watch for it.
 
 Change Log
 ----------
+
+### 1.2.1
+
+- fixed issue with caption tag align:bottom
+- switched to uglifyjs to minify code
 
 ### 1.2.0
 
