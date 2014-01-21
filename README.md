@@ -5,7 +5,8 @@ Float the table header without special css. This plugin assumes nothing about yo
 
 Check out the demo / docs page for copious examples:
 
-[DEMOS and Documentation](http://mkoryak.github.io/floatThead/)  
+###[Demos and Docs](http://mkoryak.github.io/floatThead/)  
+
 
 Jekyll templates to generate the docs are in the [gh-pages branch](https://github.com/mkoryak/floatThead/tree/gh-pages)
 
