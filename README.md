@@ -1,4 +1,4 @@
-floatThead Documenation
+floatThead Documentation
 ==========
 
 ## Using the docs locally

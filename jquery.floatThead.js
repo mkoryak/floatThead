@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.2-Dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -24,21 +24,22 @@
    */
   $.floatThead = {
     defaults: {
-      cellTag: 'th',
+      cellTag: 'th', //thead cells are this
       zIndex: 1001, //zindex of the floating thead (actually a container div)
       debounceResizeMs: 1,
-      useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
+      useAbsolutePositioning: null, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
       scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
       scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
       scrollContainer: function($table){
         return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
       },
-      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE8,
+      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
         // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
         // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
         return $table.find('tbody tr:visible:first>td');
       },
       floatTableClass: 'floatThead-table',
+	  floatContainerClass: 'floatThead-container',
       debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
     }
   };
@@ -63,21 +64,12 @@
 
 
   /**
-   * debounce and fix window resize event for ie7. ie7 is evil and will fire window resize event when ANY dom element is resized.
    * @param debounceMs
    * @param cb
    */
 
   function windowResize(debounceMs, cb){
-    var winWidth = $window.width();
-    var debouncedCb = _.debounce(function(){
-      var winWidthNew = $window.width();
-      if(winWidth != winWidthNew){
-        winWidth = winWidthNew;
-        cb();
-      }
-    }, debounceMs);
-    $window.bind('resize.floatTHead', debouncedCb);
+    $window.bind('resize.floatTHead', _.debounce(cb, debounceMs)); //TODO: check if resize bug is gone in IE8 +
   }
 
 
@@ -245,6 +237,7 @@
         top:  useAbsolutePositioning ? 0 : 'auto',
         zIndex: opts.zIndex
       });
+	  $floatContainer.addClass(opts.floatContainerClass)
       updateScrollingOffsets();
 
       var layoutFixed = {'table-layout': 'fixed'};
