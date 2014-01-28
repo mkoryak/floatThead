@@ -192,7 +192,7 @@
       var $floatColGroup = $("<colgroup/>");
       var $tableColGroup = $("<colgroup/>");
       var $fthRow = $('<fthrow style="display:table-row;height:0;"/>'); //created unstyled elements
-      var $floatContainer = $('<div style="overflow: hidden;"></div>');
+      var $floatContainer = $('<div class=floatThead-container style="overflow: hidden;"></div>');
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row"/>');
       var $sizerCells = $([]);
