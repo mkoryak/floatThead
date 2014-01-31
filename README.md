@@ -92,7 +92,19 @@ There are plenty of other **fixed header** / **floating header** / **scrolling t
 
 I have compiled a list here with comments on each one:
 
-[Fixed-Table-Header](https://github.com/markmalek/Fixed-Header-Table/)
+
+| Plugin  | Window Scrolling | Overflow-X Scrolling  | Overflow-Y Scrolling | No Special CSS | Keeps Bound Events | Freeze Columns |
+|:-------------:|:-------------:|:-----:|:-------------:|:-------------:|:-----:|:-----:|:-----:|
+| [FloatThead](https://github.com/mkoryak/floatThead/)  | yes | yes | yes | yes | yes | no |
+| [Fixed-Table-Header](https://github.com/markmalek/Fixed-Header-Table/) | no | yes | no | yes | no | no |
+| [jquery.scrollTableBody](https://github.com/nheldman/jquery.scrollTableBody) | no | yes | yes | no | ?? | no |
+| [Fixed table rows cols](http://meetselva.github.io/fixed-table-rows-cols) | no | yes | yes | no | ?? | yes |
+| [Table Fixed Header](https://github.com/oma/table-fixed-header) | yes | no | no | yes | no | no | 
+| [Sticky Table Header](https://github.com/jmosbech/StickyTableHeaders) | yes | no | no | yes | yes | no | 
+| [Grid](https://github.com/mmurph211/Grid) | no | yes | yes | yes | yes | no | 
+
+
+ [Fixed-Table-Header](https://github.com/markmalek/Fixed-Header-Table/)
 This is the orignal. It has been around for ages and it will be the first plugin you find when you start looking. It also has a ton of open unresolved issues. It does not support window scrolling, it does not seem to support y-scrolling withing the container. It loses the events you attached to the thead. **Stay away.**
 
 [Fixed table rows cols](http://meetselva.github.io/fixed-table-rows-cols)
