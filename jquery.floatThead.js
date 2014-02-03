@@ -38,6 +38,7 @@
         return $table.find('tbody tr:visible:first>td');
       },
       floatTableClass: 'floatThead-table',
+      floatContainerClass: 'floatThead-container',
       debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
     }
   };
@@ -45,7 +46,7 @@
   var util = (function(){
 
     var that = {};
-    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
     that.has = function(obj, key) {
       return hasOwnProperty.call(obj, key);
     };
@@ -55,11 +56,12 @@
       for (var key in obj) if (that.has(obj, key)) keys.push(key);
       return keys;
     };
-    that.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'], function(name) {
-      that['is' + name] = _['is' + name] || function(obj) {
+    for(var i = 0; i < isThings.length; i++){
+      var name = isThings[i];
+      that['is' + name] = function(obj) {
         return Object.prototype.toString.call(obj) == '[object ' + name + ']';
       };
-    });
+    }
     that.debounce = function(func, wait, immediate) {
       var timeout, args, context, timestamp, result;
       return function() {
@@ -288,6 +290,7 @@
         top:  useAbsolutePositioning ? 0 : 'auto',
         zIndex: opts.zIndex
       });
+      $floatContainer.addClass(opts.floatContainerClass)
       updateScrollingOffsets();
 
       var layoutFixed = {'table-layout': 'fixed'};
@@ -322,7 +325,7 @@
        */
       function columnNum(){
         var $headerColumns = $header.find('tr:first>'+opts.cellTag);
-        var count = 0
+        var count = 0;
         $headerColumns.each(function(){
           count += parseInt(($(this).attr('colspan') || 1), 10);
         });
@@ -430,7 +433,7 @@
         var floatEnd;
         var tableContainerGap = 0;
         var captionHeight = haveCaption ? $caption.outerHeight(true) : 0;
-		var captionScrollOffset = captionAlignTop ? captionHeight : -captionHeight;
+        var captionScrollOffset = captionAlignTop ? captionHeight : -captionHeight;
 
         var floatContainerHeight = $floatContainer.height();
         var tableOffset = $table.offset();
