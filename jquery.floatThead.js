@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.2-DEV - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -6,7 +6,6 @@
  *
  * Dependencies:
  * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
- * underscore.js 1.3.0 + [required]
  *
  * http://mkoryak.github.io/floatThead/
  *
@@ -43,6 +42,50 @@
     }
   };
 
+  var util = (function(){
+
+    var that = {};
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    that.has = function(obj, key) {
+      return hasOwnProperty.call(obj, key);
+    };
+    that.keys = function(obj) {
+      if (obj !== Object(obj)) throw new TypeError('Invalid object');
+      var keys = [];
+      for (var key in obj) if (that.has(obj, key)) keys.push(key);
+      return keys;
+    };
+    that.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'], function(name) {
+      that['is' + name] = _['is' + name] || function(obj) {
+        return Object.prototype.toString.call(obj) == '[object ' + name + ']';
+      };
+    });
+    that.debounce = function(func, wait, immediate) {
+      var timeout, args, context, timestamp, result;
+      return function() {
+        context = this;
+        args = arguments;
+        timestamp = new Date();
+        var later = function() {
+          var last = (new Date()) - timestamp;
+          if (last < wait) {
+            timeout = setTimeout(later, wait - last);
+          } else {
+            timeout = null;
+            if (!immediate) result = func.apply(context, args);
+          }
+        };
+        var callNow = immediate && !timeout;
+        if (!timeout) {
+          timeout = setTimeout(later, wait);
+        }
+        if (callNow) result = func.apply(context, args);
+        return result;
+      };
+    };
+    return that;
+  })();
+
 
   //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
@@ -70,7 +113,7 @@
 
   function windowResize(debounceMs, cb){
     var winWidth = $window.width();
-    var debouncedCb = _.debounce(function(){
+    var debouncedCb = util.debounce(function(){
       var winWidthNew = $window.width();
       if(winWidth != winWidthNew){
         winWidth = winWidthNew;
@@ -131,12 +174,12 @@
         document.createElement('fthfoot'); //tfoot
       }
     }
-    if(_.isString(map)){
+    if(util.isString(map)){
       var command = map;
       var ret = this;
       this.filter('table').each(function(){
         var obj = $(this).data('floatThead-attached');
-        if(obj && _.isFunction(obj[command])){
+        if(obj && util.isFunction(obj[command])){
           var r = obj[command]();
           if(typeof r !== 'undefined'){
             ret = r;
@@ -147,9 +190,9 @@
     }
     var opts = $.extend({}, $.floatThead.defaults, map);
 
-    _.each(map, function(val, key){
+    $.each(map, function(val, key){
       if((!(key in $.floatThead.defaults)) && opts.debug){
-        debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (_.keys($.floatThead.defaults)).join(', '));
+        debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
       }
     });
 
@@ -270,8 +313,8 @@
       }
 
       function updateScrollingOffsets(){
-        scrollingTop = (_.isFunction(opts.scrollingTop) ? opts.scrollingTop($table) : opts.scrollingTop) || 0;
-        scrollingBottom = (_.isFunction(opts.scrollingBottom) ? opts.scrollingBottom($table) : opts.scrollingBottom) || 0;
+        scrollingTop = (util.isFunction(opts.scrollingTop) ? opts.scrollingTop($table) : opts.scrollingTop) || 0;
+        scrollingBottom = (util.isFunction(opts.scrollingBottom) ? opts.scrollingBottom($table) : opts.scrollingBottom) || 0;
       }
 
       /**
@@ -279,11 +322,10 @@
        */
       function columnNum(){
         var $headerColumns = $header.find('tr:first>'+opts.cellTag);
-
-        var count =  _.reduce($headerColumns, function(sum, cell){
-          var colspan = parseInt(($(cell).attr('colspan') || 1), 10);
-          return sum + colspan;
-        }, 0);
+        var count = 0
+        $headerColumns.each(function(){
+          count += parseInt(($(this).attr('colspan') || 1), 10);
+        });
         if(count != lastColumnCount){
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [];
@@ -541,7 +583,7 @@
 
       repositionFloatContainer(calculateFloatContainerPos('init'), true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
 
-      var windowScrollDoneEvent = _.debounce(function(){
+      var windowScrollDoneEvent = util.debounce(function(){
         repositionFloatContainer(calculateFloatContainerPos('windowScrollDone'), false);
       }, 300);
 
@@ -566,7 +608,7 @@
         repositionFloatContainer = repositionFloatContainerFn();
         repositionFloatContainer(calculateFloatContainerPos('resize'), true, true);
       };
-      var reflowEvent = _.debounce(function(){
+      var reflowEvent = util.debounce(function(){
         calculateScrollBarSize();
         updateScrollingOffsets();
         ensureReflow();
