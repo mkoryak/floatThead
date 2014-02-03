@@ -6,6 +6,9 @@
 ### [pylyglot](https://github.com/omaciel/pylyglot)  
 - https://github.com/omaciel/pylyglot/tree/master/pylyglot/static/js
 
+### [django-sql-explorer](https://github.com/epantry/django-sql-explorer)
+- https://github.com/epantry/django-sql-explorer/commit/34ae345325a1e07ff952800fcd6dc5bddac5e3f2
+
 ### [http://imlovingbooks.com/](http://imlovingbooks.com/)
 - somewhere on that site
 
