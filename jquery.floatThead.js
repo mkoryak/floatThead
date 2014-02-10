@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.2-DEV - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -6,6 +6,7 @@
  *
  * Dependencies:
  * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
+ * underscore.js 1.3.0 + [required]
  *
  * http://mkoryak.github.io/floatThead/
  *
@@ -23,7 +24,7 @@
    */
   $.floatThead = {
     defaults: {
-      cellTag: 'th',
+      cellTag: 'th:visible', //thead cells are this
       zIndex: 1001, //zindex of the floating thead (actually a container div)
       debounceResizeMs: 1,
       useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
@@ -32,61 +33,16 @@
       scrollContainer: function($table){
         return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
       },
-      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE8,
+      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
         // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
         // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
         return $table.find('tbody tr:visible:first>td');
       },
       floatTableClass: 'floatThead-table',
-      floatContainerClass: 'floatThead-container',
+	    floatContainerClass: 'floatThead-container',
       debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
     }
   };
-
-  var util = (function(){
-
-    var that = {};
-    var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
-    that.has = function(obj, key) {
-      return hasOwnProperty.call(obj, key);
-    };
-    that.keys = function(obj) {
-      if (obj !== Object(obj)) throw new TypeError('Invalid object');
-      var keys = [];
-      for (var key in obj) if (that.has(obj, key)) keys.push(key);
-      return keys;
-    };
-    for(var i = 0; i < isThings.length; i++){
-      var name = isThings[i];
-      that['is' + name] = function(obj) {
-        return Object.prototype.toString.call(obj) == '[object ' + name + ']';
-      };
-    }
-    that.debounce = function(func, wait, immediate) {
-      var timeout, args, context, timestamp, result;
-      return function() {
-        context = this;
-        args = arguments;
-        timestamp = new Date();
-        var later = function() {
-          var last = (new Date()) - timestamp;
-          if (last < wait) {
-            timeout = setTimeout(later, wait - last);
-          } else {
-            timeout = null;
-            if (!immediate) result = func.apply(context, args);
-          }
-        };
-        var callNow = immediate && !timeout;
-        if (!timeout) {
-          timeout = setTimeout(later, wait);
-        }
-        if (callNow) result = func.apply(context, args);
-        return result;
-      };
-    };
-    return that;
-  })();
 
 
   //browser stuff
@@ -108,21 +64,12 @@
 
 
   /**
-   * debounce and fix window resize event for ie7. ie7 is evil and will fire window resize event when ANY dom element is resized.
    * @param debounceMs
    * @param cb
    */
 
   function windowResize(debounceMs, cb){
-    var winWidth = $window.width();
-    var debouncedCb = util.debounce(function(){
-      var winWidthNew = $window.width();
-      if(winWidth != winWidthNew){
-        winWidth = winWidthNew;
-        cb();
-      }
-    }, debounceMs);
-    $window.bind('resize.floatTHead', debouncedCb);
+    $window.bind('resize.floatTHead', _.debounce(cb, debounceMs)); //TODO: check if resize bug is gone in IE8 +
   }
 
 
@@ -211,7 +158,7 @@
       if($header.length == 0){
         throw new Error('jQuery.floatThead must be run on a table that contains a <thead> element');
       }
-      var headerFloated = true;
+      var headerFloated = false;
       var scrollingTop, scrollingBottom;
       var scrollbarOffset = {vertical: 0, horizontal: 0};
       var scWidth = scrollbarWidth();
@@ -246,9 +193,6 @@
       var $fthCells = $([]); //created elements
 
       $newHeader.append($sizerRow);
-      $header.detach();
-
-      $table.prepend($newHeader);
       $table.prepend($tableColGroup);
       if(isChrome){
         $fthGrp.append($fthRow);
@@ -290,7 +234,7 @@
         top:  useAbsolutePositioning ? 0 : 'auto',
         zIndex: opts.zIndex
       });
-      $floatContainer.addClass(opts.floatContainerClass)
+	    $floatContainer.addClass(opts.floatContainerClass)
       updateScrollingOffsets();
 
       var layoutFixed = {'table-layout': 'fixed'};
@@ -333,7 +277,7 @@
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [];
           for(var x = 0; x < count; x++){
-            cells.push('<'+opts.cellTag+' class="floatThead-col-'+x+'"/>');
+            cells.push('<th class="floatThead-col-'+x+'"/>');
             cols.push('<col/>');
             psuedo.push("<fthtd style='display:table-cell;height:0;width:auto;'/>");
           }
@@ -579,8 +523,15 @@
       //finish up. create all calculation functions and bind them to events
       calculateScrollBarSize();
 
-      var flow = reflow();
-      flow();
+      var flow;
+
+      var ensureReflow = function(){
+        flow = reflow();
+        flow();
+      };
+
+      ensureReflow();
+
       var calculateFloatContainerPos = calculateFloatContainerPosFn();
       var repositionFloatContainer = repositionFloatContainerFn();
 
@@ -598,10 +549,6 @@
         repositionFloatContainer(calculateFloatContainerPos('containerScroll'), false);
       };
 
-      var ensureReflow = function(){
-        flow = reflow();
-        flow();
-      };
 
       var windowResizeEvent = function(){
         updateScrollingOffsets();
@@ -669,6 +616,13 @@
         },
         getFloatContainer: function(){
           return $floatContainer;
+        },
+        getRowGroups: function(){
+          if(headerFloated){
+            return $floatContainer.find("thead").add($table.find("tbody,tfoot"));
+          } else {
+            return $table.find("thead,tbody,tfoot");
+          }
         }
       });
       floatTheadCreated++;
