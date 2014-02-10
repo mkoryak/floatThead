@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.2-Dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -24,10 +24,10 @@
    */
   $.floatThead = {
     defaults: {
-      cellTag: 'th', //thead cells are this
+      cellTag: 'th:visible', //thead cells are this
       zIndex: 1001, //zindex of the floating thead (actually a container div)
       debounceResizeMs: 1,
-      useAbsolutePositioning: null, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
+      useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
       scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
       scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
       scrollContainer: function($table){
@@ -39,7 +39,7 @@
         return $table.find('tbody tr:visible:first>td');
       },
       floatTableClass: 'floatThead-table',
-	  floatContainerClass: 'floatThead-container',
+	    floatContainerClass: 'floatThead-container',
       debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
     }
   };
@@ -158,7 +158,7 @@
       if($header.length == 0){
         throw new Error('jQuery.floatThead must be run on a table that contains a <thead> element');
       }
-      var headerFloated = true;
+      var headerFloated = false;
       var scrollingTop, scrollingBottom;
       var scrollbarOffset = {vertical: 0, horizontal: 0};
       var scWidth = scrollbarWidth();
@@ -193,9 +193,6 @@
       var $fthCells = $([]); //created elements
 
       $newHeader.append($sizerRow);
-      $header.detach();
-
-      $table.prepend($newHeader);
       $table.prepend($tableColGroup);
       if(isChrome){
         $fthGrp.append($fthRow);
@@ -281,7 +278,7 @@
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [];
           for(var x = 0; x < count; x++){
-            cells.push('<'+opts.cellTag+' class="floatThead-col-'+x+'"/>');
+            cells.push('<th class="floatThead-col-'+x+'"/>');
             cols.push('<col/>');
             psuedo.push("<fthtd style='display:table-cell;height:0;width:auto;'/>");
           }
@@ -527,8 +524,15 @@
       //finish up. create all calculation functions and bind them to events
       calculateScrollBarSize();
 
-      var flow = reflow();
-      flow();
+      var flow;
+
+      var ensureReflow = function(){
+        flow = reflow();
+        flow();
+      };
+
+      ensureReflow();
+
       var calculateFloatContainerPos = calculateFloatContainerPosFn();
       var repositionFloatContainer = repositionFloatContainerFn();
 
@@ -546,10 +550,6 @@
         repositionFloatContainer(calculateFloatContainerPos('containerScroll'), false);
       };
 
-      var ensureReflow = function(){
-        flow = reflow();
-        flow();
-      };
 
       var windowResizeEvent = function(){
         updateScrollingOffsets();
@@ -617,6 +617,13 @@
         },
         getFloatContainer: function(){
           return $floatContainer;
+        },
+        getRowGroups: function(){
+          if(headerFloated){
+            return $floatContainer.find("thead").add($table.find("tbody,tfoot"));
+          } else {
+            return $table.find("thead,tbody,tfoot");
+          }
         }
       });
       floatTheadCreated++;

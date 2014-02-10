@@ -111,6 +111,16 @@ $table.floatThead({
                 <td>0</td>
                 <td>Offset from the bottom of the <code>window</code> where the floating header will 'stick' when scrolling down</td>
             </tr><tr>
+                <td>floatTableClass</td>
+                <td>string</td>
+                <td>floatThead-table</td>
+                <td>This class is added to the table element after you run floatThead on it</td>
+            </tr><tr>
+                <td>floatContainerClass</td>
+                <td>string</td>
+                <td>floatThead-container</td>
+                <td>This class is added to the container div inside of which your <code>thead</code> will spend time floating</td>
+            </tr><tr>
                 <td>useAbsolutePositioning</td>
                 <td>boolean</td>
                 <td>true</td>
@@ -128,8 +138,8 @@ $table.floatThead({
             </tr><tr>
                 <td>cellTag</td>
                 <td>string</td>
-                <td>th</td>
-                <td>Specifies which tag is used to find header cells (in the table's<code>thead</code> element)</td>
+                <td>th:visible</td>
+                <td>Specifies the selector used to find header cells (in the table's <code>thead</code> element)</td>
             </tr><tr>
                 <td>debug</td>
                 <td>boolean</td>
@@ -150,7 +160,7 @@ $table.floatThead({
     <div class='span12' id='methods'>
         <h1>Methods</h1>
         <h4><code>.floatThead('destroy')</code></h4>
-        Removes the widget from the table
+        <p>        Removes the widget from the table
 {% highlight js %}
 var $table = $('table.demo1');
 //float the headers
@@ -158,8 +168,10 @@ $table.floatThead();
 //unfloat the headers
 $table.floatThead('destroy');
 {% endhighlight %}
+        </p>
         <br/>
         <h4><code>.floatThead('reflow')</code></h4>
+        <p>
         Cause header to realign itself to the correct position. Same as the <code>reflow</code> event below.
 {% highlight js %}
 var $table = $('table.demo1');
@@ -167,7 +179,14 @@ var $table = $('table.demo1');
 $table.floatThead();
 $table.floatThead('reflow');
 {% endhighlight %}
-
+        </p>
+        <br/>
+        <h4><code>.floatThead('getRowGroups')</code></h4>
+        <p>
+            Returns the table's <code>thead</code>, <code>tbody</code> and <code>tfoot</code> elements.
+            Useful because you cannot simply select <code>thead</code> if the table's header is currently being floated.<br/>
+            For more info on why you may want this <a href="{{ site.base_url }}/examples/hidden-columns/">read through this example</a>
+        </p>
     </div>
 </div>
 <div class='row'>
@@ -245,7 +264,7 @@ $('table.demo2').floatThead({
 <div class='row'>
     <div class='span12' id='issues'>
         <h1>Open Issues</h1>
-        Issues are pulled from <a href='https://github.com/mkoryak/floatThead/issues?state=open'>github</a> <small>(and not all of them are bugs)</small><br/><br/>
+        Issues are pulled from <a href='https://github.com/mkoryak/floatThead/issues?state=open'>github</a><br/><br/>
         <ul>
             <li>There are no issues! Yey!</li>
         </ul>
@@ -310,7 +329,12 @@ bower install floatThead
                     for(var i = 0; i < d.length; i++){
                         var issue = d[i];
                         if(issue.state == 'open'){
-                            $ul.append('<li><a href="'+issue.html_url+'" target="_blank">'+issue.title+'</a></li>');
+                            var label = "";
+                            if(issue.labels.length){
+                                var l = issue.labels[0];
+                                label = " <span class='label "+ l.name+"' style='background-color:#"+ l.color+"'>"+ l.name+"</span>";
+                            }
+                            $ul.append('<li><a href="'+issue.html_url+'" target="_blank">'+issue.title+'</a>'+label+'</li>');
                         }
                     }
                 }
