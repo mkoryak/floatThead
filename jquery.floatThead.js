@@ -40,6 +40,8 @@
       },
       floatTableClass: 'floatThead-table',
 	    floatContainerClass: 'floatThead-container',
+      tableFixedHeight: true, //if set to False it will use absolute positioning with top, bottom, left and right set to 0, instead of
+        // fixed height
       debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
     }
   };
@@ -169,6 +171,7 @@
       if(useAbsolutePositioning == null){ //defaults: locked=true, !locked=false
         useAbsolutePositioning = opts.scrollContainer($table).length;
       }
+      var tableFixedHeight = opts.tableFixedHeight;
       var $caption = $table.find("caption");
       var haveCaption = $caption.length == 1;
       if(haveCaption){
@@ -211,7 +214,12 @@
           if(!relativeToScrollContainer || alwaysWrap){
             var css = {"paddingLeft": $container.css('paddingLeft'), "paddingRight": $container.css('paddingRight')};
             $floatContainer.css(css);
-            $container = $container.wrap("<div style='position: relative; clear:both;'></div>").parent();
+            if(tableFixedHeight){
+              $container = $container.wrap("<div style='position: relative; clear:both;'></div>").parent();
+            }
+            else{
+              $container = $container.wrap("<div style='position: absolute; top:0; bottom: 0; left: 0; right: 0; clear:both;'></div>").parent();
+            }
             wrappedContainer = true;
           }
           return $container;
