@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.2-DEV - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -12,81 +12,34 @@
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
  *
  */
-// ==ClosureCompiler==
-// @compilation_level SIMPLE_OPTIMIZATIONS
-// @output_file_name jquery.floatThead.min.js
-// ==/ClosureCompiler==
 (function( $ ) {
   /**
    * provides a default config object. You can modify this after including this script if you want to change the init defaults
    * @type {Object}
    */
-  $.floatThead = {
-    defaults: {
-      cellTag: 'th:visible', //thead cells are this
-      zIndex: 1001, //zindex of the floating thead (actually a container div)
-      debounceResizeMs: 1,
-      useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
-      scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
-      scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
-      scrollContainer: function($table){
-        return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
-      },
-      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
-        // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
-        // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
-        return $table.find('tbody tr:visible:first>td');
-      },
-      floatTableClass: 'floatThead-table',
-      floatContainerClass: 'floatThead-container',
-      debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
-    }
+  $.floatThead = $.floatThead || {};
+  $.floatThead.defaults = {
+    cellTag: 'th:visible', //thead cells are this
+    zIndex: 1001, //zindex of the floating thead (actually a container div)
+    debounceResizeMs: 1,
+    useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
+    scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
+    scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
+    scrollContainer: function($table){
+      return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
+    },
+    getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
+      // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
+      // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
+      return $table.find('tbody tr:visible:first>td');
+    },
+    floatTableClass: 'floatThead-table',
+    floatWrapperClass: 'floatThead-wrapper',
+    floatContainerClass: 'floatThead-container',
+    debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
   };
 
-  var util = (function(){
-
-    var that = {};
-    var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
-    that.has = function(obj, key) {
-      return hasOwnProperty.call(obj, key);
-    };
-    that.keys = function(obj) {
-      if (obj !== Object(obj)) throw new TypeError('Invalid object');
-      var keys = [];
-      for (var key in obj) if (that.has(obj, key)) keys.push(key);
-      return keys;
-    };
-    $.each(isThings, function(){
-      var name = this;
-      that['is' + name] = function(obj) {
-        return Object.prototype.toString.call(obj) == '[object ' + name + ']';
-      };
-    });
-    that.debounce = function(func, wait, immediate) {
-      var timeout, args, context, timestamp, result;
-      return function() {
-        context = this;
-        args = arguments;
-        timestamp = new Date();
-        var later = function() {
-          var last = (new Date()) - timestamp;
-          if (last < wait) {
-            timeout = setTimeout(later, wait - last);
-          } else {
-            timeout = null;
-            if (!immediate) result = func.apply(context, args);
-          }
-        };
-        var callNow = immediate && !timeout;
-        if (!timeout) {
-          timeout = setTimeout(later, wait);
-        }
-        if (callNow) result = func.apply(context, args);
-        return result;
-      };
-    };
-    return that;
-  })();
+  var util = window._;
 
 
   //browser stuff
@@ -113,7 +66,7 @@
    */
 
   function windowResize(debounceMs, cb){
-    $window.bind('resize.floatTHead', _.debounce(cb, debounceMs)); //TODO: check if resize bug is gone in IE8 +
+    $window.bind('resize.floatTHead', util.debounce(cb, debounceMs)); //TODO: check if resize bug is gone in IE8 +
   }
 
 
@@ -154,6 +107,14 @@
     return false;
   }
   $.fn.floatThead = function(map){
+    map = map || {};
+    if(!util){ //may have been included after the script? lets try to grab it again.
+      util = window._ || $.floatThead._;
+      if(!util){
+        throw new Error("jquery.floatThead.js requires that you include jquery.floatThead._.js or have underscore available in your project.");
+      }
+    }
+
     if(ieVersion < 8){
       return this; //no more crappy browser support.
     }
@@ -181,7 +142,7 @@
       });
       return ret;
     }
-    var opts = $.extend({}, $.floatThead.defaults, map);
+    var opts = $.extend({}, $.floatThead.defaults || {}, map);
 
     $.each(map, function(val, key){
       if((!(key in $.floatThead.defaults)) && opts.debug){
@@ -255,7 +216,7 @@
           if(!relativeToScrollContainer || alwaysWrap){
             var css = {"paddingLeft": $container.css('paddingLeft'), "paddingRight": $container.css('paddingRight')};
             $floatContainer.css(css);
-            $container = $container.wrap("<div style='position: relative; clear:both;'></div>").parent();
+            $container = $container.wrap("<div class='"+opts.floatWrapperClass+"' style='position: relative; clear:both;'></div>").parent();
             wrappedContainer = true;
           }
           return $container;
