@@ -36,6 +36,7 @@
     floatTableClass: 'floatThead-table',
     floatWrapperClass: 'floatThead-wrapper',
     floatContainerClass: 'floatThead-container',
+    copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
     debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
   };
 
@@ -206,7 +207,14 @@
 
       $floatTable.append($floatColGroup);
       $floatContainer.append($floatTable);
-      $floatTable.attr('class', $table.attr('class'));
+      if(opts.copyTableClass){
+        $floatTable.attr('class', $table.attr('class'));
+      }
+      $floatTable.attr({
+        'cellpadding': $table.attr('cellpadding'),
+        'cellspacing': $table.attr('cellspacing')
+      });
+
       $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you wont be able to click on things under floating table
 
       if(useAbsolutePositioning){
