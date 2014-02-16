@@ -124,7 +124,7 @@ I have compiled a list here with comments on each one:
 
 
  [Fixed-Table-Header](https://github.com/markmalek/Fixed-Header-Table/)
-This is the orignal. It has been around for ages and it will be the first plugin you find when you start looking. It also has a ton of open unresolved issues. It does not support window scrolling, it does not seem to support y-scrolling withing the container. It loses the events you attached to the thead. **Stay away.**
+This is the original. It has been around for ages and it will be the first plugin you find when you start looking. It also has a ton of open unresolved issues. It does not support window scrolling, it does not seem to support y-scrolling withing the container. It loses the events you attached to the thead. Lots of open issues. **Stay away.**
 
 [Fixed table rows cols](http://meetselva.github.io/fixed-table-rows-cols)
 Does not support window scrolling. Requires you to specify the column widths for the table. This means that the table will not be able to optimally lay itself out. It does support freezing columns in place. If you need that, this might be the plugin for you.
