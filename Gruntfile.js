@@ -11,19 +11,52 @@ module.exports = function(grunt) {
 				src: ['./_config.yml'],
 				dest: './_config.yml',
 				replacements: [{
-					from: /https:\/\/rawgithub\.com\/mkoryak\/floatThead\/master\/jquery\.floatThead\.min\.js/,
-					to: 'http://localhost:9002/floatThead/jquery.floatThead.js'
+					from: /https:\/\/rawgithub\.com\/mkoryak\/floatThead\/master\/dist\/jquery\.floatThead\.min\.js/,
+					to: 'http://localhost:9002/floatThead/dist/jquery.floatThead.js'
 				}]
 			},
 			prod: {
 				src: ['./_config.yml'],
 				dest: './_config.yml',
 				replacements: [{
-					from: /http:\/\/localhost:9002\/floatThead\/jquery\.floatThead\.js/,
-					to: 'https://rawgithub.com/mkoryak/floatThead/master/jquery.floatThead.min.js'
+					from: /http:\/\/localhost:9002\/floatThead\/dist\/jquery\.floatThead\.js/,
+					to: 'https://rawgithub.com/mkoryak/floatThead/master/dist/jquery.floatThead.min.js'
 				}]
 			}
 		},
+
+    clean: {
+      dist: ['dist', 'build'],
+      build: ['build']
+    },
+
+    concat: {
+      options: {
+        stripBanners: false
+      },
+      full: {
+        src: [
+          'jquery.floatThead.js',
+          'jquery.floatThead._.js'
+        ],
+        dest: 'build/jquery.floatThead.js'
+      }
+    },
+
+    copy: {
+      slim: {
+        src:  'jquery.floatThead.js',
+        dest: 'build/jquery.floatThead-slim.js'
+      },
+      slimDist: {
+        src:  'jquery.floatThead.js',
+        dest: 'dist/jquery.floatThead-slim.js'
+      },
+      full: {
+        src: 'build/jquery.floatThead.js',
+        dest: 'dist/jquery.floatThead.js'
+      }
+    },
 
 		uglify: {
 			options: {
@@ -32,9 +65,13 @@ module.exports = function(grunt) {
 				report: true,
 				preserveComments: 'some'
 			},
-			floatThead: {
-				src: ['jquery.floatThead.js'],
-				dest: 'jquery.floatThead.min.js'
+			floatTheadSlim: {
+				src: ['build/jquery.floatThead-slim.js'],
+				dest: 'dist/jquery.floatThead-slim.min.js'
+			},
+      floatThead: {
+				src: ['build/jquery.floatThead.js'],
+				dest: 'dist/jquery.floatThead.min.js'
 			}
 		},
 
@@ -45,11 +82,11 @@ module.exports = function(grunt) {
 
 		watch: {
 			lib: {
-				files: ['./lib/**/*', './*.js'],
-				tasks: ['jekyll']
+				files: ['./lib/**/*', './*.js', '**/*.less'],
+				tasks: ['build', 'jekyll']
 			},
 			html: {
-				files: ['./*.html', './examples/*.html', './_includes/*.html', './_layouts/*.html'],
+				files: ['./*.html', './examples/*.html', './tests/*.html', './_includes/*.html', './_layouts/*.html'],
 				tasks: ['jekyll']
 			}
 		},
@@ -67,12 +104,17 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jekyll');
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-bg-shell');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+
+  grunt.registerTask('build', ['concat', 'copy',  'uglify']);
 
 	// For development - run a server and watch for changes
-	grunt.registerTask('sandbox', ['replace:local', 'bgShell:jekyll', 'watch']);
+	grunt.registerTask('sandbox', ['clean:dist', 'build', 'replace:local', 'bgShell:jekyll', 'watch']);
 
-	// Run before pushing to github
-	grunt.registerTask('deploy', ['replace:prod', 'uglify']);
+  // Run before pushing to github
+	grunt.registerTask('deploy', ['replace:prod', 'clean:dist', 'build', 'clean:build']);
 
 	// Run jekyll serve without variable replacements
 	grunt.registerTask('serve', ['bgShell:jekyll', 'watch']);

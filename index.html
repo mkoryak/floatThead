@@ -27,8 +27,7 @@ base_url: "."
                     </ul>
                     <h4>Requirements:</h4>
                     <ul>
-                        <li>jQuery 1.8.x or better (code is 1.9+ compliant)<small> <strong>or</strong> jQuery 1.7.x + <a href="https://raw.github.com/jquery/jquery-ui/master/ui/jquery.ui.core.js" target='_blank'>jQuery UI core</a></small></li>
-                        <li>Underscore.js 1.3 or better</li>
+                        <li>jQuery 1.8.x or better (code is 1.9+ compliant)<small> <strong>or</strong> jQuery 1.7.x + <a href="http://jqueryui.com/resources/download/jquery-ui-1.8.24.zip" target='_blank'>jQuery UI core</a></small></li>
                         <li>Internet Exploder 8 - 11, FireFox 10+ or Chrome15+</li>
                         <li><small>Add this meta tag into your header to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code></small></li>
                     </ul>
@@ -151,6 +150,12 @@ $table.floatThead({
                 <td>function</td>
                 <td>undefined</td>
                 <td><p class="text-error">Used by IE Only</p> If your table's first visible row (<code>tbody tr:visible:first td</code>) contains <code>td</code> elements with <code>colspan</code>s, then you need to return another set of <code>td</code>s which have no colspans. In other words the selector should return the same number of TDs as columns in your table. Here is <a href="{{ site.base_url }}/examples/row-groups/">an example</a></td>
+            </tr>
+            <tr>
+                <td>copyTableClass</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Should the table's class attribute be copied to the floated table? This make the styles written for the table's class selector apply also to the floated header. However, if you are later selecting this table by class you may be surprised to find 2 tables.</td>
             </tr>
             </tbody>
         </table>
@@ -282,13 +287,23 @@ bower install floatThead
         <p>Download Source:</p>
         <ul>
             <li>
-                <a href="https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.js">Development version</a>
+                <a href="https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.js">Development version</a>
             </li>
             <li>
-                <a href="https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.min.js">Minified production version</a>
+                <a href="https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.min.js">Minified production version</a>
             </li>
         </ul>
-
+        <hr/>
+        <p>If your project includes underscore.js you can use the slim version. <br/><strong>Slim version requires underscore.</strong></p>
+        <ul>
+            <li>
+                <a href="https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.js">Slim: Development version</a>
+            </li>
+            <li>
+                <a href="https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.min.js">Slim: Minified production version</a>
+            </li>
+        </ul>
+        <hr/>
     </div>
 </div>
 <div class='row'>

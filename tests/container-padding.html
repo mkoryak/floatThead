@@ -1,0 +1,349 @@
+---
+layout: lite
+base_url: "./../.."
+slug: tests
+issue: 50
+---
+<style type="text/css">
+    /* added this style for absolute positioning: */
+    .floatThead-wrapper {
+        position: absolute !important;
+        top: 34px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+
+
+
+
+
+    #search-results-tab-aggregates, #search-results-tab-summarize {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        bottom: 0;
+        left: 10px;
+        min-height: 200px;
+        border-left: 1px solid #C4C4C4;
+        border-right: 1px solid #C4C4C4;
+        border-bottom: 1px solid #C4C4C4;
+    }
+    #aggregate-records-viewer {
+        position:absolute;
+        top:34px;
+        right:0;
+        bottom:0;
+        left:0;
+        overflow:auto;
+        padding:50px 50px 0 50px;
+
+    }
+    .aggregate-records-table-view, #aggregate-records-viewer .floatThead-table {
+        cursor:default;
+        width:100%
+    }
+    .aggregate-records-table-view table, .floatThead-table {
+        background-color:#fff
+    }
+    .aggregate-records-table-view thead td, .floatThead-table thead td {
+        font-size:11px;
+        font-weight:bold;
+        border-bottom:1px solid #e0e0e0
+    }
+    .aggregate-records-table-view thead .offset, .floatThead-table thead .offset {
+        width:32px;
+        min-width:32px;
+        padding:4px 0 8px 0
+    }
+    .aggregate-records-table-view thead .column,  .floatThead-table thead .column {
+        padding:4px 15px 8px 0
+    }
+    .aggregate-records-table-view thead .column:last-child, .floatThead-table thead .column:last-child {
+        padding-right:0
+    }
+    .aggregate-records-table-view thead .num, .floatThead-table thead .num {
+        text-align:right
+    }
+    .aggregate-records-table-view tbody td, .floatThead-table tbody td {
+        border-bottom:1px solid #e0e0e0
+    }
+    .aggregate-records-table-view tbody .offset,  .floatThead-table tbody .offset {
+        vertical-align:text-top;
+        font-size:11px;
+        color:#666;
+        padding:6px 10px 6px 0
+    }
+    .aggregate-records-table-view tbody .column, .floatThead-table tbody .column {
+        vertical-align:text-top;
+        font-size:11px;
+        color:#333333;
+        padding:6px 15px 6px 0
+    }
+    .aggregate-records-table-view tbody .column:last-child,  .floatThead-table tbody .column:last-child {
+        padding-right:0
+    }
+    .aggregate-records-table-view tbody .nowrapColumn, .floatThead-table tbody .nowrapColumn {
+        white-space:nowrap
+    }
+    .aggregate-records-table-view tbody .num,  .floatThead-table tbody .num {
+        text-align:right
+    }
+    .aggregate-records-table-view.table-font-small td {
+        font-size:9px
+    }
+    .aggregate-records-table-view.table-font-medium td {
+        font-size:11px
+    }
+    .aggregate-records-table-view.table-font-large td {
+        font-size:13px
+    }
+</style>
+
+<div class="row">
+
+
+
+<div id="search-results-tab-aggregates">
+<div id="aggregate-records-viewer">
+<div class="aggregate-records-table-view table-font-medium">
+<table cellpadding="0" cellspacing="0">
+<thead>
+<tr>
+    <td class="offset">#</td>
+    <td class="column">Time</td>
+    <td class="column">ct</td>
+    <td class="column">calls</td>
+    <td class="column">_source</td>
+    <td class="column num">_count</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td class="offset">1</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'27'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">2</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">699379</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">stream_metrics_reporter</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">3</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">3870</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">service_metrics_reporter</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">4</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'844'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">5</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">385</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">search_metrics_reporter</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">6</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'38323'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">7</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">0</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">receiver_metrics_reporter</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">8</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">5384</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">search_metrics_reporter</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">9</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">130</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">receiver_metrics_reporter</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">10</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">3911</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">forge_metrics_reporter</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">11</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'48'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">12</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">1 numInvocations=1 samples=2014-02-09T16:00:00.000-08:00/2014-02-10T16:00:00.000-08:00... - sessionId=0000000000000000</td>
+    <td class="column">0C9B2563C59E4E24</td>
+    <td class="column nowrapColumn">cqmerger</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">13</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'717'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">14</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">0</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">collector_metrics_reporter</td>
+    <td class="column num">39</td>
+</tr>
+<tr>
+    <td class="offset">15</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'2'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">2</td>
+</tr>
+<tr>
+    <td class="offset">16</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">*</td>
+    <td class="column">reload CQs</td>
+    <td class="column nowrapColumn">cqsplitter</td>
+    <td class="column num">2</td>
+</tr>
+<tr>
+    <td class="offset">17</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'894'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">18</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">*</td>
+    <td class="column">reload CQs</td>
+    <td class="column nowrapColumn">cqmerger</td>
+    <td class="column num">2</td>
+</tr>
+<tr>
+    <td class="offset">19</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'129'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">2</td>
+</tr>
+<tr>
+    <td class="offset">20</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'22'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">21</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">8278</td>
+    <td class="column">calls/m</td>
+    <td class="column nowrapColumn">search_metrics_reporter</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">22</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'79'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">2</td>
+</tr>
+<tr>
+    <td class="offset">23</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'1'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">24</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'1383'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+<tr>
+    <td class="offset">25</td>
+    <td class="column nowrapColumn">02-14-2014 01:00:00</td>
+    <td class="column">'42'</td>
+    <td class="column">CustomerPartitioningRouter.scala:70</td>
+    <td class="column nowrapColumn">search</td>
+    <td class="column num">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function(){
+        var $table = $('.aggregate-records-table-view').find('> table');
+        var scrollTop = $('#aggregate-records-viewer').offset().top;
+        $table.floatThead({
+            scrollingTop: scrollTop,
+            scrollContainer: function () {
+                return $('#aggregate-records-viewer');
+            },
+            useAbsolutePositioning: true,
+            cellTag: 'td'
+        });
+
+        alignmentDebugger($table)
+    })
+</script>
+
+

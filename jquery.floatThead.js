@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -6,44 +6,41 @@
  *
  * Dependencies:
  * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
- * underscore.js 1.3.0 + [required]
  *
  * http://mkoryak.github.io/floatThead/
  *
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
  *
  */
-// ==ClosureCompiler==
-// @compilation_level SIMPLE_OPTIMIZATIONS
-// @output_file_name jquery.floatThead.min.js
-// ==/ClosureCompiler==
 (function( $ ) {
   /**
    * provides a default config object. You can modify this after including this script if you want to change the init defaults
    * @type {Object}
    */
-  $.floatThead = {
-    defaults: {
-      cellTag: 'th:visible', //thead cells are this
-      zIndex: 1001, //zindex of the floating thead (actually a container div)
-      debounceResizeMs: 1,
-      useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
-      scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
-      scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
-      scrollContainer: function($table){
-        return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
-      },
-      getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
-        // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
-        // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
-        return $table.find('tbody tr:visible:first>td');
-      },
-      floatTableClass: 'floatThead-table',
-	    floatContainerClass: 'floatThead-container',
-      debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
-    }
+  $.floatThead = $.floatThead || {};
+  $.floatThead.defaults = {
+    cellTag: 'th:visible', //thead cells are this
+    zIndex: 1001, //zindex of the floating thead (actually a container div)
+    debounceResizeMs: 1,
+    useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
+    scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
+    scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
+    scrollContainer: function($table){
+      return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
+    },
+    getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
+      // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
+      // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
+      return $table.find('tbody tr:visible:first>td');
+    },
+    floatTableClass: 'floatThead-table',
+    floatWrapperClass: 'floatThead-wrapper',
+    floatContainerClass: 'floatThead-container',
+    copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
+    debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
   };
 
+  var util = window._;
 
   //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
@@ -69,7 +66,7 @@
    */
 
   function windowResize(debounceMs, cb){
-    $window.bind('resize.floatTHead', _.debounce(cb, debounceMs)); //TODO: check if resize bug is gone in IE8 +
+    $window.bind('resize.floatTHead', util.debounce(cb, debounceMs)); //TODO: check if resize bug is gone in IE8 +
   }
 
 
@@ -110,6 +107,14 @@
     return false;
   }
   $.fn.floatThead = function(map){
+    map = map || {};
+    if(!util){ //may have been included after the script? lets try to grab it again.
+      util = window._ || $.floatThead._;
+      if(!util){
+        throw new Error("jquery.floatThead-slim.js requires underscore. You should use the non-lite version since you do not have underscore.");
+      }
+    }
+
     if(ieVersion < 8){
       return this; //no more crappy browser support.
     }
@@ -123,12 +128,12 @@
         document.createElement('fthfoot'); //tfoot
       }
     }
-    if(_.isString(map)){
+    if(util.isString(map)){
       var command = map;
       var ret = this;
       this.filter('table').each(function(){
         var obj = $(this).data('floatThead-attached');
-        if(obj && _.isFunction(obj[command])){
+        if(obj && util.isFunction(obj[command])){
           var r = obj[command]();
           if(typeof r !== 'undefined'){
             ret = r;
@@ -137,11 +142,11 @@
       });
       return ret;
     }
-    var opts = $.extend({}, $.floatThead.defaults, map);
+    var opts = $.extend({}, $.floatThead.defaults || {}, map);
 
-    _.each(map, function(val, key){
+    $.each(map, function(val, key){
       if((!(key in $.floatThead.defaults)) && opts.debug){
-        debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (_.keys($.floatThead.defaults)).join(', '));
+        debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
       }
     });
 
@@ -201,7 +206,15 @@
 
       $floatTable.append($floatColGroup);
       $floatContainer.append($floatTable);
-      $floatTable.attr('class', $table.attr('class'));
+      if(opts.copyTableClass){
+        $floatTable.attr('class', $table.attr('class'));
+      }
+      $floatTable.attr({ //copy over some deprecated table attributes that people still like to use. Good thing poeple dont use colgroups...
+        'cellpadding': $table.attr('cellpadding'),
+        'cellspacing': $table.attr('cellspacing'),
+        'border': $table.attr('border')
+      });
+
       $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you wont be able to click on things under floating table
 
       if(useAbsolutePositioning){
@@ -211,7 +224,7 @@
           if(!relativeToScrollContainer || alwaysWrap){
             var css = {"paddingLeft": $container.css('paddingLeft'), "paddingRight": $container.css('paddingRight')};
             $floatContainer.css(css);
-            $container = $container.wrap("<div style='position: relative; clear:both;'></div>").parent();
+            $container = $container.wrap("<div class='"+opts.floatWrapperClass+"' style='position: relative; clear:both;'></div>").parent();
             wrappedContainer = true;
           }
           return $container;
@@ -234,14 +247,14 @@
         top:  useAbsolutePositioning ? 0 : 'auto',
         zIndex: opts.zIndex
       });
-	  $floatContainer.addClass(opts.floatContainerClass)
+      $floatContainer.addClass(opts.floatContainerClass)
       updateScrollingOffsets();
 
       var layoutFixed = {'table-layout': 'fixed'};
       var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
 
       function setHeaderHeight(){
-        var headerHeight = $header.outerHeight(true);
+        var headerHeight = $header.find(opts.cellTag).outerHeight(true);
         $sizerRow.outerHeight(headerHeight);
         $sizerCells.outerHeight(headerHeight);
       }
@@ -260,8 +273,8 @@
       }
 
       function updateScrollingOffsets(){
-        scrollingTop = (_.isFunction(opts.scrollingTop) ? opts.scrollingTop($table) : opts.scrollingTop) || 0;
-        scrollingBottom = (_.isFunction(opts.scrollingBottom) ? opts.scrollingBottom($table) : opts.scrollingBottom) || 0;
+        scrollingTop = (util.isFunction(opts.scrollingTop) ? opts.scrollingTop($table) : opts.scrollingTop) || 0;
+        scrollingBottom = (util.isFunction(opts.scrollingBottom) ? opts.scrollingBottom($table) : opts.scrollingBottom) || 0;
       }
 
       /**
@@ -269,16 +282,15 @@
        */
       function columnNum(){
         var $headerColumns = $header.find('tr:first>'+opts.cellTag);
-
-        var count =  _.reduce($headerColumns, function(sum, cell){
-          var colspan = parseInt(($(cell).attr('colspan') || 1), 10);
-          return sum + colspan;
-        }, 0);
+        var count = 0;
+        $headerColumns.each(function(){
+          count += parseInt(($(this).attr('colspan') || 1), 10);
+        });
         if(count != lastColumnCount){
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [];
           for(var x = 0; x < count; x++){
-            cells.push('<th class="floatThead-col-'+x+'"/>');
+            cells.push('<th class="floatThead-col"/>');
             cols.push('<col/>');
             psuedo.push("<fthtd style='display:table-cell;height:0;width:auto;'/>");
           }
@@ -293,6 +305,7 @@
           }
 
           $sizerRow.html(cells);
+          $sizerCells = $sizerRow.find("th");
           $tableColGroup.html(cols);
           $tableCells = $tableColGroup.find('col');
           $floatColGroup.html(cols);
@@ -378,7 +391,7 @@
         var floatEnd;
         var tableContainerGap = 0;
         var captionHeight = haveCaption ? $caption.outerHeight(true) : 0;
-		var captionScrollOffset = captionAlignTop ? captionHeight : -captionHeight;
+        var captionScrollOffset = captionAlignTop ? captionHeight : -captionHeight;
 
         var floatContainerHeight = $floatContainer.height();
         var tableOffset = $table.offset();
@@ -538,7 +551,7 @@
 
       repositionFloatContainer(calculateFloatContainerPos('init'), true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
 
-      var windowScrollDoneEvent = _.debounce(function(){
+      var windowScrollDoneEvent = util.debounce(function(){
         repositionFloatContainer(calculateFloatContainerPos('windowScrollDone'), false);
       }, 300);
 
@@ -559,7 +572,7 @@
         repositionFloatContainer = repositionFloatContainerFn();
         repositionFloatContainer(calculateFloatContainerPos('resize'), true, true);
       };
-      var reflowEvent = _.debounce(function(){
+      var reflowEvent = util.debounce(function(){
         calculateScrollBarSize();
         updateScrollingOffsets();
         ensureReflow();
