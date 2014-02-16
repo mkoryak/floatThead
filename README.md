@@ -1,4 +1,4 @@
-jquery.floatThead v1.2.2
+jquery.floatThead v1.2.3
 =================
 
 Float the table header without special css. This plugin assumes nothing about your table markup and "just works" without losing your events or styles. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. 
@@ -27,8 +27,14 @@ bower install floatThead
   
 or download:  
   
-- [development version](https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.js)  
-- [production version](https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.min.js)
+- [development version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.js)
+- [production version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.min.js)
+
+if your project includes [underscore](http://underscorejs.org) and you want to save a few bytes you can use the slim version:
+
+- [slim development version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.js)
+- [slim production version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.min.js)
+
   
 Features:
 ---------
@@ -46,7 +52,6 @@ Requirements:
 -------------
 
 -   jQuery 1.8.x or better (1.9 compliant) (or jQuery 1.7.x and jQuery UI core)
--   Underscore.js 1.3 or better
 -   IE8, IE9, IE10, IE11, FF10+ or Chrome15+.
 -   The following meta tag to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code>
 
@@ -68,6 +73,14 @@ Watch for it.
 Change Log
 ----------
 
+### 1.2.3
+
+- removed underscore dependency, added a *slim* version which is very slightly smaller and requires underscore
+- now supporting a few evil deprecated table attributes that people still use: `cellpadding` and `cellspacing`
+- fixed https://github.com/mkoryak/floatThead/issues/52
+- fixed https://github.com/mkoryak/floatThead/issues/50
+- added floatWrapperClass option
+- added copyTableClass option
 
 ### 1.2.2
 

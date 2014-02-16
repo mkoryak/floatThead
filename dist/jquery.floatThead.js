@@ -42,8 +42,9 @@
 
   var util = window._;
 
+
   //browser stuff
-  var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];a = 1+a,b.innerHTML="<!--[if gt IE "+ a +"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
+  var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
   var isChrome = null;
   var isChromeCheck = function(){
     if(ieVersion){
@@ -247,7 +248,7 @@
         top:  useAbsolutePositioning ? 0 : 'auto',
         zIndex: opts.zIndex
       });
-      $floatContainer.addClass(opts.floatContainerClass);
+      $floatContainer.addClass(opts.floatContainerClass)
       updateScrollingOffsets();
 
       var layoutFixed = {'table-layout': 'fixed'};
@@ -644,3 +645,62 @@
     return this;
   };
 })(jQuery);
+/* jQuery.floatThead.utils - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+ * Licensed under CC BY-SA 4.0 and MIT
+ *
+ * This file is required if you do not use underscore in your project and you want to use floatThead.
+ * It contains functions from underscore that the plugin uses.
+ *
+ * YOU DON'T NEED TO INCLUDE THIS IF YOU ALREADY INCLUDE UNDERSCORE!
+ *
+ */
+
+(function(){
+
+  $.floatThead = $.floatThead || {};
+
+  $.floatThead._  = window._ || (function(){
+    var that = {};
+    var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
+    that.has = function(obj, key) {
+      return hasOwnProperty.call(obj, key);
+    };
+    that.keys = function(obj) {
+      if (obj !== Object(obj)) throw new TypeError('Invalid object');
+      var keys = [];
+      for (var key in obj) if (that.has(obj, key)) keys.push(key);
+      return keys;
+    };
+    $.each(isThings, function(){
+      var name = this;
+      that['is' + name] = function(obj) {
+        return Object.prototype.toString.call(obj) == '[object ' + name + ']';
+      };
+    });
+    that.debounce = function(func, wait, immediate) {
+      var timeout, args, context, timestamp, result;
+      return function() {
+        context = this;
+        args = arguments;
+        timestamp = new Date();
+        var later = function() {
+          var last = (new Date()) - timestamp;
+          if (last < wait) {
+            timeout = setTimeout(later, wait - last);
+          } else {
+            timeout = null;
+            if (!immediate) result = func.apply(context, args);
+          }
+        };
+        var callNow = immediate && !timeout;
+        if (!timeout) {
+          timeout = setTimeout(later, wait);
+        }
+        if (callNow) result = func.apply(context, args);
+        return result;
+      };
+    };
+    return that;
+  })();
+})();
+
