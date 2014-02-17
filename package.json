@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/mkoryak/floatThead/issues"
   },
-  "homepage": "https://github.com/mkoryak/floatThead",
+  "homepage": "http://mkoryak.github.io/floatThead/",
   "npmName": "floatthead",
   "npmFileMap": [{
     "basePath": "/dist/",
