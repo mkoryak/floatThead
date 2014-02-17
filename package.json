@@ -30,7 +30,7 @@
   "homepage": "https://github.com/mkoryak/floatThead",
   "npmName": "floatthead",
   "npmFileMap": [{
-    "basePath": "/",
+    "basePath": "/dist/",
     "files": [
       "*.js"
     ]
