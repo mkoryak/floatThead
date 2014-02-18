@@ -324,7 +324,7 @@
             var tableWidth = $table.width();
             var wrapperWidth = $wrapper.width();
             if(tableWidth > wrapperWidth){
-              $table.width(tableWidth);
+              $table.css('minWidth', tableWidth);
             }
           }
           $table.css(layoutFixed);
