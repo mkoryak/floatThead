@@ -29,11 +29,19 @@ issue: 53
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("table").floatThead();
+        $("table").floatThead({
+            useAbsolutePositioning: true
+        });
     });
 
 </script>
-
+<p>
+    If the table is wider than the wrapping container, then we must set its width when the header is floated, and put it back to old style on unfloat.
+<br/>
+    currently this is still broken if using useAbsolutePositioning: false. I can check if the issue may happen by wrapping the table with a div.
+    <br/>
+    for now, wont fix since workaround exists
+</p>
 <table>
 <thead>
 <tr>

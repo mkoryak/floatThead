@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.4-DEV - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -184,6 +184,7 @@
 
       var locked = $scrollContainer.length > 0;
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
+      var $wrapper = $([]); //used when absolute positioning enabled - wraps the table and the float container
       var absoluteToFixedOnScroll = ieVersion <= 9 && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
       var $floatTable = $("<table/>");
       var $floatColGroup = $("<colgroup/>");
@@ -230,10 +231,10 @@
           return $container;
         };
         if(locked){
-          var $relative = makeRelative($scrollContainer, true);
-          $relative.append($floatContainer);
+          $wrapper = makeRelative($scrollContainer, true);
+          $wrapper.append($floatContainer);
         } else {
-          makeRelative($table);
+          $wrapper = makeRelative($table);
           $table.after($floatContainer);
         }
       } else {
@@ -247,11 +248,12 @@
         top:  useAbsolutePositioning ? 0 : 'auto',
         zIndex: opts.zIndex
       });
-      $floatContainer.addClass(opts.floatContainerClass)
+      $floatContainer.addClass(opts.floatContainerClass);
       updateScrollingOffsets();
 
       var layoutFixed = {'table-layout': 'fixed'};
       var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
+      var originalTableWidth = $table[0].style.width || "auto";
 
       function setHeaderHeight(){
         var headerHeight = $header.find(opts.cellTag).outerHeight(true);
@@ -318,6 +320,13 @@
       function refloat(){ //make the thing float
         if(!headerFloated){
           headerFloated = true;
+          if(!locked && $wrapper.length){ //#53
+            var tableWidth = $table.width();
+            var wrapperWidth = $wrapper.width();
+            if(tableWidth > wrapperWidth){
+              $table.width(tableWidth);
+            }
+          }
           $table.css(layoutFixed);
           $floatTable.css(layoutFixed);
           $floatTable.append($header); //append because colgroup must go first in chrome
@@ -328,6 +337,9 @@
       function unfloat(){ //put the header back into the table
         if(headerFloated){
           headerFloated = false;
+          if(!locked && $wrapper.length){ //#53
+            $table.width(originalTableWidth);
+          }
           $newHeader.detach();
           $table.prepend($header);
           $table.css(layoutAuto);
@@ -604,6 +616,7 @@
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
         destroy: function(){
+          unfloat();
           $table.css(layoutAuto);
           $tableColGroup.remove();
           isChrome && $fthGrp.remove();
