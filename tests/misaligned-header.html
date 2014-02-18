@@ -29,9 +29,11 @@ issue: 53
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("table").floatThead({
+        var $table = $("table");
+        $table.floatThead({
             useAbsolutePositioning: true
         });
+        alignmentDebugger($table);
     });
 
 </script>
