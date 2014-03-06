@@ -20,7 +20,6 @@
     "USED_BY.md"
   ],
   "dependencies": {
-    "jquery": ">= 1.9.0",
-    "underscore": ">= 1.3.0"
+    "jquery": ">= 1.9.0"
   }
 }
