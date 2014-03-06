@@ -1,8 +1,11 @@
 /*jshint node: true */
 /*jshint laxcomma: true */
 
+var request = require('request');
+var cheerio = require('cheerio');
+var fs = require('fs');
+
 module.exports = function(grunt) {
-	"use strict";
 
 	grunt.initConfig({
 
@@ -98,6 +101,37 @@ module.exports = function(grunt) {
 			}
 		}
 	});
+
+  grunt.registerTask('jsfiddle', 'A sample task that logs stuff.', function(url, issue) {
+    var done = this.async();
+    if(arguments.length == 0){
+      console.log('This task creates a test from a jsfiddle. To use: grunt jsfiddle:Gp3yV/13:56');
+      console.log('Gp3yV/13  -> fiddle');
+      console.log('56  -> issue');
+      return done()
+    }
+    issue = issue || "rename-me";
+    console.log("fiddle url:", "http://jsfiddle.net/"+url+"/show/");
+    console.log("issue:", issue);
+    request("http://jsfiddle.net/"+url+"/show/", function(err, resp, body) {
+      if (err)
+        throw err;
+      var $ = cheerio.load(body);
+      var css = $('style').text();
+      var js =  $('script:last-child').text();
+      var html = $('body').html();
+      var out = "---\n\
+layout: lite\n\
+base_url: './../..'\n\
+slug: tests\n\
+issue: "+issue+"\n\
+---\n\n";
+      out += "<style>"+css+"</style>\n\n\n<script type='text/javascript'>"+js+"</script>\n\n\n<br/><br/><br/><br/><br/><br/><div id='jsfiddle'>"+html+"</div>"
+      fs.writeFileSync('./tests/issue-'+issue+'.html', out);
+      console.log('created test html');
+      done()
+    });
+  });
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');

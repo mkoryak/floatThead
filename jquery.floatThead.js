@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.4-DEV - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.4 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -320,7 +320,7 @@
       function refloat(){ //make the thing float
         if(!headerFloated){
           headerFloated = true;
-          if(!locked && $wrapper.length){ //#53
+          if(useAbsolutePositioning){ //#53, #56
             var tableWidth = $table.width();
             var wrapperWidth = $wrapper.width();
             if(tableWidth > wrapperWidth){
@@ -337,7 +337,7 @@
       function unfloat(){ //put the header back into the table
         if(headerFloated){
           headerFloated = false;
-          if(!locked && $wrapper.length){ //#53
+          if(useAbsolutePositioning){ //#53, #56
             $table.width(originalTableWidth);
           }
           $newHeader.detach();
