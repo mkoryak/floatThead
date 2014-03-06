@@ -1,6 +1,6 @@
 {
   "name": "floatthead",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "locking table headers without special css",
   "main": "jquery.floatThead.js",
   "dependencies": {},
