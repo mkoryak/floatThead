@@ -20,19 +20,6 @@ See: [https://github.com/mkoryak/floatThead/issues/30](https://github.com/mkorya
 Download / Install:
 --------
 
-#### Via Bower
-
-Install using [Bower](http://bower.io/):
-  
-```bash
-bower install floatThead
-```
-
-#### CDN Hosted
-
-[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)
-  
-  
 #### Download
   
 - [development version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.js)
@@ -43,6 +30,23 @@ if your project includes [underscore](http://underscorejs.org) and you want to s
 - [slim development version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.js)
 - [slim production version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.min.js)
 
+#### CDN Hosted
+
+[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)
+  
+#### Via Bower
+
+Install using [Bower](http://bower.io/):
+  
+```bash
+bower install floatThead
+```
+  
+#### Via NPM
+
+```bash
+npm install floatthead
+```
   
 Features:
 ---------
