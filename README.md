@@ -134,8 +134,9 @@ Change Log
 ### [django-sql-explorer](https://github.com/epantry/django-sql-explorer)
 - https://github.com/epantry/django-sql-explorer/commit/34ae345325a1e07ff952800fcd6dc5bddac5e3f2- 
 
-### [yii framework](http://www.yiiframework.com/)
+### [Yii framework](http://www.yiiframework.com/)
 - http://www.yiiframework.com/extension/yii2-grid/
+- http://demos.krajee.com/grid-demo 
 
 ### [http://api.tinata.co.uk/](http://api.tinata.co.uk/countries)
 - https://github.com/tinata/tinatapi/commit/b1cf62dd97a5caa76bafcd5ec3b4f12e6b88f385
