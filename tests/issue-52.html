@@ -1,0 +1,437 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+issue: 52
+---
+
+<style>
+    table {
+	font-weight: normal;
+	margin: 0 auto;
+}
+
+#imageTable {
+	width: 90%;
+	margin-bottom: 20px;
+}
+table {
+    border-spacing: 8px;
+}
+table th {
+	background-color: #555;
+	padding: 0 5px;
+}
+
+  </style>
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+	$('#imageTable').floatThead({
+		scrollingTop: 0,
+		useAbsolutePositioning: false
+	});
+}//]]>  
+
+</script>
+
+        <p>
+            The size-row's height needs to be the same as the header. It was bigger.
+        </p>
+
+
+<br/><br/><br/><br/><br/><br/><div id='jsfiddle'>
+  <table id="imageTable">
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>ID</th>
+							<th>Thumb</th>
+							<th>File</th>
+							<th>Order</th>
+							<th style="color:#44c30b">Title</th>
+							<th style="color:#44c30b">Date</th>
+							<th style="color:#44c30b" title="ex Camera">Caption</th>
+							<th style="color:#29bcfd" title="ex ISO; 42 / 99">Ded</th>
+							<th style="color:#29bcfd" title="ex f-stop">Add'l</th>
+							<th style="color:#f60" title="ex Orientation; 42">Cvr</th>
+							<th>Tags</th>
+							<th colspan="2">GPS</th>
+							<th>Del</th>
+						</tr>
+						</thead>
+						<tbody>
+										<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						<tr id="2378">
+							<td class="noedit">1</td>
+							<td><a href="index.php?imageID=2378" title="View Image Page" target="_blank">2378</a></td>
+							<td class="th" name="img/35 - Avatar/eZLPjEj6m4.jpg"><a rel="fancyboxset" href="img/35 - Avatar/eZLPjEj6m4.jpg"><img src="img/35 - Avatar/eZLPjEj6m4_th.jpg" height="55%" title="eZLPjEj6m4_th.jpg"></a></td>
+							<td class="noedit" title="Filename">eZLPjEj6m4.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">10</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr>
+						 						<tr id="2379">
+							<td class="noedit">2</td>
+							<td><a href="index.php?imageID=2379" title="View Image Page" target="_blank">2379</a></td>
+							<td class="th" name="img/35 - Avatar/hhNU8aDhlr.jpg"><a rel="fancyboxset" href="img/35 - Avatar/hhNU8aDhlr.jpg"><img src="img/35 - Avatar/hhNU8aDhlr_th.jpg" height="55%" title="hhNU8aDhlr_th.jpg"></a></td>
+							<td class="noedit" title="Filename">hhNU8aDhlr.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">20</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr> 						<tr id="2380">
+							<td class="noedit">3</td>
+							<td><a href="index.php?imageID=2380" title="View Image Page" target="_blank">2380</a></td>
+							<td class="th" name="img/35 - Avatar/oi3mLH18rU.jpg"><a rel="fancyboxset" href="img/35 - Avatar/oi3mLH18rU.jpg"><img src="img/35 - Avatar/oi3mLH18rU_th.jpg" height="55%" title="oi3mLH18rU_th.jpg"></a></td>
+							<td class="noedit" title="Filename">oi3mLH18rU.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">30</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr> 						<tr id="2662">
+							<td class="noedit">4</td>
+							<td><a href="index.php?imageID=2662" title="View Image Page" target="_blank">2662</a></td>
+							<td class="th" name="img/35 - Avatar/ISeNaxDAuD.jpg"><a rel="fancyboxset" href="img/35 - Avatar/ISeNaxDAuD.jpg"><img src="img/35 - Avatar/ISeNaxDAuD_th.jpg" height="55%" title="ISeNaxDAuD_th.jpg"></a></td>
+							<td class="noedit" title="Filename">ISeNaxDAuD.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">35</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr> 						<tr id="2381">
+							<td class="noedit">5</td>
+							<td><a href="index.php?imageID=2381" title="View Image Page" target="_blank">2381</a></td>
+							<td class="th" name="img/35 - Avatar/sVE8yTj8eM.jpg"><a rel="fancyboxset" href="img/35 - Avatar/sVE8yTj8eM.jpg"><img src="img/35 - Avatar/sVE8yTj8eM_th.jpg" height="55%" title="sVE8yTj8eM_th.jpg"></a></td>
+							<td class="noedit" title="Filename">sVE8yTj8eM.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">40</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr> 						<tr id="2382">
+							<td class="noedit">6</td>
+							<td><a href="index.php?imageID=2382" title="View Image Page" target="_blank">2382</a></td>
+							<td class="th" name="img/35 - Avatar/y936n4wrEg.jpg"><a rel="fancyboxset" href="img/35 - Avatar/y936n4wrEg.jpg"><img src="img/35 - Avatar/y936n4wrEg_th.jpg" height="55%" title="y936n4wrEg_th.jpg"></a></td>
+							<td class="noedit" title="Filename">y936n4wrEg.jpg</td>
+							<td class="editableInput" id="imageOrder" title="Order">50</td>
+							<td class="editable dark" id="imageTitle" title="Title"><i>Edit...</i></td>
+							<td class="editableInput light" id="imageDate" title="Date"><i>Edit...</i></td>
+							<td class="editable light" id="camera" title="Caption"><i>Edit...</i></td>
+							<td class="editableInput dark" id="iso" title="Dedicated image (42 / 99)"><i>Edit...</i></td>
+							<td class="editable light" id="fstop" title="Additional text"><i>Edit...</i></td>
+							<td class="editableInput" id="orientation" title="Cover"><i>Edit...</i></td>
+							<td class="editable" id="imageTags" title="Tags"><i>Edit...</i></td>
+								<td colspan="2" class="editable" id="geoCoords" title="GPS"><i>Edit...</i></td>							<td class="editableSel del" id="delete" title="Delete from DB">&nbsp;✗&nbsp;</td>
+						</tr> </tbody></table>
+  
+</div>

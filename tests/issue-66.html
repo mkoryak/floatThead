@@ -1,0 +1,46 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+issue: 66
+---
+
+<style>
+    table.floatThead-table {
+    background-color: white;
+}
+  </style>
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(function(){
+$(function(){
+$("table").floatThead({debug: true, scrollContainer: function($table){
+  return $table.parent()  
+}})
+
+})
+});//]]>  
+
+</script>
+
+<p>First cell contains text 'SHOULD SEE THIS CELL!!' - should see it ;)</p>
+<p>
+    At the same <a href="{{ site.base_url }}/tests/issue-52/">Issue 52</a> should also work
+</p>
+<br/><br/><br/><br/><br/><br/><div id='jsfiddle'>
+  <body>
+    <div style="overflow:auto; height: 200px;">
+    <table class="demo">
+                        <thead> 
+                            <tr><th colspan="3">title of the table</th></tr>
+                            <tr> <th><a href="#" id="demoHeader1">Header 1</a></th> <th><a href="#" id="demoHeader2">Header 2</a></th> <th><a href="#" id="demoHeader3">Header...3</a></th> </tr> </thead>
+                        <tbody> <tr> <td>SHOULD SEE THIS CELL!!</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr></tbody>
+        </table></div>
+    <br><br>
+    Scroll that table
+  
+</body>
+
+
+</div>
