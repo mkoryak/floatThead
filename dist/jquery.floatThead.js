@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.4 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.5 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
 
 /* @author Misha Koryak
@@ -66,7 +66,19 @@
    */
 
   function windowResize(debounceMs, cb){
-    $window.bind('resize.floatTHead', util.debounce(cb, debounceMs)); //TODO: check if resize bug is gone in IE8 +
+    if(ieVersion == 8){ //ie8 is crap: https://github.com/mkoryak/floatThead/issues/65
+      var winWidth = $window.width();
+      var debouncedCb = util.debounce(function(){
+        var winWidthNew = $window.width();
+        if(winWidth != winWidthNew){
+          winWidth = winWidthNew;
+          cb();
+        }
+      }, debounceMs);
+      $window.bind('resize.floatTHead', debouncedCb);
+    } else {
+      $window.bind('resize.floatTHead', util.debounce(cb, debounceMs));
+    }
   }
 
 
@@ -144,7 +156,7 @@
     }
     var opts = $.extend({}, $.floatThead.defaults || {}, map);
 
-    $.each(map, function(val, key){
+    $.each(map, function(key, val){
       if((!(key in $.floatThead.defaults)) && opts.debug){
         debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
       }
@@ -256,7 +268,10 @@
       var originalTableWidth = $table[0].style.width || "auto";
 
       function setHeaderHeight(){
-        var headerHeight = $header.find(opts.cellTag).outerHeight(true);
+        var headerHeight = 0;
+        $header.find("tr").each(function(){
+          headerHeight += $(this).outerHeight(true);
+        });
         $sizerRow.outerHeight(headerHeight);
         $sizerCells.outerHeight(headerHeight);
       }
