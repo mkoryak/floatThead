@@ -253,7 +253,7 @@
 
       var layoutFixed = {'table-layout': 'fixed'};
       var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
-      var originalTableWidth = $table[0].style.width || "auto";
+      var originalTableWidth = $table[0].style.width || ""; //setting this to auto is bad: #71
 
       function setHeaderHeight(){
         var headerHeight = $header.find(opts.cellTag).outerHeight(true);
