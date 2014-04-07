@@ -641,6 +641,9 @@
           $table.unbind('reflow');
           reflowEvent = windowResizeEvent = containerScrollEvent = windowScrollEvent = function() {};
           $scrollContainer.unbind('scroll.floatTHead');
+          if (wrappedContainer) {
+            $scrollContainer.unwrap();
+          }
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           floatTheadCreated--;
