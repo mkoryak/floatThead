@@ -1,3 +1,5 @@
-Demos were moved into my github pages branch. 
+Demos were moved into the gh-pages branch.
 
-[go there](https://github.com/mkoryak/floatThead/tree/gh-pages) for instrutions on how to use them locally.
+https://github.com/mkoryak/floatThead/tree/gh-pages
+
+Go there for instruction on how to download them

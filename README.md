@@ -22,13 +22,17 @@ Download / Install:
 
 #### Download
   
-- [development version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.js)
-- [production version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.min.js)
+[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.2.5.zip)
+
+Inside of that zip the following javascript files are of interest to you:
+
+- `/dist/jquery.floatThead.js` = development version
+- `/dist/jquery.floatThead.min.js` = production version
 
 if your project includes [underscore](http://underscorejs.org) and you want to save a few bytes you can use the slim version:
 
-- [slim development version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.js)
-- [slim production version](https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.min.js)
+- `/dist/jquery.floatThead-slim.js`
+- `/dist/jquery.floatThead-slim.min.js`
 
 #### CDN Hosted
 
