@@ -3,7 +3,7 @@ layout: default
 slug: home
 base_url: "."
 ---
-
+<script type='text/javascript' src="{{ page.base_url }}/lib/moment.js"></script>
 
 <div class='row'>
     <div class='span12' id='intro'>
@@ -267,7 +267,7 @@ $('table.demo2').floatThead({
 </div>
 
 <div class='row'>
-    <div class='span12' id='issues'>
+    <div class='span6' id='issues'>
         <h1>Open Issues</h1>
         Issues are pulled from <a href='https://github.com/mkoryak/floatThead/issues?state=open'>github</a><br/><br/>
         <ul>
@@ -280,30 +280,31 @@ $('table.demo2').floatThead({
     <div class='span12' id='download'>
         <h1>Download</h1>
 
-        <p>Install using Bower:</p>
+        <p class="lead">Download Latest Release<span id="release-info"></span>:</p>
+
+        <div id="release">
+            <a href="https://github.com/mkoryak/floatThead/releases">Browse Releases</a>
+        </div>
+        <br/>
+        <p>Inside of that zip the following javascript files are of interest to you:</p>
+        <ul>
+            <li><code>/dist/jquery.floatThead.js</code> = development version</li>
+            <li><code>/dist/jquery.floatThead.min.js</code> = production version</li>
+        </ul>
+        <p>if your project includes underscore and you want to save a few bytes you can use the slim version:</p>
+        <ul>
+            <li><code>/dist/jquery.floatThead-slim.js</code></li>
+            <li><code>/dist/jquery.floatThead-slim.min.js</code></li>
+        </ul>
+        <br/>
+        <h1>CDN Hosted</h1>
+        <p>jQuery.floatThead is <a href="http://cdnjs.com/libraries/floatthead/" target="_blank">hosted on cdnjs.com</a>, though sometimes it takes a bit for a new version to propagate there.</p>
+        <br/>
+        <h1>Install Using Bower</h1>
 {% highlight bash %}
 bower install floatThead
 {% endhighlight %}
-        <p>Download Source:</p>
-        <ul>
-            <li>
-                <a href="https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.js">Development version</a>
-            </li>
-            <li>
-                <a href="https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead.min.js">Minified production version</a>
-            </li>
-        </ul>
-        <hr/>
-        <p>If your project includes underscore.js you can use the slim version. <br/><strong>Slim version requires underscore.</strong></p>
-        <ul>
-            <li>
-                <a href="https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.js">Slim: Development version</a>
-            </li>
-            <li>
-                <a href="https://raw.github.com/mkoryak/floatThead/master/dist/jquery.floatThead-slim.min.js">Slim: Minified production version</a>
-            </li>
-        </ul>
-        <hr/>
+        <br/>
     </div>
 </div>
 <div class='row'>
@@ -347,11 +348,34 @@ bower install floatThead
                             var label = "";
                             if(issue.labels.length){
                                 var l = issue.labels[0];
-                                label = " <span class='label "+ l.name+"' style='background-color:#"+ l.color+"'>"+ l.name+"</span>";
+                                label = " <div class='pull-right text-left' style='width: 80px;'><span class='label "+ l.name+"' style='background-color:#"+ l.color+";'>"+ l.name+"</span></div>";
                             }
-                            $ul.append('<li><a href="'+issue.html_url+'" target="_blank">'+issue.title+'</a>'+label+'</li>');
+                            var title = $("<div></div>").text(issue.title).html();
+                            $ul.append('<li><a href="'+issue.html_url+'" target="_blank">'+title+'</a>'+label+'</li>');
                         }
                     }
+                }
+            }
+        });
+        $.ajax({
+            url: "https://api.github.com/repos/mkoryak/floatThead/releases",
+            dataType: "jsonp",
+            success: function (d) {
+                if(d && d.data){
+                    var rls = d.data[0];
+                    var pub = moment(rls.published_at);
+                    var date = pub.format('MMMM Do YYYY');
+                    var ago = moment(pub).fromNow();
+                    var tag = rls.tag_name;
+                    var zip = rls.zipball_url;
+                    var tar = rls.tarball_url;
+
+                    $('#release').html(
+                        "<a class='btn btn-info' href='"+zip+"'><i class='icon icon-download icon-white'></i> Source Code (zip)</a> " +
+                        "<a class='btn btn-info' href='"+tar+"'><i class='icon icon-download icon-white'></i> Source Code (tar.gz)</a>" +
+                        "<a href='https://github.com/mkoryak/floatThead#change-log' target='_blank' style='margin-left:25px;'>Change Log</a>"
+                    );
+                    $('#release-info').html(" <strong>"+tag+"</strong> released "+ago+" ("+date+")");
                 }
             }
         });
