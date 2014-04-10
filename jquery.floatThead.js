@@ -65,7 +65,7 @@
    * @param cb
    */
 
-  function windowResize(debounceMs, cb){
+  function windowResize(debounceMs, eventName, cb){
     if(ieVersion == 8){ //ie8 is crap: https://github.com/mkoryak/floatThead/issues/65
       var winWidth = $window.width();
       var debouncedCb = util.debounce(function(){
@@ -75,9 +75,9 @@
           cb();
         }
       }, debounceMs);
-      $window.bind('resize.floatTHead', debouncedCb);
+      $window.on(eventName, debouncedCb);
     } else {
-      $window.bind('resize.floatTHead', util.debounce(cb, debounceMs));
+      $window.on(eventName, util.debounce(cb, debounceMs));
     }
   }
 
@@ -163,6 +163,7 @@
     });
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
+      var floatTheadId = floatTheadCreated;
       var $table = $(this);
       if($table.data('floatThead-attached')){
         return true; //continue the each loop
@@ -266,6 +267,10 @@
       var layoutFixed = {'table-layout': 'fixed'};
       var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
       var originalTableWidth = $table[0].style.width || ""; //setting this to auto is bad: #70
+
+      function eventName(name){
+        return name+'.fth-'+floatTheadId+'.floatTHead'
+      }
 
       function setHeaderHeight(){
         var headerHeight = 0;
@@ -608,29 +613,30 @@
       }, 1);
       if(locked){ //internal scrolling
         if(useAbsolutePositioning){
-          $scrollContainer.bind('scroll.floatTHead', containerScrollEvent);
+          $scrollContainer.on(eventName('scroll'), containerScrollEvent);
         } else {
-          $scrollContainer.bind('scroll.floatTHead', containerScrollEvent);
-          $window.bind('scroll.floatTHead', windowScrollEvent);
+          $scrollContainer.on(eventName('scroll'), containerScrollEvent);
+          $window.on(eventName('scroll'), windowScrollEvent);
         }
       } else { //window scrolling
-        $window.bind('scroll.floatTHead', windowScrollEvent);
+        $window.on(eventName('scroll'), windowScrollEvent);
       }
 
-      $window.bind('load.floatTHead', reflowEvent); //for tables with images
+      $window.on(eventName('load'), reflowEvent); //for tables with images
 
-      windowResize(opts.debounceResizeMs, windowResizeEvent);
-      $table.bind('reflow', reflowEvent);
+      windowResize(opts.debounceResizeMs, eventName('resize'), windowResizeEvent);
+      $table.on('reflow', reflowEvent);
       if(isDatatable($table)){
         $table
-          .bind('filter', reflowEvent)
-          .bind('sort',   reflowEvent)
-          .bind('page',   reflowEvent);
+          .on('filter', reflowEvent)
+          .on('sort',   reflowEvent)
+          .on('page',   reflowEvent);
       }
 
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
         destroy: function(){
+          var ns = '.fth-'+floatTheadId;
           unfloat();
           $table.css(layoutAuto);
           $tableColGroup.remove();
@@ -638,20 +644,15 @@
           if($newHeader.parent().length){ //only if its in the dom
             $newHeader.replaceWith($header);
           }
-          $table.unbind('reflow');
-          reflowEvent = windowResizeEvent = containerScrollEvent = windowScrollEvent = function() {};
-          $scrollContainer.unbind('scroll.floatTHead');
+          $table.off('reflow');
+          $scrollContainer.off(ns);
           if (wrappedContainer) {
             $scrollContainer.unwrap();
           }
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
-          floatTheadCreated--;
-          if(floatTheadCreated == 0){
-            $window.unbind('scroll.floatTHead');
-            $window.unbind('resize.floatTHead');
-            $window.unbind('load.floatTHead');
-          }
+
+          $window.off(ns);
         },
         reflow: function(){
           reflowEvent();
