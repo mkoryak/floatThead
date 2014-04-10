@@ -14,4 +14,4 @@ baseurl:          /floatThead/
 # Site vars
 base_url:         "/floatThead"
 
-js_url:           http://mkoryak.github.io/floatThead/dist/jquery.floatThead.min.js
+js_url:           /floatThead/dist/jquery.floatThead.js

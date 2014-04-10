@@ -9,25 +9,6 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 
-		replace: {
-			local: {
-				src: ['./_config.yml'],
-				dest: './_config.yml',
-				replacements: [{
-					from: /http:\/\/mkoryak\.github\.io\/floatThead\/dist\/jquery\.floatThead\.min\.js/,
-					to: 'http://localhost:9002/floatThead/dist/jquery.floatThead.js'
-				}]
-			},
-			prod: {
-				src: ['./_config.yml'],
-				dest: './_config.yml',
-				replacements: [{
-					from: /http:\/\/localhost:9002\/floatThead\/dist\/jquery\.floatThead\.js/,
-					to: 'http://mkoryak.github.io/floatThead/dist/jquery.floatThead.min.js'
-				}]
-			}
-		},
-
     clean: {
       dist: ['dist', 'build'],
       build: ['build']
@@ -138,7 +119,6 @@ issue: "+issue+"\n\
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jekyll');
-	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-bg-shell');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -147,12 +127,9 @@ issue: "+issue+"\n\
   grunt.registerTask('build', ['concat', 'copy',  'uglify']);
 
 	// For development - run a server and watch for changes
-	grunt.registerTask('sandbox', ['clean:dist', 'build', 'replace:local', 'bgShell:jekyll', 'watch']);
+	grunt.registerTask('sandbox', ['clean:dist', 'build', 'bgShell:jekyll', 'watch']);
 
-  // Run before pushing to github
-	grunt.registerTask('deploy', ['replace:prod', 'clean:dist', 'build', 'clean:build']);
-
-	// Run jekyll serve without variable replacements
+	// Run jekyll serve without a build
 	grunt.registerTask('serve', ['bgShell:jekyll', 'watch']);
 
 	grunt.registerTask('default', function(){
