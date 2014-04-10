@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 				src: ['./_config.yml'],
 				dest: './_config.yml',
 				replacements: [{
-					from: /https:\/\/rawgithub\.com\/mkoryak\/floatThead\/master\/dist\/jquery\.floatThead\.min\.js/,
+					from: /http:\/\/mkoryak\.github\.io\/floatThead\/dist\/jquery\.floatThead\.min\.js/,
 					to: 'http://localhost:9002/floatThead/dist/jquery.floatThead.js'
 				}]
 			},
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 				dest: './_config.yml',
 				replacements: [{
 					from: /http:\/\/localhost:9002\/floatThead\/dist\/jquery\.floatThead\.js/,
-					to: 'https://rawgithub.com/mkoryak/floatThead/master/dist/jquery.floatThead.min.js'
+					to: 'http://mkoryak.github.io/floatThead/dist/jquery.floatThead.min.js'
 				}]
 			}
 		},
