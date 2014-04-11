@@ -91,10 +91,10 @@ Change Log
 ----------
 
 ### 1.2.6
-- new stuff:
+- **new stuff:**
 - added support for tables with existing `<colgroup>` elements
 - added a grunt task to build dist to master
-- bug fixes:
+- **bug fixes:**
 - https://github.com/mkoryak/floatThead/issues/57 - window resize issues on windows
 - https://github.com/mkoryak/floatThead/issues/70 - better support for responsive tables
 - https://github.com/mkoryak/floatThead/issues/71 - incorrectly unbinding events in destroy
