@@ -1,0 +1,312 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: true
+desc: 'support tables with existing colgroups.'
+issue: 59
+---
+
+<style>
+    .wrapper {
+        width:100%;
+        height: 300px;
+        overflow-y:auto;
+    }
+</style>
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+    var $table = $('#demo');
+
+    $table.floatThead({
+        scrollContainer: function ($table) {
+            return $table.closest('.wrapper');
+        }
+    });
+}//]]>  
+
+</script>
+
+
+<div class='container'>
+
+    <div class="wrapper">
+        <table id="demo" class="table table-striped table-bordered table-hover">
+            <colgroup>
+                <col style="width: 120px"/>
+                <col style="width: 150px"/>
+                <col style="width: 170px"/>
+                <col style="width: 320px"/>
+                <col/>
+                <col/>
+                <col/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Purpose</th>
+                <th>C#</th>
+                <th>Php4</th>
+                <th>Php5</th>
+                <th>ActionScript</th>
+                <th>JavaScript</th>
+                <th>Ruby</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Purpose</th>
+                <th>C#</th>
+                <th>Php4</th>
+                <th>Php5</th>
+                <th>ActionScript</th>
+                <th>JavaScript</th>
+                <th>Ruby</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    Same table but header not floated.
+<div class="wrapper">
+        <table class="table table-striped table-bordered table-hover">
+            <colgroup>
+                <col style="width: 120px"/>
+                <col style="width: 150px"/>
+                <col style="width: 170px"/>
+                <col style="width: 320px"/>
+                <col/>
+                <col/>
+                <col/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Purpose</th>
+                <th>C#</th>
+                <th>Php4</th>
+                <th>Php5</th>
+                <th>ActionScript</th>
+                <th>JavaScript</th>
+                <th>Ruby</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Purpose</th>
+                <th>C#</th>
+                <th>Php4</th>
+                <th>Php5</th>
+                <th>ActionScript</th>
+                <th>JavaScript</th>
+                <th>Ruby</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>

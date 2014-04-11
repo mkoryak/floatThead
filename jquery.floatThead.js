@@ -201,7 +201,12 @@
       var absoluteToFixedOnScroll = ieVersion <= 9 && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
       var $floatTable = $("<table/>");
       var $floatColGroup = $("<colgroup/>");
-      var $tableColGroup = $("<colgroup/>");
+      var $tableColGroup = $table.find('colgroup:first');
+      var existingColGroup = true;
+      if($tableColGroup.length == 0){
+        $tableColGroup = $("<colgroup/>");
+        existingColGroup = false;
+      }
       var $fthRow = $('<fthrow style="display:table-row;height:0;"/>'); //created unstyled elements
       var $floatContainer = $('<div style="overflow: hidden;"></div>');
       var $newHeader = $("<thead/>");
@@ -303,11 +308,16 @@
        * get the number of columns and also rebuild resizer rows if the count is different then the last count
        */
       function columnNum(){
-        var $headerColumns = $header.find('tr:first>'+opts.cellTag);
-        var count = 0;
-        $headerColumns.each(function(){
-          count += parseInt(($(this).attr('colspan') || 1), 10);
-        });
+        var count, $headerColumns;
+        if(existingColGroup){
+          count = $tableColGroup.find('col').length;
+        } else {
+          $headerColumns = $header.find('tr:first>'+opts.cellTag);
+          count = 0;
+          $headerColumns.each(function(){
+            count += parseInt(($(this).attr('colspan') || 1), 10);
+          });
+        }
         if(count != lastColumnCount){
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [];
@@ -328,7 +338,9 @@
 
           $sizerRow.html(cells);
           $sizerCells = $sizerRow.find("th");
-          $tableColGroup.html(cols);
+          if(!existingColGroup){
+            $tableColGroup.html(cols);
+          }
           $tableCells = $tableColGroup.find('col');
           $floatColGroup.html(cols);
           $headerCells = $floatColGroup.find("col");
@@ -394,8 +406,10 @@
         return function(){
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
           if($rowCells.length == numCols && numCols > 0){
-            for(i=0; i < numCols; i++){
-              $tableCells.eq(i).css('width', '');
+            if(!existingColGroup){
+              for(i=0; i < numCols; i++){
+                $tableCells.eq(i).css('width', '');
+              }
             }
             unfloat();
             for(i=0; i < numCols; i++){
