@@ -1,0 +1,171 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: false
+desc: 'On windows the scrollbar covers the table if you keep resizing browser via resize button'
+issue: 57
+---
+
+<style>
+    .wrapper {
+    width:100%;
+    height: 200px;
+    overflow-y:auto;
+}
+.myTable, .myTable td {
+    border-collapse:collapse;
+    border:1px solid #999;
+}
+.myTable {
+    width:100%;
+}
+.myTable thead, .wrapper {
+    background-color:#fff;
+}
+  </style>
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+var $table = $('.myTable');
+$table.floatThead({
+    scrollContainer: function ($table) {
+        return $table.closest('.wrapper');
+    }
+});
+}//]]>  
+
+</script>
+
+
+<div id='jsfiddle'>
+  <div class="wrapper">
+    <table class="myTable">
+        <thead>
+            <tr>
+                <th style="width: 300px">Purpose</th>
+                <th>C#</th>
+                <th>Php4</th>
+                <th>Php5</th>
+                <th>ActionScript</th>
+                <th>JavaScript</th>
+                <th>Ruby</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Purpose</th>
+                <th>C#</th>
+                <th>Php4</th>
+                <th>Php5</th>
+                <th>ActionScript</th>
+                <th>JavaScript</th>
+                <th>Ruby</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+  
+</div>
