@@ -1,4 +1,4 @@
-jquery.floatThead v1.2.5
+jquery.floatThead v1.2.6
 =================
 
 Float the table header without special css. This plugin assumes nothing about your table markup and "just works" without losing your events or styles. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. 
@@ -22,7 +22,7 @@ Download / Install:
 
 #### Download
   
-[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.2.5.zip)
+[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.2.6.zip)
 
 Inside of that zip the following javascript files are of interest to you:
 
@@ -67,6 +67,7 @@ Features:
 Requirements:
 -------------
 
+
 -   jQuery 1.8.x or better (1.9 compliant) (or jQuery 1.7.x and jQuery UI core)
 -   IE8, IE9, IE10, IE11, FF10+ or Chrome15+.
 -   The following meta tag to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code>
@@ -88,6 +89,19 @@ Watch for it.
 
 Change Log
 ----------
+
+### 1.2.6
+- new stuff:
+- added support for tables with existing `<colgroup>` elements
+- added a grunt task to build dist to master
+
+- bug fixes:
+- https://github.com/mkoryak/floatThead/issues/57 - window resize issues on windows
+- https://github.com/mkoryak/floatThead/issues/70 - better support for responsive tables
+- https://github.com/mkoryak/floatThead/issues/71 - incorrectly unbinding events in destroy
+- https://github.com/mkoryak/floatThead/issues/75 - dom leakage in destroy
+
+
 ### 1.2.5
 - bug fixes:
 - https://github.com/mkoryak/floatThead/issues/66
