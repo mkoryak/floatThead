@@ -21,7 +21,7 @@
   $.floatThead.defaults = {
     cellTag: 'th:visible', //thead cells are this
     zIndex: 1001, //zindex of the floating thead (actually a container div)
-    debounceResizeMs: 1,
+    debounceResizeMs: 10,
     useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
     scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
     scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
@@ -394,6 +394,9 @@
         return function(){
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
           if($rowCells.length == numCols && numCols > 0){
+            for(i=0; i < numCols; i++){
+              $tableCells.eq(i).css('width', '');
+            }
             unfloat();
             for(i=0; i < numCols; i++){
               var _rowcell = $rowCells.get(i);
