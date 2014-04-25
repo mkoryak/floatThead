@@ -1,5 +1,5 @@
-// @preserve jQuery.floatThead 1.2.5 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
-// @license Licensed under http://creativecommons.org/licenses/by-sa/4.0/
+// @preserve jQuery.floatThead 1.2.7 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @license MIT
 
 /* @author Misha Koryak
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
@@ -694,7 +694,7 @@
   };
 })(jQuery);
 /* jQuery.floatThead.utils - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
- * Licensed under CC BY-SA 4.0 and MIT
+ * License: MIT
  *
  * This file is required if you do not use underscore in your project and you want to use floatThead.
  * It contains functions from underscore that the plugin uses.
