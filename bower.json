@@ -10,7 +10,7 @@
   "keywords": [
     "float table header", "locked header", "table header", "table", "sticky header", "floatThead", "scrolling table"
   ],
-  "license": "Creative Commons Attribution-NonCommercial 4.0",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
