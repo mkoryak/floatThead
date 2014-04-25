@@ -210,4 +210,4 @@ This is a window scrolling plugin. Does not support overflow scrolling. It is pr
 
 License
 -------
-[CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
+MIT
