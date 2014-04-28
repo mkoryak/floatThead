@@ -1,0 +1,361 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: true
+desc: 'header not disappearing after table out of view'
+issue: 82
+---
+
+<style>
+    .bg-primary {
+  background: blue; }
+
+  html, body {
+    height: 100%;
+  }
+
+    .scroll {
+      height: 100%;
+      overflow-y: auto;
+    }
+
+  </style>
+
+
+<script type='text/javascript'>
+
+
+ 
+
+$(function(){
+  var $floathead = $('.floathead');
+  $floathead.floatThead({
+    scrollContainer: function($tbl) {
+        return $('.scroll');
+    },
+    useAbsolutePositioning: false
+  })
+});
+ 
+
+</script>
+
+
+  <div class="scroll">
+<table class="table table-striped floathead"><thead>
+          <tr class="bg-primary">
+            <th>I am a</th>
+            <th>floating</th>
+            <th>header</th>
+          </tr>
+          </thead>
+          
+          <tbody>
+          
+              <tr>
+                
+                    <td>labore</td>
+                
+                    <td>harum</td>
+                
+                    <td>minus</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>fugiat</td>
+                
+                    <td>sed</td>
+                
+                    <td>ad</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>molestiae</td>
+                
+                    <td>dolores</td>
+                
+                    <td>quos</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>aperiam</td>
+                
+                    <td>et</td>
+                
+                    <td>quae</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>ex</td>
+                
+                    <td>culpa</td>
+                
+                    <td>eos</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>quasi</td>
+                
+                    <td>aliquid</td>
+                
+                    <td>est</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>quo</td>
+                
+                    <td>accusantium</td>
+                
+                    <td>tempora</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>debitis</td>
+                
+                    <td>sit</td>
+                
+                    <td>distinctio</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>sunt</td>
+                
+                    <td>voluptatum</td>
+                
+                    <td>delectus</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>quia</td>
+                
+                    <td>quos</td>
+                
+                    <td>corporis</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>et</td>
+                
+                    <td>ut</td>
+                
+                    <td>sunt</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>necessitatibus</td>
+                
+                    <td>quas</td>
+                
+                    <td>ad</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>dicta</td>
+                
+                    <td>suscipit</td>
+                
+                    <td>rerum</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>dolores</td>
+                
+                    <td>veritatis</td>
+                
+                    <td>vel</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>in</td>
+                
+                    <td>ab</td>
+                
+                    <td>non</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>aut</td>
+                
+                    <td>aliquam</td>
+                
+                    <td>omnis</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>dignissimos</td>
+                
+                    <td>quisquam</td>
+                
+                    <td>recusandae</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>vero</td>
+                
+                    <td>illo</td>
+                
+                    <td>sequi</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>esse</td>
+                
+                    <td>dicta</td>
+                
+                    <td>accusantium</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>quis</td>
+                
+                    <td>et</td>
+                
+                    <td>omnis</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>molestiae</td>
+                
+                    <td>temporibus</td>
+                
+                    <td>nobis</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>delectus</td>
+                
+                    <td>inventore</td>
+                
+                    <td>voluptatum</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>facilis</td>
+                
+                    <td>cumque</td>
+                
+                    <td>repudiandae</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>quibusdam</td>
+                
+                    <td>quis</td>
+                
+                    <td>rerum</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>rerum</td>
+                
+                    <td>corporis</td>
+                
+                    <td>ut</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>sequi</td>
+                
+                    <td>qui</td>
+                
+                    <td>repellendus</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>nesciunt</td>
+                
+                    <td>dolorem</td>
+                
+                    <td>molestiae</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>ducimus</td>
+                
+                    <td>dolor</td>
+                
+                    <td>officiis</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>ea</td>
+                
+                    <td>et</td>
+                
+                    <td>natus</td>
+                
+              </tr>
+          
+              <tr>
+                
+                    <td>veniam</td>
+                
+                    <td>odit</td>
+                
+                    <td>minima</td>
+                
+              </tr>
+          
+          </tbody>
+        </table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>asd<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>asd<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><brasd><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>asd<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>asd<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>asd<br><br><br><br>
+    </brasd></div>
+  
