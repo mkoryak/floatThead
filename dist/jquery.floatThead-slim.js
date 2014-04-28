@@ -493,6 +493,7 @@
           }
           var top, left, tableHeight;
 
+          tableHeight = $table.outerHeight();
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
               var gap = tableContainerGap - scrollingContainerTop;
@@ -504,7 +505,6 @@
             }
             left = 0;
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
-            tableHeight = $table.outerHeight();
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight - floatContainerHeight + captionScrollOffset; //scrolled past table
             } else if (tableOffset.top > windowTop + scrollingTop) {
@@ -516,7 +516,7 @@
             }
             left =  0;
           } else if(locked && !useAbsolutePositioning){ //inner scrolling, fixed positioning
-            if (tableContainerGap > scrollingContainerTop) {
+            if (tableContainerGap > scrollingContainerTop || scrollingContainerTop - tableContainerGap > tableHeight) {
               top = tableOffset.top - windowTop;
               unfloat();
             } else {
@@ -526,7 +526,6 @@
             }
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           } else if(!locked && !useAbsolutePositioning) { //window scrolling, fixed positioning
-            tableHeight = $table.outerHeight();
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight + scrollingTop - windowTop + floatEnd + captionScrollOffset;
               //scrolled past the bottom of the table

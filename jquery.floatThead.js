@@ -491,9 +491,9 @@
           if(haveCaption && captionAlignTop){
             tableOffset.top += captionHeight;
           }
-          var top, left, tableHeight;
+          var top, left;
+          var tableHeight = $table.outerHeight();
 
-          tableHeight = $table.outerHeight();
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
               var gap = tableContainerGap - scrollingContainerTop;
@@ -526,7 +526,6 @@
             }
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           } else if(!locked && !useAbsolutePositioning) { //window scrolling, fixed positioning
-            tableHeight = $table.outerHeight();
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight + scrollingTop - windowTop + floatEnd + captionScrollOffset;
               //scrolled past the bottom of the table
