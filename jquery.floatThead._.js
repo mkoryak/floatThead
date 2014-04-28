@@ -1,5 +1,5 @@
 /* jQuery.floatThead.utils - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
- * Licensed under CC BY-SA 4.0 and MIT
+ * License: MIT
  *
  * This file is required if you do not use underscore in your project and you want to use floatThead.
  * It contains functions from underscore that the plugin uses.
