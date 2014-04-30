@@ -31,7 +31,7 @@
     getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
       // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
       // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
-      return $table.find('tbody tr:visible:first>td');
+      return $table.find('tbody tr:visible:first>*');
     },
     floatTableClass: 'floatThead-table',
     floatWrapperClass: 'floatThead-wrapper',
@@ -491,9 +491,9 @@
           if(haveCaption && captionAlignTop){
             tableOffset.top += captionHeight;
           }
-          var top, left, tableHeight;
+          var top, left;
+          var tableHeight = $table.outerHeight();
 
-          tableHeight = $table.outerHeight();
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
               var gap = tableContainerGap - scrollingContainerTop;
