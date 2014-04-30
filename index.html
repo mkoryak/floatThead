@@ -149,7 +149,7 @@ $table.floatThead({
                 <td>getSizingRow</td>
                 <td>function</td>
                 <td>undefined</td>
-                <td><p class="text-error">Used by IE Only</p> If your table's first visible row (<code>tbody tr:visible:first td</code>) contains <code>td</code> elements with <code>colspan</code>s, then you need to return another set of <code>td</code>s which have no colspans. In other words the selector should return the same number of TDs as columns in your table. Here is <a href="{{ site.base_url }}/examples/row-groups/">an example</a></td>
+                <td><p class="text-error">Used by IE Only</p> If your table's first visible row (<code>tbody tr:visible:first&gt;*</code>) contains <code>td</code> or <code>th</code> elements with <code>colspan</code>s, then you need to return another set of cells  which have no colspans. In other words the selector should return the same number of cells as columns in your table. <a href="{{ site.base_url }}/examples/row-groups/">In depth docs</a></td>
             </tr>
             <tr>
                 <td>copyTableClass</td>

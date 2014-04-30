@@ -31,7 +31,7 @@ base_url: "./../.."
         <p>
             <code>getSizingRow</code> should return a wrapped set of table cells within a table row. The length of the wrapped set should equal to the number of columns in the table.
             <br/>
-            By default IE8 uses the first visible row for sizing, but in this example we cannot do that because the first visible row contains a single TD.
+            By default IE uses the first visible row for sizing, but in this example we cannot do that because the first visible row contains a single TD.
         </p>
         <br/><br/>
 {% highlight js %}
@@ -39,7 +39,7 @@ $(function(){
     $('#demo').floatThead({
         scrollingTop: pageTop,
         getSizingRow: function($table){ // this is only called when using IE
-            return $table.find('tbody tr:not(.grouping):visible:first>td');
+            return $table.find('tbody tr:not(.grouping):visible:first>*');
         }
     });
 });
@@ -61,7 +61,7 @@ $(function(){
                 </tr>
                 <tr>
                     <td>keyboard</td>
-                    <td>boolean</td>
+                    <th>boolean</th>
                     <td>true</td>
                     <td>Closes the modal when escape key is pressed</td>
                 </tr>
