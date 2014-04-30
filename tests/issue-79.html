@@ -1,0 +1,784 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: true
+desc: 'in IE the header is very misaligned'
+issue: 79
+---
+
+<STYLE>
+    #header{ background-color: #394560; border-bottom: solid 3px #999; }
+    #branding h1{ color: #fff; }
+    .dashboard #content-related { width:20em; margin-right:-21em;}
+    .module h2, .module caption, .inline-group h2 { background:#ccc; }
+    a.section:link, a.section:visited { color: #666; }
+    .attention { color: #c33; }
+    .attention-extra { color: #fff; background-color: #c33; }
+    .extra-header td {font-weight: bold; padding: 3px 5px;color: #666666;}
+    .extra-header td a:link, .extra-header td a:visited {color: #666666;}
+    th { border: 1px solid black;}
+    body { margin-bottom: 100px;}
+
+
+    /* base.css */
+    table {
+        border-color: rgb(204, 204, 204); border-collapse: collapse;
+    }
+    td {
+        padding: 5px; line-height: 13px; font-family: "Lucida Grande", Verdana, Arial, sans-serif; font-size: 11px; vertical-align: top; border-bottom-color: rgb(238, 238, 238); border-bottom-width: 1px; border-bottom-style: solid;
+    }
+    th {
+        padding: 5px; line-height: 13px; font-family: "Lucida Grande", Verdana, Arial, sans-serif; font-size: 11px; vertical-align: top; border-bottom-color: rgb(238, 238, 238); border-bottom-width: 1px; border-bottom-style: solid;
+    }
+    th {
+        text-align: left; font-size: 12px; font-weight: bold;
+    }
+    thead th {
+        background: url("../img/nav-bg.gif") repeat-x left top rgb(225, 225, 225); padding: 2px 5px; color: rgb(102, 102, 102); font-size: 11px; border-bottom-color: rgb(221, 221, 221); border-left-color: rgb(221, 221, 221); border-bottom-width: 1px; border-left-width: 1px; border-bottom-style: solid; border-left-style: solid;
+    }
+    tfoot td {
+        background: url("../img/nav-bg.gif") repeat-x left top rgb(225, 225, 225); padding: 2px 5px; color: rgb(102, 102, 102); font-size: 11px; border-bottom-color: rgb(221, 221, 221); border-left-color: rgb(221, 221, 221); border-bottom-width: 1px; border-left-width: 1px; border-bottom-style: solid; border-left-style: solid;
+    }
+    tfoot td {
+        border-top-color: rgb(221, 221, 221); border-bottom-color: currentColor; border-top-width: 1px; border-bottom-width: medium; border-top-style: solid; border-bottom-style: none;
+    }
+    thead th:first-child {
+        border-left-color: currentColor !important; border-left-width: medium !important; border-left-style: none !important;
+    }
+    tfoot td:first-child {
+        border-left-color: currentColor !important; border-left-width: medium !important; border-left-style: none !important;
+    }
+    thead th.optional {
+        font-weight: normal !important;
+    }
+    fieldset table {
+        border-right-color: rgb(238, 238, 238); border-right-width: 1px; border-right-style: solid;
+    }
+    tr.row-label td {
+        color: rgb(102, 102, 102); padding-top: 2px; padding-bottom: 0px; font-size: 9px; margin-top: -1px; border-bottom-color: currentColor; border-bottom-width: medium; border-bottom-style: none;
+    }
+    tr.alt {
+        background: rgb(246, 246, 246);
+    }
+    .row1 {
+        background: rgb(237, 243, 254);
+    }
+    .row2 {
+        background: white;
+    }
+    thead th {
+        padding: 2px 5px; line-height: normal;
+    }
+    thead th a:link {
+        color: rgb(102, 102, 102);
+    }
+    thead th a:visited {
+        color: rgb(102, 102, 102);
+    }
+    thead th.sorted {
+        background: url("../img/nav-bg-selected.gif") repeat-x left top rgb(197, 197, 197);
+    }
+    thead th.sorted .text {
+        padding-right: 42px;
+    }
+    table thead th .text span {
+        padding: 2px 5px; display: block;
+    }
+    table thead th .text a {
+        padding: 2px 5px; display: block; cursor: pointer;
+    }
+    table thead th.sortable:hover {
+        background: url("../img/nav-bg-reverse.gif") repeat-x 0px -5px white;
+    }
+    thead th.sorted a.sortremove {
+        visibility: hidden;
+    }
+    table thead th.sorted:hover a.sortremove {
+        visibility: visible;
+    }
+    table thead th.sorted .sortoptions {
+        padding: 4px 5px 0px; text-align: right; float: right; display: block;
+    }
+    table thead th.sorted .sortpriority {
+        text-align: center; font-size: 0.8em; vertical-align: top; min-width: 12px;
+    }
+    table thead th.sorted .sortoptions a {
+        width: 14px; height: 12px; display: inline-block;
+    }
+    table thead th.sorted .sortoptions a.sortremove {
+        background: url("../img/sorting-icons.gif") no-repeat -4px -5px;
+    }
+    table thead th.sorted .sortoptions a.sortremove:hover {
+        background: url("../img/sorting-icons.gif") no-repeat -4px -27px;
+    }
+    table thead th.sorted .sortoptions a.ascending {
+        background: url("../img/sorting-icons.gif") no-repeat -5px -50px;
+    }
+    table thead th.sorted .sortoptions a.ascending:hover {
+        background: url("../img/sorting-icons.gif") no-repeat -5px -72px;
+    }
+    table thead th.sorted .sortoptions a.descending {
+        background: url("../img/sorting-icons.gif") no-repeat -5px -94px;
+    }
+    table thead th.sorted .sortoptions a.descending:hover {
+        background: url("../img/sorting-icons.gif") no-repeat -5px -115px;
+    }
+    table.orderable tbody tr td:hover {
+        cursor: move;
+    }
+    table.orderable tbody tr td:first-child {
+        padding-left: 14px; background-image: url("../img/nav-bg-grabber.gif"); background-repeat: repeat-y;
+    }
+    table.orderable-initalized .order-cell {
+        display: none;
+    }
+    body > tr > td.order-cell {
+        display: none;
+    }
+    #container {
+        padding: 0px; width: 100%; position: relative; min-width: 760px;
+    }
+    #content {
+        margin: 10px 15px;
+    }
+    #content-main {
+        width: 100%; float: left;
+    }
+    #content-related {
+        width: 18em; margin-right: -19em; float: right; position: relative;
+    }
+</STYLE>
+
+<script type='text/javascript'>
+
+
+
+
+    $(function(){
+        var $floathead = $('#result_list');
+        $floathead.floatThead({
+            useAbsolutePositioning: false
+        });
+    });
+
+</script>
+
+<DIV class="flex" id="content">
+<H1>Select requisition to change</H1>
+<DIV id="content-main">
+<DIV class="module filtered" id="changelist">
+
+<DIV class="results">
+<TABLE id="result_list">
+<THEAD>
+<TR>
+    <TH class="action-checkbox-column" scope="col">
+        <DIV class="text"><SPAN><INPUT id="action-toggle"
+                                       type="checkbox"></SPAN></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="sortable column-number" scope="col">
+        <DIV class="text"><A href="http://127.0.0.1:8000/admin/requisitions/requisition/?o=1">Number</A></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="sortable column-get_applicant_name" scope="col">
+        <DIV class="text"><A href="http://127.0.0.1:8000/admin/requisitions/requisition/?o=2">Requisitioner</A></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="sortable column-get_account" scope="col">
+        <DIV class="text"><A href="http://127.0.0.1:8000/admin/requisitions/requisition/?o=3">Account</A></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="sortable column-description" scope="col">
+        <DIV class="text"><A href="http://127.0.0.1:8000/admin/requisitions/requisition/?o=4">Goods</A></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="column-get_account_string" scope="col">
+        <DIV class="text"><SPAN>Account string</SPAN></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="sortable column-get_price" scope="col">
+        <DIV class="text"><A href="http://127.0.0.1:8000/admin/requisitions/requisition/?o=6">Price</A></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="sortable column-get_status" scope="col">
+        <DIV class="text"><A href="http://127.0.0.1:8000/admin/requisitions/requisition/?o=7">Status</A></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="sortable column-get_invoice_nr" scope="col">
+        <DIV class="text"><A href="http://127.0.0.1:8000/admin/requisitions/requisition/?o=8">Invoice#</A></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="column-get_approver" scope="col">
+        <DIV class="text"><SPAN>Approver</SPAN></DIV>
+        <DIV class="clear"></DIV></TH>
+    <TH class="sortable column-comment" scope="col">
+        <DIV class="text"><A href="http://127.0.0.1:8000/admin/requisitions/requisition/?o=10">Comment</A></DIV>
+        <DIV class="clear"></DIV></TH></TR></THEAD>
+<TBODY>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="54"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/54/">0915-00054</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>Nice comment</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">850.00</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>fdshgj</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="53"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/53/">0915-00053</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>i</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">850.00</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="52"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/52/">0915-00052</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fdsfz</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">850.00</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="46"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/46/">0915-00046</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fsdfdsfsdf</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">8.00</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>fdsfdsfsdf</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="45"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/45/">0915-00045</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fdsfsdf</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">45.00</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>sdfdsdfsdf</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="44"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/44/">0915-00044</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>sgsdgsgds</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.19</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>gdsgsdgs</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="43"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/43/">0915-00043</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>sgsdgsgds</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.16</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>gdsgsdgs</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="42"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/42/">0915-00042</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>dsqdqsdqsd</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.17</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>zzzzzzzzzzzzzzzzzzzzzzzz</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="41"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/41/">0915-00041</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fsdfdsfsdfds</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.19</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>fdsfsdfzfefzefzdsq</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="40"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/40/">0915-00040</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fsdfdsfsdfds</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.19</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="39"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/39/">0915-00039</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>dqsdqsdqsd</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.41</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="38"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/38/">0915-00038</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>lugkjlgh</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">5.20</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="37"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/37/">0915-00037</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>hgfhfdh</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">2.25</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="36"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/36/">0915-00036</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>hgfhfdh</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">1.25</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="35"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/35/">0915-00035</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>aaaa</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">5.50</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="34"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/34/">0915-00034</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>aaaa</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">5.50</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>sdfghj</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="33"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/33/">0915-00033</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>aaaa</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">5.50</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="32"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/32/">0915-00032</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>gggg</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">1.25</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="31"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/31/">0915-00031</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>gfdg</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">1.20</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="30"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/30/">0915-00030</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>gfdg</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">1.20</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="29"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/29/">0915-00029</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>jttjytjytyt</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">999.99</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="28"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/28/">0915-00028</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>jttjytjytyt</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">999.99</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="27"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/27/">0915-00027</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>chhgfhfg</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">5.50</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="26"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/26/">0915-00026</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>hgfhfg</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">5.50</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="25"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/25/">0915-00025</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>hl</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">5.25</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="24"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/24/">0915-00024</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>jttjytjytyt</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">999.99</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="23"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/23/">0915-00023</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>jbjg</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">1.25</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="22"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/22/">0915-00022</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fghfgfg</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">55.75</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="21"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/21/">0915-00021</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fghfgfg</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">55.50</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="20"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/20/">0915-00020</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fesfzfzf</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">1.00</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="19"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/19/">0915-00019</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fesfzfzf</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.04</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="18"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/18/">0915-00018</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>grgegre</TD>
+    <TD>(None)</TD>
+    <TD><SPAN class="attention"
+              style="text-align: right; display: block;">-0.50</SPAN></TD>
+    <TD>Cancelled by requisitioner</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="17"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/17/">0915-00017</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>grgegre</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">8.00</SPAN></TD>
+    <TD>Cancelled by requisitioner</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="16"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/16/">0915-00016</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>khgfkh</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.05</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>Truc</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="15"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/15/">0915-00015</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>khgfkh</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">0.05</SPAN></TD>
+    <TD>Ready for purchasing</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="14"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/14/">0915-00014</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fdsfdsfsd</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">52,525.00</SPAN></TD>
+    <TD>Cancelled by requisitioner</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row1">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="13"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/13/">0915-00013</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>fsdfdsfsd</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">10.00</SPAN></TD>
+    <TD>Cancelled by requisitioner</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+<TR class="row2">
+    <TD class="action-checkbox"><INPUT name="_selected_action" class="action-select"
+                                       type="checkbox" value="12"></TD>
+    <TH><A
+            href="http://127.0.0.1:8000/admin/requisitions/requisition/12/">0915-00012</A></TH>
+    <TD><A href="http://127.0.0.1:8000/admin/areal/currentemployee/6/">Some People</A> (Useless comment there)<SPAN
+            class="attention-extra">?</SPAN>)</TD>
+    <TD><A href="http://127.0.0.1:8000/admin/accounting/account/2/">Account number 42</A></TD>
+    <TD>12120204</TD>
+    <TD>(None)</TD>
+    <TD><SPAN style="text-align: right; display: block;">7,555.00</SPAN></TD>
+    <TD>Cancelled by requisitioner</TD>
+    <TD>&nbsp;</TD>
+    <TD><SPAN title="Rekvirentens faggruppesekretær">Some O. User</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+</TBODY></TABLE></DIV>
+</DIV></DIV>
+</DIV>
