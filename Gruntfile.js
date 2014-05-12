@@ -106,7 +106,7 @@ layout: lite\n\
 base_url: './../..'\n\
 slug: tests\n\
 bootstrap: false\n\
-desc: 'TODO description\n'\
+desc: 'TODO description'\n\
 issue: "+issue+"\n\
 ---\n\n";
       out += "<style>"+css+"</style>\n\n\n<script type='text/javascript'>"+js+"</script>\n\n\n\<div id='jsfiddle'>"+html+"</div>"
