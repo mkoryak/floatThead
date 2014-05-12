@@ -1,0 +1,168 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: false
+desc: 'Floated header overlaps the vertical scrollbar (on mac + FF only)'
+issue: 84
+---
+
+<style>
+    .wrapper {
+    width:200px;
+    height: 270px;
+    overflow: auto;
+    border-bottom:1px solid #999;
+    white-space: nowrap;
+}
+.myTable, .myTable td, .myTable th {
+    border-collapse:collapse;
+    border:1px solid #999;
+}
+.myTable {
+    width:100%;
+}
+.myTable thead {
+    background-color:#d2d2d2;
+    border-bottom: 2px solid #999;
+}
+  </style>
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+var $table = $('.myTable');
+
+$table.floatThead({
+    //debounceResizeMs: 300,
+
+    scrollContainer: function ($table) {
+        return $table.closest('.wrapper');
+    }
+});
+});//]]>  
+
+</script>
+
+
+<div id='jsfiddle'>
+  <div class="wrapper">
+    <table class="myTable">
+        <thead>
+            <tr>
+                <th>Header 1</th>
+                <th>Header 2</th>
+                <th>Header 3</th>
+                <th>Header 4</th>
+                <th>Header 5</th>
+                <th>Header 6</th>
+                <th>Header 7</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+                <td>data4</td>
+                <td>data5</td>
+                <td>data6</td>
+                <td>data7</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Footer 1</th>
+                <th>Footer 2</th>
+                <th>Footer 3</th>
+                <th>Footer 4</th>
+                <th>Footer 5</th>
+                <th>Footer 6</th>
+                <th>Footer 7</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+  
+</div>
