@@ -578,8 +578,11 @@
        */
       function calculateScrollBarSize(){ //this should happen after the floating table has been positioned
         if($scrollContainer.length){
-          scrollbarOffset.horizontal = $scrollContainer.width() < $table.width() ? scWidth : 0;
-          scrollbarOffset.vertical =  $scrollContainer.height() < $table.height() ? scWidth: 0;
+          var sw = $scrollContainer.width(), sh = $scrollContainer.height(), th = $table.height(), tw = $table.width();
+          var offseth = sw < tw ? scWidth : 0;
+          var offsetv = sh < th ? scWidth : 0;
+          scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
+          scrollbarOffset.vertical =  sh - offseth < th ? scWidth: 0;
         }
       }
       //finish up. create all calculation functions and bind them to events
