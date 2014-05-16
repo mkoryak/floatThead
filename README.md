@@ -69,7 +69,10 @@ Requirements:
 
 
 -   jQuery 1.8.x or better (1.9 compliant) (or jQuery 1.7.x and jQuery UI core)
--   IE8, IE9, IE10, IE11, FF10+ or Chrome15+.
+
+Supported Browsers:
+-------------
+-   IE8+, Modern browsers
 -   The following meta tag to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code>
 
 Demo & Docs:
