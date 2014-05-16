@@ -150,7 +150,7 @@ Change Log
 
 ## Who is using floatThead ?
 
-### [http://staticsitegenerators.net/](http://staticsitegenerators.net/)
+### [staticsitegenerators.net](http://staticsitegenerators.net/)
 
 ### [netdisco](http://netdisco.org)
 - http://sourceforge.net/p/netdisco/netdisco-ng/ci/213352d54ee8e71cbca5ae2c1c75696800c4216b/
@@ -165,11 +165,9 @@ Change Log
 - http://www.yiiframework.com/extension/yii2-grid/
 - http://demos.krajee.com/grid-demo 
 
-### [http://api.tinata.co.uk/](http://api.tinata.co.uk/countries)
+### [api.tinata.co.uk](http://api.tinata.co.uk/countries)
 - https://github.com/tinata/tinatapi/commit/b1cf62dd97a5caa76bafcd5ec3b4f12e6b88f385
 
-### [http://imlovingbooks.com/](http://imlovingbooks.com/)
-- somewhere on that site
 
 *Your site? email me: my last name at gmail*
 
