@@ -150,6 +150,8 @@ Change Log
 
 ## Who is using floatThead ?
 
+### [http://staticsitegenerators.net/](http://staticsitegenerators.net/)
+
 ### [netdisco](http://netdisco.org)
 - http://sourceforge.net/p/netdisco/netdisco-ng/ci/213352d54ee8e71cbca5ae2c1c75696800c4216b/
 
