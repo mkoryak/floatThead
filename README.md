@@ -72,8 +72,9 @@ Requirements:
 
 Supported Browsers:
 -------------
--   IE8+, Modern browsers
--   The following meta tag to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code>
+-   IE8 or better
+-   Modern browsers
+
 
 Demo & Docs:
 ------------
