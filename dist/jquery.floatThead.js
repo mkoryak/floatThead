@@ -118,7 +118,7 @@
     }
     return false;
   }
-  $.fn.floatThead = function(map){
+  $.fn.floatThead = function (map, options) {
     map = map || {};
     if(!util){ //may have been included after the script? lets try to grab it again.
       util = window._ || $.floatThead._;
@@ -146,7 +146,7 @@
       this.filter('table').each(function(){
         var obj = $(this).data('floatThead-attached');
         if(obj && util.isFunction(obj[command])){
-          var r = obj[command]();
+          var r = obj[command](options);
           if(typeof r !== 'undefined'){
             ret = r;
           }
@@ -429,6 +429,14 @@
       }
 
       /**
+       * changes the opts.scrollingTop value to that of <newValue> and then makes sure that setting is picked up by calling reflowEvent()
+       */
+      function changeTop(newValue) {
+          opts.scrollingTop = newValue;
+          reflowEvent();
+      }
+
+      /**
        * first performs initial calculations that we expect to not change when the table, window, or scrolling container are scrolled.
        * returns a function that calculates the floating container's top and left coords. takes into account if we are using page scrolling or inner scrolling
        * @return {Function}
@@ -675,6 +683,9 @@
         },
         reflow: function(){
           reflowEvent();
+        },
+        changeTop: function (newTop) {
+            changeTop(newTop)
         },
         setHeaderHeight: function(){
           setHeaderHeight();
