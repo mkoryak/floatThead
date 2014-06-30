@@ -22,7 +22,7 @@ Download / Install:
 
 #### Download
   
-[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.2.7.zip)
+[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.2.8.zip)
 
 Inside of that zip the following javascript files are of interest to you:
 
@@ -93,6 +93,11 @@ Watch for it.
 
 Change Log
 ----------
+
+### 1.2.8
+- https://github.com/mkoryak/floatThead/issues/82 - table not disappearing when out of view in a certain layout
+- https://github.com/mkoryak/floatThead/issues/84 - header not aligned if your scrolling container has a certain height
+- https://github.com/mkoryak/floatThead/issues/86 - do not take hidden TRs into account when calculating header height
 
 ### 1.2.7
 - Changed license over to MIT
