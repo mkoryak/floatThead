@@ -279,7 +279,7 @@
 
       function setHeaderHeight(){
         var headerHeight = 0;
-        $header.find("tr").each(function(){
+        $header.find("tr:visible").each(function(){
           headerHeight += $(this).outerHeight(true);
         });
         $sizerRow.outerHeight(headerHeight);
