@@ -22,11 +22,18 @@ issue: 100
 
 <script type='text/javascript'>//<![CDATA[ 
 $(window).load(function(){
-    var $table = $('#tab');
+    var $table = $('#tab1');
     $table.floatThead({
         useAbsolutePositioning: false,
         scrollContainer: function ($table) {
-            return $table.closest('#container');
+            return $table.closest('.container');
+        }
+    });
+    var $table = $('#tab2');
+    $table.floatThead({
+        useAbsolutePositioning: true,
+        scrollContainer: function ($table) {
+            return $table.closest('.container');
         }
     });
 });//]]>  
@@ -35,8 +42,9 @@ $(window).load(function(){
 
 
 <div id='jsfiddle'>
-    <div id="container" style="width: 800px; height: 200px; border: 20px black solid; overflow:auto;">
-        <table id="tab" style="width: 1000px; border: none;">
+    useAbsolutePositioning: false<br/>
+    <div class="container" style="width: 800px; height: 200px; border: 20px black solid; overflow:auto;">
+        <table id="tab1" style="width: 1000px; border: none;">
             <thead>
             <tr>
                 <th colspan="2">Header1-2
@@ -111,5 +119,82 @@ $(window).load(function(){
             </tbody>
         </table>
     </div>
-
+    <br/>
+    useAbsolutePositioning: true<br/>
+    <div class="container" style="width: 800px; height: 200px; border: 20px black solid; overflow:auto;">
+        <table id="tab2" style="width: 1000px; border: none;">
+            <thead>
+            <tr>
+                <th colspan="2">Header1-2
+                </th><th>header3
+            </th></tr>
+            <tr>
+                <th colspan="2">Header1-2
+                </th><th>header3
+            </th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Cell1Row1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1Row2</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
