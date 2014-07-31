@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.7 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.8 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -92,7 +92,7 @@
    */
   function scrollbarWidth() {
     var $div = $( //borrowed from anti-scroll
-      '<div style="width:50px;height:50px;overflow-y:scroll;'
+        '<div style="width:50px;height:50px;overflow-y:scroll;'
         + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
         + '</div>'
     );
@@ -435,7 +435,7 @@
       function floatContainerBorderWidth(side){
         var border = $scrollContainer.css("border-"+side+"-width");
         var w = 0;
-        if (~border.indexOf('px')) {
+        if (border && ~border.indexOf('px')) {
           w = parseInt(border, 10);
         }
         return w;
