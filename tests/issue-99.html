@@ -1,0 +1,113 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: false
+desc: '1. When first (!) scrolling to the right and then downwards, the header dont respect the horizontal offset scrolling.
+2. Also border uncollapses on header when floated because inline style is not copied'
+issue: 99
+---
+
+<style>
+     th {
+     text-align: left;
+     color: white;
+     background: blue;
+     border: none;
+ }
+  </style>
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+var $table = $('#tab');
+$table.floatThead({
+    useAbsolutePositioning: false,
+    scrollContainer: function ($table) {
+        return $table.closest('#container');
+    }
+});
+});//]]>  
+
+</script>
+
+
+<div id='jsfiddle'>
+  <div id="container" style="width: 800px; height: 200px; border: 1px black solid; overflow:auto;">
+    <table id="tab" style="table-layout: fixed; width: 1000px; border-collapse:collapse; border: none;">
+        <thead>
+            <tr>
+                <th colspan="2">Header1-2
+                    </th><th>header3
+            </th></tr>
+            <tr>
+                <th colspan="2">Header1-2
+                    </th><th>header3
+            </th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Cell1Row1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1Row2</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+            <tr>
+                <td>Cell1</td>
+                <td>Cell2</td>
+                <td>Cell3</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+  
+</div>
