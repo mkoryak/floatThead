@@ -416,11 +416,13 @@
               }
             }
             unfloat();
+            var widths = [];
             for(i=0; i < numCols; i++){
-              var _rowcell = $rowCells.get(i);
-              var rowWidth = _rowcell.offsetWidth;
-              $headerCells.eq(i).width(rowWidth);
-              $tableCells.eq(i).width(rowWidth);
+              widths[i] = $rowCells.get(i).offsetWidth;
+            }
+            for(i=0; i < numCols; i++){
+              $headerCells.eq(i).width(widths[i]);
+              $tableCells.eq(i).width(widths[i]);
             }
             refloat();
           } else {
