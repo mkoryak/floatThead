@@ -37,7 +37,8 @@
     floatWrapperClass: 'floatThead-wrapper',
     floatContainerClass: 'floatThead-container',
     copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
-    debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
+    debug: false, //print possible issues (that don't prevent script loading) to console, if console exists.
+    iframe: false
   };
 
   var util = window._;
@@ -56,7 +57,7 @@
     return width == 0;
   };
 
-  var $window = $(window);
+  var $window;
   var floatTheadCreated = 0;
 
 
@@ -161,6 +162,8 @@
         debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
       }
     });
+
+    $window = opts.iframe ? $(window.parent) : $(window);
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
       var floatTheadId = floatTheadCreated;
