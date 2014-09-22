@@ -195,7 +195,10 @@
 
       var $fthGrp = $('<fthfoot style="display:table-footer-group;"/>');
 
-      var locked = $scrollContainer.length > 0;
+      if($scrollContainer.length > 0){
+        var iframe = $.isWindow($scrollContainer[0]);
+        var locked = !iframe;
+      }
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
       var $wrapper = $([]); //used when absolute positioning enabled - wraps the table and the float container
       var absoluteToFixedOnScroll = ieVersion <= 9 && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
@@ -490,6 +493,10 @@
             scrollingContainerTop = $scrollContainer.scrollTop();
             scrollContainerLeft =  $scrollContainer.scrollLeft();
           }
+          if(iframe) {
+            windowTop = scrollingContainerTop;
+            windowLeft = scrollContainerLeft;
+          }
           if(isChrome && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
             return;
           }
@@ -646,7 +653,7 @@
         calculateFloatContainerPos = calculateFloatContainerPosFn();
         repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
       }, 1);
-      if(locked){ //internal scrolling
+      if(locked || iframe){ //internal scrolling
         if(useAbsolutePositioning){
           $scrollContainer.on(eventName('scroll'), containerScrollEvent);
         } else {
