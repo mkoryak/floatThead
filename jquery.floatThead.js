@@ -682,7 +682,12 @@
           $table.off('reflow');
           $scrollContainer.off(ns);
           if (wrappedContainer) {
-            $scrollContainer.unwrap();
+            if ($scrollContainer.length) {
+              $scrollContainer.unwrap();
+            }
+            else {
+              $table.unwrap();
+            }
           }
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
