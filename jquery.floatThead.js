@@ -689,6 +689,7 @@
               $table.unwrap();
             }
           }
+          $table.css('minWidth', '');
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
 
