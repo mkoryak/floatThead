@@ -137,6 +137,11 @@ issue: "+issue+"\n\
 		console.log("jquery.floatThead.js by Misha Koryak");
 		console.log("------------------------------------");
 		console.log("To run project in sandbox mode (with file watcher and server) run: grunt sandbox");
-		console.log("The sandbox mode requires jekyll - http://jekyllrb.com/");
+		console.log("The sandbox mode requires jekyll 2.x - http://jekyllrb.com/");
+		console.log("");
+		console.log("commands:");
+		console.log("grunt sandbox");
+		console.log("grunt jsfiddle ex: grunt jsfiddle:Gp3yV/13:56");
+		console.log("grunt serve");
 	})
 }

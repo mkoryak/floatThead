@@ -1,4 +1,4 @@
----
+ ---
 layout: default
 slug: home
 base_url: "."
@@ -135,10 +135,15 @@ $table.floatThead({
                 <td>1001</td>
                 <td>z-index of the floating header</td>
             </tr><tr>
-                <td>cellTag</td>
+                <td>headerCellSelector</td>
                 <td>string</td>
-                <td>th:visible</td>
+                <td>tr:first>th:visible</td>
                 <td>Specifies the selector used to find header cells (in the table's <code>thead</code> element)</td>
+            </tr><tr>
+                <td class="text-error">cellTag</td>
+                <td>string</td>
+                <td>null</td>
+                <td><span class="text-error">Deprecated!</span> Use <code>headerCellSelector</code> instead. Will be removed in v1.3.0</td>
             </tr><tr>
                 <td>debug</td>
                 <td>boolean</td>
