@@ -684,6 +684,7 @@
           if (wrappedContainer) {
             $scrollContainer.unwrap();
           }
+          $table.css('minWidth', '');
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
 
