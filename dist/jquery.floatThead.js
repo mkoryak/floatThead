@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.8 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.9 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -19,7 +19,8 @@
    */
   $.floatThead = $.floatThead || {};
   $.floatThead.defaults = {
-    cellTag: 'th:visible', //thead cells are this
+    cellTag: null, // DEPRECATED - use headerCellSelector instead
+    headerCellSelector: 'tr:first>th:visible', //thead cells are this.
     zIndex: 1001, //zindex of the floating thead (actually a container div)
     debounceResizeMs: 10,
     useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
@@ -316,7 +317,13 @@
         if(existingColGroup){
           count = $tableColGroup.find('col').length;
         } else {
-          $headerColumns = $header.find('tr:first>'+opts.cellTag);
+          var selector;
+          if(opts.cellTag == null && opts.headerCellSelector){ //TODO: once cellTag option is removed, remove this conditional
+            selector = opts.headerCellSelector;
+          } else {
+            selector = 'tr:first>'+opts.cellTag;
+          }
+          $headerColumns = $header.find(selector);
           count = 0;
           $headerColumns.each(function(){
             count += parseInt(($(this).attr('colspan') || 1), 10);
@@ -682,7 +689,15 @@
           $table.off('reflow');
           $scrollContainer.off(ns);
           if (wrappedContainer) {
-            $scrollContainer.unwrap();
+            if ($scrollContainer.length) {
+              $scrollContainer.unwrap();
+            }
+            else {
+              $table.unwrap();
+            }
+          }
+          if(useAbsolutePositioning) {
+            $table.css('minWidth', '');
           }
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
