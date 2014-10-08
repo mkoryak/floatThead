@@ -277,7 +277,7 @@
       var layoutFixed = {'table-layout': 'fixed'};
       var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
       var originalTableWidth = $table[0].style.width || ""; //setting this to auto is bad: #70
-      var originalTableMinWidth = $table[0].style['minWidth'] || ""; //setting this to auto is bad: #70
+      var originalTableMinWidth = $table.css('minWidth') || "";
 
       function eventName(name){
         return name+'.fth-'+floatTheadId+'.floatTHead'
@@ -430,8 +430,6 @@
             for(i=0; i < numCols; i++){
               widths[i] = $rowCells.get(i).offsetWidth;
             }
-
-
             for(i=0; i < numCols; i++){
               $headerCells.eq(i).width(widths[i]);
               $tableCells.eq(i).width(widths[i]);
@@ -701,9 +699,7 @@
               $table.unwrap();
             }
           }
-
           $table.css('minWidth', originalTableMinWidth);
-
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
 
