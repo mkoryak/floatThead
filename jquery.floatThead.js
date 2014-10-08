@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.9 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.9dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -277,6 +277,7 @@
       var layoutFixed = {'table-layout': 'fixed'};
       var layoutAuto = {'table-layout': $table.css('tableLayout') || 'auto'};
       var originalTableWidth = $table[0].style.width || ""; //setting this to auto is bad: #70
+      var originalTableMinWidth = $table.css('minWidth') || "";
 
       function eventName(name){
         return name+'.fth-'+floatTheadId+'.floatTHead'
@@ -387,6 +388,8 @@
           $table.prepend($header);
           $table.css(layoutAuto);
           $floatTable.css(layoutAuto);
+          $table.css('minWidth', originalTableMinWidth);
+          $table.css('minWidth', $table.width()); //#121
         }
       }
       function changePositioning(isAbsolute){
@@ -696,9 +699,7 @@
               $table.unwrap();
             }
           }
-          if(useAbsolutePositioning) {
-            $table.css('minWidth', '');
-          }
+          $table.css('minWidth', originalTableMinWidth);
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
 
