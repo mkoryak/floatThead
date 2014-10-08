@@ -32,7 +32,7 @@
     getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
       // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
       // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
-      return $table.find('tbody tr:visible:first>*');
+      return $table.find('tbody tr:visible:first>*:visible');
     },
     floatTableClass: 'floatThead-table',
     floatWrapperClass: 'floatThead-wrapper',
