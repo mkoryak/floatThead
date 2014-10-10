@@ -324,6 +324,10 @@
           } else {
             selector = 'tr:first>'+opts.cellTag;
           }
+          if(_.isNumber(selector)){
+            //its actually a row count.
+            return selector;
+          }
           $headerColumns = $header.find(selector);
           count = 0;
           $headerColumns.each(function(){
