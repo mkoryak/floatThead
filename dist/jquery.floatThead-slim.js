@@ -324,7 +324,7 @@
           } else {
             selector = 'tr:first>'+opts.cellTag;
           }
-          if(_.isNumber(selector)){
+          if(util.isNumber(selector)){
             //its actually a row count.
             return selector;
           }
