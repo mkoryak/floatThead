@@ -109,6 +109,7 @@ module.exports = function(grunt) {
       var css = $('style').text();
       var js =  $('script:last-child').text();
       var html = $('body').html();
+      html = html.replace(/&apos;/g, "'");
       var out = "---\n\
 layout: lite\n\
 base_url: './../..'\n\

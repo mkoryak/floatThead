@@ -1,0 +1,30 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: false
+desc: 'thead is deleted from resulting table after calling destroy when Absolute Positioning is off and the table is hidden'
+issue: 127
+---
+
+
+<div id='jsfiddle'>
+  <table class="sometable">
+    <thead>
+        <th>L</th>
+        <th>M</th>
+        <th>R</th>
+    </thead>
+    <tbody>
+        <tr><td>1</td><td>2</td><td>3</td></tr>
+        <tr><td>4</td><td>5</td><td>6</td></tr>
+    </tbody>
+</table>
+<button onclick="$('.sometable').hide();">hide table</button>
+<button onclick="$('.sometable').show();">show table</button>
+<button onclick="$('table.sometable').floatThead();">float thead (abs=on)</button>
+<button onclick="$('table.sometable').floatThead({useAbsolutePositioning : false});">float thead (abs=off)</button>
+<button onclick="$('table.sometable').floatThead('destroy');">unfloat thead</button>
+
+  
+</div>
