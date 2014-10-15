@@ -296,10 +296,10 @@
       function setFloatWidth(){
         var tableWidth = $table.outerWidth();
         var width = $scrollContainer.width() || tableWidth;
-        var noOffsetWidth = ($scrollContainer.css("overflow-y") != 'hidden')?width - scrollbarOffset.vertical:width;    
-        $floatContainer.width(noOffsetWidth);
+        var floatContainerWidth = $scrollContainer.css("overflow-y") != 'hidden' ? width - scrollbarOffset.vertical : width;
+        $floatContainer.width(floatContainerWidth);
         if(locked){
-          var percent = 100 * tableWidth / (noOffsetWidth);
+          var percent = 100 * tableWidth / (floatContainerWidth);
           $floatTable.css('width', percent+'%');
         } else {
           $floatTable.outerWidth(tableWidth);
