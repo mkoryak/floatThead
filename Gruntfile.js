@@ -92,9 +92,17 @@ module.exports = function(grunt) {
       return done()
     }
     issue = issue || "rename-me";
-    console.log("fiddle url:", "http://jsfiddle.net/"+url+"/show/");
+    var rurl = "http://fiddle.jshell.net/"+url+"/show/light";
+    console.log("fiddle url:", rurl);
     console.log("issue:", issue);
-    request("http://jsfiddle.net/"+url+"/show/", function(err, resp, body) {
+    var options = {
+      url: rurl,
+      headers : {
+        Origin: 'http://jsfiddle.net',
+        Referer: rurl
+      }
+    };
+    request(options, function(err, resp, body) {
       if (err)
         throw err;
       var $ = cheerio.load(body);
