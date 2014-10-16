@@ -322,6 +322,10 @@ $('table.demo2').floatThead({
             <li><code>/dist/jquery.floatThead-slim.js</code></li>
             <li><code>/dist/jquery.floatThead-slim.min.js</code></li>
         </ul>
+        <h3>Unstable pre-release code</h3>
+        <p class="lead" id="develop-info"></p>
+        <p>Are you a hipster who likes running code with unreleased features <small>and bugs</small>?</p>
+        <p>Head right over to the <code>/dist</code> directory on the <a href="https://github.com/mkoryak/floatThead/tree/master/dist">master branch</a> and enjoy.</p>
         <br/>
         <h1>CDN Hosted</h1>
         <p>jQuery.floatThead is <a href="http://cdnjs.com/libraries/floatthead/" target="_blank">hosted on cdnjs.com</a>, though sometimes it takes a bit for a new version to propagate there.</p>
@@ -361,6 +365,18 @@ bower install floatThead
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $.ajax({
+            url: "https://api.github.com/repos/mkoryak/floatThead/",
+            dataType: "jsonp",
+            success: function (d) {
+                if (d) {
+                    var up = moment(d.updated_at);
+                    var date = up.format('MMMM Do YYYY');
+                    var ago = moment(up).fromNow();
+                    $('#develop-info').html("Updated "+ago+" ("+date+")");
+                }
+            }
+        });
         $.ajax({
             url: "https://api.github.com/repos/mkoryak/floatThead/issues",
             dataType: "jsonp",
