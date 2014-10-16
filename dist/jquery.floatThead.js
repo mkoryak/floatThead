@@ -58,14 +58,11 @@
   };
 
   var $window = $(window);
-  var floatTheadCreated = 0;
-
 
   /**
    * @param debounceMs
    * @param cb
    */
-
   function windowResize(debounceMs, eventName, cb){
     if(ieVersion == 8){ //ie8 is crap: https://github.com/mkoryak/floatThead/issues/65
       var winWidth = $window.width();
@@ -164,7 +161,7 @@
     });
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
-      var floatTheadId = floatTheadCreated;
+      var floatTheadId = util.uniqueId();
       var $table = $(this);
       if($table.data('floatThead-attached')){
         return true; //continue the each loop
@@ -188,13 +185,16 @@
       if(useAbsolutePositioning == null){ //defaults: locked=true, !locked=false
         useAbsolutePositioning = opts.scrollContainer($table).length;
       }
+      if(!useAbsolutePositioning){
+        headerFloated = true; //#127
+      }
       var $caption = $table.find("caption");
       var haveCaption = $caption.length == 1;
       if(haveCaption){
         var captionAlignTop = ($caption.css("caption-side") || $caption.attr("align") || "top") === "top";
       }
 
-      var $fthGrp = $('<fthfoot style="display:table-footer-group;"/>');
+      var $fthGrp = $('<fthfoot style="display:table-footer-group;border-spacing:0;height:0;border-collapse:collapse;"/>');
 
       var locked = $scrollContainer.length > 0;
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
@@ -208,8 +208,9 @@
         $tableColGroup = $("<colgroup/>");
         existingColGroup = false;
       }
-      var $fthRow = $('<fthrow style="display:table-row;height:0;"/>'); //created unstyled elements
+      var $fthRow = $('<fthrow style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements
       var $floatContainer = $('<div style="overflow: hidden;"></div>');
+      var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row"/>');
       var $sizerCells = $([]);
@@ -234,10 +235,15 @@
         'cellspacing': $table.attr('cellspacing'),
         'border': $table.attr('border')
       });
+      var tableDisplayCss = $table.css('display');
       $floatTable.css({
         'borderCollapse': $table.css('borderCollapse'),
-        'border': $table.css('border')
+        'border': $table.css('border'),
+        'display': tableDisplayCss
       });
+      if(tableDisplayCss == 'none'){
+        floatTableHidden = true;
+      }
 
       $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you wont be able to click on things under floating table
 
@@ -393,7 +399,7 @@
           $table.prepend($header);
           $table.css(layoutAuto);
           $floatTable.css(layoutAuto);
-          $table.css('minWidth', originalTableMinWidth);
+          $table.css('minWidth', originalTableMinWidth); //this looks weird, but its not a bug. Think about it!!
           $table.css('minWidth', $table.width()); //#121
         }
       }
@@ -493,6 +499,21 @@
 
 
         return function(eventType){
+          var isTableHidden = $table[0].offsetWidth <= 0 && $table[0].offsetHeight <= 0;
+          if(!isTableHidden && floatTableHidden) {
+            floatTableHidden = false;
+            setTimeout(function(){
+              $table.trigger("reflow");
+            }, 1);
+            return null;
+          }
+          if(isTableHidden){ //its hidden
+            floatTableHidden = true;
+            if(!useAbsolutePositioning){
+              return null;
+            }
+          }
+
           if(eventType == 'windowScroll'){
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
@@ -707,7 +728,6 @@
           $table.css('minWidth', originalTableMinWidth);
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
-
           $window.off(ns);
         },
         reflow: function(){
@@ -727,7 +747,6 @@
           }
         }
       });
-      floatTheadCreated++;
     });
     return this;
   };
@@ -757,6 +776,11 @@
       var keys = [];
       for (var key in obj) if (that.has(obj, key)) keys.push(key);
       return keys;
+    };
+    var idCounter = 0;
+    that.uniqueId = function(prefix) {
+      var id = ++idCounter + '';
+      return prefix ? prefix + id : id;
     };
     $.each(isThings, function(){
       var name = this;

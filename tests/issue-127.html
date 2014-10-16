@@ -11,20 +11,97 @@ issue: 127
 <div id='jsfiddle'>
   <table class="sometable">
     <thead>
-        <th>L</th>
-        <th>M</th>
-        <th>R</th>
+        <tr>
+            <th>L</th>
+            <th>M</th>
+            <th>R</th>
+        </tr>
     </thead>
     <tbody>
         <tr><td>1</td><td>2</td><td>3</td></tr>
         <tr><td>4</td><td>5</td><td>6</td></tr>
+        <tr><td>1</td><td>2</td><td>3</td></tr>
+        <tr><td>4</td><td>5</td><td>6</td></tr>
+        <tr><td>1</td><td>2</td><td>3</td></tr>
+        <tr><td>4</td><td>5</td><td>6</td></tr>
+        <tr><td>1</td><td>2</td><td>3</td></tr>
+
+
     </tbody>
 </table>
-<button onclick="$('.sometable').hide();">hide table</button>
-<button onclick="$('.sometable').show();">show table</button>
-<button onclick="$('table.sometable').floatThead();">float thead (abs=on)</button>
-<button onclick="$('table.sometable').floatThead({useAbsolutePositioning : false});">float thead (abs=off)</button>
-<button onclick="$('table.sometable').floatThead('destroy');">unfloat thead</button>
+<button onclick="$('table.sometable').hide();">hide table</button>
+<button onclick="$('table.sometable').show();">show table</button>
+<button onclick="$('table.sometable').floatThead('destroy').floatThead();">float thead (abs=on)</button>
+<button onclick="$('table.sometable').floatThead('destroy').floatThead({useAbsolutePositioning : false});">float thead (abs=off)</button>
+<button onclick="$('table.sometable').floatThead('destroy');">destroy floatThead</button>
+<button onclick="$('table.sometable').trigger('reflow');">trigger reflow</button>
 
-  
+    <p>
+        Lesson learned: always trigger reflow after you hide or show the table.
+    </p>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    poop
+
 </div>
