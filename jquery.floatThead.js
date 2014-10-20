@@ -288,8 +288,8 @@
         $header.find("tr:visible").each(function(){
           headerHeight += $(this).outerHeight(true);
         });
-        $sizerRow.outerHeight(headerHeight);
-        $sizerCells.outerHeight(headerHeight);
+        $sizerRow.height(headerHeight);
+        $sizerCells.height(headerHeight);
       }
 
 
@@ -302,7 +302,7 @@
           var percent = 100 * tableWidth / (floatContainerWidth);
           $floatTable.css('width', percent+'%');
         } else {
-          $floatTable.outerWidth(tableWidth);
+          $floatTable.width(tableWidth);
         }
       }
 
