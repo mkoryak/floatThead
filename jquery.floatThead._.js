@@ -8,7 +8,7 @@
  *
  */
 
-(function(){
+(function($){
 
   $.floatThead = $.floatThead || {};
 
@@ -60,5 +60,5 @@
     };
     return that;
   })();
-})();
+})(jQuery);
 

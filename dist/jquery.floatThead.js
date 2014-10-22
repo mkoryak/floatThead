@@ -777,6 +777,11 @@
       for (var key in obj) if (that.has(obj, key)) keys.push(key);
       return keys;
     };
+    var idCounter = 0;
+    that.uniqueId = function(prefix) {
+      var id = ++idCounter + '';
+      return prefix ? prefix + id : id;
+    };
     $.each(isThings, function(){
       var name = this;
       that['is' + name] = function(obj) {
