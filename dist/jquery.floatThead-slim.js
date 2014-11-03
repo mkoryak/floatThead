@@ -343,9 +343,13 @@
         }
         if(count != lastColumnCount){
           lastColumnCount = count;
-          var cells = [], cols = [], psuedo = [];
+          var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
-            cells.push('<th class="floatThead-col"/>');
+            if ( content = $headerColumns.eq(x).text() ) {
+              cells.push('<th scope="col" class="floatThead-col">' + content + '</th>');
+            } else {
+              cells.push('<th class="floatThead-col"/>');
+            }
             cols.push('<col/>');
             psuedo.push("<fthtd style='display:table-cell;height:0;width:auto;'/>");
           }
