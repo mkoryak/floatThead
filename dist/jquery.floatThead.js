@@ -345,7 +345,7 @@
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
-            if ( content = $headerColumns.eq(x).html() ) {
+            if ( content = $headerColumns.eq(x).text() ) {
               cells.push('<th scope="col" class="floatThead-col">' + content + '</th>');
             } else {
               cells.push('<th class="floatThead-col"/>');
