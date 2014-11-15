@@ -432,12 +432,15 @@
       function reflow(){
         var i;
         var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
+
         return function(){
-          var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
+          var $tCells = $tableColGroup.find('col');
+          var $rowCells = getSizingRow($table, $tCells, $fthCells, ieVersion);
+
           if($rowCells.length == numCols && numCols > 0){
             if(!existingColGroup){
               for(i=0; i < numCols; i++){
-                $tableCells.eq(i).css('width', '');
+                $tCells.eq(i).css('width', '');
               }
             }
             unfloat();
@@ -447,7 +450,7 @@
             }
             for(i=0; i < numCols; i++){
               $headerCells.eq(i).width(widths[i]);
-              $tableCells.eq(i).width(widths[i]);
+              $tCells.eq(i).width(widths[i]);
             }
             refloat();
           } else {
