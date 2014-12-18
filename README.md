@@ -91,6 +91,12 @@ Demo & Docs:
 
 [DEMOS and Documentation](http://mkoryak.github.io/floatThead/)  
 
+Using with AngularJS
+--------------
+I haven't written an official directive, but others have written wrappers:  
+https://github.com/brandon-barker/angular-floatThead
+
+
 Using with IE9 
 --------------
 FloatThead will not work properly in IE9 unless you have the following meta tag in the head of the page:  
