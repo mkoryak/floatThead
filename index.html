@@ -414,6 +414,9 @@ bower install floatThead
                 if(d && d.data){
                     var rls = d.data[0];
                     if(!rls.published_at){
+                        if(d.data.message) {
+                            $('#release-info').addClass("text-danger").text(d.data.message);
+                        }
                         return; //rate limit reached!
                     }
                     var pub = moment(rls.published_at);
