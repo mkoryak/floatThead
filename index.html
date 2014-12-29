@@ -413,6 +413,9 @@ bower install floatThead
             success: function (d) {
                 if(d && d.data){
                     var rls = d.data[0];
+                    if(!rls.published_at){
+                        return; //rate limit reached!
+                    }
                     var pub = moment(rls.published_at);
                     var date = pub.format('MMMM Do YYYY');
                     var ago = moment(pub).fromNow();
