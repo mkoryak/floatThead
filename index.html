@@ -233,7 +233,7 @@ $demo1.floatThead({
 	}
 });
 $('a#change-dom').click(function(){ //click to remove
-	$(this).parent().hide();
+	$(this).parent().remove();
 	//DOM has changed. must reflow floatThead
 	$demo1.floatThead('reflow');
 });
@@ -494,7 +494,7 @@ bower install floatThead
             }
         });
         $('#change-dom').click(function(){
-            $(this).parent().hide();
+            $(this).parent().remove();
             $demo1.floatThead('reflow');
         });
         $('table.demo2, #options table').floatThead({
