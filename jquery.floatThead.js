@@ -713,18 +713,15 @@
           var wasThead = function(nodes){
             return nodes && nodes[0] && nodes[0].nodeName == "THEAD";
           };
-          var interesting = true;
           for(var i=0; i < e.length; i++){
             var evt = e[i];
             if(evt.type == "childList"){
-              if(wasThead(evt.addedNodes) || wasThead(evt.removedNodes)){
-                interesting = false
+              if(!(wasThead(evt.addedNodes) || wasThead(evt.removedNodes))){
+                console.log("mutation was interesting:", evt);
+                reflowEvent();
+                break;
               }
             }
-          }
-          if(interesting){
-            console.log("mutation was interesting:", e)
-            reflowEvent();
           }
         });
         mObs.observe(mutationElement, {
