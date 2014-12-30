@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.9dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.10dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -43,19 +43,15 @@
 
   var util = window._;
 
+  var canObserveMutations = typeof MutationObserver !== 'undefined';
+
+
   //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];a = 1+a,b.innerHTML="<!--[if gt IE "+ a +"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
-  var isChrome = null;
-  var isChromeCheck = function(){
-    if(ieVersion){
-      return false;
-    }
-    var $table = $("<table><colgroup><col></colgroup><tbody><tr><td style='width:10px'></td></tbody></table>");
-    $('body').append($table);
-    var width = $table.find('col').width();
-    $table.remove();
-    return width == 0;
-  };
+  var isFF = /Gecko\//.test(navigator.userAgent);
+  var isWebkit = /WebKit\//.test(navigator.userAgent);
+
+  var createElements = !isFF && !ieVersion; //FF can read width from <col> elements, but webkit cannot
 
   var $window = $(window);
 
@@ -129,15 +125,14 @@
       return this; //no more crappy browser support.
     }
 
-    if(isChrome == null){ //make sure this is done only once no matter how many times you call the plugin fn
-      isChrome = isChromeCheck(); //need to call this after dom ready, and now it is.
-      if(isChrome){
+    if(createElements){ //make sure this is done only once no matter how many times you call the plugin fn
         //because chrome cant read <col> width, these elements are used for sizing the table. Need to create new elements because they must be unstyled by user's css.
         document.createElement('fthtr'); //tr
         document.createElement('fthtd'); //td
         document.createElement('fthfoot'); //tfoot
-      }
     }
+    var mObs = null; //mutation observer lives in here if we can use it / make it
+
     if(util.isString(map)){
       var command = map;
       var ret = this;
@@ -220,7 +215,7 @@
 
       $newHeader.append($sizerRow);
       $table.prepend($tableColGroup);
-      if(isChrome){
+      if(createElements){
         $fthGrp.append($fthRow);
         $table.append($fthGrp);
       }
@@ -357,7 +352,7 @@
           cols = cols.join('');
           cells = cells.join('');
 
-          if(isChrome){
+          if(createElements){
             psuedo = psuedo.join('');
             $fthRow.html(psuedo);
             $fthCells = $fthRow.find('fthtd');
@@ -416,7 +411,7 @@
         }
       }
       function getSizingRow($table, $cols, $fthCells, ieVersion){
-        if(isChrome){
+        if(createElements){
           return $fthCells;
         } else if(ieVersion) {
           return opts.getSizingRow($table, $cols, $fthCells);
@@ -432,8 +427,11 @@
       function reflow(){
         var i;
         var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
+
         return function(){
+          $tableCells = $tableColGroup.find('col');
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
+
           if($rowCells.length == numCols && numCols > 0){
             if(!existingColGroup){
               for(i=0; i < numCols; i++){
@@ -530,7 +528,7 @@
             scrollingContainerTop = $scrollContainer.scrollTop();
             scrollContainerLeft =  $scrollContainer.scrollLeft();
           }
-          if(isChrome && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
+          if(isWebkit && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
             return;
           }
 
@@ -708,6 +706,26 @@
           .on('page',   reflowEvent);
       }
 
+
+      if (canObserveMutations) {
+        var mutationElement = $scrollContainer.length ? $scrollContainer[0] : $table[0];
+        mObs = new MutationObserver(function(e){
+          var wasThead = function(nodes){
+            return nodes && nodes[0] && nodes[0].nodeName == "THEAD";
+          };
+          for(var i=0; i < e.length; i++){
+            if(!(wasThead(e[i].addedNodes) || wasThead(e[i].removedNodes))){
+              reflowEvent();
+              break;
+            }
+          }
+        });
+        mObs.observe(mutationElement, {
+            childList: true,
+            subtree: true
+        });
+      }
+
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
         destroy: function(){
@@ -715,9 +733,13 @@
           unfloat();
           $table.css(layoutAuto);
           $tableColGroup.remove();
-          isChrome && $fthGrp.remove();
+          createElements && $fthGrp.remove();
           if($newHeader.parent().length){ //only if its in the dom
             $newHeader.replaceWith($header);
+          }
+          if(canObserveMutations){
+            mObs.disconnect();
+            mObs = null;
           }
           $table.off('reflow');
           $scrollContainer.off(ns);
@@ -755,6 +777,7 @@
     return this;
   };
 })(jQuery);
+
 /* jQuery.floatThead.utils - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
  * License: MIT
  *

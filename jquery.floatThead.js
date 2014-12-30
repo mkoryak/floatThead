@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.9dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.10dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -430,7 +430,7 @@
 
         return function(){
           $tableCells = $tableColGroup.find('col');
-          var $rowCells = getSizingRow($table, $tCells, $fthCells, ieVersion);
+          var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
 
           if($rowCells.length == numCols && numCols > 0){
             if(!existingColGroup){
@@ -640,16 +640,9 @@
         }
       }
       //finish up. create all calculation functions and bind them to events
-
-
-
       calculateScrollBarSize();
 
       var flow;
-      var mutationElement = null;
-      if (canObserveMutations) {
-        mutationElement = $scrollContainer.length ? $scrollContainer[0] : $table[0];
-      }
 
       var ensureReflow = function(){
         flow = reflow();
@@ -715,8 +708,17 @@
 
 
       if (canObserveMutations) {
+        var mutationElement = $scrollContainer.length ? $scrollContainer[0] : $table[0];
         mObs = new MutationObserver(function(e){
-          console.log("mutationEvent", e);
+          var wasThead = function(nodes){
+            return nodes && nodes[0] && nodes[0].nodeName == "THEAD";
+          };
+          for(var i=0; i < e.length; i++){
+            if(!(wasThead(e[i].addedNodes) || wasThead(e[i].removedNodes))){
+              reflowEvent();
+              break;
+            }
+          }
         });
         mObs.observe(mutationElement, {
             childList: true,
