@@ -38,6 +38,7 @@
     floatWrapperClass: 'floatThead-wrapper',
     floatContainerClass: 'floatThead-container',
     copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
+    enableAria: false, //will copy header text from the floated header back into the table for screen readers. Might cause the css styling to be off. beware!
     debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
   };
 
@@ -345,8 +346,8 @@
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
-            if ( content = $headerColumns.eq(x).text() ) {
-              cells.push('<th scope="col" class="floatThead-col" style="text-overflow:ellipsis;white-space:nowrap;">' + content + '</th>');
+            if (opts.enableAria && (content = $headerColumns.eq(x).text()) ) {
+              cells.push('<th scope="col" class="floatThead-col">' + content + '</th>');
             } else {
               cells.push('<th class="floatThead-col"/>');
             }
