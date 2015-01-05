@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.10dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.10 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -38,6 +38,8 @@
     floatWrapperClass: 'floatThead-wrapper',
     floatContainerClass: 'floatThead-container',
     copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
+    enableAria: false, //will copy header text from the floated header back into the table for screen readers. Might cause the css styling to be off. beware!
+    autoReflow: false, //(undocumeted) - use MutationObserver api to reflow automatically when internal table DOM changes
     debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
   };
 
@@ -164,6 +166,7 @@
       if(!$table.is('table')){
         throw new Error('jQuery.floatThead must be run on a table element. ex: $("table").floatThead();');
       }
+      canObserveMutations = opts.autoReflow && canObserveMutations; //option defaults to false!
       var $header = $table.find('thead:first');
       var $tbody = $table.find('tbody:first');
       if($header.length == 0){
@@ -204,7 +207,7 @@
         existingColGroup = false;
       }
       var $fthRow = $('<fthrow style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements
-      var $floatContainer = $('<div style="overflow: hidden;"></div>');
+      var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true"></div>');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row"/>');
@@ -340,7 +343,7 @@
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
-            if ( content = $headerColumns.eq(x).text() ) {
+            if (opts.enableAria && (content = $headerColumns.eq(x).text()) ) {
               cells.push('<th scope="col" class="floatThead-col">' + content + '</th>');
             } else {
               cells.push('<th class="floatThead-col"/>');
@@ -777,7 +780,6 @@
     return this;
   };
 })(jQuery);
-
 /* jQuery.floatThead.utils - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
  * License: MIT
  *
