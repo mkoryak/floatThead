@@ -8,8 +8,9 @@ All issues should be reported through github. If you don't have an account you c
  - Search previous issues to see if there is a resolution to your issue already. For common problems see: https://github.com/mkoryak/floatThead/issues/91
  
 Providing the following will greatly increase the chances of your issue being resolved quickly:
- - Include the browser and operating system where you are having the problem. If its IE, a screenshot is also nice since I don't have quick access to that abomination.
- - Provide a jsfiddle that reproduces your issue in its simplest form possible. If its hard to read your code, you did it wrong.
+
+ - Give me: browser version, OS version, jQuery version, floatThead version if not latest
+ - Provide a jsfiddle that reproduces your issue in its simplest form possible
  - A description of the issue and steps to reproduce
  
 I will do my best to help you in a timely manner.
