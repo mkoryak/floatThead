@@ -79,7 +79,7 @@
 
 
   function debug(str){
-    window.console && window.console && window.console.log && window.console.log(str);
+    window.console && window.console && window.console.log && window.console.log("jQuery.floatThead: " + str);
   }
 
   /**
@@ -153,9 +153,12 @@
 
     $.each(map, function(key, val){
       if((!(key in $.floatThead.defaults)) && opts.debug){
-        debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
+        debug("Used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
       }
     });
+    if(opts.debug && parseFloat($.fn.jquery) <= 1.7){
+      debug("jQuery version "+$.fn.jquery+" detected! This plugin supports 1.8 or better, or 1.7.x with jQuery UI 1.8.24 -> http://jqueryui.com/resources/download/jquery-ui-1.8.24.zip")
+    }
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
       var floatTheadId = util.uniqueId();
