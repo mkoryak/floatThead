@@ -776,6 +776,16 @@
           }
         }
       });
+
+      $(document).ajaxComplete(function () {
+          var isHtml = new RegExp(/content-type:\s?text\/html/i).test(arguments[1].getAllResponseHeaders());
+          if (isHtml) {
+              calculateScrollBarSize();
+              ensureReflow();
+              repositionFloatContainer(calculateFloatContainerPos('resize'), true, true);
+              repositionFloatContainer(calculateFloatContainerPos('windowScrollDone'), false);
+          }
+      });
     });
     return this;
   };
@@ -843,4 +853,3 @@
     return that;
   })();
 })(jQuery);
-
