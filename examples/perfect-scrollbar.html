@@ -1,0 +1,244 @@
+---
+layout: default
+slug: perfect-scrollbar
+base_url: "./../.."
+---
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.8/perfect-scrollbar.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.8/perfect-scrollbar.min.js'></script>
+<script>
+$(function(){
+    $('.widget .scroll-container').perfectScrollbar();
+
+    var $table = $('.widget table');
+    $table.floatThead({
+        scrollContainer: function ($table) {
+            return $table.closest('.scroll-container');
+        }
+    });
+})
+
+
+</script>
+
+<style>
+.widget {
+    margin: 30px 200px;
+}
+.scroll-container {
+  overflow: hidden;
+  position: relative;
+  height: 200px;
+  width: 300px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+}
+table.floatThead-table {
+    border-top: 1px solid #ddd;
+    background-color: #FFF;
+}
+.table td, .table th {
+  padding: 6px 12px;
+}
+.table .text-right {
+  text-align: right;
+}</style>
+
+
+<style>
+    .ps-container>.ps-scrollbar-y-rail {
+        z-index: 1002;
+    }
+</style>
+
+<div class='row'>
+    <div class='span12' id='intro'>
+
+        <h1>Using with Perfect-Scrollbar</h1>
+<p>
+    This plugin now supports <small>(as of v1.2.11 or current master)</small> <a target="_blank" href="https://github.com/noraesae/perfect-scrollbar">https://github.com/noraesae/perfect-scrollbar</a>  v0.5.8 or better<br/>
+    Because perfect-scrollbar needs a container in order to work, this plugin only supports it when used with the <code>scrollContainer</code> option.
+</p>
+<p>
+    You must init perfect-scrollbar on the same container that is returned from the <code>scrollContainer</code> function:
+</p>
+{% highlight js %}
+var $container = $('.widget .scroll-container');
+var $table = $('.widget table');
+
+$container.perfectScrollbar();
+
+$table.floatThead({
+    scrollContainer: function ($table) {
+        return $container;
+    }
+});
+{% endhighlight %}
+        <div class="alert alert-warning">
+            You will still need to trigger the <code>reflow</code> event on the table and call the update method on the scrollbar whenever the DOM changes
+            - this plugin does not do that for you.
+        </div>
+        <p>
+            You may also want to add a css style that will make scrollbar render on top of the header (like it would if you didnt use this plugin):
+        </p>
+{% highlight html %}
+<style type="text/css">
+    .ps-container>.ps-scrollbar-y-rail {
+        z-index: 1002;
+    }
+</style>
+{% endhighlight %}
+        <p>Demo:</p>
+<div class="widget">
+<div class="scroll-container">
+<table class="table">
+    <thead>
+        <tr>
+            <th>Agreement</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Cur</th>
+            <th class="text-right">Balance</th>
+            <th class="text-right">Total</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+
+        </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+             </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+        <tr>
+            <td><a href="/app/browse/merchants/advania/300102/">300102</a></td>
+            <td>Advania</td>
+            <td>CARPRE</td>
+            <td>Open</td>
+            <td>ISK</td>
+            <td class="text-right">356.00</td>
+            <td class="text-right">$10,546.00</td>
+            </tr>
+
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
