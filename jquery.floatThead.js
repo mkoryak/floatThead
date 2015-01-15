@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.10 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.11dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -638,11 +638,15 @@
        */
       function calculateScrollBarSize(){ //this should happen after the floating table has been positioned
         if($scrollContainer.length){
-          var sw = $scrollContainer.width(), sh = $scrollContainer.height(), th = $table.height(), tw = $table.width();
-          var offseth = sw < tw ? scWidth : 0;
-          var offsetv = sh < th ? scWidth : 0;
-          scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
-          scrollbarOffset.vertical =  sh - offseth < th ? scWidth: 0;
+          if($scrollContainer.data().perfectScrollbar){
+            scrollbarOffset = {horizontal:0, vertical:0};
+          } else {
+            var sw = $scrollContainer.width(), sh = $scrollContainer.height(), th = $table.height(), tw = $table.width();
+            var offseth = sw < tw ? scWidth : 0;
+            var offsetv = sh < th ? scWidth : 0;
+            scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
+            scrollbarOffset.vertical = sh - offseth < th ? scWidth : 0;
+          }
         }
       }
       //finish up. create all calculation functions and bind them to events

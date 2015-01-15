@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.10 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.11dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -79,7 +79,7 @@
 
 
   function debug(str){
-    window.console && window.console && window.console.log && window.console.log(str);
+    window.console && window.console && window.console.log && window.console.log("jQuery.floatThead: " + str);
   }
 
   /**
@@ -153,9 +153,12 @@
 
     $.each(map, function(key, val){
       if((!(key in $.floatThead.defaults)) && opts.debug){
-        debug("jQuery.floatThead: used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
+        debug("Used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
       }
     });
+    if(opts.debug && parseFloat($.fn.jquery) <= 1.7){
+      debug("jQuery version "+$.fn.jquery+" detected! This plugin supports 1.8 or better, or 1.7.x with jQuery UI 1.8.24 -> http://jqueryui.com/resources/download/jquery-ui-1.8.24.zip")
+    }
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
       var floatTheadId = util.uniqueId();
@@ -635,11 +638,15 @@
        */
       function calculateScrollBarSize(){ //this should happen after the floating table has been positioned
         if($scrollContainer.length){
-          var sw = $scrollContainer.width(), sh = $scrollContainer.height(), th = $table.height(), tw = $table.width();
-          var offseth = sw < tw ? scWidth : 0;
-          var offsetv = sh < th ? scWidth : 0;
-          scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
-          scrollbarOffset.vertical =  sh - offseth < th ? scWidth: 0;
+          if($scrollContainer.data().perfectScrollbar){
+            scrollbarOffset = {horizontal:0, vertical:0};
+          } else {
+            var sw = $scrollContainer.width(), sh = $scrollContainer.height(), th = $table.height(), tw = $table.width();
+            var offseth = sw < tw ? scWidth : 0;
+            var offsetv = sh < th ? scWidth : 0;
+            scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
+            scrollbarOffset.vertical = sh - offseth < th ? scWidth : 0;
+          }
         }
       }
       //finish up. create all calculation functions and bind them to events
