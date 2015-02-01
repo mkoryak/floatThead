@@ -5,6 +5,26 @@ base_url: "."
 ---
 <script type='text/javascript' src="{{ page.base_url }}/lib/moment.js"></script>
 
+<div class='row hide-beer' id="beer">
+    <div class="span3">
+        <div class="alert alert-info">
+        <strong>Hey!</strong> This ad &longrightarrow;<br/>
+        is shown only to returning visitors, <strong>and helps me <span class="wat">pay for</span> <span class="food">coffee</span>!</strong><br/>
+        </div>
+    </div>
+    <div class='span9'>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- floatthead -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-0005161421667026"
+             data-ad-slot="4405931030"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</div>
+
 <div class='row'>
     <div class='span12' id='intro'>
         <div class='intro-container'>
@@ -28,9 +48,9 @@ base_url: "."
                     </ul>
                     <h4>Requirements:</h4>
                     <ul>
-                        <li>jQuery 1.8.x or better (code is 1.9+ compliant)<small> <strong>or</strong> jQuery 1.7.x + <a href="http://jqueryui.com/resources/download/jquery-ui-1.8.24.zip" target='_blank'>jQuery UI core</a></small></li>
-                        <li>Internet Exploder 8 - 11, FireFox 10+ or Chrome15+</li>
-                        <li><small>Add this meta tag into your header to placate IE: <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code></small></li>
+                        <li>jQuery 1.8 or better (code is 1.9+ compliant)<small><br/><strong>or</strong> jQuery 1.7 with <a href="http://jqueryui.com/resources/download/jquery-ui-1.8.24.zip" target='_blank'>jQuery UI 1.8.x</a></small></li>
+                        <li>Internet Exploder 8+, FireFox 10+ or Chrome15+</li>
+                        <li><small>Add this meta tag into your header to placate IE:<br/><code class="small">&lt;meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /&gt;</code></small></li>
                     </ul>
 
                 </div>
@@ -38,7 +58,7 @@ base_url: "."
                     <div class='main-demo'>
                         <div class='cta'>
                             <h1>Demo</h1>
-                            <button class="btn btn-success run-main-demo" type="button">Run floatThead <i class='icon-play icon-white'></i></button><br/>
+                            <button class="btn btn-success run-main-demo shake shake-little shake-constant" type="button">Run floatThead <i class='icon-play icon-white'></i></button><br/>
                         </div>
                         <br/>
                         <div class='wrapper small'>
@@ -55,6 +75,7 @@ base_url: "."
         <br/>
     </div>
 </div>
+
 <div class='row'>
     <div class='span12' id='usage'>
         <h1>Usage</h1>
@@ -363,7 +384,7 @@ bower install floatThead
         Code is licensed under <a href="http://opensource.org/licenses/MIT">MIT</a>, the docs under
         <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>
         <br/>
-        Copyright &copy; 2012-2015 Misha Koryak <small>(my last name at gmail - no recruiters!)</small>
+        Copyright &copy; 2012-2015 Misha Koryak <small class="shake shake-crazy shake-constant">(my last name at gmail - no recruiters!)</small>
     </div>
 </div>
 <br/>
@@ -373,6 +394,24 @@ bower install floatThead
 
 <script type="text/javascript">
     $(document).ready(function () {
+        if(document.cookie.indexOf("buy_me_a_beer_plz") <= -1){
+            document.cookie = "buy_me_a_beer_plz=dogfishhead; expires=Thu, 18 Dec 2099 12:00:00 UTC; path=/";
+        } else {
+            $(".run-main-demo").removeClass("shake");
+            var food = [
+                    'pizza and doritos', 'beer', 'copious IPA', 'coffee',
+                    'cat treats', 'sustenance', '2 buck chuck', 'traffic tickets',
+                    'meowmix', 'diet coke', 'gifts to my cat', 'a lavish lifestyle',
+                    'diapers', 'cats', 'happiness', 'love', 'robots'
+            ];
+            var wat = ['pay for', 'buy'];
+            $("#beer").removeClass("hide-beer").find('.alert').addClass("shake shake-little shake-constant").end()
+                    .find(".food").text(food[~~(Math.random()*food.length)]).end()
+                    .find(".wat").text(wat[~~(Math.random()*wat.length)]);
+            setTimeout(function(){
+                $("#beer .alert").removeClass("shake");
+            }, 4000);
+        }
         $.ajax({
             url: "https://api.github.com/repos/mkoryak/floatThead/",
             dataType: "jsonp",
@@ -466,9 +505,13 @@ bower install floatThead
                     $(this).closest('th').css('background-color', '#eee');
                 }).text('mouse over me');
 
+        setTimeout(function(){
+            $(".run-main-demo").removeClass("shake");
+        }, 2500);
+
         $(".run-main-demo").click(function(){
             var $button = $(this);
-
+            $button.removeClass("shake");
 
             if($button.is('.btn-danger')){
                 $demoTable.floatThead('destroy');
@@ -488,12 +531,11 @@ bower install floatThead
                 }, 5000);
                 $button.html("Remove floatThead  <i class='icon-trash icon-white'></i>").addClass('btn-danger').removeClass('btn-success');
             }
-        })
-                .tooltip({
-                    trigger: "manual",
-                    title: "Now try scrolling around in the table",
-                    placement: "top"
-                });
+        }).tooltip({
+            trigger: "manual",
+            title: "Now try scrolling around in the table",
+            placement: "top"
+        });
 
 
 

@@ -203,6 +203,7 @@
       if($table.data('floatThead-attached')){
         return true; //continue the each loop
       }
+      $table.data('floatThead-options', opts);
       if(!$table.is('table')){
         throw new Error('jQuery.floatThead must be run on a table element. ex: $("table").floatThead();');
       }
@@ -247,7 +248,7 @@
         existingColGroup = false;
       }
       var $fthRow = $('<fthrow style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements
-      var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true"></div>');
+      var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true" class="floatThead-floatContainer"></div>');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row"/>');
@@ -323,9 +324,10 @@
       var originalTableWidth = $table[0].style.width || ""; //setting this to auto is bad: #70
       var originalTableMinWidth = $table.css('minWidth') || "";
 
-      function eventName(name){
+      var eventName = $.fn.floatThead.eventName = function(name){
         return name+'.fth-'+floatTheadId+'.floatTHead'
-      }
+      };
+
 
       function setHeaderHeight(){
         var headerHeight = 0;
@@ -490,6 +492,7 @@
               $headerCells.eq(i).width(widths[i]);
               $tableCells.eq(i).width(widths[i]);
             }
+            $table.trigger(eventName('sizes'), [widths]);
             refloat();
           } else {
             $floatTable.append($header);
@@ -636,7 +639,9 @@
             }
             left = tableOffset.left - windowLeft;
           }
-          return {top: top, left: left};
+          var pos = {top: top, left: left};
+          $table.trigger(eventName('position'), pos);
+          return pos;
         };
       }
       /**
@@ -822,5 +827,16 @@
       });
     });
     return this;
+  };
+  $.fn.floatTfoot = function(map){
+    this.each(function(){
+      var $table = $(this);
+      if($table.data('floatThead-attached')){
+        throw new Error("This plugin requires that you run floatThead on the table first!");
+      }
+      var fthOpts = $table.data('floatThead-options');
+      var $floatContainer = $table.floatThead("getFloatContainer");
+
+    })
   };
 })(jQuery);
