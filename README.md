@@ -61,6 +61,9 @@ bower install floatThead
 ```bash
 npm install floatthead
 ```
+
+### Webjar for Maven, Gradle, SBT
+https://github.com/webjars/floatThead
   
 Features:
 ---------
