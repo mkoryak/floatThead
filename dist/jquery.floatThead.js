@@ -435,7 +435,7 @@
         if(headerFloated){
           headerFloated = false;
           if(useAbsolutePositioning){ //#53, #56
-            $table.width(originalTableWidth, $fthCells);
+            $table.width(originalTableWidth);
           }
           $newHeader.detach();
           $table.prepend($header);

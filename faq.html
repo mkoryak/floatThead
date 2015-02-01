@@ -1,0 +1,76 @@
+---
+layout: bootstrap3
+slug: faq
+base_url: ".."
+---
+
+<div class="comment-body markdown-body markdown-format js-comment-body">
+    <p>This plugin works by moving your table's header into a new table that it creates, it then floats that table in
+        the correct position. In order to accomplish this the plugin expects a few things to be true:</p>
+
+
+        <div class="alert alert-info alert-block">
+            <strong>TLDR:</strong><br>
+            Your table's styles must continue to style the newly created table which will live inside of a container div
+            appended below your real table. The new table will have the same class(es) as your original table. <strong>The
+                table must be visible when you run the plugin</strong>&nbsp;&longrightarrow;<small>If it is not, you will need to trigger a <code>reflow</code> event on it when it becomes visible.</small>
+
+        </div>
+    <hr/>
+
+    <p>Ideal world:</p>
+
+    <ul class="task-list">
+        <li>Your table is visible when you run the plugin.</li>
+        <li>Your table is styled via css on one of the table's DOM classes, and/or the styles work via a parent element.
+            Example:
+        </li>
+    </ul>
+
+    <div class="highlight highlight-css"><pre><span class="pl-ent">table</span><span class="pl-e">.myTable</span> { ... }
+<span class="pl-ent">div</span><span class="pl-e">.table-container</span> <span
+                class="pl-ent">table</span> { ... }</pre>
+    </div>
+
+    <ul class="task-list">
+        <li>The thead cells are also styled via non-inline css and the rules use element names or classes</li>
+        <li>Your thead uses <code>th</code> tags for cells, otherwise you need to change the <code>cellTag</code> plugin
+            option
+        </li>
+        <li>Your table does not make use of the <code>colgroup</code> element (though it is supported
+            <strong>only</strong> if the number of <code>col</code> elements within <code>colgroup</code> match the
+            number of columns in your table)
+        </li>
+    </ul>
+
+    <p>Will also work:</p>
+
+    <ul class="task-list">
+        <li>Your table uses inline css styles, or mixes inline styles with external styles described above.</li>
+        <li>The thead cells may use the deprecated width attributes instead of css</li>
+        <li>deprecated table attributes such as <code>cell-padding</code> and <code>cell-spacing</code> are supported
+            but their use is discouraged
+        </li>
+        <li>Your table markup is straight up from 1998 (might work, but I will not help you if it doesn't)</li>
+    </ul>
+
+    <p>Will <strong>not</strong> work:</p>
+
+    <ul class="task-list">
+        <li>Your table is styled via css rules on the table's DOM <code>id</code>
+        </li>
+        <li>Your thead cells are styled via similar id rules</li>
+    </ul>
+
+    <div class="highlight highlight-css">
+        <pre><span class="pl-e">#myTableRocks</span> <span class="pl-ent">td</span> { <span class="pl-mp"><span
+                class="pl-s3">color</span></span>: <span class="pl-sc">blue</span>; }</pre>
+    </div>
+
+    <ul class="task-list">
+        <li>Your table has invalid markup, such as unmatched number of columns in tbody and thead</li>
+        <li>Your table doesnt have a thead</li>
+        <li>You want to float the <code>tfoot</code> element, but that is not supported right now</li>
+        <li>Your table is hidden when you run the plugin so the column width calculations all fail.</li>
+    </ul>
+</div>

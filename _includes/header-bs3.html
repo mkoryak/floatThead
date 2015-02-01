@@ -11,7 +11,7 @@
             <li><a href="#options">Options</a></li>
             <li><a href="#examples">Examples</a></li>
             <li><a href="{{ site.base_url }}/datatables/">Datatables Example</a></li>
-            <li><a href="{{ site.base_url }}/other-libs/">Similar Plugins</a></li>
+            <li><a href="{{ site.base_url }}/faq">FAQ</a></li>
             <li><a href="#issues">Known Issues</a></li>
             <li><a href="#download">Download</a></li>
             {% else %}
@@ -20,8 +20,8 @@
             <li><a href="{{ site.base_url }}/#options">Options</a></li>
             <li><a href="{{ site.base_url }}/#examples">Examples</a></li>
             <li><a href="{{ site.base_url }}/datatables/">Datatables Example</a></li>
-            <li><a href="{{ site.base_url }}/other-libs/">Similar Plugins</a></li>
-            <li><a href="{{ site.base_url }}/#issues">Known Issues</a></li>
+
+            <li><a class='{% if page.slug == "faq" %}active{% endif %}' href="{{ site.base_url }}/faq">FAQ</a></li>
             <li><a href="{{ site.base_url }}/#download">Download</a></li>
             {% endif %}
             <li><iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=mkoryak&amp;repo=floatThead&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub" style="margin-top: 15px;"></iframe></li>
