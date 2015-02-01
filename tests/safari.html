@@ -1,0 +1,172 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: true
+desc: 'safari max-width bug and other safari bugs'
+issue: 108
+---
+
+<style>
+#wrapper {
+    width:200px;
+    height: 300px;
+    overflow-y: auto;
+}
+#w {
+    padding: 10px;
+    color: red;
+    margin: 5px;
+}
+</style>
+
+<script>
+    $(function(){
+        var foo = function(){
+            $("#w").text("width of the table is: "+$("table").width());
+        };
+        foo();
+        $(window).on("resize", foo);
+        $('table').floatThead({
+            scrollContainer: function(){
+                return $("#wrapper");
+            }
+        })
+    })
+</script>
+<div class="alert alert-danger">
+    Also broken here:<br/>
+    <ul>
+        <li><a href="{{ site.base_url }}/floatThead/tests/issue-66/">header spans 100% of screen</a></li>
+    </ul>
+</div>
+        <div id="w"></div>
+<div class="container">
+<div id="wrapper" >
+
+<table class="table table-striped table-bordered">
+        <thead>
+        <tr role="row">
+            <th></th>
+            <th>Task </th>
+            <th>Due</th>
+            <th>Status</th>
+            <th>Origin Appt</th>
+            <th>Dest Appt</th>
+            <th>Driver</th>
+            <th>Carrier | Account</th>
+        </tr>
+        </thead>
+        <tbody aria-relevant="all" aria-live="polite" role="alert">
+        <tr class="odd" id="0">
+            <td class=""></td>
+            <td class="">
+                <div class="header">Sleep</div>
+                <small>load ID: 12345678 | Some Dude</small>
+            </td>
+            <td class="">
+                <div class="text-danger time-from-now">34 minutes ago</div>
+            </td>
+            <td class="">Checked In</td>
+            <td class="">
+                <div class="header">Brigton, VA</div>
+                <small>3/19/13 | 16:42 - 18:26 ET</small>
+            </td>
+            <td class="">
+                <div class="header">Pooville, CA</div>
+                <small>5/25/13 | 20:20 - 20:32 ET</small>
+            </td>
+            <td class="">
+                <div class="header">Mike Mikelson</div>
+                <small>(123) 456-7890</small>
+            </td>
+            <td class="">
+                <div class="header">Ryder</div>
+                <small>Pepsi Co</small>
+            </td>
+        </tr>
+        <tr class="even" id="1">
+            <td class=""><i class="fa fa-lock" style="color:#b94a48; font-size:15px;"></i></td>
+            <td class="">
+                <div class="header">Past PU Appt TimePay your cable bill</div>
+                <small>load ID: 12345678 | Mike Mikelson</small>
+            </td>
+            <td class="">
+                <div class="text-danger time-from-now">2 minutes ago</div>
+            </td>
+            <td class="">Unloading</td>
+            <td class="">
+                <div class="header">Brigton, VA</div>
+                <small>11/22/13 | 14:44 - 16:50 ET</small>
+            </td>
+            <td class="">
+                <div class="header">Brigton, VA</div>
+                <small>5/9/13 | 15:45 - 18:40 ET</small>
+            </td>
+            <td class="">
+                <div class="header">Fat Frank</div>
+                <small>(123) 456-7890</small>
+            </td>
+            <td class="">
+                <div class="header">Reliable Trucking</div>
+                <small>Apple Computer</small>
+            </td>
+        </tr>
+        <tr class="odd" id="2">
+            <td class=""><i class="fa fa-lock" style="color:#b94a48; font-size:15px;"></i></td>
+            <td class="">
+                <div class="header">Past NCD</div>
+                <small>load ID: 12345678 | Mike Mikelson</small>
+            </td>
+            <td class="">
+                <div class="text-danger time-from-now">36 minutes ago</div>
+            </td>
+            <td class="">Booked</td>
+            <td class="">
+                <div class="header">Plum Island, NH</div>
+                <small>6/22/13 | 15:22 - 20:29 ET</small>
+            </td>
+            <td class="">
+                <div class="header">Plum Island, NH</div>
+                <small>5/17/13 | 18:31 - 16:49 ET</small>
+            </td>
+            <td class="">
+                <div class="header">Some Dude</div>
+                <small>(123) 456-7890</small>
+            </td>
+            <td class="">
+                <div class="header">RR Donnely</div>
+                <small>Pepsi Co</small>
+            </td>
+        </tr>
+        <tr class="even" id="3">
+            <td class=""></td>
+            <td class="">
+                <div class="header">Past NCD</div>
+                <small>load ID: 12345678 | Mike Mikelson</small>
+            </td>
+            <td class="">
+                <div class="text-danger time-from-now">an hour ago</div>
+            </td>
+            <td class="">Booked</td>
+            <td class="">
+                <div class="header">Pooville, CA</div>
+                <small>7/18/13 | 18:48 - 22:22 ET</small>
+            </td>
+            <td class="">
+                <div class="header">Brigton, VA</div>
+                <small>6/23/13 | 18:29 - 15:35 ET</small>
+            </td>
+            <td class="">
+                <div class="header">Mike Mikelson</div>
+                <small>(123) 456-7890</small>
+            </td>
+            <td class="">
+                <div class="header">AAA Trucking</div>
+                <small>Apple Computer</small>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

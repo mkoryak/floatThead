@@ -53,6 +53,18 @@
   var isFF = /Gecko\//.test(navigator.userAgent);
   var isWebkit = /WebKit\//.test(navigator.userAgent);
 
+  //safari 7 (and perhaps others) reports table width to be parent container's width if max-width is set on table. see: https://github.com/mkoryak/floatThead/issues/108
+  var isTableWidthBug = function(){
+    if(isWebkit) {
+      var $test = $('<div style="width:0px"><table style="max-width:100%"><tr><th><div style="min-width:100px;">X</div></th></tr></table></div>');
+      $("body").append($test);
+      var ret = ($test.find("table").width() == 0);
+      $test.remove();
+      return ret;
+    }
+    return false;
+  };
+
   var createElements = !isFF && !ieVersion; //FF can read width from <col> elements, but webkit cannot
 
   var $window = $(window);
@@ -114,6 +126,24 @@
     }
     return false;
   }
+
+  function tableWidth($table, $fthCells, isOuter){
+    // see: https://github.com/mkoryak/floatThead/issues/108
+    var fn = isOuter ? "outerWidth": "width";
+    if(isTableWidthBug && $table.css("max-width")){
+      var w = 0;
+      if(isOuter) {
+        w += parseInt($table.css("borderLeft"), 10);
+        w += parseInt($table.css("borderRight"), 10);
+      }
+      for(var i=0; i < $fthCells.length; i++){
+        w += $fthCells.get(i).offsetWidth;
+      }
+      return w;
+    } else {
+      return $table[fn]();
+    }
+  }
   $.fn.floatThead = function(map){
     map = map || {};
     if(!util){ //may have been included after the script? lets try to grab it again.
@@ -134,6 +164,10 @@
         document.createElement('fthfoot'); //tfoot
     }
     var mObs = null; //mutation observer lives in here if we can use it / make it
+
+    if(util.isFunction(isTableWidthBug)) {
+      isTableWidthBug = isTableWidthBug();
+    }
 
     if(util.isString(map)){
       var command = map;
@@ -156,8 +190,11 @@
         debug("Used ["+key+"] key to init plugin, but that param is not an option for the plugin. Valid options are: "+ (util.keys($.floatThead.defaults)).join(', '));
       }
     });
-    if(opts.debug && parseFloat($.fn.jquery) <= 1.7){
-      debug("jQuery version "+$.fn.jquery+" detected! This plugin supports 1.8 or better, or 1.7.x with jQuery UI 1.8.24 -> http://jqueryui.com/resources/download/jquery-ui-1.8.24.zip")
+    if(opts.debug){
+      var v = $.fn.jquery.split(".");
+      if(parseInt(v[0], 10) == 1 && parseInt(v[1], 10) <= 7){
+        debug("jQuery version "+$.fn.jquery+" detected! This plugin supports 1.8 or better, or 1.7.x with jQuery UI 1.8.24 -> http://jqueryui.com/resources/download/jquery-ui-1.8.24.zip")
+      }
     }
 
     this.filter(':not(.'+opts.floatTableClass+')').each(function(){
@@ -301,15 +338,15 @@
 
 
       function setFloatWidth(){
-        var tableWidth = $table.outerWidth();
-        var width = $scrollContainer.width() || tableWidth;
+        var tw = tableWidth($table, $fthCells, true);
+        var width = $scrollContainer.width() || tw;
         var floatContainerWidth = $scrollContainer.css("overflow-y") != 'hidden' ? width - scrollbarOffset.vertical : width;
         $floatContainer.width(floatContainerWidth);
         if(locked){
-          var percent = 100 * tableWidth / (floatContainerWidth);
+          var percent = 100 * tw / (floatContainerWidth);
           $floatTable.css('width', percent+'%');
         } else {
-          $floatTable.outerWidth(tableWidth);
+          $floatTable.outerWidth(tw);
         }
       }
 
@@ -333,7 +370,7 @@
             selector = 'tr:first>'+opts.cellTag;
           }
           if(util.isNumber(selector)){
-            //its actually a row count.
+            //its actually a row count. (undocumented, might be removed!)
             return selector;
           }
           $headerColumns = $header.find(selector);
@@ -381,10 +418,10 @@
         if(!headerFloated){
           headerFloated = true;
           if(useAbsolutePositioning){ //#53, #56
-            var tableWidth = $table.width();
+            var tw = tableWidth($table, $fthCells);
             var wrapperWidth = $wrapper.width();
-            if(tableWidth > wrapperWidth){
-              $table.css('minWidth', tableWidth);
+            if(tw > wrapperWidth){
+              $table.css('minWidth', tw);
             }
           }
           $table.css(layoutFixed);
@@ -398,14 +435,14 @@
         if(headerFloated){
           headerFloated = false;
           if(useAbsolutePositioning){ //#53, #56
-            $table.width(originalTableWidth);
+            $table.width(originalTableWidth, $fthCells);
           }
           $newHeader.detach();
           $table.prepend($header);
           $table.css(layoutAuto);
           $floatTable.css(layoutAuto);
           $table.css('minWidth', originalTableMinWidth); //this looks weird, but its not a bug. Think about it!!
-          $table.css('minWidth', $table.width()); //#121
+          $table.css('minWidth', tableWidth($table, $fthCells)); //#121
         }
       }
       function changePositioning(isAbsolute){
@@ -641,7 +678,7 @@
           if($scrollContainer.data().perfectScrollbar){
             scrollbarOffset = {horizontal:0, vertical:0};
           } else {
-            var sw = $scrollContainer.width(), sh = $scrollContainer.height(), th = $table.height(), tw = $table.width();
+            var sw = $scrollContainer.width(), sh = $scrollContainer.height(), th = $table.height(), tw = tableWidth($table, $fthCells);
             var offseth = sw < tw ? scWidth : 0;
             var offsetv = sh < th ? scWidth : 0;
             scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
