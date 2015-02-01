@@ -5,6 +5,10 @@ base_url: "."
 ---
 <script type='text/javascript' src="{{ page.base_url }}/lib/moment.js"></script>
 
+<!-- not required for stuff to work! -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.8/perfect-scrollbar.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.8/perfect-scrollbar.min.js'></script>
+
 <div class='row hide-beer' id="beer">
     <div class="span3">
         <div class="alert alert-info">
@@ -84,18 +88,25 @@ base_url: "."
             <li><b>Overflow scrolling</b><br/><small>The table is inside of a container with overflow:auto</small></li>
             <li><b>Window scrolling</b><br/><small>Header becomes locked at the top of the page as user scrolls down</small></li>
         </ul>
-        <b>Window scrolling</b> is the default. Initialize floatThead without any params to use it. <code>$('table').floatThead()</code>
-        <br/><br/>
-        <b>Overflow scrolling</b> takes a bit more work. You must specify a container element inside of which the table will scroll.
-        You must create this element. Usually a div will wrap the table with overflow:auto and a size smaller than the table.<br/>
+        <h3>Window scrolling</h3> is the default. Initialize floatThead without any params to use it. <br/><br/>
+{% highlight js %}
+var $table = $('table.demo');
+$table.floatThead();
+{% endhighlight %}
+
+        <h3>Overflow scrolling</h3> requires configuration. You must specify a container element inside of which the table will scroll.
+        You must create this element. Usually a div will wrap the table with overflow:auto and a size smaller than the table.<br/><br/>
 {% highlight js %}
 var $table = $('table.demo');
 $table.floatThead({
     scrollContainer: function($table){
-		return $table.closest('.wrapper');
-	}
+        return $table.closest('.wrapper');
+    }
 });
 {% endhighlight %}
+       <br/>
+       <small>This plugin supports the <a href="/floatThead/examples/perfect-scrollbar/">Perfect-Scrollbar</a> plugin, if you want fancy stylable scrollbars.</small>
+
     </div>
 </div>
 <br/>
