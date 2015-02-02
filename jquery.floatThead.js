@@ -828,15 +828,4 @@
     });
     return this;
   };
-  $.fn.floatTfoot = function(map){
-    this.each(function(){
-      var $table = $(this);
-      if($table.data('floatThead-attached')){
-        throw new Error("This plugin requires that you run floatThead on the table first!");
-      }
-      var fthOpts = $table.data('floatThead-options');
-      var $floatContainer = $table.floatThead("getFloatContainer");
-
-    })
-  };
 })(jQuery);
