@@ -83,7 +83,7 @@ base_url: "."
 <div class='row'>
     <div class='span12' id='usage'>
         <h1>Usage</h1>
-        There are 2 ways you can initialize the table:<br/><br/>
+        There are 2 ways you can initialize the plugin:<br/><br/>
         <ul>
             <li><b>Overflow scrolling</b><br/><small>The table is inside of a container with overflow:auto</small></li>
             <li><b>Window scrolling</b><br/><small>Header becomes locked at the top of the page as user scrolls down</small></li>
@@ -95,7 +95,7 @@ $table.floatThead();
 {% endhighlight %}
 
         <h3>Overflow scrolling</h3> requires configuration. You must specify a container element inside of which the table will scroll.
-        You must create this element. Usually a div will wrap the table with overflow:auto and a size smaller than the table.<br/><br/>
+        You must create this element. A DIV with overflow:auto within which the table will scroll.<br/><br/>
 {% highlight js %}
 var $table = $('table.demo');
 $table.floatThead({
@@ -105,7 +105,7 @@ $table.floatThead({
 });
 {% endhighlight %}
        <br/>
-       <small>This plugin supports the <a href="/floatThead/examples/perfect-scrollbar/">Perfect-Scrollbar</a> plugin, if you want fancy stylable scrollbars.</small>
+       <small>This plugin supports <a href="/floatThead/examples/perfect-scrollbar/">perfect-scrollbar</a>, if you want fancy stylable scrollbars.</small>
 
     </div>
 </div>
@@ -115,7 +115,7 @@ $table.floatThead({
         <h1>Options</h1>
         <div class="alert">
             <strong>Note:</strong>
-            All the options which are <b>function</b>s take a single argument: <code>$table</code> - the table who's header is being floated.<br/>ex: <code>function($table){ ... }</code>
+            All the options which are <b>function</b>s take a single argument: <code>$table</code> - the table on which floatThead was initialized.<br/>ex: <code>function($table){ ... }</code>
         </div>
         <table class="table table-bordered table-striped">
             <thead>
