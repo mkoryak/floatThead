@@ -201,6 +201,12 @@ $table.floatThead({
                 <td>false</td>
                 <td>Copy the floated header's text back into original table for screen readers. This may cause css layout issues because that text might be styled in unforeseen ways. (aria-* attributes are always used even when set to false). </td>
             </tr>
+            <tr>
+                <td>autoReflow</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td><p class="text-warning">Experimental</p> use MutationObserver (on good browsers) to reflow automatically when internal table DOM changes, or DOM within <code>scrollContainer</code><td>
+            </tr>
             </tbody>
         </table>
     </div>

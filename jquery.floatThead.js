@@ -20,7 +20,7 @@
   $.floatThead = $.floatThead || {};
   $.floatThead.defaults = {
     cellTag: null, // DEPRECATED - use headerCellSelector instead
-    headerCellSelector: 'tr:first>th:visible', //thead cells are this.
+    headerCellSelector: 'tr:visible:first>*:visible', //thead cells are this.
     zIndex: 1001, //zindex of the floating thead (actually a container div)
     debounceResizeMs: 10,
     useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
