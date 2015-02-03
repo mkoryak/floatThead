@@ -20,7 +20,7 @@
   $.floatThead = $.floatThead || {};
   $.floatThead.defaults = {
     cellTag: null, // DEPRECATED - use headerCellSelector instead
-    headerCellSelector: 'tr:first>th:visible', //thead cells are this.
+    headerCellSelector: 'tr:visible:first>*:visible', //thead cells are this.
     zIndex: 1001, //zindex of the floating thead (actually a container div)
     debounceResizeMs: 10,
     useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
@@ -247,7 +247,7 @@
         existingColGroup = false;
       }
       var $fthRow = $('<fthrow style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements
-      var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true"></div>');
+      var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true" class="floatThead-floatContainer"></div>');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row"/>');
