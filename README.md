@@ -7,8 +7,23 @@ Check out the demo / docs page for copious examples:
 
 ###[Demos and Docs](http://mkoryak.github.io/floatThead/)  
 
+Features:
+---------
+-   Floats the table header - it remains in viewport as you scroll
+-   Works on tables within a scrollable container or whole window scrolling
+-   Horizontal or vertical scrolling
+-   Doesn't clone the thead - so your events stay bound
+-   Doesn't mess with your styles
+-   Works on any table
+-   Requires no special css
+-   Works with [datatables](http://datatables.net) out of the box
+-   Screen reader support
+-   Plays nicely with angularjs
 
-Jekyll templates to generate the docs are in the [gh-pages branch](https://github.com/mkoryak/floatThead/tree/gh-pages)
+What it does not do:
+---------
+-  Does not float the footer
+-  Does not let you lock the first column like in excel
 
 [![Donate](http://programmingdrunk.com/donate-coffee.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SDJJ42BTC46LY&lc=US&item_name=floatThead&currency_code=USD&bn=PP%2dDonationsBF%3adonate%2dcoffee%2epng%3aNonHosted)
 
@@ -22,11 +37,6 @@ Providing the following will greatly increase the chances of your issue being re
  
 I will do my best to help you in a timely manner.
  
-Feedback needed on planned features
-------------
-
-See: [https://github.com/mkoryak/floatThead/issues/30](https://github.com/mkoryak/floatThead/issues/30)
-
 Download / Install:
 --------
 
@@ -64,30 +74,15 @@ npm install floatthead
 
 ### Webjar for Maven, Gradle, SBT
 https://github.com/webjars/floatThead
-  
-Features:
----------
-
--   Floats the table header - so that the user can always see it
--   Supports tables with inner scroll bars, or whole page scrolling
--   Horizontal or vertical scrolling
--   Doesn't clone the thead - so your events stay bound
--   Doesn't mess with your styles
--   Works on any table
--   Requires no special css
--   Works with [datatables](http://datatables.net) out of the box
--   Screen reader support
--   Plays nicely with angularjs
 
 Requirements:
 -------------
-
 
 -   jQuery 1.8.x or better (1.9 compliant) (or jQuery 1.7.x and jQuery UI core)
 
 Supported Browsers:
 -------------
--   IE8 or better
+-   IE8 or better (read [this](http://mkoryak.github.io/floatThead/examples/row-groups/))
 -   Modern browsers
 
 
