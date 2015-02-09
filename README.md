@@ -1,7 +1,7 @@
 jquery.floatThead v1.2.10
 =================
 
-Float the table header without special css. This plugin assumes nothing about your table markup and "just works" without losing your events or styles. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. Plays nice with AngularJS and datatables. My cat loves it.
+Float the table header without special css. This plugin assumes nothing about your table markup and "just works" without losing your events or styles. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. Plays nice with AngularJS and datatables and well written plugins. **My cat loves it**.
 
 Check out the demo / docs page for copious examples:
 
@@ -20,12 +20,17 @@ Features:
 -   Screen reader support
 -   Plays nicely with angularjs
 
+[![Donate](http://programmingdrunk.com/donate-coffee.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SDJJ42BTC46LY&lc=US&item_name=floatThead&currency_code=USD&bn=PP%2dDonationsBF%3adonate%2dcoffee%2epng%3aNonHosted)
+
+
 What it does not do:
 ---------
 -  Does not float the footer
 -  Does not let you lock the first column like in excel
 
-[![Donate](http://programmingdrunk.com/donate-coffee.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SDJJ42BTC46LY&lc=US&item_name=floatThead&currency_code=USD&bn=PP%2dDonationsBF%3adonate%2dcoffee%2epng%3aNonHosted)
+Common Pitfalls
+------
+If you use css and html best practices, this plugin will work. If you are stuck in 1999, you better [read this](http://mkoryak.github.io/floatThead/faq/).
 
 How to get help with the floatThead
 ------------
