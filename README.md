@@ -7,6 +7,8 @@ Check out the demo / docs page for copious examples:
 
 ###[Demos and Docs](http://mkoryak.github.io/floatThead/)  
 
+###[Download / Bower](https://github.com/mkoryak/floatThead#download--install)
+
 Features:
 ---------
 -   Floats the table header - it remains in viewport as you scroll
