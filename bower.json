@@ -7,8 +7,8 @@
   ],
   "description": "Unobtrusively float any table's header without breaking styles or events",
   "main": [
-    "/dist/jquery.floatThead.js",
-    "/dist/jquery.floatThead.min.js"
+    "dist/jquery.floatThead.js",
+    "dist/jquery.floatThead.min.js"
   ], 
   "keywords": [
     "float table header", "locked header", "table header", "table", "sticky header", "floatThead", "scrolling table", "fixed header"
