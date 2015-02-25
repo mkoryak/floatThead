@@ -29,6 +29,7 @@ What it does not do:
 ---------
 -  Does not float the footer
 -  Does not let you lock the first column like in excel
+-  Safari is not fully supported. It might work, or it [might not](https://github.com/mkoryak/floatThead/issues/108), depending on your markup and safari version.  
 
 Common Pitfalls
 ------
