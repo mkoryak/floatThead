@@ -218,10 +218,11 @@
       var scWidth = scrollbarWidth();
       var lastColumnCount = 0; //used by columnNum()
       var $scrollContainer = opts.scrollContainer($table) || $([]); //guard against returned nulls
+      var locked = $scrollContainer.length > 0;
 
       var useAbsolutePositioning = opts.useAbsolutePositioning;
       if(useAbsolutePositioning == null){ //defaults: locked=true, !locked=false
-        useAbsolutePositioning = opts.scrollContainer($table).length;
+        useAbsolutePositioning = locked;
       }
       if(!useAbsolutePositioning){
         headerFloated = true; //#127
@@ -234,7 +235,6 @@
 
       var $fthGrp = $('<fthfoot style="display:table-footer-group;border-spacing:0;height:0;border-collapse:collapse;"/>');
 
-      var locked = $scrollContainer.length > 0;
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
       var $wrapper = $([]); //used when absolute positioning enabled - wraps the table and the float container
       var absoluteToFixedOnScroll = ieVersion <= 9 && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
