@@ -157,12 +157,6 @@
       return this; //no more crappy browser support.
     }
 
-    if(createElements){ //make sure this is done only once no matter how many times you call the plugin fn
-        //because chrome can't read <col> width, these elements are used for sizing the table. Need to create new elements because they must be unstyled by user's css.
-        document.createElement('fthtr'); //tr
-        document.createElement('fthtd'); //td
-        document.createElement('fthfoot'); //tfoot
-    }
     var mObs = null; //mutation observer lives in here if we can use it / make it
 
     if(util.isFunction(isTableWidthBug)) {
@@ -246,7 +240,7 @@
         $tableColGroup = $("<colgroup/>");
         existingColGroup = false;
       }
-      var $fthRow = $('<fthrow style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements
+      var $fthRow = $('<fthrow style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements (used for sizing the table because chrome can't read <col> width)
       var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true" class="floatThead-floatContainer"></div>');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
