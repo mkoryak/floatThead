@@ -91,7 +91,7 @@
 
 
   function debug(str){
-    window.console && window.console && window.console.log && window.console.log("jQuery.floatThead: " + str);
+    window && window.console && window.console.log && window.console.log("jQuery.floatThead: " + str);
   }
 
   /**
