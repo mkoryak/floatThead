@@ -1,0 +1,41 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+issue: 167
+desc: "ie non-int cell widths"
+---
+<style>
+    table {
+        border-collapse: collapse;
+
+    }
+    table td {
+        border: 1px solid #ccc;
+    }
+</style>
+
+<script>
+  $(function () {
+    $('.isis-table').floatThead({
+      useAbsolutePositioning: false
+    });
+  });
+</script>
+
+<table class="isis-table">
+<thead>
+<tr>
+<td>Reason</td>
+<td>Time (h:m:s)</td>
+<td>Time(%)</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SE manual stop</td>
+<td>11:28:43</td>
+<td>30.9</td>
+</tr>
+</tbody>
+</table>

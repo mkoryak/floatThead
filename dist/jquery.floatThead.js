@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.11dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.12dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -30,7 +30,7 @@
       return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
     },
     getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
-      // override it if the first row of the table is going to contain colgroups (any cell spans greater then one col)
+      // override it if the first row of the table is going to contain colgroups (any cell spans greater than one col)
       // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
       return $table.find('tbody tr:visible:first>*:visible');
     },
@@ -39,7 +39,7 @@
     floatContainerClass: 'floatThead-container',
     copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
     enableAria: false, //will copy header text from the floated header back into the table for screen readers. Might cause the css styling to be off. beware!
-    autoReflow: false, //(undocumeted) - use MutationObserver api to reflow automatically when internal table DOM changes
+    autoReflow: false, //(undocumented) - use MutationObserver api to reflow automatically when internal table DOM changes
     debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
   };
 
@@ -91,7 +91,7 @@
 
 
   function debug(str){
-    window.console && window.console && window.console.log && window.console.log("jQuery.floatThead: " + str);
+    window && window.console && window.console.log && window.console.log("jQuery.floatThead: " + str);
   }
 
   /**
@@ -157,12 +157,6 @@
       return this; //no more crappy browser support.
     }
 
-    if(createElements){ //make sure this is done only once no matter how many times you call the plugin fn
-        //because chrome cant read <col> width, these elements are used for sizing the table. Need to create new elements because they must be unstyled by user's css.
-        document.createElement('fthtr'); //tr
-        document.createElement('fthtd'); //td
-        document.createElement('fthfoot'); //tfoot
-    }
     var mObs = null; //mutation observer lives in here if we can use it / make it
 
     if(util.isFunction(isTableWidthBug)) {
@@ -203,7 +197,6 @@
       if($table.data('floatThead-attached')){
         return true; //continue the each loop
       }
-      $table.data('floatThead-options', opts);
       if(!$table.is('table')){
         throw new Error('jQuery.floatThead must be run on a table element. ex: $("table").floatThead();');
       }
@@ -219,10 +212,11 @@
       var scWidth = scrollbarWidth();
       var lastColumnCount = 0; //used by columnNum()
       var $scrollContainer = opts.scrollContainer($table) || $([]); //guard against returned nulls
+      var locked = $scrollContainer.length > 0;
 
       var useAbsolutePositioning = opts.useAbsolutePositioning;
       if(useAbsolutePositioning == null){ //defaults: locked=true, !locked=false
-        useAbsolutePositioning = opts.scrollContainer($table).length;
+        useAbsolutePositioning = locked;
       }
       if(!useAbsolutePositioning){
         headerFloated = true; //#127
@@ -235,10 +229,9 @@
 
       var $fthGrp = $('<fthfoot style="display:table-footer-group;border-spacing:0;height:0;border-collapse:collapse;"/>');
 
-      var locked = $scrollContainer.length > 0;
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
       var $wrapper = $([]); //used when absolute positioning enabled - wraps the table and the float container
-      var absoluteToFixedOnScroll = ieVersion <= 9 && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
+      var absoluteToFixedOnScroll = ieVersion <= 9 && !locked && useAbsolutePositioning; //on IE using absolute positioning doesn't look good with window scrolling, so we change position to fixed on scroll, and then change it back to absolute when done.
       var $floatTable = $("<table/>");
       var $floatColGroup = $("<colgroup/>");
       var $tableColGroup = $table.find('colgroup:first');
@@ -247,7 +240,7 @@
         $tableColGroup = $("<colgroup/>");
         existingColGroup = false;
       }
-      var $fthRow = $('<fthrow style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements
+      var $fthRow = $('<fthtr style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements (used for sizing the table because chrome can't read <col> width)
       var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true" class="floatThead-floatContainer"></div>');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
@@ -269,7 +262,7 @@
       if(opts.copyTableClass){
         $floatTable.attr('class', $table.attr('class'));
       }
-      $floatTable.attr({ //copy over some deprecated table attributes that people still like to use. Good thing poeple dont use colgroups...
+      $floatTable.attr({ //copy over some deprecated table attributes that people still like to use. Good thing people don't use colgroups...
         'cellpadding': $table.attr('cellpadding'),
         'cellspacing': $table.attr('cellspacing'),
         'border': $table.attr('border')
@@ -284,7 +277,7 @@
         floatTableHidden = true;
       }
 
-      $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you wont be able to click on things under floating table
+      $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you won't be able to click on things under floating table
 
       if(useAbsolutePositioning){
         var makeRelative = function($container, alwaysWrap){
@@ -324,10 +317,9 @@
       var originalTableWidth = $table[0].style.width || ""; //setting this to auto is bad: #70
       var originalTableMinWidth = $table.css('minWidth') || "";
 
-      var eventName = $.fn.floatThead.eventName = function(name){
+      function eventName(name){
         return name+'.fth-'+floatTheadId+'.floatTHead'
-      };
-
+      }
 
       function setHeaderHeight(){
         var headerHeight = 0;
@@ -358,7 +350,7 @@
       }
 
       /**
-       * get the number of columns and also rebuild resizer rows if the count is different then the last count
+       * get the number of columns and also rebuild resizer rows if the count is different than the last count
        */
       function columnNum(){
         var count, $headerColumns;
@@ -372,7 +364,7 @@
             selector = 'tr:first>'+opts.cellTag;
           }
           if(util.isNumber(selector)){
-            //its actually a row count. (undocumented, might be removed!)
+            //it's actually a row count. (undocumented, might be removed!)
             return selector;
           }
           $headerColumns = $header.find(selector);
@@ -443,7 +435,7 @@
           $table.prepend($header);
           $table.css(layoutAuto);
           $floatTable.css(layoutAuto);
-          $table.css('minWidth', originalTableMinWidth); //this looks weird, but its not a bug. Think about it!!
+          $table.css('minWidth', originalTableMinWidth); //this looks weird, but it's not a bug. Think about it!!
           $table.css('minWidth', tableWidth($table, $fthCells)); //#121
         }
       }
@@ -471,7 +463,7 @@
        */
       function reflow(){
         var i;
-        var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
+        var numCols = columnNum(); //if the tables columns changed dynamically since last time (datatables), rebuild the sizer rows and get a new count
 
         return function(){
           $tableCells = $tableColGroup.find('col');
@@ -492,7 +484,6 @@
               $headerCells.eq(i).width(widths[i]);
               $tableCells.eq(i).width(widths[i]);
             }
-            $table.trigger(eventName('sizes'), [widths]);
             refloat();
           } else {
             $floatTable.append($header);
@@ -519,7 +510,7 @@
       function calculateFloatContainerPosFn(){
         var scrollingContainerTop = $scrollContainer.scrollTop();
 
-        //this floatEnd calc was moved out of the returned function because we assume the table height doesnt change (otherwise we must reinit by calling calculateFloatContainerPosFn)
+        //this floatEnd calc was moved out of the returned function because we assume the table height doesn't change (otherwise we must reinit by calling calculateFloatContainerPosFn)
         var floatEnd;
         var tableContainerGap = 0;
         var captionHeight = haveCaption ? $caption.outerHeight(true) : 0;
@@ -555,7 +546,7 @@
             }, 1);
             return null;
           }
-          if(isTableHidden){ //its hidden
+          if(isTableHidden){ //it's hidden
             floatTableHidden = true;
             if(!useAbsolutePositioning){
               return null;
@@ -639,9 +630,7 @@
             }
             left = tableOffset.left - windowLeft;
           }
-          var pos = {top: top, left: left};
-          $table.trigger(eventName('position'), pos);
-          return pos;
+          return {top: top, left: left};
         };
       }
       /**
@@ -786,7 +775,7 @@
           $table.css(layoutAuto);
           $tableColGroup.remove();
           createElements && $fthGrp.remove();
-          if($newHeader.parent().length){ //only if its in the dom
+          if($newHeader.parent().length){ //only if it's in the DOM
             $newHeader.replaceWith($header);
           }
           if(canObserveMutations){
