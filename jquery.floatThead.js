@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.11 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2014 Misha Koryak
+// @preserve jQuery.floatThead 1.2.12dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -52,32 +52,6 @@
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];a = 1+a,b.innerHTML="<!--[if gt IE "+ a +"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
   var isFF = /Gecko\//.test(navigator.userAgent);
   var isWebkit = /WebKit\//.test(navigator.userAgent);
-
-  // in IE, offsetWidth returns an integer, but table cell width returns a float, this causes cell text to be split over two lines
-  // code from http://vadikom.com/dailies/offsetwidth-offsetheight-useless-in-ie9-firefox4/
-  function _getOffset(elm, height) {
-    var cStyle = elm.ownerDocument && elm.ownerDocument.defaultView && elm.ownerDocument.defaultView.getComputedStyle
-      && elm.ownerDocument.defaultView.getComputedStyle(elm, null),
-      ret = cStyle && cStyle.getPropertyValue(height ? 'height' : 'width') || '';
-    if (ret && ret.indexOf('.') > -1) {
-      ret = parseFloat(ret)
-        + parseInt(cStyle.getPropertyValue(height ? 'padding-top' : 'padding-left'))
-        + parseInt(cStyle.getPropertyValue(height ? 'padding-bottom' : 'padding-right'))
-        + parseInt(cStyle.getPropertyValue(height ? 'border-top-width' : 'border-left-width'))
-        + parseInt(cStyle.getPropertyValue(height ? 'border-bottom-width' : 'border-right-width'));
-    } else {
-      ret = height ? elm.offsetHeight : elm.offsetWidth;
-    }
-    return ret;
-  };
-
-  function getOffsetWidth(elm) {
-    return _getOffset(elm);
-  };
-
-  function getOffsetHeight(elm) {
-    return _getOffset(elm, true);
-  };
 
   //safari 7 (and perhaps others) reports table width to be parent container's width if max-width is set on table. see: https://github.com/mkoryak/floatThead/issues/108
   var isTableWidthBug = function(){
@@ -163,7 +137,7 @@
         w += parseInt($table.css("borderRight"), 10);
       }
       for(var i=0; i < $fthCells.length; i++){
-        w += getOffsetWidth($fthCells.get(i));
+        w += $fthCells.get(i).offsetWidth;
       }
       return w;
     } else {
@@ -504,7 +478,7 @@
             unfloat();
             var widths = [];
             for(i=0; i < numCols; i++){
-              widths[i] = getOffsetWidth($rowCells.get(i));
+              widths[i] = $rowCells.get(i).offsetWidth;
             }
             for(i=0; i < numCols; i++){
               $headerCells.eq(i).width(widths[i]);
