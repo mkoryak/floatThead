@@ -211,8 +211,8 @@
         throw new Error('jQuery.floatThead must be run on a table element. ex: $("table").floatThead();');
       }
       canObserveMutations = opts.autoReflow && canObserveMutations; //option defaults to false!
-      var $header = $table.find('thead:first');
-      var $tbody = $table.find('tbody:first');
+      var $header = $table.children('thead:first');
+      var $tbody = $table.children('tbody:first');
       if($header.length == 0){
         throw new Error('jQuery.floatThead must be run on a table that contains a <thead> element');
       }
@@ -244,7 +244,7 @@
       var absoluteToFixedOnScroll = ieVersion <= 9 && !locked && useAbsolutePositioning; //on IE using absolute positioning doesn't look good with window scrolling, so we change position to fixed on scroll, and then change it back to absolute when done.
       var $floatTable = $("<table/>");
       var $floatColGroup = $("<colgroup/>");
-      var $tableColGroup = $table.find('colgroup:first');
+      var $tableColGroup = $table.children('colgroup:first');
       var existingColGroup = true;
       if($tableColGroup.length == 0){
         $tableColGroup = $("<colgroup/>");
@@ -333,7 +333,7 @@
 
       function setHeaderHeight(){
         var headerHeight = 0;
-        $header.find("tr:visible").each(function(){
+        $header.children("tr:visible").each(function(){
           headerHeight += $(this).outerHeight(true);
         });
         $sizerRow.outerHeight(headerHeight);
@@ -831,9 +831,9 @@
         },
         getRowGroups: function(){
           if(headerFloated){
-            return $floatContainer.find("thead").add($table.find("tbody,tfoot"));
+            return $floatContainer.children("thead").add($table.children("tbody,tfoot"));
           } else {
-            return $table.find("thead,tbody,tfoot");
+            return $table.children("thead,tbody,tfoot");
           }
         }
       });
