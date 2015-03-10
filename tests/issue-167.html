@@ -8,10 +8,12 @@ desc: "ie non-int cell widths"
 <style>
     table {
         border-collapse: collapse;
-
     }
-    table td {
+    table td, table th {
         border: 1px solid #ccc;
+    }
+    .stuff {
+        margin-left: 200px;
     }
 </style>
 
@@ -20,22 +22,42 @@ desc: "ie non-int cell widths"
     $('.isis-table').floatThead({
       useAbsolutePositioning: false
     });
+    alignmentDebugger($('#t'))
   });
 </script>
-
-<table class="isis-table">
-<thead>
-<tr>
-<td>Reason</td>
-<td>Time (h:m:s)</td>
-<td>Time(%)</td>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SE manual stop</td>
-<td>11:28:43</td>
-<td>30.9</td>
-</tr>
-</tbody>
-</table>
+<div class="stuff">
+    <table class="isis-table" id="t">
+    <thead>
+    <tr>
+    <td>Reason</td>
+    <td>Time (h:m:s)</td>
+    <td>Time(%)</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>SE manual stop</td>
+    <td>11:28:43</td>
+    <td>30.9</td>
+    </tr>
+    </tbody>
+    </table>
+    <br/>
+            <hr/>
+    <table>
+    <thead>
+    <tr>
+    <td>Reason</td>
+    <td>Time (h:m:s)</td>
+    <td>Time(%)</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>SE manual stop</td>
+    <td>11:28:43</td>
+    <td>30.9</td>
+    </tr>
+    </tbody>
+    </table>
+</div>

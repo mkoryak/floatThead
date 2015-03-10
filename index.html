@@ -12,8 +12,8 @@ base_url: "."
 <div class='row hide-beer' id="beer">
     <div class="span3">
         <div class="alert alert-info">
-        <strong>Hey!</strong> This ad &longrightarrow;<br/>
-        is shown only to returning visitors, <strong>and helps me <span class="wat">pay for</span> <span class="food">coffee</span>!</strong><br/>
+        <strong>Hey!</strong> This ad &longrightarrow;<br/><br/>
+        <strong>Helps me <span class="wat">pay for</span> <span class="food">coffee</span>!</strong><br/>
         </div>
     </div>
     <div class='span9'>
@@ -257,6 +257,28 @@ $table.css('marginTop', 100);
 //cause the floated header to be properly positioned again:
 $table.trigger('reflow');
 {% endhighlight %}
+    <br/>
+        <h4><code>$table.on('floatThead', function(e, isFloated, $floatContainer){..}</code></h4>
+        The plugin will trigger this event on the table when the header is floated and unfloated. The 2nd and 3rd params in the method are of interest to you.
+{% highlight js %}
+var $table = $('table.demo2');
+
+$table.on("floatThead", function(e, isFloated, $floatContainer){
+    if(isFloated){
+        $floatContainer.addClass("floated"); // the div containing the table containing the thead
+        $(this).addClass("floated"); // $table
+    } else {
+        $floatContainer.removeClass("floated");
+        $(this).removeClass("floated");
+    }
+});
+{% endhighlight %}
+{% highlight css %}
+table.floated {
+  background-color: #d5ffd5;
+}
+{% endhighlight %}
+
     </div>
 </div>
 <br/>
@@ -411,24 +433,22 @@ bower install floatThead
 
 <script type="text/javascript">
     $(document).ready(function () {
-        if(document.cookie.indexOf("buy_me_a_beer_plz") <= -1){
-            document.cookie = "buy_me_a_beer_plz=dogfishhead; expires=Thu, 18 Dec 2099 12:00:00 UTC; path=/";
-        } else {
-            $(".run-main-demo").removeClass("shake");
-            var food = [
-                    'pizza and doritos', 'beer', 'copious IPA', 'coffee',
-                    'cat treats', 'sustenance', '2 buck chuck', 'traffic tickets',
-                    'meowmix', 'diet coke', 'gifts to my cat', 'a lavish lifestyle',
-                    'diapers', 'cats', 'happiness', 'love', 'robots'
-            ];
-            var wat = ['pay for', 'buy'];
-            $("#beer").removeClass("hide-beer").find('.alert').addClass("shake shake-little shake-constant").end()
-                    .find(".food").text(food[~~(Math.random()*food.length)]).end()
-                    .find(".wat").text(wat[~~(Math.random()*wat.length)]);
-            setTimeout(function(){
-                $("#beer .alert").removeClass("shake");
-            }, 4000);
-        }
+
+        $(".run-main-demo").removeClass("shake");
+        var food = [
+                'pizza and doritos', 'beer', 'copious IPA', 'coffee',
+                'cat treats', 'sustenance', '2 buck chuck', 'traffic tickets',
+                'meowmix', 'diet coke', 'gifts for my cat', 'a lavish lifestyle',
+                'diapers', 'cats', 'happiness', 'love', 'robots'
+        ];
+        var wat = ['pay for', 'buy'];
+        $("#beer").removeClass("hide-beer").find('.alert').addClass("shake shake-little shake-constant").end()
+                .find(".food").text(food[~~(Math.random()*food.length)]).end()
+                .find(".wat").text(wat[~~(Math.random()*wat.length)]);
+        setTimeout(function(){
+            $("#beer .alert").removeClass("shake");
+        }, 2500);
+
         $.ajax({
             url: "https://api.github.com/repos/mkoryak/floatThead/",
             dataType: "jsonp",
@@ -565,6 +585,16 @@ bower install floatThead
                 return $table.closest('.wrapper');
             }
         });
+
+        $('table.demo2').on("floatThead", function(e, isFloated, $floatContainer){
+            if(isFloated){
+                $floatContainer.addClass("floated"); // the div containing the table containing the thead
+                $(this).addClass("floated"); // $table
+            } else {
+                $floatContainer.removeClass("floated");
+                $(this).removeClass("floated");
+            }
+        })
         $('#change-dom').click(function(){
             $(this).parent().remove();
             $demo1.floatThead('reflow');
