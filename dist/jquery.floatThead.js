@@ -96,8 +96,12 @@
 
   //returns fractional pixel widths
   function getOffsetWidth(el) {
-    var rect = el.getBoundingClientRect();
-    return rect.right - rect.left;
+    if(window.getComputedStyle){
+      return parseFloat(getComputedStyle(el).getPropertyValue('width'));
+    } else {
+      var rect = el.getBoundingClientRect();
+      return rect.right - rect.left;
+    }
   }
 
   /**
@@ -547,9 +551,6 @@
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
         var scrollContainerLeft =  $scrollContainer.scrollLeft();
-        scrollingContainerTop = $scrollContainer.scrollTop();
-
-
 
         return function(eventType){
           var isTableHidden = $table[0].offsetWidth <= 0 && $table[0].offsetHeight <= 0;
@@ -593,7 +594,7 @@
             return null; //event is fired when they stop scrolling. ignore it if not 'absoluteToFixedOnScroll'
           }
 
-          tableOffset = $table[0].getBoundingClientRect();
+          tableOffset = $table.offset();
           if(haveCaption && captionAlignTop){
             tableOffset.top += captionHeight;
           }
@@ -614,34 +615,34 @@
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight - floatContainerHeight + captionScrollOffset; //scrolled past table
-            } else if (tableOffset.top > scrollingTop) {
+            } else if (tableOffset.top > windowTop + scrollingTop) {
               top = 0; //scrolling to table
               unfloat();
               triggerFloatEvent(false);
             } else {
-              top = scrollingTop - tableOffset.top + tableContainerGap + (captionAlignTop ? captionHeight : 0);
+              top = scrollingTop + windowTop - tableOffset.top + tableContainerGap + (captionAlignTop ? captionHeight : 0);
               refloat(); //scrolling within table. header floated
               triggerFloatEvent(true);
             }
             left =  0;
           } else if(locked && !useAbsolutePositioning){ //inner scrolling, fixed positioning
             if (tableContainerGap > scrollingContainerTop || scrollingContainerTop - tableContainerGap > tableHeight) {
-              top = tableOffset.top;
+              top = tableOffset.top - windowTop;
               unfloat();
               triggerFloatEvent(false);
             } else {
-              top = tableOffset.top + scrollingContainerTop - tableContainerGap;
+              top = tableOffset.top + scrollingContainerTop  - windowTop - tableContainerGap;
               refloat();
               triggerFloatEvent(true);
               //headers stop at the top of the viewport
             }
-            left = tableOffset.left + scrollContainerLeft;
+            left = tableOffset.left + scrollContainerLeft - windowLeft;
           } else if(!locked && !useAbsolutePositioning) { //window scrolling, fixed positioning
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight + scrollingTop - windowTop + floatEnd + captionScrollOffset;
               //scrolled past the bottom of the table
-            } else if (tableOffset.top > scrollingTop) {
-              top = tableOffset.top;
+            } else if (tableOffset.top > windowTop + scrollingTop) {
+              top = tableOffset.top - windowTop;
               refloat();
               triggerFloatEvent(false); //this is a weird case, the header never gets unfloated and i have no no way to know
               //scrolled past the top of the table
@@ -650,7 +651,7 @@
               top = scrollingTop;
               triggerFloatEvent(true);
             }
-            left = tableOffset.left;
+            left = tableOffset.left - windowLeft;
           }
           return {top: top, left: left};
         };
