@@ -420,8 +420,8 @@
           }
           $table.css(layoutFixed);
           $floatTable.css(layoutFixed);
-          $header.after($newHeader);
           $floatTable.append($header); //append because colgroup must go first in chrome
+          $tbody.before($newHeader);
           setHeaderHeight();
         }
       }
