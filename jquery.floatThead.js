@@ -579,7 +579,7 @@
             return null; //event is fired when they stop scrolling. ignore it if not 'absoluteToFixedOnScroll'
           }
 
-          tableOffset = $table.offset();
+          tableOffset = $table[0].getBoundingClientRect();
           if(haveCaption && captionAlignTop){
             tableOffset.top += captionHeight;
           }
@@ -598,37 +598,37 @@
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight - floatContainerHeight + captionScrollOffset; //scrolled past table
-            } else if (tableOffset.top > windowTop + scrollingTop) {
+            } else if (tableOffset.top > scrollingTop) {
               top = 0; //scrolling to table
               unfloat();
             } else {
-              top = scrollingTop + windowTop - tableOffset.top + tableContainerGap + (captionAlignTop ? captionHeight : 0);
+              top = scrollingTop - tableOffset.top + tableContainerGap + (captionAlignTop ? captionHeight : 0);
               refloat(); //scrolling within table. header floated
             }
             left =  0;
           } else if(locked && !useAbsolutePositioning){ //inner scrolling, fixed positioning
             if (tableContainerGap > scrollingContainerTop || scrollingContainerTop - tableContainerGap > tableHeight) {
-              top = tableOffset.top - windowTop;
+              top = tableOffset.top;
               unfloat();
             } else {
-              top = tableOffset.top + scrollingContainerTop  - windowTop - tableContainerGap;
+              top = tableOffset.top + scrollingContainerTop - tableContainerGap;
               refloat();
               //headers stop at the top of the viewport
             }
-            left = tableOffset.left + scrollContainerLeft - windowLeft;
+            left = tableOffset.left + scrollContainerLeft;
           } else if(!locked && !useAbsolutePositioning) { //window scrolling, fixed positioning
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight + scrollingTop - windowTop + floatEnd + captionScrollOffset;
               //scrolled past the bottom of the table
-            } else if (tableOffset.top > windowTop + scrollingTop) {
-              top = tableOffset.top - windowTop;
+            } else if (tableOffset.top > scrollingTop) {
+              top = tableOffset.top;
               refloat();
               //scrolled past the top of the table
             } else {
               //scrolling within the table
               top = scrollingTop;
             }
-            left = tableOffset.left - windowLeft;
+            left = tableOffset.left;
           }
           return {top: top, left: left};
         };
