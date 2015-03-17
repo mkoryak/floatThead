@@ -1,0 +1,34 @@
+{
+    "name": "bakroistvan/floatThead",
+    "description": "Float the table header without special css",
+    "type": "component",
+    "homepage": "https://github.com/bakroistvan/floatThead",
+    "license": "MIT",
+    "support": {
+        "source": "https://github.com/bakroistvan/floatThead"
+    },
+    "authors": [
+        {
+            "name": "x",
+            "email": "x@y.com"
+        }
+    ],
+    "require": {
+        "robloach/component-installer": "*"
+    },
+    "extra": {
+        "component": {
+            "scripts": [
+                "jquery.floatThead.js",
+                "jquery.floatThead-slim.js"
+            ],
+            "files": [
+                "jquery.floatThead-slim.min.js",
+                "jquery.floatThead.min.js"
+            ]
+        }
+    }
+
+    
+    
+}
