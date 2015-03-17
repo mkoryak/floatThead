@@ -1,16 +1,16 @@
 {
-    "name": "bakroistvan/floatThead",
-    "description": "Float the table header without special css",
+    "name": "mkoryak/floatThead",
+    "description": "Float the table header without special css.",
     "type": "component",
-    "homepage": "https://github.com/bakroistvan/floatThead",
+    "homepage": "https://github.com/mkoryak/floatThead",
     "license": "MIT",
     "support": {
-        "source": "https://github.com/bakroistvan/floatThead"
+        "source": "https://github.com/mkoryak/floatThead"
     },
     "authors": [
         {
-            "name": "x",
-            "email": "x@y.com"
+            "name": "Misha Koryak",
+            "email": "mkoryak@gmail.com"
         }
     ],
     "require": {
@@ -19,12 +19,12 @@
     "extra": {
         "component": {
             "scripts": [
-                "jquery.floatThead.js",
-                "jquery.floatThead-slim.js"
+                "dist/jquery.floatThead.js",
+                "dist/jquery.floatThead-slim.js"
             ],
             "files": [
-                "jquery.floatThead-slim.min.js",
-                "jquery.floatThead.min.js"
+                "dist/jquery.floatThead-slim.min.js",
+                "dist/jquery.floatThead.min.js"
             ]
         }
     }
