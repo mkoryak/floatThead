@@ -11,11 +11,9 @@ base_url: "./.."
     <title>jQuery.floatThead</title>
 
     {% include assets.html %}
-    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script><!-- needed for other plugins -->
-    <script type='text/javascript' src="{{ page.base_url }}/lib/datatables/jquery.dataTables.min.js"></script>
-    <script type='text/javascript' src="{{ page.base_url }}/lib/datatables/jquery.dataTables.min.js"></script>
-    <script type='text/javascript' src="{{ page.base_url }}/lib/datatables/FixedHeader.js"></script>
-    <link href="{{ page.base_url }}/lib/datatables/demo_table.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script type='text/javascript' src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
+    <script type='text/javascript' src="http://datatables.net/release-datatables/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>
+    <link href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css" media="screen" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -27,9 +25,7 @@ base_url: "./.."
 <style type='text/css'>
 
 
-    .floatThead-table thead tr th {
-        background-color: white; /*makes for better scrolling when its not see-through ;) */
-    }
+
 
     .FixedHeader_Cloned th { background-color: white; } /* FixedHeader.js needs this */
 
@@ -56,11 +52,7 @@ base_url: "./.."
 {% highlight js %}
 $(document).ready(function () {
      var $table = $('#demo0');
-     $table.dataTable({
-         "bInfo": false,
-         "iDisplayLength": 100,
-         "bLengthChange": false
-     });
+     $table.DataTable();
 
     $table.floatThead({
         scrollingTop: pageTop //i need this because of my floating header
@@ -970,7 +962,7 @@ $(document).ready(function () {
 
 <div class='row'>
     <div class='span12'>
-        <h2>Using Datatable's <a href='http://datatables.net/release-datatables/extras/FixedHeader/index.html' target='_blank'>FixedHeader</a>
+        <h2>Using Datatable's <a href='http://datatables.net/extensions/fixedheader/' target='_blank'>FixedHeader</a>
         plugin</h2>
     
         <div class="row">
@@ -978,13 +970,15 @@ $(document).ready(function () {
                 <h3>Code</h3>
 {% highlight js %}
 $(document).ready(function () {
-    var oTable = $('#demo2').dataTable();
-    new FixedHeader( oTable );
+    var table = $('#demo2').DataTable();
+    new $.fn.dataTable.FixedHeader(table);
 });    
 {% endhighlight %}
-                This example shows the <a href='http://datatables.net/release-datatables/extras/FixedHeader/index.html'
+                This example shows the <a href='http://datatables.net/extensions/fixedheader/'
                                           target='_blank'>FixedHeader plugin</a> written by datatable's author. I put it here to
                 compare it with my plugin. FixedHeader does not support inner scrolling.
+                <br/>
+                Also I couldn't figure out how set an offset of 41px from the top. Maybe it doesnt support this, or maybe I cant read docs.
             </div>
         </div>
         <table cellpadding="0" cellspacing="0" border="0" class="bordered-table zebra-striped" id="demo2" style='width:100%;'>
@@ -1493,22 +1487,14 @@ $(document).ready(function () {
 <script type="text/javascript">
     $(document).ready(function () {
         var $table = $('#demo0');
-        $table.dataTable({
-            "bInfo":false,
-            "iDisplayLength":100,
-            "bLengthChange":false
-        });
+        $table.DataTable();
 
         $table.floatThead({
             scrollingTop:pageTop
         });
 
         var $table2 = $('#demo1');
-        $table2.dataTable({
-            "bInfo":false,
-            "iDisplayLength":1000,
-            "bLengthChange":false
-        });
+        $table2.DataTable();
 
         $table2.floatThead({
             scrollingTop:pageTop,
@@ -1519,14 +1505,10 @@ $(document).ready(function () {
             }
         });
 
-        var oTable = $('#demo2').dataTable({
-            "bInfo":false,
-            "iDisplayLength":1000,
-            "bLengthChange":false
+        var table = $('#demo2').DataTable({
+            "paging": false
         });
-        new FixedHeader(oTable, {
-            offsetTop : 41
-        });
+        new $.fn.dataTable.FixedHeader(table);
     });
 </script>
 
