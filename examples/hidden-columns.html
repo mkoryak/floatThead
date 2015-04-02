@@ -120,6 +120,26 @@ $toggleCountry.on("click", function(e){
 
                     </div>
                 </div>
+            </div><div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                            Auto-reflow with a mutation observer
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            The following option only works in browsers that support the <a href="http://caniuse.com/#search=MutationObserver" target="_blank">MutationObserver API</a>.<br/>
+                            Set <code>autoReflow</code> to true, and the plugin will automatically
+                            reflow itself when the table's internal dom structure changes.
+{% highlight js %}
+$('table').floatThead({autoReflow:true});
+{% endhighlight %}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
