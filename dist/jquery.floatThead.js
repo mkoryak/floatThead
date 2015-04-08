@@ -543,7 +543,6 @@
           if(haveCaption && captionAlignTop){
             tableContainerGap += captionHeight;
           }
-          tableContainerGap -= floatContainerBorderWidth('top');
           tableLeftGap = floatContainerBorderWidth('left');
         } else {
           floatEnd = tableOffset.top - scrollingTop - floatContainerHeight + scrollingBottom + scrollbarOffset.horizontal;
@@ -602,14 +601,13 @@
           var tableHeight = $table.outerHeight();
 
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
-            if (tableContainerGap >= scrollingContainerTop) {
-              var gap = tableContainerGap - scrollingContainerTop;
-              top = gap > 0 ? gap : 0;
-              triggerFloatEvent(false);
-            } else {
-              top = wrappedContainer ? 0 : scrollingContainerTop;
+            if (tableContainerGap < scrollingContainerTop) {
+              top = wrappedContainer ? tableContainerGap : scrollingContainerTop;
               //headers stop at the top of the viewport
               triggerFloatEvent(true);
+            } else {
+              top = tableContainerGap;
+              triggerFloatEvent(false);
             }
             left = tableLeftGap;
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
