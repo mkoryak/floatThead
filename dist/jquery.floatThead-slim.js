@@ -32,7 +32,7 @@
     getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
       // override it if the first row of the table is going to contain colgroups (any cell spans greater than one col)
       // it should return a jquery object containing a wrapped set of table cells comprising a row that contains no col spans and is visible
-      return $table.children('tbody tr:visible:first>*:visible');
+      return $table.find('tbody tr:visible:first>*:visible');
     },
     floatTableClass: 'floatThead-table',
     floatWrapperClass: 'floatThead-wrapper',
@@ -537,14 +537,16 @@
         var floatContainerHeight = $floatContainer.height();
         var tableOffset = $table.offset();
         var tableLeftGap = 0; //can be caused by border on container (only in locked mode)
+        var tableTopGap = 0;
         if(locked){
           var containerOffset = $scrollContainer.offset();
           tableContainerGap = tableOffset.top - containerOffset.top + scrollingContainerTop;
           if(haveCaption && captionAlignTop){
             tableContainerGap += captionHeight;
           }
-          tableContainerGap -= floatContainerBorderWidth('top');
           tableLeftGap = floatContainerBorderWidth('left');
+          tableTopGap = floatContainerBorderWidth('top');
+          tableContainerGap -= tableTopGap;
         } else {
           floatEnd = tableOffset.top - scrollingTop - floatContainerHeight + scrollingBottom + scrollbarOffset.horizontal;
         }
@@ -603,11 +605,11 @@
 
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
-              var gap = tableContainerGap - scrollingContainerTop;
+              var gap = tableContainerGap - scrollingContainerTop + tableTopGap;
               top = gap > 0 ? gap : 0;
               triggerFloatEvent(false);
             } else {
-              top = wrappedContainer ? 0 : scrollingContainerTop;
+              top = wrappedContainer ? tableTopGap : scrollingContainerTop;
               //headers stop at the top of the viewport
               triggerFloatEvent(true);
             }
@@ -615,7 +617,7 @@
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight - floatContainerHeight + captionScrollOffset; //scrolled past table
-            } else if (tableOffset.top > windowTop + scrollingTop) {
+            } else if (tableOffset.top >= windowTop + scrollingTop) {
               top = 0; //scrolling to table
               unfloat();
               triggerFloatEvent(false);
