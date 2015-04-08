@@ -537,14 +537,16 @@
         var floatContainerHeight = $floatContainer.height();
         var tableOffset = $table.offset();
         var tableLeftGap = 0; //can be caused by border on container (only in locked mode)
+        var tableTopGap = 0;
         if(locked){
           var containerOffset = $scrollContainer.offset();
           tableContainerGap = tableOffset.top - containerOffset.top + scrollingContainerTop;
           if(haveCaption && captionAlignTop){
             tableContainerGap += captionHeight;
           }
-          tableContainerGap -= floatContainerBorderWidth('top');
           tableLeftGap = floatContainerBorderWidth('left');
+          tableTopGap = floatContainerBorderWidth('top');
+          tableContainerGap -= tableTopGap;
         } else {
           floatEnd = tableOffset.top - scrollingTop - floatContainerHeight + scrollingBottom + scrollbarOffset.horizontal;
         }
@@ -603,11 +605,11 @@
 
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
-              var gap = tableContainerGap - scrollingContainerTop;
+              var gap = tableContainerGap - scrollingContainerTop + tableTopGap;
               top = gap > 0 ? gap : 0;
               triggerFloatEvent(false);
             } else {
-              top = wrappedContainer ? 0 : scrollingContainerTop;
+              top = wrappedContainer ? tableTopGap : scrollingContainerTop;
               //headers stop at the top of the viewport
               triggerFloatEvent(true);
             }
