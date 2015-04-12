@@ -7,7 +7,12 @@ Check out the demo / docs page for copious examples:
 
 ###[Demos and Docs](http://mkoryak.github.io/floatThead/)  
 
-###[Download / Bower](https://github.com/mkoryak/floatThead#download--install)
+###[Download](https://github.com/mkoryak/floatThead#download--install)
+```bash
+bower install floatThead
+```
+
+![This is for the really lazy cats](http://giant.gfycat.com/AnyGloriousAlpaca.gif)
 
 Features:
 ---------
@@ -21,8 +26,6 @@ Features:
 -   Works with [datatables](http://datatables.net) out of the box
 -   Screen reader support
 -   Plays nicely with angularjs
-
-[![Donate](http://programmingdrunk.com/donate-coffee.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SDJJ42BTC46LY&lc=US&item_name=floatThead&currency_code=USD&bn=PP%2dDonationsBF%3adonate%2dcoffee%2epng%3aNonHosted)
 
 
 What it does not do:
