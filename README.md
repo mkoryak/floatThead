@@ -43,7 +43,7 @@ How to get help with the floatThead
 All issues should be reported through github. If you don't have an account you can make one.  
 Providing the following will greatly increase the chances of your issue being resolved quickly:
  - Include the browser and operating system where you are having the problem. If its IE, a screenshot is also nice since I don't have quick access to that abomination.
- - Provide a jsfiddle that reproduces your issue in its simplest form possible. If its hard to read your code, you did it wrong.
+ - **Provide a jsfiddle that reproduces your issue in its simplest form possible**. If its hard to read your code, you did it wrong.
  - A description of the issue and steps to reproduce
  
 I will do my best to help you in a timely manner.
