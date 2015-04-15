@@ -177,7 +177,12 @@
       var command = map;
       var ret = this;
       this.filter('table').each(function(){
-        var obj = $(this).data('floatThead-attached');
+        var $this = $(this);
+        var opts = $this.data('floatThead-lazy');
+        if(opts){
+          $this.floatThead(opts);
+        }
+        var obj = $this.data('floatThead-attached');
         if(obj && util.isFunction(obj[command])){
           var r = obj[command]();
           if(typeof r !== 'undefined'){
@@ -213,9 +218,18 @@
       canObserveMutations = opts.autoReflow && canObserveMutations; //option defaults to false!
       var $header = $table.children('thead:first');
       var $tbody = $table.children('tbody:first');
-      if($header.length == 0){
-        throw new Error('jQuery.floatThead must be run on a table that contains a <thead> element');
+      if($header.length == 0 || $tbody.length == 0){
+        $table.data('floatThead-lazy', opts);
+        $table.one('reflow', function(){
+          $table.floatThead(opts);
+        });
+        return;
       }
+      if($table.data('floatThead-lazy')){
+        $table.unbind("reflow");
+      }
+      $table.data('floatThead-lazy', false);
+
       var headerFloated = false;
       var scrollingTop, scrollingBottom;
       var scrollbarOffset = {vertical: 0, horizontal: 0};
