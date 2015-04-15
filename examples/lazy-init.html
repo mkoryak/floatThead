@@ -1,0 +1,74 @@
+---
+layout: default
+slug: exceptions
+base_url: "./../.."
+---
+
+
+<style type='text/css'>
+	body {
+		padding-top: 81px;
+	}
+	table {
+		border: 1px solid #4e69ff;
+        border-collapse: collapse;
+	}
+    table td, table th {
+        border-left: 1px solid #ccc;
+        padding: 10px;
+    }
+	
+</style>
+
+<div class='row'>
+    <div class='span12'>
+        <h1>Lazy init</h1>
+        <p>
+        floatThead will not fully init until the table has both a thead and a tbody child elements.
+        You need to run <code>$table.floatThead('reflow')</code> once the table has a head and the body and the init will complete.
+        </p>
+
+        <h2>This table has no thead</h2>
+
+        This table doesnt have a <code>thead</code> element. Running floatThead on this table will cause it to defer init until:
+        <ol>
+            <li>The table has a thead</li>
+            <li>AND you run <code>$table.floatThead('reflow')</code></li>
+        </ol>
+        <hr/>
+        <a href class="add-thead">Click to add a thead and reflow</a><br/>
+
+{% highlight js %}
+var $table = $('table');
+$table.floatThead();
+
+$('a.add-thead').on('click', function(e){
+    $table.prepend('<thead><tr><th>header1</th><th>header2</th><th>header3</th></tr></thead>');
+    $table.floatThead('reflow');
+    e.preventDefault();
+});
+{% endhighlight %}
+
+           <table>
+               <tbody> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr></tbody>
+          </table><br/>
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function(){
+	    var $table = $('table');
+        $table.floatThead({
+            scrollingTop: pageTop
+        });
+        $('a.add-thead').on('click', function(e){
+            $table.prepend('<thead><tr><th><a href="#" >Header 1</a></th><th><a href="#">Header 2</a></th><th><a href="#" >Header...3</a></th></tr></thead>');
+            $table.floatThead('reflow');
+            e.preventDefault();
+        });
+    });
+	
+</script>
