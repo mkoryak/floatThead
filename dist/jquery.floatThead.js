@@ -96,12 +96,8 @@
 
   //returns fractional pixel widths
   function getOffsetWidth(el) {
-    if(window.getComputedStyle){
-      return parseFloat(getComputedStyle(el).getPropertyValue('width'));
-    } else {
-      var rect = el.getBoundingClientRect();
-      return rect.right - rect.left;
-    }
+    var rect = el.getBoundingClientRect();
+    return rect.width || rect.right - rect.left;
   }
 
   /**
@@ -301,7 +297,7 @@
         floatTableHidden = true;
       }
 
-      $floatTable.addClass(opts.floatTableClass).css('margin', 0); //must have no margins or you won't be able to click on things under floating table
+      $floatTable.addClass(opts.floatTableClass).css({'margin': 0, 'border-bottom-width': 0}); //must have no margins or you won't be able to click on things under floating table
 
       if(useAbsolutePositioning){
         var makeRelative = function($container, alwaysWrap){
@@ -347,11 +343,19 @@
 
       function setHeaderHeight(){
         var headerHeight = 0;
+
         $header.children("tr:visible").each(function(){
-          headerHeight += $(this).outerHeight(true);
+          var max = -1;
+          $(this).find('>*').each(function(){
+            var h = parseFloat(getComputedStyle(this)['height']);
+            if(h > max){
+              max = h;
+            }
+          });
+          headerHeight += max;
         });
-        $sizerRow.outerHeight(headerHeight);
-        $sizerCells.outerHeight(headerHeight);
+        $sizerRow.height(headerHeight);
+        $sizerCells.eq(0).height(headerHeight);
       }
 
 
@@ -738,11 +742,13 @@
 
       var windowScrollDoneEvent = util.debounce(function(){
         repositionFloatContainer(calculateFloatContainerPos('windowScrollDone'), false);
-      }, 300);
+      }, 1);
 
       var windowScrollEvent = function(){
         repositionFloatContainer(calculateFloatContainerPos('windowScroll'), false);
-        windowScrollDoneEvent();
+        if(absoluteToFixedOnScroll){
+          windowScrollDoneEvent();
+        }
       };
       var containerScrollEvent = function(){
         repositionFloatContainer(calculateFloatContainerPos('containerScroll'), false);
