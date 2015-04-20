@@ -342,20 +342,9 @@
       }
 
       function setHeaderHeight(){
-        var headerHeight = 0;
-
-        $header.children("tr:visible").each(function(){
-          var max = -1;
-          $(this).find('>*').each(function(){
-            var h = parseFloat(getComputedStyle(this)['height']);
-            if(h > max){
-              max = h;
-            }
-          });
-          headerHeight += max;
-        });
+        var headerHeight = parseFloat(getComputedStyle($header[0])['height'])
         $sizerRow.height(headerHeight);
-        $sizerCells.eq(0).height(headerHeight);
+        $sizerCells.eq(0).outerHeight(headerHeight);
       }
 
 
