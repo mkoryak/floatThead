@@ -27,7 +27,6 @@ base_url: "./../.."
             </p>
 {% highlight js %}
 $('table').floatThead({
-    scrollingTop: pageTop,
     useAbsolutePositioning: true,
     scrollContainer: function($table){
         return $table.closest(".wrapper");
@@ -65,7 +64,7 @@ $('table').floatThead({
             e.preventDefault();
             useAbs = !useAbs;
             $('table').floatThead('destroy').floatThead({
-                scrollingTop: pageTop,
+                scrollingTop: pageTop, //this is a global fn defined on the demo site, you dont need it!
                 useAbsolutePositioning: useAbs,
                 scrollContainer: function($table){
                     return $(".wrapper");
