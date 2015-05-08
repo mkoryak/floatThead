@@ -1,7 +1,9 @@
 jquery.floatThead v1.2.11
 =================
 
-Float the table header without special css. This plugin assumes nothing about your table markup and "just works" without losing your events or styles. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. Plays nice with AngularJS and datatables and well written plugins. **My cat loves it**.
+Float the table header without special css. This plugin assumes nothing about your table markup and "just works" without losing your events or styles. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. Plays nice with AngularJS and datatables and well written plugins.  
+
+:heart_eyes_cat:**My cat loves it**:heart_eyes_cat:
 
 Check out the demo / docs page for copious examples:
 
