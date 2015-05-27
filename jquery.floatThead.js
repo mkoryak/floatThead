@@ -342,9 +342,35 @@
       }
 
       function setHeaderHeight(){
-        var headerHeight = parseFloat(getComputedStyle($header[0])['height'])
+        var headerHeight = 0;
+        var next = 0;
+
+        $table.children().each(function(){
+              console.log("waaaat", $(this).height())
+        });
+
+        var tableBorderTopHeight = parseInt($table.css('border-top-width'), 10);
+        var cellBorderTopHeight = parseInt($table.find("tr:first").find(">*:first").css('border-top-width'), 10);
+        var borderTopHeight = tableBorderTopHeight > cellBorderTopHeight ? tableBorderTopHeight : cellBorderTopHeight;
+
+
+        $header.find("tr").find(">*:first").each(function(i){
+          if(i == next) {
+            var $cell = $(this);
+            next += parseInt($cell.attr('rowSpan') || '1', 10);
+            headerHeight += $cell.outerHeight();
+          }
+        });
+        console.log('hh 1', headerHeight)
+        if($table.css('border-collapse') == 'collapse') {
+          var tableBorderTopHeight = parseInt($table.css('border-top-width'), 10);
+          var cellBorderTopHeight = parseInt($table.find("tr:first").find(">*:first").css('border-top-width'), 10);
+          var borderTopHeight = tableBorderTopHeight > cellBorderTopHeight ? tableBorderTopHeight : cellBorderTopHeight;
+          headerHeight -= (borderTopHeight / 2); //id love to see some docs where this magic recipe is found..
+          console.log('hh 2', headerHeight)
+        }
         $sizerRow.height(headerHeight);
-        $sizerCells.eq(0).outerHeight(headerHeight);
+        $sizerCells.eq(0).height(headerHeight);
       }
 
 

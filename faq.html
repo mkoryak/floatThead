@@ -3,6 +3,24 @@ layout: bootstrap3
 slug: faq
 base_url: ".."
 ---
+<h2>Frequent Issues</h2>
+
+    <dl class="faq">
+        <dt>The scrolling container has absolute position with <code>top:0;left:0;right:0;bottom:0</code> css</dt>
+        <dd>
+            init plugin with <code>useAbsolutePositioning:false</code> and see this example solution: <a href="https://github.com/mkoryak/floatThead/issues/205" target="_blank">issue 205</a>
+        </dd>
+
+        <dt>scroll container is not working (header does not float)</dt>
+        <dd>
+            scroll container should be the closest parent of table with <code>position:relative;overflow:auto;height:n px;</code>. If it is not, things wont work.
+            The scroll container must be the container that scrolls <b>both</b> the x and y axis. It also helps if the container is as close to the table as possible (in terms of number of element between the scroll container and table)
+        </dd>
+    </dl>
+
+
+<h2>Plugin Best Practices</h2>
+<p class="lead">Do this, and you will avoid a lot of headaches not just with this plugin, but with your layouts in general</p>
 
 <div class="comment-body markdown-body markdown-format js-comment-body">
     <p>This plugin works by moving your table's header into a new table that it creates, it then floats that table in
@@ -74,3 +92,7 @@ base_url: ".."
         <li>Your table is hidden when you run the plugin so the column width calculations all fail.</li>
     </ul>
 </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>

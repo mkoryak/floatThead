@@ -46,12 +46,23 @@ $('table').floatThead({
             <div class='wrap' id='wrap'>
                 <table class='table'>
                     <thead>
-                    <tr>
-                        <th style="width: 50px;">something</th>
-                        <th style="width: 50px;">type</th>
-                        <th style="width: 50px;">default</th>
-                        <th>description</th>
-                    </tr>
+                        <tr>
+                            <th rowspan="2"><a href="#" id='demoHeader1'>Header 1</a></th>
+                            <th><a href="#" id='demoHeader2'>Header 2</a></th>
+                            <th><a href="#" id='demoHeader3'>Header...3</a></th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">wooo</th>
+                            <th>cat</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3" rowspan="2">abc</th>
+                            <th>cat</th>
+                        </tr>
+                        <tr>
+                            <th>last</th>
+                        </tr>
                     </thead>
                     <tbody>
                     <tr>
