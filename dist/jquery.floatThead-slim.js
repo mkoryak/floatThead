@@ -343,6 +343,8 @@
 
       function setHeaderHeight(){
         var headerHeight = 0;
+        var next = 0;
+
         $header.children("tr:visible").each(function(){
           headerHeight += $(this).outerHeight(true);
         });
@@ -350,8 +352,9 @@
         if($table.css('border-collapse') == 'collapse') {
           var tableBorderTopHeight = parseInt($table.css('border-top-width'), 10);
           var cellBorderTopHeight = parseInt($table.find("thead tr:first").find(">*:first").css('border-top-width'), 10);
-          var borderTopHeight = tableBorderTopHeight > cellBorderTopHeight ? tableBorderTopHeight : cellBorderTopHeight;
-          headerHeight -= (borderTopHeight / 2); //id love to see some docs where this magic recipe is found..
+          if(tableBorderTopHeight > cellBorderTopHeight) {
+            headerHeight -= (tableBorderTopHeight / 2); //id love to see some docs where this magic recipe is found..
+          }
         }
         $sizerRow.outerHeight(headerHeight);
         $sizerCells.outerHeight(headerHeight);
