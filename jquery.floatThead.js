@@ -22,7 +22,7 @@
     cellTag: null, // DEPRECATED - use headerCellSelector instead
     headerCellSelector: 'tr:visible:first>*:visible', //thead cells are this.
     zIndex: 1001, //zindex of the floating thead (actually a container div)
-    debounceResizeMs: 10,
+    debounceResizeMs: 10, //Deprecated!
     useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
     scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
     scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
@@ -345,32 +345,18 @@
         var headerHeight = 0;
         var next = 0;
 
-        $table.children().each(function(){
-              console.log("waaaat", $(this).height())
+        $header.children("tr:visible").each(function(){
+          headerHeight += $(this).outerHeight(true);
         });
 
-        var tableBorderTopHeight = parseInt($table.css('border-top-width'), 10);
-        var cellBorderTopHeight = parseInt($table.find("tr:first").find(">*:first").css('border-top-width'), 10);
-        var borderTopHeight = tableBorderTopHeight > cellBorderTopHeight ? tableBorderTopHeight : cellBorderTopHeight;
-
-
-        $header.find("tr").find(">*:first").each(function(i){
-          if(i == next) {
-            var $cell = $(this);
-            next += parseInt($cell.attr('rowSpan') || '1', 10);
-            headerHeight += $cell.outerHeight();
-          }
-        });
-        console.log('hh 1', headerHeight)
         if($table.css('border-collapse') == 'collapse') {
           var tableBorderTopHeight = parseInt($table.css('border-top-width'), 10);
-          var cellBorderTopHeight = parseInt($table.find("tr:first").find(">*:first").css('border-top-width'), 10);
+          var cellBorderTopHeight = parseInt($table.find("thead tr:first").find(">*:first").css('border-top-width'), 10);
           var borderTopHeight = tableBorderTopHeight > cellBorderTopHeight ? tableBorderTopHeight : cellBorderTopHeight;
           headerHeight -= (borderTopHeight / 2); //id love to see some docs where this magic recipe is found..
-          console.log('hh 2', headerHeight)
         }
-        $sizerRow.height(headerHeight);
-        $sizerCells.eq(0).height(headerHeight);
+        $sizerRow.outerHeight(headerHeight);
+        $sizerCells.outerHeight(headerHeight);
       }
 
 

@@ -22,7 +22,7 @@
     cellTag: null, // DEPRECATED - use headerCellSelector instead
     headerCellSelector: 'tr:visible:first>*:visible', //thead cells are this.
     zIndex: 1001, //zindex of the floating thead (actually a container div)
-    debounceResizeMs: 10,
+    debounceResizeMs: 10, //Deprecated!
     useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
     scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
     scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
@@ -342,9 +342,19 @@
       }
 
       function setHeaderHeight(){
-        var headerHeight = parseFloat(getComputedStyle($header[0])['height'])
-        $sizerRow.height(headerHeight);
-        $sizerCells.eq(0).outerHeight(headerHeight);
+        var headerHeight = 0;
+        $header.children("tr:visible").each(function(){
+          headerHeight += $(this).outerHeight(true);
+        });
+
+        if($table.css('border-collapse') == 'collapse') {
+          var tableBorderTopHeight = parseInt($table.css('border-top-width'), 10);
+          var cellBorderTopHeight = parseInt($table.find("thead tr:first").find(">*:first").css('border-top-width'), 10);
+          var borderTopHeight = tableBorderTopHeight > cellBorderTopHeight ? tableBorderTopHeight : cellBorderTopHeight;
+          headerHeight -= (borderTopHeight / 2); //id love to see some docs where this magic recipe is found..
+        }
+        $sizerRow.outerHeight(headerHeight);
+        $sizerCells.outerHeight(headerHeight);
       }
 
 

@@ -158,11 +158,6 @@ $table.floatThead({
                 <td>true</td>
                 <td>Position the floated header using absolute positioning or using fixed positioning. Fixed positioning performs better with tables that use window scrolling, but fails miserably on highly dynamic pages where DOM can be suddenly modified causing the location of the floated table to shift. (You should call <code>.floatThead('reflow')</code> in this case, but you cant always instrument your code to make that call.)</td>
             </tr><tr>
-                <td>debounceResizeMs</td>
-                <td>number</td>
-                <td>1</td>
-                <td>The headers are repositioned on resize. Because this event has the potential to fire a bunch of times, it is debounced. This is the <a href='http://unscriptable.com/2009/03/20/debouncing-javascript-methods/' target='_blank'>debounce rate</a>.</td>
-            </tr><tr>
                 <td>zIndex</td>
                 <td>number</td>
                 <td>1001</td>
