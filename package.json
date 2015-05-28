@@ -2,7 +2,7 @@
   "name": "floatthead",
   "version": "1.2.10",
   "description": "fixed table header plugin that works",
-  "main": "jquery.floatThead.js",
+  "main": "dist/jquery.floatThead.js",
   "dependencies": {},
   "devDependencies": {
     "grunt-contrib-clean": "~0.5.0",
