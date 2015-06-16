@@ -84,6 +84,7 @@ bower install floatThead
 ```bash
 npm install floatthead
 ```
+![npm](https://nodei.co/npm/floatthead.png)
 
 ### Webjar for Maven, Gradle, SBT
 https://github.com/webjars/floatThead
