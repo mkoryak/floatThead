@@ -439,7 +439,7 @@
         if(!headerFloated){
           headerFloated = true;
           if(useAbsolutePositioning){ //#53, #56
-            var tw = tableWidth($table, $fthCells);
+            var tw = tableWidth($table, $fthCells, true);
             var wrapperWidth = $wrapper.width();
             if(tw > wrapperWidth){
               $table.css('minWidth', tw);
