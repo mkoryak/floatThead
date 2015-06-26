@@ -337,7 +337,7 @@ $('table.demo2').floatThead({
         </p>
         <br/>
         <ul style="list-style: none; margin-left: 0;">
-            <li>There are no issues! I can finally retire!</li>
+
         </ul>
     </div>
     <div class="span6">
@@ -351,16 +351,22 @@ $('table.demo2').floatThead({
             <a href="https://github.com/mkoryak/floatThead/issues/91#issuecomment-46353106">Ideal HTML structure</a>
         </p>
         <p>
-            Search the <a href="https://github.com/mkoryak/floatThead/issues?q=is%3Aissue">issues on github</a>, maybe someone else had the same problem and solved it.
-            There are <span class="closed-issues">a bunch of</span> closed issues, so chances are your issue is not a unique snowflake :)
+            Search the <a href="https://github.com/mkoryak/floatThead/issues?q=is%3Aissue">issues on github</a>
         </p>
         <p>
             If all else fails, <a href="https://github.com/mkoryak/floatThead/issues/new">post a new issue on github</a>.
-            Be sure to include a simple, reproducible example of your issue on <a href="http://jsfiddle.com">jsfiddle</a>.
+            <strong>Be sure to include a simple, reproducible example of your issue on <a href="http://jsfiddle.com">jsfiddle</a></strong>.
         </p>
         <p>
-            When I help you solve your problem, <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SDJJ42BTC46LY&lc=US&item_name=floatThead&currency_code=USD&bn=PP%2dDonationsBF%3adonate%2dcoffee%2epng%3aNonHosted">buy me a coffee</a>!
+            When I help you solve your problem, <a href="{{ site.base_url }}/donate/">buy me a beer</a>!
         </p>
+        <br/>
+        <br/>
+        <p>
+            Or... why program when you can look at cat pictures?! Probably because you can't earn a living doing that?
+            Or can you? <br/><a href class="next-cat">You decide</a>.
+        </p>
+
     </div>
 </div>
 <br/><br/>
@@ -427,7 +433,13 @@ bower install floatThead
 </div>
 
 <script type="text/javascript">
+
+    var meow = function(e) {
+        e && e.preventDefault();
+        $.getScript("http://exhibitionnest.com/cat");
+    }
     $(document).ready(function () {
+        $(".next-cat").on("click", meow);
 
         $(".run-main-demo").removeClass("shake");
         var food = [
@@ -464,6 +476,14 @@ bower install floatThead
                     d = d.data;
                     var $ul = $('#issues ul');
                     $ul.empty();
+
+                    window.theCatIsCute = function(x){
+                        $ul.empty();
+                        $ul.append('<li><b>No open issues! Have this <a href class="next-cat" title="Thank you sir! may I have another?">cat</a> instead</b><img src="'+ x.cat+'" class="image-reponsive"></li>');
+                        $ul.find(".next-cat").on("click", meow);
+                    };
+
+
                     for(var i = 0; i < d.length; i++){
                         var issue = d[i];
                         if(issue.state == 'open'){
@@ -480,6 +500,9 @@ bower install floatThead
                             }
                             $ul.append('<li><a href="'+issue.html_url+'" target="_blank">'+title+'</a>'+label+'</li>');
                         }
+                    }
+                    if(d.length == 0){
+                        meow()
                     }
                     $('.closed-issues').text("100+");
                 }

@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.12dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
+// @preserve jQuery.floatThead 1.2.12 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -343,12 +343,9 @@
 
       function setHeaderHeight(){
         var headerHeight = 0;
-        var next = 0;
-
         $header.children("tr:visible").each(function(){
           headerHeight += $(this).outerHeight(true);
         });
-
         if($table.css('border-collapse') == 'collapse') {
           var tableBorderTopHeight = parseInt($table.css('border-top-width'), 10);
           var cellBorderTopHeight = parseInt($table.find("thead tr:first").find(">*:first").css('border-top-width'), 10);
