@@ -1,0 +1,293 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+bootstrap: false
+desc: 'resize window to make table about 770px, on float it should align properlly'
+issue: 220
+---
+
+<style>
+
+    table, th, td, tr {
+        border: 1px solid;
+        border-collapse: collapse;
+        /* background-color: #eefcff; */
+    }
+
+
+</style>
+
+
+<script>
+    $(document).ready(function()
+    {
+
+        var $table = $('table');
+        $table.floatThead();
+        alignmentDebugger($table);
+
+    });
+
+</script>
+
+
+
+
+
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Source</th>
+            <th>8in</th>
+            <th>16in</th>
+            <th>24in</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Rain</th>
+            <th>Irri&shy;gation</th>
+            <th>Ignore</th>
+            <th>Stage</th>
+            <th>AWC</th>
+            <th>Recom&shy;mendation</th>
+            <th>Message</th>
+            <th>Comment</th>
+            <th>extra cell in tbody</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2015-03-31</td>
+            <td></td>
+            <td>None</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Planting</td>
+            <td>0.00</td>
+            <td>2.50</td>
+            <td class="dti" rowspan=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
