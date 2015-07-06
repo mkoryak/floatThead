@@ -23,7 +23,7 @@
     headerCellSelector: 'tr:visible:first>*:visible', //thead cells are this.
     zIndex: 1001, //zindex of the floating thead (actually a container div)
     debounceResizeMs: 10, //Deprecated!
-    useAbsolutePositioning: true, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
+    useAbsolutePositioning: null, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
     scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
     scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
     scrollContainer: function($table){
