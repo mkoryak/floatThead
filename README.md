@@ -25,7 +25,7 @@ Features:
 -   Doesn't mess with your styles
 -   Works on any table
 -   Requires no special css
--   Works with [datatables](http://datatables.net) out of the box
+-   Works with libs like [datatables](http://datatables.net), [perfect-scrollbar](http://mkoryak.github.io/floatThead/examples/perfect-scrollbar/), [bootstrap](http://mkoryak.github.io/floatThead/examples/bootstrap3/), and many more
 -   Screen reader support
 -   Plays nicely with angularjs
 
