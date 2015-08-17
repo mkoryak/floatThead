@@ -6,10 +6,10 @@ base_url: ".."
 <h2>Frequent Issues</h2>
 
     <dl class="faq">
-        <dt>plugin doesn't work when table is in a bootstrap tab</dt>
+        <dt>plugin doesn't work when table is in a bootstrap3 tab</dt>
         <dd>
             you must trigger reflow on the plugin when the table becomes visible (when you show a tab):
-            <a href="http://jsfiddle.net/muruadvm/1/" target="_blank">jsfiddle</a>
+            <a href="http://jsfiddle.net/muruadvm/2/" target="_blank">jsfiddle</a>
         </dd>
 
         <dt>The scrolling container has absolute position with <code>top:0;left:0;right:0;bottom:0</code> css</dt>
@@ -22,6 +22,13 @@ base_url: ".."
             scroll container should be the closest parent of table with <code>position:relative;overflow:auto;height:n px;</code>. If it is not, things wont work.
             The scroll container must be the container that scrolls <b>both</b> the x and y axis. It also helps if the container is as close to the table as possible (in terms of number of element between the scroll container and table)
         </dd>
+
+        <dt>IE ONLY: header noticeably skips/jumps as you scroll</dt>
+        <dd>
+            I did a bit of IE researching and found that by unchecking IE's "Use smooth scrolling" setting, this issue no longer exists. You can do this by clicking the settings cog/gear -> Internet Options -> Advanced (tab) -> Browsing -> "Use smooth scrolling" (uncheck).
+            <br/> <a href="https://github.com/mkoryak/floatThead/issues/233">see issue #233</a>
+        </dd>
+
     </dl>
 
 
