@@ -10,10 +10,11 @@ All issues should be reported through github. If you don't have an account you c
 Providing the following will greatly increase the chances of your issue being resolved quickly:
 
  - Give me: browser version, OS version, jQuery version, floatThead version if not latest
- - Provide a jsfiddle that reproduces your issue in its simplest form possible
+ - Provide a jsfiddle that reproduces your issue in its simplest form possible [required]
  - A description of the issue and steps to reproduce
  
-I will do my best to help you in a timely manner.
+
+I will put in as much effort into helping you as you put in describing your problem / creating fiddle.
 
 Pull requests
 -----
