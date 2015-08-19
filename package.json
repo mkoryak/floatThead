@@ -1,6 +1,6 @@
 {
   "name": "floatthead",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "fixed table header plugin that works",
   "main": "dist/jquery.floatThead.js",
   "dependencies": {},
@@ -23,7 +23,8 @@
     "table",
     "thead",
     "floatThead",
-    "scrolling table"
+    "scrolling table",
+    "jQuery plugin"
   ],
   "author": "Misha Koryak",
   "license": "MIT",
