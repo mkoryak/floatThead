@@ -114,6 +114,11 @@ $toggleCountry.on("click", function(e){
     $countyNameColumn[$countyNameColumn.hasClass("hide") ? "removeClass" : "addClass"]("hide");
     $table.floatThead("reflow"); //make floatThead notice the missing column
 });
+
+$(document).on("shown.bs.collapse show.bs.collapse hide.bs.collapse hidden.bs.collapse", function(){
+    //plugin is running with fixed positioning, so this is needed to update the header's location
+    $table.trigger("reflow");
+});
 {% endhighlight %}
 
                         </p>
