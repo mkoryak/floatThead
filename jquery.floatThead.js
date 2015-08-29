@@ -360,8 +360,17 @@
 
       function setFloatWidth(){
         var tw = tableWidth($table, $fthCells, true);
-        var width = $scrollContainer.width() || tw;
-        var floatContainerWidth = $scrollContainer.css("overflow-y") != 'hidden' ? width - scrollbarOffset.vertical : width;
+        var width = tw;
+        if (locked) {
+            var visibleWidth = $scrollContainer.innerWidth(); // include padding
+            var spaceToLeftOfTable = $table.position().left;
+            if (spaceToLeftOfTable > 0) visibleWidth -= spaceToLeftOfTable;
+            if ($scrollContainer.css("overflow-y") != 'hidden') {
+                visibleWidth -= scrollbarOffset.vertical;
+            }
+            width = Math.min(tw, visibleWidth); // in case there's space to right of table
+        }
+        var floatContainerWidth = width;
         $floatContainer.width(floatContainerWidth);
         if(locked){
           var percent = 100 * tw / (floatContainerWidth);
@@ -593,6 +602,11 @@
           } else if(eventType == 'containerScroll'){
             scrollingContainerTop = $scrollContainer.scrollTop();
             scrollContainerLeft =  $scrollContainer.scrollLeft();
+            // if scrolled, adjust for padding
+            if (scrollContainerLeft > 0) {
+                var scrollContainerPadding = $scrollContainer.css("padding-left").replace(/[^-\d\.]/g, '');
+                scrollContainerLeft = scrollContainerLeft - scrollContainerPadding;
+            }
           } else if(eventType != 'init') {
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
@@ -648,10 +662,22 @@
             if (tableContainerGap > scrollingContainerTop || scrollingContainerTop - tableContainerGap > tableHeight) {
               top = tableOffset.top - windowTop;
               unfloat();
+              // if we scrolled horizontally, table size may have changed
+              // for example, if there's padding to left of table and when scroll all the way to left padding "reappears"
+              setFloatWidth(); 
               triggerFloatEvent(false);
             } else {
               top = tableOffset.top + scrollingContainerTop  - windowTop - tableContainerGap;
+              // when scrolling horizontally within a modal, size of table may have increased
+              // for example, if there's padding to left of table and when scroll padding is no longer visible
+              setFloatWidth(); 
               refloat();
+              // if scrolled, adjust for padding
+              if ($scrollContainer.scrollLeft()) {
+                $floatTable.css("padding-left", $scrollContainer.css("padding-left"));
+              } else {
+                  $floatTable.css("padding-left", "0px");
+              }
               triggerFloatEvent(true);
               //headers stop at the top of the viewport
             }
