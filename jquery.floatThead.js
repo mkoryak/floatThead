@@ -313,13 +313,13 @@
         };
         if(locked){
           $wrapper = makeRelative($scrollContainer, true);
-          $wrapper.append($floatContainer);
+          $wrapper.prepend($floatContainer);
         } else {
           $wrapper = makeRelative($table);
-          $table.after($floatContainer);
+          $table.before($floatContainer);
         }
       } else {
-        $table.after($floatContainer);
+        $table.before($floatContainer);
       }
 
 
