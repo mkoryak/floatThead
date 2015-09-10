@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.2.13 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
+// @preserve jQuery.floatThead 1.2.14dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -306,10 +306,11 @@
           if(!relativeToScrollContainer || alwaysWrap){
             var css = {"paddingLeft": $container.css('paddingLeft'), "paddingRight": $container.css('paddingRight')};
             $floatContainer.css(css);
-            $container = $container.wrap("<div class='"+opts.floatWrapperClass+"' style='position: relative; clear:both;'></div>").parent();
+            var $containerWrap = $container.data('floatThead-containerWrap') || $container.wrap("<div class='"+opts.floatWrapperClass+"' style='position: relative; clear:both;'></div>").parent();
+            $container.data('floatThead-containerWrap', $containerWrap); //multiple tables inside one scrolling container - #242
             wrappedContainer = true;
           }
-          return $container;
+          return $containerWrap;
         };
         if(locked){
           $wrapper = makeRelative($scrollContainer, true);
