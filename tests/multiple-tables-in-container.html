@@ -1,0 +1,241 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+issue: 242
+desc: 'Multiple tables within a scrollable div'
+---
+
+<style>
+    table {
+        border: 1px solid #000000;
+        background-color: #ffffff;
+        margin-bottom:1em
+    }
+    th {
+        background-color: #dddddd;
+    }
+  </style>
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+    $("table.ram").each(function () {
+        var $table = $(this);
+
+
+            $table.floatThead({
+                useAbsolutePositioning: true,
+                scrollContainer: function ($table) {
+                    return $table.closest('.wrapper');
+                }
+            });
+
+    });
+}//]]>  
+
+</script>
+<div class="wrapper" style="height: 400px; width: 220px; overflow: auto">
+                <table class="ram">
+                    <thead>
+                        <tr>
+                            <th>Heading 1</th>
+                            <th>A Number</th>
+                            <th>String of Text</th>
+                            <th>Year</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr>
+                        <tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="ram">
+                    <thead>
+                        <tr>
+                            <th>Heading 2</th>
+                            <th>B Number</th>
+                            <th>String of Text</th>
+                            <th>Year</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr>
+                        <tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="ram">
+                    <thead>
+                        <tr>
+                            <th>Heading 3</th>
+                            <th>C Number</th>
+                            <th>String of Text</th>
+                            <th>Year</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr>
+                        <tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        <td>9/9/2015</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="ram">
+                    <thead>
+                        <tr>
+                            <th>Heading 4</th>
+                            <th>D Number</th>
+                            <th>String of Text</th>
+                            <th>Year</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr>
+                        <tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                            <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        <td>9/9/2015</td>
+                        </tr><tr>
+                            <td>Cell 1</td>
+                            <td>12340987</td>
+                            <td>some text here</td>
+                            <td>2014</td>
+                        <td>9/9/2015</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
