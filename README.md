@@ -71,7 +71,8 @@ if your project includes [underscore](http://underscorejs.org) and you want to s
 
 #### CDN Hosted
 
-[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)
+**cdnjs**: [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)  
+**jsdelivr**: [http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)
   
 #### Via Bower
 
