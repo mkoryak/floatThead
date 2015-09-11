@@ -303,10 +303,11 @@
         var makeRelative = function($container, alwaysWrap){
           var positionCss = $container.css('position');
           var relativeToScrollContainer = (positionCss == "relative" || positionCss == "absolute");
+          var $containerWrap = $container;
           if(!relativeToScrollContainer || alwaysWrap){
             var css = {"paddingLeft": $container.css('paddingLeft'), "paddingRight": $container.css('paddingRight')};
             $floatContainer.css(css);
-            var $containerWrap = $container.data('floatThead-containerWrap') || $container.wrap("<div class='"+opts.floatWrapperClass+"' style='position: relative; clear:both;'></div>").parent();
+            $containerWrap = $container.data('floatThead-containerWrap') || $container.wrap("<div class='"+opts.floatWrapperClass+"' style='position: relative; clear:both;'></div>").parent();
             $container.data('floatThead-containerWrap', $containerWrap); //multiple tables inside one scrolling container - #242
             wrappedContainer = true;
           }
@@ -851,6 +852,11 @@
             else {
               $table.unwrap();
             }
+          }
+          if(locked){
+            $scrollContainer.data('floatThead-containerWrap', false);
+          } else {
+            $table.data('floatThead-containerWrap', false);
           }
           $table.css('minWidth', originalTableMinWidth);
           $floatContainer.remove();
