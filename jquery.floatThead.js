@@ -383,6 +383,7 @@
        */
       function columnNum(){
         var count, $headerColumns;
+        $headerColumns = $header.find(selector);
         if(existingColGroup){
           count = $tableColGroup.find('col').length;
         } else {
@@ -396,7 +397,6 @@
             //it's actually a row count. (undocumented, might be removed!)
             return selector;
           }
-          $headerColumns = $header.find(selector);
           count = 0;
           $headerColumns.each(function(){
             count += parseInt(($(this).attr('colspan') || 1), 10);
