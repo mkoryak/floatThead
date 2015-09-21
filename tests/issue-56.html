@@ -98,11 +98,11 @@ window.onload=function(){
     $table.css('table-layout', 'fixed');
     var scrollTop = $('#aggregate-records-viewer').offset().top;
     $table.floatThead({
-        scrollingTop: scrollTop,
+        top: scrollTop,
         scrollContainer: function () {
             return $('#aggregate-records-viewer');
         },
-        useAbsolutePositioning: true,
+        position: 'absolute',
         cellTag: 'td',
         floatTableClass:"aggregate-records-table-view table-font-medium floatThead-table"
     });

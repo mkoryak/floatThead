@@ -168,13 +168,13 @@ base_url: "./.."
     $(document).ready(function () {
     	
 		$('#ft1').floatThead({
-            scrollingTop: pageTop
+            top: pageTop
         });
 		$('#ft2').floatThead({
 			scrollContainer: function($table){
 				return $table.closest('.wrapper');
 			},
-            scrollingTop: pageTop
+            top: pageTop
 		});
 		
 		$("#fht1").fixedHeaderTable();

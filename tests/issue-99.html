@@ -22,7 +22,7 @@ issue: 99
 $(window).load(function(){
 var $table = $('#tab');
 $table.floatThead({
-    useAbsolutePositioning: false,
+    position: 'fixed',
     scrollContainer: function ($table) {
         return $table.closest('#container');
     }

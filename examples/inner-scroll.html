@@ -20,14 +20,14 @@ base_url: "./../.."
         <div class='span12' id='intro'>
             <h1>Common Use-Case: Overflow Scrolling</h1>
             <p>
-                The table header sticks around as you scroll within a container. This is done via absolute positioning it there, you can change it to use fixed positioning if you set <code>useAbsolutePositioning</code> to false.
+                The table header sticks around as you scroll within a container. This is done via absolute positioning it there, you can change it to use fixed positioning if you set <code>position</code> to 'fixed'.
             </p>
             <p>
                 Absolute positioning is a good default because you do not need to call <code>$table.floatThead("reflow")</code> if the table's position changes because of some changes in the DOM
             </p>
 {% highlight js %}
 $('table').floatThead({
-    useAbsolutePositioning: true,
+    position: 'absolute',
     scrollContainer: function($table){
         return $table.closest(".wrapper");
     }
@@ -68,8 +68,8 @@ $('table').floatThead({
 <script type="text/javascript">
     $(function(){
         $('table').floatThead({
-            scrollingTop: pageTop,
-            useAbsolutePositioning: true,
+            top: pageTop,
+            position: 'absolute',
             scrollContainer: function($table){
                 return $table.closest(".wrapper");
             }
@@ -80,8 +80,8 @@ $('table').floatThead({
             e.preventDefault();
             useAbs = !useAbs;
             $('table').floatThead('destroy').floatThead({
-                scrollingTop: pageTop, //this is a global fn defined on the demo site, you dont need it!
-                useAbsolutePositioning: useAbs,
+                top: pageTop, //this is a global fn defined on the demo site, you dont need it!
+                position: useAbs ? 'absolute': 'fixed',
                 scrollContainer: function($table){
                     return $(".wrapper");
                 }

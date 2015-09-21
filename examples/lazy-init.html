@@ -62,7 +62,7 @@ $('a.add-thead').on('click', function(e){
     $(function(){
 	    var $table = $('table');
         $table.floatThead({
-            scrollingTop: pageTop
+            top: pageTop
         });
         $('a.add-thead').on('click', function(e){
             $table.prepend('<thead><tr><th><a href="#" >Header 1</a></th><th><a href="#">Header 2</a></th><th><a href="#" >Header...3</a></th></tr></thead>');

@@ -37,7 +37,7 @@ base_url: "./../.."
 {% highlight js %}
 $(function(){
     $('#demo').floatThead({
-        scrollingTop: pageTop,
+        top: pageTop,
         getSizingRow: function($table){ // this is only called when using IE
             return $table.find('tbody tr:not(.grouping):visible:first>*');
         }
@@ -158,11 +158,11 @@ $(function(){
 <script type="text/javascript">
     $(function(){
         $('#demo').floatThead({
-            scrollingTop: pageTop,
+            top: pageTop,
             getSizingRow: function($table){ // this is only called when using IE8
                 return $table.find('tbody tr:not(.grouping):visible:first>td');
             },
-            useAbsolutePositioning: false
+            position: 'fixed'
         });
     });
 </script>

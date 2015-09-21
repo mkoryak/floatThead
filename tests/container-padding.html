@@ -334,11 +334,11 @@ issue: 50
         var $table = $('.aggregate-records-table-view').find('> table');
         var scrollTop = $('#aggregate-records-viewer').offset().top;
         $table.floatThead({
-            scrollingTop: scrollTop,
+            top: scrollTop,
             scrollContainer: function () {
                 return $('#aggregate-records-viewer');
             },
-            useAbsolutePositioning: true,
+            position: 'absolute',
             cellTag: 'td'
         });
 

@@ -6,15 +6,14 @@ base_url: ".."
 <h2>Frequent Issues</h2>
 
     <dl class="faq">
-        <dt>plugin doesn't work when table is in a bootstrap3 tab</dt>
+        <dt>plugin doesn't work when table is in a bootstrap3/jqueryui tab</dt>
         <dd>
-            you must trigger reflow on the plugin when the table becomes visible (when you show a tab):
-            <a href="http://jsfiddle.net/muruadvm/2/" target="_blank">jsfiddle</a>
+            after version 1.2.12, this plugin should work within bootstrap3/jqueryui tabs by listening to tab change events. Make an issue if its still busted.
         </dd>
 
         <dt>The scrolling container has absolute position with <code>top:0;left:0;right:0;bottom:0</code> css</dt>
         <dd>
-            init plugin with <code>useAbsolutePositioning:false</code> and see this example solution: <a href="https://github.com/mkoryak/floatThead/issues/205" target="_blank">issue 205</a>
+            init plugin with <code>position:'fixed'</code> and see this example solution: <a href="https://github.com/mkoryak/floatThead/issues/205" target="_blank">issue 205</a>
         </dd>
 
         <dt>scroll container is not working (header does not float)</dt>

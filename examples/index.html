@@ -15,15 +15,15 @@ base_url: "./../.."
         <div class='span12' id='intro'>
             <h1>Common Use-Case: Window Scrolling</h1>
             <p>
-                The table header sticks to the top of the page as you scroll down. This is done via absolute positioning it there, you can change it to use fixed positioning if you set <code>useAbsolutePositioning</code> to false.
+                The table header sticks to the top of the page as you scroll down. This is done via absolute positioning it there, you can change it to use fixed positioning if you set <code>position</code> to 'fixed'.
             </p>
             <p>
                 Absolute positioning is a good default because you do not need to call <code>$table.floatThead("reflow")</code> if the table's position changes because of some changes in the DOM
             </p>
 {% highlight js %}
 $('table').floatThead({
-    scrollingTop: pageTop,
-    useAbsolutePositioning: true //the default value
+    top: pageTop,
+    position: 'absolute' //the default value
 });
 {% endhighlight %}
 
@@ -163,7 +163,7 @@ $('table').floatThead({
     <script type="text/javascript">
         $(function(){
             $('table').floatThead({
-                scrollingTop: pageTop
+                top: pageTop
             });
           //  alignmentDebugger($('table'))
             var useAbs = true;
@@ -171,8 +171,8 @@ $('table').floatThead({
                 e.preventDefault();
                 useAbs = !useAbs;
                 $('table').floatThead('destroy').floatThead({
-                    scrollingTop: pageTop,
-                    useAbsolutePositioning: useAbs
+                    top: pageTop,
+                    position: useAbs   ? 'absolute': 'fixed'
                 });
                 $(this).text("Re-initialize plugin with "+(useAbs ? "fixed" : "absolute") +" positioning");
                 $("#posType").text("position: "+(useAbs ? "absolute" : "fixed"))

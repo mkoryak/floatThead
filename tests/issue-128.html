@@ -54,21 +54,21 @@ $(window).load(function(){
 	var $demoTable = $("table.demo1");
     $demoTable.floatThead({
         //the pageTop is a global function i have here, it takes care of making the table float under my floated nav
-        scrollingTop: 0,
+        top: 0,
         scrollContainer: function($table){
             return $table.closest('.wrapper');
         },
-        useAbsolutePositioning: true
+        position: 'absolute'
     });
 
 	var $demoTable = $("table.demo2");
     $demoTable.floatThead({
         //the pageTop is a global function i have here, it takes care of making the table float under my floated nav
-        scrollingTop: 0,
+        top: 0,
         scrollContainer: function($table){
             return $table.closest('.wrapper');
         },
-        useAbsolutePositioning: true
+        position: 'absolute'
     });
 
 	$(".wrapper").scroll(function () {

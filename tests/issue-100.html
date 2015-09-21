@@ -24,14 +24,14 @@ issue: 100
 $(window).load(function(){
     var $table = $('#tab1');
     $table.floatThead({
-        useAbsolutePositioning: false,
+        position: 'fixed',
         scrollContainer: function ($table) {
             return $table.closest('.container');
         }
     });
     var $table = $('#tab2');
     $table.floatThead({
-        useAbsolutePositioning: true,
+        position: 'absolute',
         scrollContainer: function ($table) {
             return $table.closest('.container');
         }
@@ -42,7 +42,7 @@ $(window).load(function(){
 
 
 <div id='jsfiddle'>
-    useAbsolutePositioning: false<br/>
+    position: 'fixed'<br/>
     <div class="container" style="width: 800px; height: 200px; border: 20px black solid; overflow:auto;">
         <table id="tab1" style="width: 1000px; border: none;">
             <thead>
@@ -120,7 +120,7 @@ $(window).load(function(){
         </table>
     </div>
     <br/>
-    useAbsolutePositioning: true<br/>
+    position: 'absolute'<br/>
     <div class="container" style="width: 800px; height: 200px; border: 20px black solid; overflow:auto;">
         <table id="tab2" style="width: 1000px; border: none;">
             <thead>

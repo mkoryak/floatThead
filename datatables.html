@@ -55,7 +55,7 @@ $(document).ready(function () {
      $table.DataTable();
 
     $table.floatThead({
-        scrollingTop: pageTop //i need this because of my floating header
+        top: pageTop //i need this because of my floating header
     });
 });    
 {% endhighlight %}
@@ -525,7 +525,7 @@ $(document).ready(function () {
     });
 
     $table2.floatThead({
-        scrollingTop:pageTop,
+        top:pageTop,
         scrollContainer: function($table){
             var $wrapper = $table.closest('.dataTables_wrapper');
             $wrapper.css({'overflow': 'auto', 'height': '400px'});
@@ -1490,14 +1490,14 @@ $(document).ready(function () {
         $table.DataTable();
 
         $table.floatThead({
-            scrollingTop:pageTop
+            top:pageTop
         });
 
         var $table2 = $('#demo1');
         $table2.DataTable();
 
         $table2.floatThead({
-            scrollingTop:pageTop,
+            top:pageTop,
             scrollContainer:function ($table) {
                 var $wrapper = $table.closest('.dataTables_wrapper');
                 $wrapper.css({'overflow':'auto', 'height':'400px'});

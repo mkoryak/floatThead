@@ -128,20 +128,21 @@ $table.floatThead({
             </thead>
             <tbody>
             <tr>
+                <td>position</td>
+                <td>string</td>
+                <td>'auto'</td>
+                <td>Valid values: <code>'auto'</code>, <code>'fixed'</code>, <code>'absolute'</code>.<br/>Position the floated header using absolute or fixed positioning mode (auto picks best for your table scrolling type). Try switching modes if you encounter layout problems. </td>
+            </tr>
+            <tr>
                 <td>scrollContainer</td>
                 <td>function</td>
                 <td>null</td>
                 <td>Defines a container element inside of which the table scrolls vertically and/or horizontally. <small>usually a wrapping div</small></td>
             </tr><tr>
-                <td>scrollingTop</td>
-                <td>number or function</td>
-                <td>0</td>
-                <td>Offset from the top of the <code>window</code> where the floating header will 'stick' when scrolling down</td>
-            </tr><tr>
-                <td>scrollingBottom</td>
-                <td>number or function</td>
-                <td>0</td>
-                <td>Offset from the bottom of the <code>window</code> where the floating header will 'stick' when scrolling down</td>
+                <td>headerCellSelector</td>
+                <td>string</td>
+                <td>tr:first>th:visible</td>
+                <td>Specifies the selector used to find header cells (in the table's <code>thead</code> element)</td>
             </tr><tr>
                 <td>floatTableClass</td>
                 <td>string</td>
@@ -153,20 +154,20 @@ $table.floatThead({
                 <td>floatThead-container</td>
                 <td>This class is added to the container div inside of which your <code>thead</code> will spend time floating</td>
             </tr><tr>
-                <td>useAbsolutePositioning</td>
-                <td>boolean</td>
-                <td>true</td>
-                <td>Position the floated header using absolute positioning or using fixed positioning. Fixed positioning performs better with tables that use window scrolling, but fails miserably on highly dynamic pages where DOM can be suddenly modified causing the location of the floated table to shift. (You should call <code>.floatThead('reflow')</code> in this case, but you cant always instrument your code to make that call.)</td>
+                <td>top</td>
+                <td>number or function</td>
+                <td>0</td>
+                <td>Offset from the top of the <code>window</code> where the floating header will 'stick' when scrolling down</td>
+            </tr><tr>
+                <td>bottom</td>
+                <td>number or function</td>
+                <td>0</td>
+                <td>Offset from the bottom of the <code>window</code> where the floating header will 'stick' when scrolling down</td>
             </tr><tr>
                 <td>zIndex</td>
                 <td>number</td>
                 <td>1001</td>
                 <td>z-index of the floating header</td>
-            </tr><tr>
-                <td>headerCellSelector</td>
-                <td>string</td>
-                <td>tr:first>th:visible</td>
-                <td>Specifies the selector used to find header cells (in the table's <code>thead</code> element)</td>
             </tr><tr>
                 <td>debug</td>
                 <td>boolean</td>
@@ -310,10 +311,7 @@ $('a#change-dom').click(function(){ //click to remove
                     <br/>
 {% highlight js %}
 $('table.demo2').floatThead({
-	useAbsolutePositioning: false
-	// absolutePositioning is better for
-	// highly dynamic sites
-	// (which this is not)
+	position: 'fixed'
 });
 {% endhighlight %}
                 </div>
@@ -399,20 +397,20 @@ $('table.demo2').floatThead({
 bower install floatThead
 {% endhighlight %}
         <br/>
+        <h1>Install Using NPM</h1>
+{% highlight bash %}
+npm install floatThead
+{% endhighlight %}
+        <br/>
     </div>
 </div>
+<hr/>
 <div class='row'>
-    <div class="span6">
-        <div class="alert">
-            To report issues, visit the project's <a href='https://github.com/mkoryak/floatThead/issues?state=open'>github issues page</a>.
-        </div>
-    </div>
-    <div class="span6">
-        <div class="alert alert-success">
-            Or everything works great? Please &nbsp;<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SDJJ42BTC46LY&lc=US&item_name=floatThead&currency_code=USD&bn=PP%2dDonationsBF%3adonate%2dcoffee%2epng%3aNonHosted"><img src="http://programmingdrunk.com/donate-coffee.png"></a>
-        </div>
+    <div class='span12'>
+        <strong>Need 1.2.x docs?</strong> <a href="https://web.archive.org/web/20150911114600/http://mkoryak.github.io/floatThead/">here are the 1.2.13 docs</a>
     </div>
 </div>
+<hr/>
 <div class='row'>
     <div class='span12' id='license'>
         <h1>License</h1>
@@ -569,11 +567,11 @@ bower install floatThead
             } else {
                 $demoTable.floatThead({
                     //the pageTop is a global function i have here, it takes care of making the table float under my floated nav
-                    scrollingTop: pageTop,
+                    top: pageTop,
                     scrollContainer: function($table){
                         return $table.closest('.wrapper');
                     },
-                    useAbsolutePositioning: true
+                    position: 'absolute'
                 });
                 $button.tooltip("show");
                 setTimeout(function(){
@@ -593,7 +591,7 @@ bower install floatThead
         var $demo1 = $('table.demo1');
         $demo1.floatThead({
             //the pageTop is a global function i have here, it takes care of making the table float under my floated nav
-            scrollingTop: pageTop,
+            top: pageTop,
             scrollContainer: function($table){
                 return $table.closest('.wrapper');
             }
@@ -614,8 +612,8 @@ bower install floatThead
         });
         $('table.demo2, #options table').floatThead({
             //the pageTop is a global function i have here, it takes care of making the table float under my floated nav
-            scrollingTop: pageTop,
-            useAbsolutePositioning: false
+            top: pageTop,
+            position: 'fixed'
         });
     });
 </script>

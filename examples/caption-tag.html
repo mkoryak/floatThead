@@ -123,23 +123,23 @@ base_url: "./../.."
 <script type="text/javascript">
     $(function(){
         $('.demo-abs').floatThead({
-            scrollingTop: pageTop,
-            useAbsolutePositioning: true
+            top: pageTop,
+            position: 'absolute'
         });
         $('.demo-fixed').floatThead({
-            scrollingTop: pageTop,
-            useAbsolutePositioning: false
+            top: pageTop,
+            position: 'fixed'
         });
         $(".demo-scroll-abs").floatThead({
-            scrollingTop: pageTop,
-            useAbsolutePositioning: true,
+            top: pageTop,
+            position: 'absolute',
             scrollContainer: function($table){
                 return $table.closest('.wrap');
             }
         });
         $(".demo-scroll-fixed").floatThead({
-            scrollingTop: pageTop,
-            useAbsolutePositioning: false,
+            top: pageTop,
+            position: 'fixed',
             scrollContainer: function($table){
                 return $table.closest('.wrap');
             }
