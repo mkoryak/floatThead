@@ -19,7 +19,6 @@
    */
   $.floatThead = $.floatThead || {};
   $.floatThead.defaults = {
-    cellTag: null, // DEPRECATED - use headerCellSelector instead
     headerCellSelector: 'tr:visible:first>*:visible', //thead cells are this.
     zIndex: 1001, //zindex of the floating thead (actually a container div)
     debounceResizeMs: 10, //Deprecated!
@@ -315,13 +314,13 @@
         };
         if(locked){
           $wrapper = makeRelative($scrollContainer, true);
-          $wrapper.append($floatContainer);
+          $wrapper.prepend($floatContainer);
         } else {
           $wrapper = makeRelative($table);
-          $table.after($floatContainer);
+          $table.before($floatContainer);
         }
       } else {
-        $table.after($floatContainer);
+        $table.before($floatContainer);
       }
 
 
@@ -382,24 +381,15 @@
        * get the number of columns and also rebuild resizer rows if the count is different than the last count
        */
       function columnNum(){
-        var count, $headerColumns;
+        var count;
+        var $headerColumns = $header.find(opts.headerCellSelector);
+
         if(existingColGroup){
           count = $tableColGroup.find('col').length;
         } else {
-          var selector;
-          if(opts.cellTag == null && opts.headerCellSelector){ //TODO: once cellTag option is removed, remove this conditional
-            selector = opts.headerCellSelector;
-          } else {
-            selector = 'tr:first>'+opts.cellTag;
-          }
-          if(util.isNumber(selector)){
-            //it's actually a row count. (undocumented, might be removed!)
-            return selector;
-          }
-          $headerColumns = $header.find(selector);
           count = 0;
-          $headerColumns.each(function(){
-            count += parseInt(($(this).attr('colspan') || 1), 10);
+          $headerColumns.each(function () {
+              count += parseInt(($(this).attr('colspan') || 1), 10);
           });
         }
         if(count != lastColumnCount){
@@ -874,7 +864,7 @@
         },
         getRowGroups: function(){
           if(headerFloated){
-            return $floatContainer.children("thead").add($table.children("tbody,tfoot"));
+            return $floatContainer.find('>table>thead').add($table.children("tbody,tfoot"));
           } else {
             return $table.children("thead,tbody,tfoot");
           }
