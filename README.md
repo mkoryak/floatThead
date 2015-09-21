@@ -1,4 +1,4 @@
-jquery.floatThead v1.2.13
+jquery.floatThead v1.3.0
 =================
 
 ![This is for the really lazy cats](http://giant.gfycat.com/AnyGloriousAlpaca.gif)
@@ -57,7 +57,7 @@ Download / Install:
 
 #### Download
   
-[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.2.13.zip)
+[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.3.0.zip)
 
 Inside of that zip the following javascript files are of interest to you:
 
@@ -126,6 +126,16 @@ Watch for it.
 
 Change Log
 ----------
+### 1.3.0
+- Breaking: removed cellTag option
+- Breaking: removed `floatThead-floatContainer` class from the $floatContainer because `floatThead-container` class is already there and it is configurable via `floatContainerClass` option.
+- added `autoReflow` option
+- https://github.com/mkoryak/floatThead/issues/235 - fix tabindex of the floated header (thanks [robinpoort](https://github.com/robinpoort))
+- https://github.com/mkoryak/floatThead/issues/242 - support for multiple tables within a single scrolling div
+- https://github.com/mkoryak/floatThead/issues/246 - enableAria:true causes javascript exception when using Colgroup
+- fixed  `getRowGroups`, method which was busted when the header was floated
+- make grunt work in node 0.12
+
 ### 1.2.13
 
 - https://github.com/mkoryak/floatThead/issues/220 - Header and Body alignment problem
