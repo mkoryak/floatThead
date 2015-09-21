@@ -21,10 +21,9 @@
   $.floatThead.defaults = {
     headerCellSelector: 'tr:visible:first>*:visible', //thead cells are this.
     zIndex: 1001, //zindex of the floating thead (actually a container div)
-    debounceResizeMs: 10, //Deprecated!
-    useAbsolutePositioning: null, //if set to NULL - defaults: has scrollContainer=true, doesn't have scrollContainer=false
-    scrollingTop: 0, //String or function($table) - offset from top of window where the header should not pass above
-    scrollingBottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
+    position: 'auto', // 'fixed', 'absolute', 'auto'. auto picks the best for your table scrolling type.
+    top: 0, //String or function($table) - offset from top of window where the header should not pass above
+    bottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
     scrollContainer: function($table){
       return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
     },
@@ -72,7 +71,7 @@
    * @param debounceMs
    * @param cb
    */
-  function windowResize(debounceMs, eventName, cb){
+  function windowResize(eventName, cb){
     if(ieVersion == 8){ //ie8 is crap: https://github.com/mkoryak/floatThead/issues/65
       var winWidth = $window.width();
       var debouncedCb = util.debounce(function(){
@@ -81,16 +80,16 @@
           winWidth = winWidthNew;
           cb();
         }
-      }, debounceMs);
+      }, 1);
       $window.on(eventName, debouncedCb);
     } else {
-      $window.on(eventName, util.debounce(cb, debounceMs));
+      $window.on(eventName, util.debounce(cb, 1));
     }
   }
 
 
   function debug(str){
-    window && window.console && window.console.log && window.console.log("jQuery.floatThead: " + str);
+    window && window.console && window.console.error && window.console.error("jQuery.floatThead: " + str);
   }
 
   //returns fractional pixel widths
@@ -233,7 +232,21 @@
       var $scrollContainer = opts.scrollContainer($table) || $([]); //guard against returned nulls
       var locked = $scrollContainer.length > 0;
 
-      var useAbsolutePositioning = opts.useAbsolutePositioning;
+      var useAbsolutePositioning = null;
+      if(typeof opts.useAbsolutePositioning !== 'undefined'){
+        debug("option 'useAbsolutePositioning' has been removed in v1.3.0, use 'position' instead. See docs for more info: http://mkoryak.github.io/floatThead/#options")
+      }
+
+      if (opts.position == 'auto') {
+        useAbsolutePositioning = null;
+      } else if (opts.position == 'fixed') {
+        useAbsolutePositioning = false;
+      } else if (opts.position == 'absolute'){
+        useAbsolutePositioning = true;
+      } else if (opts.debug) {
+        debug('Invalid value given to "position" option, valid is "fixed", "absolute" and "auto". You passed: ', opts.position);
+      }
+
       if(useAbsolutePositioning == null){ //defaults: locked=true, !locked=false
         useAbsolutePositioning = locked;
       }
@@ -373,8 +386,8 @@
       }
 
       function updateScrollingOffsets(){
-        scrollingTop = (util.isFunction(opts.scrollingTop) ? opts.scrollingTop($table) : opts.scrollingTop) || 0;
-        scrollingBottom = (util.isFunction(opts.scrollingBottom) ? opts.scrollingBottom($table) : opts.scrollingBottom) || 0;
+        scrollingTop = (util.isFunction(opts.top) ? opts.top($table) : opts.top) || 0;
+        scrollingBottom = (util.isFunction(opts.bottom) ? opts.bottom($table) : opts.bottom) || 0;
       }
 
       /**
@@ -779,7 +792,7 @@
 
       $window.on(eventName('load'), reflowEvent); //for tables with images
 
-      windowResize(opts.debounceResizeMs, eventName('resize'), windowResizeEvent);
+      windowResize(eventName('resize'), windowResizeEvent);
       $table.on('reflow', reflowEvent);
       if(isDatatable($table)){
         $table

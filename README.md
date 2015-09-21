@@ -127,7 +127,9 @@ Watch for it.
 Change Log
 ----------
 ### 1.3.0
-- Breaking: removed cellTag option
+- Breaking: renamed 'useAbsolutePositioning' option to `position`. value mappings (old -> new) are: [true -> 'absolute', false -> 'fixed', null -> 'auto']
+- Breaking: renamed 'scrollingTop' to `top` and 'scrollingBottom' to `bottom`
+- Breaking: removed cellTag and debounceResizeMs options
 - Breaking: removed `floatThead-floatContainer` class from the $floatContainer because `floatThead-container` class is already there and it is configurable via `floatContainerClass` option.
 - added `autoReflow` option
 - https://github.com/mkoryak/floatThead/issues/235 - fix tabindex of the floated header (thanks [robinpoort](https://github.com/robinpoort))
