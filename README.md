@@ -1,4 +1,4 @@
-jquery.floatThead v1.3.0
+jquery.floatThead v1.3.1
 =================
 
 ![This is for the really lazy cats](http://giant.gfycat.com/AnyGloriousAlpaca.gif)
