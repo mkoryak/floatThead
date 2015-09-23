@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.3.0 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
+// @preserve jQuery.floatThead 1.3.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -234,8 +234,21 @@
 
       var useAbsolutePositioning = null;
       if(typeof opts.useAbsolutePositioning !== 'undefined'){
-        debug("option 'useAbsolutePositioning' has been removed in v1.3.0, use 'position' instead. See docs for more info: http://mkoryak.github.io/floatThead/#options")
+        opts.position = 'auto';
+        if(opts.useAbsolutePositioning){
+          opts.position = opts.useAbsolutePositioning ? 'absolute' : 'fixed';
+        }
+        debug("option 'useAbsolutePositioning' has been removed in v1.3.0, use `position:'"+opts.position+"'` instead. See docs for more info: http://mkoryak.github.io/floatThead/#options")
       }
+      if(typeof opts.scrollingTop !== 'undefined'){
+        opts.top = opts.scrollingTop;
+        debug("option 'scrollingTop' has been renamed to 'top' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
+      }
+      if(typeof opts.scrollingBottom !== 'undefined'){
+          opts.bottom = opts.scrollingBottom;
+          debug("option 'scrollingBottom' has been renamed to 'bottom' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
+      }
+
 
       if (opts.position == 'auto') {
         useAbsolutePositioning = null;

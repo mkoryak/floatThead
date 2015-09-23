@@ -57,7 +57,7 @@ Download / Install:
 
 #### Download
   
-[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.3.0.zip)
+[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.3.1.zip)
 
 Inside of that zip the following javascript files are of interest to you:
 
@@ -126,6 +126,9 @@ Watch for it.
 
 Change Log
 ----------
+### 1.3.1
+- allow 'useAbsolutePositioning', 'scrollingTop' and 'scrollingBottom' to be used, but yell about it via console.error
+
 ### 1.3.0
 - **Breaking**: renamed 'useAbsolutePositioning' option to `position`. value mappings (old -> new) are: [true -> 'absolute', false -> 'fixed', null -> 'auto']
 - **Breaking**: renamed 'scrollingTop' to `top` and 'scrollingBottom' to `bottom`
