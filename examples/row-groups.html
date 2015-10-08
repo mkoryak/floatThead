@@ -160,7 +160,7 @@ $(function(){
         $('#demo').floatThead({
             top: pageTop,
             getSizingRow: function($table){ // this is only called when using IE8
-                return $table.find('tbody tr:not(.grouping):visible:first>td');
+                return $table.find('tbody tr:not(.grouping):visible:first>*');
             },
             position: 'fixed'
         });
