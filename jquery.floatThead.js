@@ -530,6 +530,7 @@
             $floatTable.css(layoutAuto);
             setHeaderHeight();
           }
+          $table.triggerHandler("reflowed", [$floatContainer]);
         };
       }
 
@@ -845,7 +846,7 @@
             mObs.disconnect();
             mObs = null;
           }
-          $table.off('reflow');
+          $table.off('reflow reflowed');
           $scrollContainer.off(ns);
           if (wrappedContainer) {
             if ($scrollContainer.length) {
