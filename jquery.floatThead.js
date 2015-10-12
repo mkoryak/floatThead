@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.3.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
+// @preserve jQuery.floatThead 1.3.2dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -543,6 +543,7 @@
             $floatTable.css(layoutAuto);
             setHeaderHeight();
           }
+          $table.triggerHandler("reflowed", [$floatContainer]);
         };
       }
 
@@ -858,7 +859,7 @@
             mObs.disconnect();
             mObs = null;
           }
-          $table.off('reflow');
+          $table.off('reflow reflowed');
           $scrollContainer.off(ns);
           if (wrappedContainer) {
             if ($scrollContainer.length) {
