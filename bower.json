@@ -9,6 +9,9 @@
     "dist/jquery.floatThead.js",
     "dist/jquery.floatThead.min.js"
   ], 
+  "browser": [
+    "dist/jquery.floatThead.min.js"
+  ], 
   "keywords": [
     "float table header", "locked header", "table header", "table", "sticky header", "floatThead", "scrolling table", "fixed header"
   ],
