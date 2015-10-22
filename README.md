@@ -12,22 +12,26 @@ Float the table header on scroll. No changes to your HTML/CSS are required, it j
 
 ###Install
 
+#### Package managers
 ```bash
 bower install floatThead
-
 npm install floatthead
 ```
+#### Download code
 [Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.3.1.zip)
 
+#### Via CDN
 [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)  
 [http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)
 
+#### For java people
 [Webjar](https://github.com/webjars/floatThead)
 
 ### Wrappers 
 
-[angularjs directive](https://github.com/brandon-barker/angular-floatThead)
-[yii2 framework wrapper](https://github.com/bluezed/yii2-floatThead)
+[angularjs directive](https://github.com/brandon-barker/angular-floatThead) by @brandon-barker
+
+[yii2 framework wrapper](https://github.com/bluezed/yii2-floatThead) by @bluezed
 
 # Things this plugin does:
 ---------
