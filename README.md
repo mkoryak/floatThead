@@ -2,14 +2,15 @@ jquery.floatThead v1.3.1
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
-#[Documentation & Examples](http://mkoryak.github.io/floatThead/)  
+#Documentation & Examples: http://mkoryak.github.io/floatThead/
+
 Float the table header on scroll. No changes to your HTML/CSS are required, it just works. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. 
 
 :heart_eyes_cat:**My cat loves it**:heart_eyes_cat:
 
 
 
-###[Install](https://github.com/mkoryak/floatThead#download--install)
+###Install
 
 ```bash
 bower install floatThead
