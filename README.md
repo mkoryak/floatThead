@@ -1,24 +1,34 @@
 jquery.floatThead v1.3.1
 =================
+[![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
-![This is for the really lazy cats](http://giant.gfycat.com/AnyGloriousAlpaca.gif)
-
-Float the table header without special css. This plugin assumes nothing about your table markup and "just works" without losing your events or styles. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. Plays nice with AngularJS and datatables and well written plugins.  
+#[Documentation & Examples](http://mkoryak.github.io/floatThead/)  
+Float the table header on scroll. No changes to your HTML/CSS are required, it just works. Supports floating the header while scrolling within the window or while scrolling within a container with overflow. 
 
 :heart_eyes_cat:**My cat loves it**:heart_eyes_cat:
 
-Check out the demo / docs page for copious examples:
 
-###[Demos and Docs](http://mkoryak.github.io/floatThead/)  
 
-###[Download](https://github.com/mkoryak/floatThead#download--install)
+###[Install](https://github.com/mkoryak/floatThead#download--install)
+
 ```bash
 bower install floatThead
+
+npm install floatthead
 ```
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.3.1.zip)
 
+[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)  
+[http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)
 
+[Webjar](https://github.com/webjars/floatThead)
 
-Features:
+### Wrappers 
+
+[angularjs directive](https://github.com/brandon-barker/angular-floatThead)
+[yii2 framework wrapper](https://github.com/bluezed/yii2-floatThead)
+
+# Things this plugin does:
 ---------
 -   Floats the table header - it remains in viewport as you scroll
 -   Works on tables within a scrollable container or whole window scrolling
@@ -32,7 +42,7 @@ Features:
 -   Plays nicely with angularjs
 
 
-What it does not do:
+# Things this plugin does NOT do:
 ---------
 -  Does not float the footer
 -  Does not let you lock the first column like in excel
@@ -52,45 +62,6 @@ Providing the following will greatly increase the chances of your issue being re
  
 I will do my best to help you in a timely manner.
  
-Download / Install:
---------
-
-#### Download
-  
-[Latest Release](https://github.com/mkoryak/floatThead/archive/v1.3.1.zip)
-
-Inside of that zip the following javascript files are of interest to you:
-
-- `/dist/jquery.floatThead.js` = development version
-- `/dist/jquery.floatThead.min.js` = production version
-
-if your project includes [underscore](http://underscorejs.org) and you want to save a few bytes you can use the slim version:
-
-- `/dist/jquery.floatThead-slim.js`
-- `/dist/jquery.floatThead-slim.min.js`
-
-#### CDN Hosted
-
-**cdnjs**: [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)  
-**jsdelivr**: [http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)
-  
-#### Via Bower
-
-Install using [Bower](http://bower.io/):
-  
-```bash
-bower install floatThead
-```
-  
-#### Via NPM
-
-```bash
-npm install floatthead
-```
-![npm](https://nodei.co/npm/floatthead.png)
-
-### Webjar for Maven, Gradle, SBT
-https://github.com/webjars/floatThead
 
 Requirements:
 -------------
@@ -100,18 +71,7 @@ Requirements:
 Supported Browsers:
 -------------
 -   IE8 or better (read [this](http://mkoryak.github.io/floatThead/examples/row-groups/))
--   Modern browsers
-
-
-Demo & Docs:
-------------
-
-[DEMOS and Documentation](http://mkoryak.github.io/floatThead/)  
-
-Using with AngularJS
---------------
-I haven't written an official directive, but others have written wrappers:  
-https://github.com/brandon-barker/angular-floatThead
+-   Chrome, Firefox (all versions from last 3 years)
 
 
 Using with IE9 
