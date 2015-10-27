@@ -272,7 +272,7 @@
         var captionAlignTop = ($caption.css("caption-side") || $caption.attr("align") || "top") === "top";
       }
 
-      var $fthGrp = $('<fthfoot style="display:table-footer-group;border-spacing:0;height:0;border-collapse:collapse;"/>');
+      var $fthGrp = $('<fthfoot style="display:table-footer-group;border-spacing:0;height:0;border-collapse:collapse;visibility:hidden"/>');
 
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
       var $wrapper = $([]); //used when absolute positioning enabled - wraps the table and the float container
