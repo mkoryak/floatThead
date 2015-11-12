@@ -224,7 +224,7 @@
       }
       $table.data('floatThead-lazy', false);
 
-      var headerFloated = false;
+      var headerFloated = true;
       var scrollingTop, scrollingBottom;
       var scrollbarOffset = {vertical: 0, horizontal: 0};
       var scWidth = scrollbarWidth();
@@ -262,9 +262,6 @@
 
       if(useAbsolutePositioning == null){ //defaults: locked=true, !locked=false
         useAbsolutePositioning = locked;
-      }
-      if(!useAbsolutePositioning){
-        headerFloated = true; //#127
       }
       var $caption = $table.find("caption");
       var haveCaption = $caption.length == 1;
