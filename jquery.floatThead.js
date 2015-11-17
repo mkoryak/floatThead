@@ -818,7 +818,7 @@
 
       if (canObserveMutations) {
         var mutationElement = null;
-        if(_.isFunction(opts.autoReflow)){
+        if(util.isFunction(opts.autoReflow)){
           mutationElement = opts.autoReflow($table, $scrollContainer)
         }
         if(!mutationElement) {
