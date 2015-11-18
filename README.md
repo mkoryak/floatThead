@@ -269,6 +269,9 @@ This is a window scrolling plugin, does not support overflow scrolling. Does not
 [Sticky Table Header](https://github.com/jmosbech/StickyTableHeaders)
 This is a window scrolling plugin. Does not support overflow scrolling. It is probably the best window scrolling plugin (besides this one). The author seems to fix issues as they arise. 
 
+# Woot
+
+Big thanks to jetbrains for giving me an open source webstorm license for this project. They make the best IDEs.
 
 License
 -------
