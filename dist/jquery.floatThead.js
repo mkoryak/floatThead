@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.3.2dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
+// @preserve jQuery.floatThead 1.3.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -818,7 +818,7 @@
 
       if (canObserveMutations) {
         var mutationElement = null;
-        if(_.isFunction(opts.autoReflow)){
+        if(util.isFunction(opts.autoReflow)){
           mutationElement = opts.autoReflow($table, $scrollContainer)
         }
         if(!mutationElement) {

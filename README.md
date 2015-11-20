@@ -1,4 +1,4 @@
-jquery.floatThead v1.3.1
+jquery.floatThead v1.3.2
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
@@ -18,7 +18,7 @@ bower install floatThead
 npm install floatthead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.3.1.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.3.2.zip)
 
 #### Via CDN
 [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)  
@@ -91,6 +91,13 @@ Watch for it.
 
 Change Log
 ----------
+### 1.3.2
+- https://github.com/mkoryak/floatThead/issues/264 - header alignments messed up when table within a floated container (when using position:absolute)
+- hide more stuff from screen readers that should be hidden
+- https://github.com/mkoryak/floatThead/issues/255 - added `reflowed` event, see docs
+- removed underscore usage from non-slim build
+
+
 ### 1.3.1
 - allow 'useAbsolutePositioning', 'scrollingTop' and 'scrollingBottom' to be used, but yell about it via console.error
 
