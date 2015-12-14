@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.3.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
+// @preserve jQuery.floatThead 1.3.3dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -852,6 +852,7 @@
           if($newHeader.parent().length){ //only if it's in the DOM
             $newHeader.replaceWith($header);
           }
+          triggerFloatEvent(false);
           if(canObserveMutations){
             mObs.disconnect();
             mObs = null;
