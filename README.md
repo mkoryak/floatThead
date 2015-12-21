@@ -223,6 +223,8 @@ Huge thanks to [CoryDuncan](https://github.com/CoryDuncan), [ithielnor](https://
 
 ## Who is using floatThead ?
 
+### https://github.com/sosy-lab/benchexec
+
 ### [staticsitegenerators.net](http://staticsitegenerators.net/)
 
 ### [netdisco](http://netdisco.org)
