@@ -46,6 +46,7 @@
   var canObserveMutations = typeof MutationObserver !== 'undefined';
 
 
+
   //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];a = 1+a,b.innerHTML="<!--[if gt IE "+ a +"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
   var isFF = /Gecko\//.test(navigator.userAgent);
@@ -66,6 +67,20 @@
   var createElements = !isFF && !ieVersion; //FF can read width from <col> elements, but webkit cannot
 
   var $window = $(window);
+
+  if(!window.matchMedia) {
+    //these will be used by the plugin to go into print mode (destroy and remake itself)
+    var _beforePrint = window.onbeforeprint;
+    var _afterPrint = window.onafterprint;
+    window.onbeforeprint = function () {
+      _beforePrint && _beforePrint();
+      $window.triggerHandler("beforeprint");
+    };
+    window.onafterprint = function () {
+      _afterPrint && _afterPrint();
+      $window.triggerHandler("afterprint");
+    };
+  }
 
   /**
    * @param debounceMs
@@ -791,15 +806,29 @@
         repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
       }, 1);
 
-
-      var printEvent = function(){
+      /////// printing stuff
+      var beforePrint = function(){
+        $table.floatThead('destroy', [true]);
+      };
+      var afterPrint = function(){
+        $table.floatThead(opts);
+      };
+      var printEvent = function(mql){
         //make printing the table work properly on IE10+
-        if(window.matchMedia("print").matches) {
-          $table.floatThead('destroy');
+        if(mql.matches) {
+          beforePrint();
         } else {
-          $table.floatThead(opts);
+          afterPrint();
         }
       };
+      if(window.matchMedia){
+        window.matchMedia("print").addListener(printEvent);
+      } else {
+        $window.on('beforeprint', beforePrint);
+        $window.on('afterprint', afterPrint);
+      }
+      ////// end printing stuff
+
 
       if(locked){ //internal scrolling
         if(useAbsolutePositioning){
@@ -825,7 +854,7 @@
 
       $window.on(eventName('shown.bs.tab'), reflowEvent); // people cant seem to figure out how to use this plugin with bs3 tabs... so this :P
       $window.on(eventName('tabsactivate'), reflowEvent); // same thing for jqueryui
-      window.matchMedia && window.matchMedia("print").addListener(printEvent);
+
 
       if (canObserveMutations) {
         var mutationElement = null;
@@ -851,10 +880,11 @@
           subtree: true
         });
       }
+      setupPrinting();
 
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
-        destroy: function(){
+        destroy: function(e, isPrintEvent){
           var ns = '.fth-'+floatTheadId;
           unfloat();
           $table.css(layoutAuto);
@@ -887,9 +917,10 @@
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           $window.off(ns);
-          if(window.matchMedia && !window.matchMedia("print").matches){
+          if(!isPrintEvent){
             //if we are in the middle of printing, we want this event to re-create the plugin
             window.matchMedia("print").removeListener(printEvent);
+            beforePrint = afterPrint = function(){};
           }
         },
         reflow: function(){
