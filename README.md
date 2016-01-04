@@ -39,16 +39,13 @@ npm install floatthead
 
 # Things this plugin does:
 ---------
--   Floats the table header - it remains in viewport as you scroll
 -   Works on tables within a scrollable container or whole window scrolling
--   Horizontal or vertical scrolling
+-   Works with dynamically hidden/added/removed columns
 -   Doesn't clone the thead - so your events stay bound
--   Doesn't mess with your styles
--   Works on any table
--   Requires no special css
+-   Doesn't mess with your styles, and doesnt require any css
+-   Works with border-collapse variants, weird margins, padding and borders
 -   Works with libs like [datatables](http://datatables.net), [perfect-scrollbar](http://mkoryak.github.io/floatThead/examples/perfect-scrollbar/), [bootstrap](http://mkoryak.github.io/floatThead/examples/bootstrap3/), and many more
--   Screen reader support
--   Plays nicely with angularjs
+-   Header can be floated with `position:absolute` which adds a wrapper, or `position:fixed` which does not. Both have their pros and cons. By default the best option is chosen based on your configuration
 
 
 # Things this plugin does NOT do:
