@@ -884,7 +884,7 @@
           subtree: true
         });
       }
-      setupPrinting();
+      
 
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
