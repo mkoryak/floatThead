@@ -51,6 +51,10 @@
   var isFF = /Gecko\//.test(navigator.userAgent);
   var isWebkit = /WebKit\//.test(navigator.userAgent);
 
+  if(!(ieVersion || isFF || isWebkit)){
+    ieVersion = 11; //yey a hack!
+  }
+
   //safari 7 (and perhaps others) reports table width to be parent container's width if max-width is set on table. see: https://github.com/mkoryak/floatThead/issues/108
   var isTableWidthBug = function(){
     if(isWebkit) {
@@ -66,6 +70,20 @@
   var createElements = !isFF && !ieVersion; //FF can read width from <col> elements, but webkit cannot
 
   var $window = $(window);
+
+  if(!window.matchMedia) {
+    //these will be used by the plugin to go into print mode (destroy and remake itself)
+    var _beforePrint = window.onbeforeprint;
+    var _afterPrint = window.onafterprint;
+    window.onbeforeprint = function () {
+      _beforePrint && _beforePrint();
+      $window.triggerHandler("beforeprint");
+    };
+    window.onafterprint = function () {
+      _afterPrint && _afterPrint();
+      $window.triggerHandler("afterprint");
+    };
+  }
 
   /**
    * @param debounceMs
@@ -411,7 +429,7 @@
         } else {
           count = 0;
           $headerColumns.each(function () {
-              count += parseInt(($(this).attr('colspan') || 1), 10);
+            count += parseInt(($(this).attr('colspan') || 1), 10);
           });
         }
         if(count != lastColumnCount){
@@ -790,6 +808,31 @@
         calculateFloatContainerPos = calculateFloatContainerPosFn();
         repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
       }, 1);
+
+      /////// printing stuff
+      var beforePrint = function(){
+        $table.floatThead('destroy', [true]);
+      };
+      var afterPrint = function(){
+        $table.floatThead(opts);
+      };
+      var printEvent = function(mql){
+        //make printing the table work properly on IE10+
+        if(mql.matches) {
+          beforePrint();
+        } else {
+          afterPrint();
+        }
+      };
+      if(window.matchMedia){
+        window.matchMedia("print").addListener(printEvent);
+      } else {
+        $window.on('beforeprint', beforePrint);
+        $window.on('afterprint', afterPrint);
+      }
+      ////// end printing stuff
+
+
       if(locked){ //internal scrolling
         if(useAbsolutePositioning){
           $scrollContainer.on(eventName('scroll'), containerScrollEvent);
@@ -807,9 +850,9 @@
       $table.on('reflow', reflowEvent);
       if(isDatatable($table)){
         $table
-          .on('filter', reflowEvent)
-          .on('sort',   reflowEvent)
-          .on('page',   reflowEvent);
+            .on('filter', reflowEvent)
+            .on('sort',   reflowEvent)
+            .on('page',   reflowEvent);
       }
 
       $window.on(eventName('shown.bs.tab'), reflowEvent); // people cant seem to figure out how to use this plugin with bs3 tabs... so this :P
@@ -836,14 +879,14 @@
           }
         });
         mObs.observe(mutationElement, {
-            childList: true,
-            subtree: true
+          childList: true,
+          subtree: true
         });
       }
 
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
-        destroy: function(){
+        destroy: function(e, isPrintEvent){
           var ns = '.fth-'+floatTheadId;
           unfloat();
           $table.css(layoutAuto);
@@ -876,6 +919,11 @@
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           $window.off(ns);
+          if(!isPrintEvent){
+            //if we are in the middle of printing, we want this event to re-create the plugin
+            window.matchMedia && window.matchMedia("print").removeListener(printEvent);
+            beforePrint = afterPrint = function(){};
+          }
         },
         reflow: function(){
           reflowEvent();
