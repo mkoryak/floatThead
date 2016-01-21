@@ -52,6 +52,10 @@
   var isFF = /Gecko\//.test(navigator.userAgent);
   var isWebkit = /WebKit\//.test(navigator.userAgent);
 
+  if(!(ieVersion || isFF || isWebkit)){
+    ieVersion = 11; //yey, ie11, you get to pretend to be chrome! can you handle it?!
+  }
+
   //safari 7 (and perhaps others) reports table width to be parent container's width if max-width is set on table. see: https://github.com/mkoryak/floatThead/issues/108
   var isTableWidthBug = function(){
     if(isWebkit) {
