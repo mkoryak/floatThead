@@ -97,7 +97,7 @@ Change Log
 
 ## Who is using floatThead ?
 
-### [http://kangax.github.io/compat-table/][http://kangax.github.io/compat-table/es6/]
+### [http://kangax.github.io/compat-table/](http://kangax.github.io/compat-table/es6/)
 
 ### https://github.com/sosy-lab/benchexec
 
