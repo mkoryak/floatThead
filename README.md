@@ -56,7 +56,7 @@ npm install floatthead
 
 Common Pitfalls
 ------
-If you use css and html best practices, this plugin will work. If you are stuck in 1999, you better [read this](http://mkoryak.github.io/floatThead/faq/).
+If you use css and html best practices, this plugin will work. If you are stuck in 1999, you better [read the faq](http://mkoryak.github.io/floatThead/faq/).
 
 How to get help with the floatThead
 ------------
@@ -96,6 +96,8 @@ Change Log
 
 
 ## Who is using floatThead ?
+
+### [http://kangax.github.io/compat-table/][http://kangax.github.io/compat-table/es6/]
 
 ### https://github.com/sosy-lab/benchexec
 
