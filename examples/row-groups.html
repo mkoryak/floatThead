@@ -37,7 +37,6 @@ base_url: "./../.."
 {% highlight js %}
 $(function(){
     $('#demo').floatThead({
-        top: pageTop,
         getSizingRow: function($table){ // this is only called when using IE
             return $table.find('tbody tr:not(.grouping):visible:first>*');
         }
