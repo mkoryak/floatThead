@@ -5,7 +5,8 @@ Please help me help you by providing the following information with your issue:
 - jQuery version if not latest
 - floatThead version if not latest
 
-- [jsfiddle](http://jsfiddle.com) that reproduces your issue in its simplest form possible [required]
+- jsfiddle that reproduces your issue in its simplest form possible [required]
+
 
 A description of the issue and steps to reproduce
 
