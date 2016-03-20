@@ -603,6 +603,7 @@
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
         var scrollContainerLeft =  $scrollContainer.scrollLeft();
+        var goodTop;
 
         return function(eventType){
           var isTableHidden = $table[0].offsetWidth <= 0 && $table[0].offsetHeight <= 0;
@@ -704,6 +705,13 @@
               triggerFloatEvent(true);
             }
             left = tableOffset.left - windowLeft;
+          }
+          if (top < 0) {
+            // in some fixed layout's the top offset can return a negative, in which case using
+            // the last known good value works 100%
+            top = goodTop;
+          } else {
+            goodTop = top;
           }
           return {top: top, left: left};
         };

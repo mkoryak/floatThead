@@ -6,8 +6,7 @@
   ],
   "description": "Unobtrusively float any table's header without breaking styles or events",
   "main": [
-    "dist/jquery.floatThead.js",
-    "dist/jquery.floatThead.min.js"
+    "dist/jquery.floatThead.js"
   ], 
   "browser": [
     "dist/jquery.floatThead.min.js"
