@@ -69,7 +69,7 @@ $('table').floatThead({
         $('table').floatThead({
             top: pageTop, //this is a global fn defined on the demo site, you dont need it!
             position: 'absolute',
-            scrollContainer: 'auto'
+            scrollContainer: true
         });
         //  alignmentDebugger($('table'))
         var useAbs = true;
@@ -79,7 +79,7 @@ $('table').floatThead({
             $('table').floatThead('destroy').floatThead({
                 top: pageTop, //this is a global fn defined on the demo site, you dont need it!
                 position: useAbs ? 'absolute': 'fixed',
-                scrollContainer: 'auto'
+                scrollContainer: true
             });
             $(this).text("Re-initialize plugin with "+(useAbs ? "fixed" : "absolute") +" positioning");
             $("#posType").text("position: "+(useAbs ? "absolute" : "fixed"))
