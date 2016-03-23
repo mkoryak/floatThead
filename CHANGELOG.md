@@ -1,3 +1,13 @@
+### 1.4.0
+new features:
+- https://github.com/mkoryak/floatThead/issues/263 - support for responsive table wrappers
+- can now use `scrollContainer:true` to auto-detect offsetParent of the table
+- https://github.com/mkoryak/floatThead/issues/68 - support for printing the table (not in crappy IEs though)
+
+bug fixes:
+- https://github.com/mkoryak/floatThead/issues/268 - fire 'floatThead' event on destroy
+
+
 ### 1.3.2
 - https://github.com/mkoryak/floatThead/issues/264 - header alignments messed up when table within a floated container (when using position:absolute)
 - hide more stuff from screen readers that should be hidden
@@ -9,10 +19,10 @@
 - allow 'useAbsolutePositioning', 'scrollingTop' and 'scrollingBottom' to be used, but yell about it via console.error
 
 ### 1.3.0
-- **Breaking**: renamed 'useAbsolutePositioning' option to `position`. value mappings (old -> new) are: [true -> 'absolute', false -> 'fixed', null -> 'auto']
-- **Breaking**: renamed 'scrollingTop' to `top` and 'scrollingBottom' to `bottom`
-- **Breaking**: removed cellTag and debounceResizeMs options
-- **Breaking**: removed `floatThead-floatContainer` class from the $floatContainer because `floatThead-container` class is already there and it is configurable via `floatContainerClass` option.
+- renamed 'useAbsolutePositioning' option to `position`. value mappings (old -> new) are: [true -> 'absolute', false -> 'fixed', null -> 'auto']
+- renamed 'scrollingTop' to `top` and 'scrollingBottom' to `bottom`
+- removed cellTag and debounceResizeMs options
+- removed `floatThead-floatContainer` class from the $floatContainer because `floatThead-container` class is already there and it is configurable via `floatContainerClass` option.
 - added `autoReflow` option
 - https://github.com/mkoryak/floatThead/issues/235 - fix tabindex of the floated header (thanks [robinpoort](https://github.com/robinpoort))
 - https://github.com/mkoryak/floatThead/issues/242 - support for multiple tables within a single scrolling div

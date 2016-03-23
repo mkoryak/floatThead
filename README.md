@@ -1,4 +1,4 @@
-jquery.floatThead v1.3.2
+jquery.floatThead v1.4.0
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
@@ -22,7 +22,7 @@ bower install floatThead
 npm install floatthead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.3.2.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.4.0.zip)
 
 #### Via CDN
 [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)  
@@ -40,11 +40,12 @@ npm install floatthead
 # Things this plugin does:
 ---------
 -   Works on tables within a scrollable container or whole window scrolling
+-   Works with responsive table wrappers
 -   Works with dynamically hidden/added/removed columns
 -   Doesn't clone the thead - so your events stay bound
 -   Doesn't mess with your styles, and doesnt require any css
 -   Works with border-collapse variants, weird margins, padding and borders
--   Works with libs like [datatables](http://datatables.net), [perfect-scrollbar](http://mkoryak.github.io/floatThead/examples/perfect-scrollbar/), [bootstrap](http://mkoryak.github.io/floatThead/examples/bootstrap3/), and many more
+-   Works with libs like [datatables](http://datatables.net), [perfect-scrollbar](http://mkoryak.github.io/floatThead/examples/perfect-scrollbar/), [bootstrap3](http://mkoryak.github.io/floatThead/examples/bootstrap3/), and many more
 -   Header can be floated with `position:absolute` which adds a wrapper, or `position:fixed` which does not. Both have their pros and cons. By default the best option is chosen based on your configuration
 
 
@@ -60,12 +61,8 @@ If you use css and html best practices, this plugin will work. If you are stuck 
 
 How to get help with the floatThead
 ------------
-All issues should be reported through github. If you don't have an account you can make one.  
-Providing the following will greatly increase the chances of your issue being resolved quickly:
- - Include the browser and operating system where you are having the problem. If its IE, a screenshot is also nice since I don't have quick access to that abomination.
- - **Provide a jsfiddle that reproduces your issue in its simplest form possible**. If its hard to read your code, you did it wrong.
- - A description of the issue and steps to reproduce
- 
+All issues should be reported through github.
+
 I will do my best to help you in a timely manner.
  
 
@@ -99,8 +96,6 @@ Change Log
 
 ### [http://kangax.github.io/compat-table/](http://kangax.github.io/compat-table/es6/)
 
-### https://github.com/sosy-lab/benchexec
-
 ### [staticsitegenerators.net](http://staticsitegenerators.net/)
 
 ### [netdisco](http://netdisco.org)
@@ -112,15 +107,6 @@ Change Log
 ### [django-sql-explorer](https://github.com/epantry/django-sql-explorer)
 - https://github.com/epantry/django-sql-explorer/commit/34ae345325a1e07ff952800fcd6dc5bddac5e3f2- 
 
-### [Yii framework](http://www.yiiframework.com/)
-- http://www.yiiframework.com/extension/yii2-grid/
-- http://demos.krajee.com/grid-demo 
-
-### [api.tinata.co.uk](http://api.tinata.co.uk/countries)
-- https://github.com/tinata/tinatapi/commit/b1cf62dd97a5caa76bafcd5ec3b4f12e6b88f385
-
-
-*Your site? email me: my last name at gmail*
 
 # Woot
 

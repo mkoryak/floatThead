@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.3.3dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2015 Misha Koryak
+// @preserve jQuery.floatThead 1.4.0 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -24,8 +24,11 @@
     position: 'auto', // 'fixed', 'absolute', 'auto'. auto picks the best for your table scrolling type.
     top: 0, //String or function($table) - offset from top of window where the header should not pass above
     bottom: 0, //String or function($table) - offset from the bottom of the table where the header should stop scrolling
-    scrollContainer: function($table){
-      return $([]); //if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
+    scrollContainer: function($table) { // or boolean 'true' (use offsetParent) | function -> if the table has horizontal scroll bars then this is the container that has overflow:auto and causes those scroll bars
+      return $([]);
+    },
+    responsiveContainer: function($table) { // only valid if scrollContainer is not used (ie window scrolling). this is the container which will control y scrolling at some mobile breakpoints
+      return $([]);
     },
     getSizingRow: function($table, $cols, $fthCells){ // this is only called when using IE,
       // override it if the first row of the table is going to contain colgroups (any cell spans greater than one col)
@@ -103,6 +106,33 @@
     } else {
       $window.on(eventName, util.debounce(cb, 1));
     }
+  }
+
+  function getTrueOffsetParent($elem) {
+    var elem = $elem[0];
+    var parent = elem.offsetParent;
+
+    if (!parent) {
+      parent = elem.parentElement;
+
+      do {
+        var pos = window
+            .getComputedStyle(parent)
+            .getPropertyValue('position');
+
+        if (pos != 'static') break;
+
+        if (parent.offsetParent) {
+          parent = parent.offsetParent;
+          break;
+        }
+
+      } while (parent = parent.parentElement)
+    }
+    if(parent == document.body){
+      return $([]);
+    }
+    return $(parent);
   }
 
 
@@ -247,8 +277,15 @@
       var scrollbarOffset = {vertical: 0, horizontal: 0};
       var scWidth = scrollbarWidth();
       var lastColumnCount = 0; //used by columnNum()
+
+      if(opts.scrollContainer === true){
+        opts.scrollContainer = getTrueOffsetParent;
+      }
+
       var $scrollContainer = opts.scrollContainer($table) || $([]); //guard against returned nulls
       var locked = $scrollContainer.length > 0;
+      var $responsiveContainer = locked ? $([]) : opts.responsiveContainer($table) || $([]);
+      var responsive = isResponsiveContainerActive();
 
       var useAbsolutePositioning = null;
       if(typeof opts.useAbsolutePositioning !== 'undefined'){
@@ -263,8 +300,8 @@
         debug("option 'scrollingTop' has been renamed to 'top' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
       }
       if(typeof opts.scrollingBottom !== 'undefined'){
-          opts.bottom = opts.scrollingBottom;
-          debug("option 'scrollingBottom' has been renamed to 'bottom' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
+        opts.bottom = opts.scrollingBottom;
+        debug("option 'scrollingBottom' has been renamed to 'bottom' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
       }
 
 
@@ -402,8 +439,9 @@
 
       function setFloatWidth(){
         var tw = tableWidth($table, $fthCells, true);
-        var width = $scrollContainer.width() || tw;
-        var floatContainerWidth = $scrollContainer.css("overflow-y") != 'hidden' ? width - scrollbarOffset.vertical : width;
+        var $container = responsive ? $responsiveContainer : $scrollContainer;
+        var width = $container.width() || tw;
+        var floatContainerWidth = $container.css("overflow-y") != 'hidden' ? width - scrollbarOffset.vertical : width;
         $floatContainer.width(floatContainerWidth);
         if(locked){
           var percent = 100 * tw / (floatContainerWidth);
@@ -570,6 +608,10 @@
         }
         return w;
       }
+
+      function isResponsiveContainerActive(){
+        return $responsiveContainer.css("overflow-x") == 'auto';
+      }
       /**
        * first performs initial calculations that we expect to not change when the table, window, or scrolling container are scrolled.
        * returns a function that calculates the floating container's top and left coords. takes into account if we are using page scrolling or inner scrolling
@@ -602,9 +644,11 @@
         }
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
-        var scrollContainerLeft =  $scrollContainer.scrollLeft();
+        var scrollContainerLeft =  (isResponsiveContainerActive() ? $responsiveContainer : $scrollContainer).scrollLeft();
 
         return function(eventType){
+          responsive = isResponsiveContainerActive();
+
           var isTableHidden = $table[0].offsetWidth <= 0 && $table[0].offsetHeight <= 0;
           if(!isTableHidden && floatTableHidden) {
             floatTableHidden = false;
@@ -624,13 +668,20 @@
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
           } else if(eventType == 'containerScroll'){
-            scrollingContainerTop = $scrollContainer.scrollTop();
-            scrollContainerLeft =  $scrollContainer.scrollLeft();
+            if($responsiveContainer.length){
+              if(!responsive){
+                return; //we dont care about the event if we arent responsive right now
+              }
+              scrollContainerLeft = $responsiveContainer.scrollLeft();
+            } else {
+              scrollingContainerTop = $scrollContainer.scrollTop();
+              scrollContainerLeft = $scrollContainer.scrollLeft();
+            }
           } else if(eventType != 'init') {
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
             scrollingContainerTop = $scrollContainer.scrollTop();
-            scrollContainerLeft =  $scrollContainer.scrollLeft();
+            scrollContainerLeft =  (responsive ? $responsiveContainer : $scrollContainer).scrollLeft();
           }
           if(isWebkit && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
             return;
@@ -676,7 +727,7 @@
               refloat(); //scrolling within table. header floated
               triggerFloatEvent(true);
             }
-            left =  0;
+            left =  scrollContainerLeft;
           } else if(locked && !useAbsolutePositioning){ //inner scrolling, fixed positioning
             if (tableContainerGap > scrollingContainerTop || scrollingContainerTop - tableContainerGap > tableHeight) {
               top = tableOffset.top - windowTop;
@@ -703,7 +754,7 @@
               top = scrollingTop;
               triggerFloatEvent(true);
             }
-            left = tableOffset.left - windowLeft;
+            left = tableOffset.left + scrollContainerLeft - windowLeft;
           }
           return {top: top, left: left};
         };
@@ -731,7 +782,7 @@
           if(setHeight){
             setHeaderHeight();
           }
-          var scrollLeft = $scrollContainer.scrollLeft();
+          var scrollLeft = (responsive ? $responsiveContainer : $scrollContainer).scrollLeft();
           if(!useAbsolutePositioning || oldScrollLeft != scrollLeft){
             $floatContainer.scrollLeft(scrollLeft);
             oldScrollLeft = scrollLeft;
@@ -841,6 +892,7 @@
           $window.on(eventName('scroll'), windowScrollEvent);
         }
       } else { //window scrolling
+        $responsiveContainer.on(eventName('scroll'), containerScrollEvent);
         $window.on(eventName('scroll'), windowScrollEvent);
       }
 
@@ -902,6 +954,7 @@
           }
           $table.off('reflow reflowed');
           $scrollContainer.off(ns);
+          $responsiveContainer.off(ns);
           if (wrappedContainer) {
             if ($scrollContainer.length) {
               $scrollContainer.unwrap();
