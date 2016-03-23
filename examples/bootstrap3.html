@@ -29,16 +29,27 @@ table.floatThead-table {
     background-color: #FFF;
 }
 {% endhighlight %}
-<p>And the javascript:</p>
+<p>Because the first table is wrapped in a bootstrap3 <code>.table-responsive</code> wrapper, you need to specify the <code>responsiveContainer</code> option.
+This option is only applicable to window scrolling, which means that you cannot use 'scrollContainer' option together with this option.<br/><br/>
+
+This option makes the horizontal scrolling behave itself when scrolling within the table on smaller screen sizes.
+</p>
 {% highlight js %}
-$("table.table").floatThead()
+    $(".table.with-responsive-wrapper").floatThead({
+        responsiveContainer: function($table){
+            return $table.closest(".table-responsive");
+        }
+    });
+    $(".table.without-responsive-wrapper").floatThead();
+
 {% endhighlight %}
 
     <div class="alert alert-info">
         <strong>Note:</strong> You might also run into an issue where css from other libs is adding margin to the floated header. See <a href="https://github.com/mkoryak/floatThead/issues/35" target="_blank">this issue</a> for a resolution.
     </div>
 
-    <table class="table table-striped table-bordered">
+    <div class="table-responsive">
+    <table class="table table-striped table-bordered with-responsive-wrapper">
         <thead>
         <tr role="row">
             <th></th>
@@ -162,12 +173,12 @@ $("table.table").floatThead()
         </tr>
         </tbody>
     </table>
-
+    </div>
 </div>
 
 <div class="row">
 
-    <table class="table table-striped">
+    <table class="table table-striped without-responsive-wrapper">
         <thead>
         <tr role="row">
             <th></th>
@@ -462,7 +473,14 @@ $("table.table").floatThead()
     </div>
 <div style="height: 200px"></div>
 <script type="text/javascript">
-    $(".table").floatThead()
+    $(function(){
+        $(".table.with-responsive-wrapper").floatThead({
+            responsiveContainer: function($table){
+                return $table.closest(".table-responsive");
+            }
+        });
+        $(".table.without-responsive-wrapper").floatThead();
+    });
 </script>
 
 

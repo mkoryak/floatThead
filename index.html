@@ -63,6 +63,7 @@ base_url: "."
                         <li>Requires no special css</li>
                         <li>Works with <a href="http://datatables.net" target="_blank">datatables</a> out of the box</li>
                         <li>Screen reader support</li>
+                        <li>Bootstrap3 support</li>
                     </ul>
                     <h4>Requirements:</h4>
                     <ul>
@@ -97,10 +98,11 @@ base_url: "."
 <div class='row'>
     <div class='span12' id='usage'>
         <h1>Usage</h1>
-        There are 2 ways you can initialize the plugin:<br/><br/>
+        There are 3 ways you can initialize the plugin:<br/><br/>
         <ul>
             <li><b>Overflow scrolling</b><br/><small>The table is inside of a container with overflow:auto</small></li>
             <li><b>Window scrolling</b><br/><small>Header becomes locked at the top of the page as user scrolls down</small></li>
+            <li><b>Responsive scrolling</b><br/><small>Hybrid of above. At some screen sizes horizontal scrolling happens within a container, vertical scrolling within the window</small></li>
         </ul>
         <h3>Window scrolling</h3> is the default. Initialize floatThead without any params to use it. <br/><br/>
 {% highlight js %}
@@ -108,13 +110,25 @@ var $table = $('table.demo');
 $table.floatThead();
 {% endhighlight %}
 
-        <h3>Overflow scrolling</h3> requires configuration. You must specify a container element inside of which the table will scroll.
-        You must create this element. A DIV with overflow:auto within which the table will scroll.<br/><br/>
+        <h3>Overflow scrolling</h3> You must specify a container element inside of which the table will scroll.
+        This element must already exist in the DOM and wrap the table<br/><br/>
 {% highlight js %}
 var $table = $('table.demo');
 $table.floatThead({
     scrollContainer: function($table){
         return $table.closest('.wrapper');
+    }
+});
+{% endhighlight %}
+        <h3>Responsive window scrolling</h3> You must specify a responsive container element within which the table will scroll horizontally at some screen sizes.
+        A good example of this type of a container is bootstrap3's <a href="http://getbootstrap.com/css/#tables-responsive" target="_blank">responsive-table helper</a>.
+
+        <br/><br/>
+{% highlight js %}
+var $table = $('table.demo');
+$table.floatThead({
+    responsiveContainer: function($table){
+        return $table.closest('.table-responsive');
     }
 });
 {% endhighlight %}
@@ -149,9 +163,14 @@ $table.floatThead({
             </tr>
             <tr>
                 <td>scrollContainer</td>
+                <td>function or <code>true</code></td>
+                <td>null</td>
+                <td>Defines a container element inside of which the table scrolls vertically and/or horizontally. If boolean <code>true</code> is used, then we use the table's offsetParent.</td>
+            </tr><tr>
+                <td>responsiveContainer</td>
                 <td>function</td>
                 <td>null</td>
-                <td>Defines a container element inside of which the table scrolls vertically and/or horizontally. <small>usually a wrapping div</small></td>
+                <td>Defines a responsive container element inside of which the table scrolls horizontally (at some resolutions), everything else behaves like window scrolling. This option cannot be used together with <code>scrollContainer</code> option. <small><a href="{{ site.base_url }}/examples/bootstrap3/">bootstrap3 example</a></small></td>
             </tr><tr>
                 <td>headerCellSelector</td>
                 <td>string</td>

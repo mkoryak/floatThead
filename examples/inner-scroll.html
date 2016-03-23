@@ -28,9 +28,7 @@ base_url: "./../.."
 {% highlight js %}
 $('table').floatThead({
     position: 'absolute',
-    scrollContainer: function($table){
-        return $table.closest(".wrapper");
-    }
+    scrollContainer: true
 });
 {% endhighlight %}
 
@@ -67,12 +65,11 @@ $('table').floatThead({
 
 <script type="text/javascript">
     $(function(){
+
         $('table').floatThead({
-            top: pageTop,
+            top: pageTop, //this is a global fn defined on the demo site, you dont need it!
             position: 'absolute',
-            scrollContainer: function($table){
-                return $table.closest(".wrapper");
-            }
+            scrollContainer: 'auto'
         });
         //  alignmentDebugger($('table'))
         var useAbs = true;
@@ -82,9 +79,7 @@ $('table').floatThead({
             $('table').floatThead('destroy').floatThead({
                 top: pageTop, //this is a global fn defined on the demo site, you dont need it!
                 position: useAbs ? 'absolute': 'fixed',
-                scrollContainer: function($table){
-                    return $(".wrapper");
-                }
+                scrollContainer: 'auto'
             });
             $(this).text("Re-initialize plugin with "+(useAbs ? "fixed" : "absolute") +" positioning");
             $("#posType").text("position: "+(useAbs ? "absolute" : "fixed"))
