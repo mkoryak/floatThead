@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.0 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.1dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -798,11 +798,20 @@
           if($scrollContainer.data().perfectScrollbar){
             scrollbarOffset = {horizontal:0, vertical:0};
           } else {
-            var sw = $scrollContainer.width(), sh = $scrollContainer.height(), th = $table.height(), tw = tableWidth($table, $fthCells);
-            var offseth = sw < tw ? scWidth : 0;
-            var offsetv = sh < th ? scWidth : 0;
-            scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
-            scrollbarOffset.vertical = sh - offseth < th ? scWidth : 0;
+            if($scrollContainer.css('overflow-x') == 'scroll'){
+              scrollbarOffset.horizontal = scWidth;
+            } else {
+              var sw = $scrollContainer.width(), tw = tableWidth($table, $fthCells);
+              var offsetv = sh < th ? scWidth : 0;
+              scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
+            }
+            if($scrollContainer.css('overflow-y') == 'scroll'){
+              scrollbarOffset.vertical = scWidth;
+            } else {
+              var sh = $scrollContainer.height(), th = $table.height();
+              var offseth = sw < tw ? scWidth : 0;
+              scrollbarOffset.vertical = sh - offseth < th ? scWidth : 0;
+            }
           }
         }
       }
