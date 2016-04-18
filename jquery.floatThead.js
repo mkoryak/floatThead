@@ -41,7 +41,13 @@
     copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
     enableAria: false, //will copy header text from the floated header back into the table for screen readers. Might cause the css styling to be off. beware!
     autoReflow: false, //(undocumented) - use MutationObserver api to reflow automatically when internal table DOM changes
-    debug: false //print possible issues (that don't prevent script loading) to console, if console exists.
+    debug: false, //print possible issues (that don't prevent script loading) to console, if console exists.
+    support: { //should we bind events that expect these frameworks to be present and/or check for them?
+      bootstrap: true,
+      datatables: true,
+      jqueryUI: true,
+      perfectScrollbar: true
+    }
   };
 
   var util = window._;
@@ -797,7 +803,7 @@
        */
       function calculateScrollBarSize(){ //this should happen after the floating table has been positioned
         if($scrollContainer.length){
-          if($scrollContainer.data().perfectScrollbar){
+          if(opts.support.perfectScrollbar && $scrollContainer.data().perfectScrollbar){
             scrollbarOffset = {horizontal:0, vertical:0};
           } else {
             if($scrollContainer.css('overflow-x') != 'hidden'){
@@ -911,15 +917,19 @@
 
       windowResize(eventName('resize'), windowResizeEvent);
       $table.on('reflow', reflowEvent);
-      if(isDatatable($table)){
+      if(opts.support.datatables && isDatatable($table)){
         $table
             .on('filter', reflowEvent)
             .on('sort',   reflowEvent)
             .on('page',   reflowEvent);
       }
 
-      $window.on(eventName('shown.bs.tab'), reflowEvent); // people cant seem to figure out how to use this plugin with bs3 tabs... so this :P
-      $window.on(eventName('tabsactivate'), reflowEvent); // same thing for jqueryui
+      if(opts.support.bootstrap) {
+        $window.on(eventName('shown.bs.tab'), reflowEvent); // people cant seem to figure out how to use this plugin with bs3 tabs... so this :P
+      }
+      if(opts.support.jqueryUI) {
+        $window.on(eventName('tabsactivate'), reflowEvent); // same thing for jqueryui
+      }
 
 
       if (canObserveMutations) {
