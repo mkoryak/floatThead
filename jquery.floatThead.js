@@ -114,27 +114,19 @@
     }
   }
 
-  function getTrueOffsetParent($elem) {
+  function getClosestScrollContainer($elem) {
     var elem = $elem[0];
-    var parent = elem.offsetParent;
+    var parent = elem.parentElement;
 
-    if (!parent) {
-      parent = elem.parentElement;
+    do {
+      var pos = window
+          .getComputedStyle(parent)
+          .getPropertyValue('overflow');
 
-      do {
-        var pos = window
-            .getComputedStyle(parent)
-            .getPropertyValue('position');
+      if (pos != 'visible') break;
+      
+    } while (parent = parent.parentElement);
 
-        if (pos != 'static') break;
-
-        if (parent.offsetParent) {
-          parent = parent.offsetParent;
-          break;
-        }
-
-      } while (parent = parent.parentElement)
-    }
     if(parent == document.body){
       return $([]);
     }
@@ -285,7 +277,7 @@
       var lastColumnCount = 0; //used by columnNum()
 
       if(opts.scrollContainer === true){
-        opts.scrollContainer = getTrueOffsetParent;
+        opts.scrollContainer = getClosestScrollContainer;
       }
 
       var $scrollContainer = opts.scrollContainer($table) || $([]); //guard against returned nulls
