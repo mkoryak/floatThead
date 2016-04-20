@@ -366,7 +366,8 @@
       $floatTable.css({
         'borderCollapse': $table.css('borderCollapse'),
         'border': $table.css('border'),
-        'display': tableDisplayCss
+        'display': tableDisplayCss,
+        'width': 'auto'
       });
       if(tableDisplayCss == 'none'){
         floatTableHidden = true;
