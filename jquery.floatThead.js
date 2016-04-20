@@ -55,14 +55,13 @@
   var canObserveMutations = typeof MutationObserver !== 'undefined';
 
 
-
   //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];a = 1+a,b.innerHTML="<!--[if gt IE "+ a +"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
   var isFF = /Gecko\//.test(navigator.userAgent);
   var isWebkit = /WebKit\//.test(navigator.userAgent);
 
   if(!(ieVersion || isFF || isWebkit)){
-    ieVersion = 11; //yey, ie11, you get to pretend to be chrome! can you handle it?!
+    ieVersion = 11; //yey a hack!
   }
 
   //safari 7 (and perhaps others) reports table width to be parent container's width if max-width is set on table. see: https://github.com/mkoryak/floatThead/issues/108
@@ -115,27 +114,19 @@
     }
   }
 
-  function getTrueOffsetParent($elem) {
+  function getClosestScrollContainer($elem) {
     var elem = $elem[0];
-    var parent = elem.offsetParent;
+    var parent = elem.parentElement;
 
-    if (!parent) {
-      parent = elem.parentElement;
+    do {
+      var pos = window
+          .getComputedStyle(parent)
+          .getPropertyValue('overflow');
 
-      do {
-        var pos = window
-            .getComputedStyle(parent)
-            .getPropertyValue('position');
+      if (pos != 'visible') break;
 
-        if (pos != 'static') break;
+    } while (parent = parent.parentElement);
 
-        if (parent.offsetParent) {
-          parent = parent.offsetParent;
-          break;
-        }
-
-      } while (parent = parent.parentElement)
-    }
     if(parent == document.body){
       return $([]);
     }
@@ -159,9 +150,9 @@
    */
   function scrollbarWidth() {
     var $div = $( //borrowed from anti-scroll
-        '<div style="width:50px;height:50px;overflow-y:scroll;'
-        + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
-        + '</div>'
+                  '<div style="width:50px;height:50px;overflow-y:scroll;'
+                  + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
+                  + '</div>'
     );
     $('body').append($div);
     var w1 = $div.innerWidth();
@@ -286,11 +277,10 @@
       var lastColumnCount = 0; //used by columnNum()
 
       if(opts.scrollContainer === true){
-        opts.scrollContainer = getTrueOffsetParent;
+        opts.scrollContainer = getClosestScrollContainer;
       }
 
       var $scrollContainer = opts.scrollContainer($table) || $([]); //guard against returned nulls
-
       var locked = $scrollContainer.length > 0;
       var $responsiveContainer = locked ? $([]) : opts.responsiveContainer($table) || $([]);
       var responsive = isResponsiveContainerActive();
@@ -368,16 +358,16 @@
         $floatTable.attr('class', $table.attr('class'));
       }
       $floatTable.attr({ //copy over some deprecated table attributes that people still like to use. Good thing people don't use colgroups...
-        'cellpadding': $table.attr('cellpadding'),
-        'cellspacing': $table.attr('cellspacing'),
-        'border': $table.attr('border')
-      });
+                         'cellpadding': $table.attr('cellpadding'),
+                         'cellspacing': $table.attr('cellspacing'),
+                         'border': $table.attr('border')
+                       });
       var tableDisplayCss = $table.css('display');
       $floatTable.css({
-        'borderCollapse': $table.css('borderCollapse'),
-        'border': $table.css('border'),
-        'display': tableDisplayCss
-      });
+                        'borderCollapse': $table.css('borderCollapse'),
+                        'border': $table.css('border'),
+                        'display': tableDisplayCss
+                      });
       if(tableDisplayCss == 'none'){
         floatTableHidden = true;
       }
@@ -411,11 +401,11 @@
 
 
       $floatContainer.css({
-        position: useAbsolutePositioning ? 'absolute' : 'fixed',
-        marginTop: 0,
-        top:  useAbsolutePositioning ? 0 : 'auto',
-        zIndex: opts.zIndex
-      });
+                            position: useAbsolutePositioning ? 'absolute' : 'fixed',
+                            marginTop: 0,
+                            top:  useAbsolutePositioning ? 0 : 'auto',
+                            zIndex: opts.zIndex
+                          });
       $floatContainer.addClass(opts.floatContainerClass);
       updateScrollingOffsets();
 
@@ -556,8 +546,8 @@
         if(useAbsolutePositioning != isAbsolute){
           useAbsolutePositioning = isAbsolute;
           $floatContainer.css({
-            position: useAbsolutePositioning ? 'absolute' : 'fixed'
-          });
+                                position: useAbsolutePositioning ? 'absolute' : 'fixed'
+                              });
         }
       }
       function getSizingRow($table, $cols, $fthCells, ieVersion){
@@ -778,9 +768,9 @@
         return function(pos, setWidth, setHeight){
           if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
             $floatContainer.css({
-              top: pos.top,
-              left: pos.left
-            });
+                                  top: pos.top,
+                                  left: pos.left
+                                });
             oldTop = pos.top;
             oldLeft = pos.left;
           }
@@ -803,17 +793,17 @@
        */
       function calculateScrollBarSize(){ //this should happen after the floating table has been positioned
         if($scrollContainer.length){
-          if(opts.support.perfectScrollbar && $scrollContainer.data().perfectScrollbar){
+          if(opts.support && opts.support.perfectScrollbar && $scrollContainer.data().perfectScrollbar){
             scrollbarOffset = {horizontal:0, vertical:0};
           } else {
-            if($scrollContainer.css('overflow-x') != 'hidden'){
+            if($scrollContainer.css('overflow-x') == 'scroll'){
               scrollbarOffset.horizontal = scWidth;
             } else {
               var sw = $scrollContainer.width(), tw = tableWidth($table, $fthCells);
               var offsetv = sh < th ? scWidth : 0;
               scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
             }
-            if($scrollContainer.css('overflow-y') != 'hidden'){
+            if($scrollContainer.css('overflow-y') == 'scroll'){
               scrollbarOffset.vertical = scWidth;
             } else {
               var sh = $scrollContainer.height(), th = $table.height();
@@ -917,17 +907,17 @@
 
       windowResize(eventName('resize'), windowResizeEvent);
       $table.on('reflow', reflowEvent);
-      if(opts.support.datatables && isDatatable($table)){
+      if(opts.support && opts.support.datatables && isDatatable($table)){
         $table
             .on('filter', reflowEvent)
             .on('sort',   reflowEvent)
             .on('page',   reflowEvent);
       }
 
-      if(opts.support.bootstrap) {
+      if(opts.support && opts.support.bootstrap) {
         $window.on(eventName('shown.bs.tab'), reflowEvent); // people cant seem to figure out how to use this plugin with bs3 tabs... so this :P
       }
-      if(opts.support.jqueryUI) {
+      if(opts.support && opts.support.jqueryUI) {
         $window.on(eventName('tabsactivate'), reflowEvent); // same thing for jqueryui
       }
 
@@ -956,7 +946,6 @@
           subtree: true
         });
       }
-
 
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
@@ -996,7 +985,7 @@
           $window.off(ns);
           if(!isPrintEvent){
             //if we are in the middle of printing, we want this event to re-create the plugin
-            window.matchMedia("print").removeListener(printEvent);
+            window.matchMedia && window.matchMedia("print").removeListener(printEvent);
             beforePrint = afterPrint = function(){};
           }
         },
