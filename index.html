@@ -288,10 +288,9 @@ $table.trigger('reflow');
         <h1>Events Produced</h1>
         <h3 class="text-success">floatThead</h3>
         <h4><code>$table.on('floatThead', function(e, isFloated, $floatContainer){..}</code></h4>
-        The plugin will trigger this event on the table when the header is floated and unfloated. The 2nd and 3rd params in the method are of interest to you.
+        The plugin will trigger this event on the table when the header is floated and unfloated. The 2nd and 3rd params in the method are of interest to you. As shown below, be certain to add your event handlers before calling `.floatThead()`, or your code may miss `floatThead` events.
 {% highlight js %}
 var $table = $('table.demo2');
-$table.floatThead(...);
 $table.on("floatThead", function(e, isFloated, $floatContainer){
     if(isFloated){
         $floatContainer.addClass("floated"); // the div containing the table containing the thead
@@ -301,6 +300,7 @@ $table.on("floatThead", function(e, isFloated, $floatContainer){
         $(this).removeClass("floated");
     }
 });
+$table.floatThead(...);
 {% endhighlight %}
 {% highlight css %}
 table.floated {
