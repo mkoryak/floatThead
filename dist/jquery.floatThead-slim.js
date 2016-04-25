@@ -124,7 +124,7 @@
           .getPropertyValue('overflow');
 
       if (pos != 'visible') break;
-      
+
     } while (parent = parent.parentElement);
 
     if(parent == document.body){
@@ -150,9 +150,9 @@
    */
   function scrollbarWidth() {
     var $div = $( //borrowed from anti-scroll
-        '<div style="width:50px;height:50px;overflow-y:scroll;'
-        + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
-        + '</div>'
+                  '<div style="width:50px;height:50px;overflow-y:scroll;'
+                  + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
+                  + '</div>'
     );
     $('body').append($div);
     var w1 = $div.innerWidth();
@@ -358,17 +358,19 @@
         $floatTable.attr('class', $table.attr('class'));
       }
       $floatTable.attr({ //copy over some deprecated table attributes that people still like to use. Good thing people don't use colgroups...
-        'cellpadding': $table.attr('cellpadding'),
-        'cellspacing': $table.attr('cellspacing'),
-        'border': $table.attr('border')
-      });
+                         'cellpadding': $table.attr('cellpadding'),
+                         'cellspacing': $table.attr('cellspacing'),
+                         'border': $table.attr('border')
+                       });
       var tableDisplayCss = $table.css('display');
       $floatTable.css({
-        'borderCollapse': $table.css('borderCollapse'),
-        'border': $table.css('border'),
-        'display': tableDisplayCss,
-        'width': 'auto'
-      });
+                        'borderCollapse': $table.css('borderCollapse'),
+                        'border': $table.css('border'),
+                        'display': tableDisplayCss
+                      });
+      if(!locked){
+        $floatTable.css('width', 'auto');
+      }
       if(tableDisplayCss == 'none'){
         floatTableHidden = true;
       }
@@ -402,11 +404,11 @@
 
 
       $floatContainer.css({
-        position: useAbsolutePositioning ? 'absolute' : 'fixed',
-        marginTop: 0,
-        top:  useAbsolutePositioning ? 0 : 'auto',
-        zIndex: opts.zIndex
-      });
+                            position: useAbsolutePositioning ? 'absolute' : 'fixed',
+                            marginTop: 0,
+                            top:  useAbsolutePositioning ? 0 : 'auto',
+                            zIndex: opts.zIndex
+                          });
       $floatContainer.addClass(opts.floatContainerClass);
       updateScrollingOffsets();
 
@@ -547,8 +549,8 @@
         if(useAbsolutePositioning != isAbsolute){
           useAbsolutePositioning = isAbsolute;
           $floatContainer.css({
-            position: useAbsolutePositioning ? 'absolute' : 'fixed'
-          });
+                                position: useAbsolutePositioning ? 'absolute' : 'fixed'
+                              });
         }
       }
       function getSizingRow($table, $cols, $fthCells, ieVersion){
@@ -769,9 +771,9 @@
         return function(pos, setWidth, setHeight){
           if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
             $floatContainer.css({
-              top: pos.top,
-              left: pos.left
-            });
+                                  top: pos.top,
+                                  left: pos.left
+                                });
             oldTop = pos.top;
             oldLeft = pos.left;
           }
