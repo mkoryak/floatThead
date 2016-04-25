@@ -150,9 +150,9 @@
    */
   function scrollbarWidth() {
     var $div = $( //borrowed from anti-scroll
-        '<div style="width:50px;height:50px;overflow-y:scroll;'
-        + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
-        + '</div>'
+      '<div style="width:50px;height:50px;overflow-y:scroll;'
+      + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
+      + '</div>'
     );
     $('body').append($div);
     var w1 = $div.innerWidth();
@@ -366,9 +366,11 @@
       $floatTable.css({
         'borderCollapse': $table.css('borderCollapse'),
         'border': $table.css('border'),
-        'display': tableDisplayCss,
-        'width': 'auto'
+        'display': tableDisplayCss
       });
+      if(!locked){
+        $floatTable.css('width', 'auto');
+      }
       if(tableDisplayCss == 'none'){
         floatTableHidden = true;
       }
@@ -547,8 +549,8 @@
         if(useAbsolutePositioning != isAbsolute){
           useAbsolutePositioning = isAbsolute;
           $floatContainer.css({
-                                position: useAbsolutePositioning ? 'absolute' : 'fixed'
-                              });
+            position: useAbsolutePositioning ? 'absolute' : 'fixed'
+          });
         }
       }
       function getSizingRow($table, $cols, $fthCells, ieVersion){
