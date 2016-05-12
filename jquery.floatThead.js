@@ -572,6 +572,8 @@
         var numCols = columnNum(); //if the tables columns changed dynamically since last time (datatables), rebuild the sizer rows and get a new count
 
         return function(){
+          //Cache the current scrollLeft value so that it can be reset post reflow
+          var scrollLeft = $floatContainer.scrollLeft();
           $tableCells = $tableColGroup.find('col');
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
 
@@ -597,7 +599,9 @@
             $floatTable.css(layoutAuto);
             setHeaderHeight();
           }
-          $table.triggerHandler("reflowed", [$floatContainer]);
+          //Set back the current scrollLeft value on floatContainer
+          $floatContainer.scrollLeft(scrollLeft);
+          $table.triggerHandler("reflowed", [$floatContainer]);          
         };
       }
 
