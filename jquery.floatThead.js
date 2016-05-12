@@ -601,7 +601,7 @@
           }
           //Set back the current scrollLeft value on floatContainer
           $floatContainer.scrollLeft(scrollLeft);
-          $table.triggerHandler("reflowed", [$floatContainer]);          
+          $table.triggerHandler("reflowed", [$floatContainer]);
         };
       }
 
