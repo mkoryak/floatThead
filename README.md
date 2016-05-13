@@ -1,4 +1,4 @@
-jquery.floatThead v1.4.0
+jquery.floatThead v1.4.1
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
@@ -13,8 +13,7 @@ Float the table header on scroll. No changes to your HTML/CSS are required, it j
 :heart_eyes_cat:**My cat loves it**:heart_eyes_cat:
 
 
-
-###Install
+### Install
 
 #### Package managers
 ```bash
@@ -22,7 +21,7 @@ bower install floatThead
 npm install floatthead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.4.0.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.4.1.zip)
 
 #### Via CDN
 [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)  
@@ -61,10 +60,7 @@ If you use css and html best practices, this plugin will work. If you are stuck 
 
 How to get help with the floatThead
 ------------
-All issues should be reported through github.
-
-I will do my best to help you in a timely manner.
- 
+All issues should be reported through github. Coffee/Beer donations help too ;)
 
 Requirements:
 -------------
@@ -73,19 +69,9 @@ Requirements:
 
 Supported Browsers:
 -------------
--   IE8 or better (read [this](http://mkoryak.github.io/floatThead/examples/row-groups/))
+-   IE8 or better (**must read** [this for ANY Internet Exploder integrations](http://mkoryak.github.io/floatThead/examples/row-groups/))
 -   Chrome, Firefox (all versions from last 3 years)
 
-
-Using with IE9 
---------------
-FloatThead will not work properly in IE9 unless you have the following meta tag in the head of the page:  
-``` html 
-<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
-```
-
-With very big tables, you may also run into this exciting bug: http://stackoverflow.com/questions/5805956/internet-explorer-9-not-rendering-table-cells-properly  
-Watch for it.
 
 Change Log
 ----------
@@ -93,6 +79,8 @@ Change Log
 
 
 ## Who is using floatThead ?
+
+### [around 20K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
 ### [http://kangax.github.io/compat-table/](http://kangax.github.io/compat-table/es6/)
 
@@ -108,9 +96,14 @@ Change Log
 - https://github.com/epantry/django-sql-explorer/commit/34ae345325a1e07ff952800fcd6dc5bddac5e3f2- 
 
 
-# Woot
+# You are still reading this?
 
-Big thanks to jetbrains for giving me an open source webstorm license for this project. They make the best IDEs.
+Like clicking on things? Check out these great domains:
+
+- http://guthib.com
+- http://soundbutt.com
+- http://guthub.com
+- http://programmingdrunk.com
 
 License
 -------

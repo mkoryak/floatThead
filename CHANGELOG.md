@@ -1,7 +1,15 @@
+### 1.4.1
+bug fixes:
+- https://github.com/mkoryak/floatThead/issues/289 - properly handle overflow:scroll !important
+- https://github.com/mkoryak/floatThead/issues/298 - add ability to opt out of 3rd party lib integrations
+- https://github.com/mkoryak/floatThead/issues/303 - fix `scrollContainer: true` behavior
+- https://github.com/mkoryak/floatThead/issues/299 - fix weirdness when header cells contain tons of content (thanks @cantin for PR)
+- https://github.com/mkoryak/floatThead/issues/300 - remember scrollLeft of header when reflowing (thanks @rshah88 for PR)
+
 ### 1.4.0
 new features:
 - https://github.com/mkoryak/floatThead/issues/263 - support for responsive table wrappers
-- can now use `scrollContainer:true` to auto-detect offsetParent of the table
+- can now use `scrollContainer:true` to auto-detect scrollParent of the table (something with `overflow != visible`)
 - https://github.com/mkoryak/floatThead/issues/68 - support for printing the table (not in crappy IEs though)
 
 bug fixes:
