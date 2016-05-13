@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.1dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -572,6 +572,8 @@
         var numCols = columnNum(); //if the tables columns changed dynamically since last time (datatables), rebuild the sizer rows and get a new count
 
         return function(){
+          //Cache the current scrollLeft value so that it can be reset post reflow
+          var scrollLeft = $floatContainer.scrollLeft();
           $tableCells = $tableColGroup.find('col');
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
 
@@ -597,6 +599,8 @@
             $floatTable.css(layoutAuto);
             setHeaderHeight();
           }
+          //Set back the current scrollLeft value on floatContainer
+          $floatContainer.scrollLeft(scrollLeft);
           $table.triggerHandler("reflowed", [$floatContainer]);
         };
       }
