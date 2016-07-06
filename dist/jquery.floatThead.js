@@ -215,6 +215,7 @@
 
     if(util.isString(map)){
       var command = map;
+      var args = Array.prototype.slice.call(arguments, 1);
       var ret = this;
       this.filter('table').each(function(){
         var $this = $(this);
@@ -224,8 +225,8 @@
         }
         var obj = $this.data('floatThead-attached');
         if(obj && util.isFunction(obj[command])){
-          var r = obj[command]();
-          if(typeof r !== 'undefined'){
+          var r = obj[command].apply(this, args);
+          if(r !== undefined){
             ret = r;
           }
         }
@@ -876,7 +877,7 @@
 
       /////// printing stuff
       var beforePrint = function(){
-        $table.floatThead('destroy', [true]);
+        $table.floatThead('destroy', true);
       };
       var afterPrint = function(){
         $table.floatThead(opts);
@@ -956,7 +957,7 @@
 
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
-        destroy: function(e, isPrintEvent){
+        destroy: function(isPrintEvent){
           var ns = '.fth-'+floatTheadId;
           unfloat();
           $table.css(layoutAuto);
