@@ -1,3 +1,7 @@
+### 1.4.2
+bug fixes:
+- https://github.com/mkoryak/floatThead/issues/313 - afterPrint not getting called
+
 ### 1.4.1
 bug fixes:
 - https://github.com/mkoryak/floatThead/issues/289 - properly handle overflow:scroll !important
@@ -53,11 +57,11 @@ Huge thanks to [CoryDuncan](https://github.com/CoryDuncan), [ithielnor](https://
 - https://github.com/mkoryak/floatThead/pull/168 - support for fractional column widths (no more alignment issues!)
 - https://github.com/mkoryak/floatThead/pull/175 - having tables within tables wont cause weird issues
 - https://github.com/mkoryak/floatThead/issues/165 - Fire an event when the header is floated / unfloated
-- https://github.com/mkoryak/floatThead/issues/180 - no space outside of table causes it to always float 
-- https://github.com/mkoryak/floatThead/pull/185 - inner scrolling doesnt respect container border 
+- https://github.com/mkoryak/floatThead/issues/180 - no space outside of table causes it to always float
+- https://github.com/mkoryak/floatThead/pull/185 - inner scrolling doesnt respect container border
 - https://github.com/mkoryak/floatThead/issues/186 - can init on a table without thead and later add it
 - https://github.com/mkoryak/floatThead/issues/194 - header sizing takes into account border-collapse rules
-- bunch of code and stylistic cleanup 
+- bunch of code and stylistic cleanup
 
 ### 1.2.11
 - now supports perfect-scrollbar plugin
@@ -66,7 +70,7 @@ Huge thanks to [CoryDuncan](https://github.com/CoryDuncan), [ithielnor](https://
 
 ### 1.2.10
 - play nicely with angularjs if it modifies the DOM behind the scenes
-- screen reader support via `enableAria` option 
+- screen reader support via `enableAria` option
 - https://github.com/mkoryak/floatThead/issues/122 - better default options for ie
 - https://github.com/mkoryak/floatThead/issues/121 - header layout bug
 - https://github.com/mkoryak/floatThead/issues/128 - issues with scrollbar size detection in certain layouts
