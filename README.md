@@ -8,9 +8,6 @@ Float the table header on scroll. No changes to your HTML/CSS are required, it j
 Supports floating the header while scrolling within the window or while scrolling within a container with overflow.
 Supports responsive tables.
 
-[![Issue Stats](http://issuestats.com/github/mkoryak/floatThead/badge/pr)](http://issuestats.com/github/mkoryak/floatThead)
-[![Issue Stats](http://issuestats.com/github/mkoryak/floatThead/badge/issue)](http://issuestats.com/github/mkoryak/floatThead)
-
 
 :heart_eyes_cat:**My cat loves it**:heart_eyes_cat:
 
