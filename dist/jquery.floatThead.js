@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.3dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -890,7 +890,7 @@
           afterPrint();
         }
       };
-      if(window.matchMedia){
+      if(window.matchMedia && window.matchMedia('print').addListener){
         window.matchMedia("print").addListener(printEvent);
       } else {
         $window.on('beforeprint', beforePrint);
@@ -993,7 +993,8 @@
           $window.off(ns);
           if(!isPrintEvent){
             //if we are in the middle of printing, we want this event to re-create the plugin
-            window.matchMedia && window.matchMedia("print").removeListener(printEvent);
+            window.matchMedia && window.matchMedia("print").removeListener
+                              && window.matchMedia("print").removeListener(printEvent);
             beforePrint = afterPrint = function(){};
           }
         },
