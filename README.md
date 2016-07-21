@@ -79,7 +79,7 @@ Change Log
 
 ## Who is using floatThead ?
 
-### [around 20K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
+### [around 20K hits on GitHub code search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
 ### [http://kangax.github.io/compat-table/](http://kangax.github.io/compat-table/es6/)
 
@@ -101,7 +101,7 @@ Like clicking on things? Check out these great domains:
 
 - http://guthib.com
 - http://soundbutt.com
-- http://guthub.com
+- http://github.com
 - http://programmingdrunk.com
 
 License
