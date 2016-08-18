@@ -67,7 +67,15 @@
   //safari 7 (and perhaps others) reports table width to be parent container's width if max-width is set on table. see: https://github.com/mkoryak/floatThead/issues/108
   var isTableWidthBug = function(){
     if(isWebkit) {
-      var $test = $('<div style="width:0px"><table style="max-width:100%"><tr><th><div style="min-width:100px;">X</div></th></tr></table></div>');
+      var $test = $('<div>').css('width', 0).append(
+        $('<table>').css('max-width', '100%').append(
+          $('<tr>').append(
+            $('<th>').append(
+              $('<div>').css('min-width', 100).text('X')
+            )
+          )
+        )
+      );
       $("body").append($test);
       var ret = ($test.find("table").width() == 0);
       $test.remove();
@@ -149,10 +157,18 @@
    * @return {Number}
    */
   function scrollbarWidth() {
-    var $div = $( //borrowed from anti-scroll
-                  '<div style="width:50px;height:50px;overflow-y:scroll;'
-                  + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
-                  + '</div>'
+    var $div = $('<div>').css({ //borrowed from anti-scroll
+      'width': 50,
+      'height': 50,
+      'overflow-y': 'scroll',
+      'position': 'absolute',
+      'top': -200,
+      'left': -200
+    }).append(
+      $('<div>').css({
+        'height': 100,
+        'width': '100%'
+      })
     );
     $('body').append($div);
     var w1 = $div.innerWidth();
@@ -323,7 +339,13 @@
         var captionAlignTop = ($caption.css("caption-side") || $caption.attr("align") || "top") === "top";
       }
 
-      var $fthGrp = $('<fthfoot style="display:table-footer-group;border-spacing:0;height:0;border-collapse:collapse;visibility:hidden"/>');
+      var $fthGrp = $('<fthfoot>').css({
+        'display': 'table-footer-group',
+        'border-spacing': 0,
+        'height': 0,
+        'border-collapse': 'collapse',
+        'visibility': 'hidden'
+      });
 
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
       var $wrapper = $([]); //used when absolute positioning enabled - wraps the table and the float container
@@ -336,8 +358,13 @@
         $tableColGroup = $("<colgroup/>");
         existingColGroup = false;
       }
-      var $fthRow = $('<fthtr style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements (used for sizing the table because chrome can't read <col> width)
-      var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true"></div>');
+      var $fthRow = $('<fthtr>').css({ //created unstyled elements (used for sizing the table because chrome can't read <col> width)
+        'display': 'table-row',
+        'border-spacing': 0,
+        'height': 0,
+        'border-collapse': 'collapse'
+      });
+      var $floatContainer = $('<div>').css('overflow', 'hidden').attr('aria-hidden', 'true');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row"/>');
@@ -386,7 +413,12 @@
           if(!relativeToScrollContainer || alwaysWrap){
             var css = {"paddingLeft": $container.css('paddingLeft'), "paddingRight": $container.css('paddingRight')};
             $floatContainer.css(css);
-            $containerWrap = $container.data('floatThead-containerWrap') || $container.wrap("<div class='"+opts.floatWrapperClass+"' style='position: relative; clear:both;'></div>").parent();
+            $containerWrap = $container.data('floatThead-containerWrap') || $container.wrap(
+              $('<div>').addClass(opts.floatWrapperClass).css({
+                'position': 'relative',
+                'clear': 'both'
+              })
+            ).parent();
             $container.data('floatThead-containerWrap', $containerWrap); //multiple tables inside one scrolling container - #242
             wrappedContainer = true;
           }
@@ -482,15 +514,20 @@
               cells.push('<th class="floatThead-col"/>');
             }
             cols.push('<col/>');
-            psuedo.push("<fthtd style='display:table-cell;height:0;width:auto;'/>");
+            psuedo.push(
+              $('<fthtd>').css({
+                'display': 'table-cell',
+                'height': 0,
+                'width': 'auto'
+              })
+            );
           }
 
           cols = cols.join('');
           cells = cells.join('');
 
           if(createElements){
-            psuedo = psuedo.join('');
-            $fthRow.html(psuedo);
+            $fthRow.append(psuedo);
             $fthCells = $fthRow.find('fthtd');
           }
 
