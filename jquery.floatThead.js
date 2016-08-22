@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.3dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -39,7 +39,6 @@
     floatWrapperClass: 'floatThead-wrapper',
     floatContainerClass: 'floatThead-container',
     copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
-    enableAria: false, //will copy header text from the floated header back into the table for screen readers. Might cause the css styling to be off. beware!
     autoReflow: false, //(undocumented) - use MutationObserver api to reflow automatically when internal table DOM changes
     debug: false, //print possible issues (that don't prevent script loading) to console, if console exists.
     support: { //should we bind events that expect these frameworks to be present and/or check for them?
@@ -367,7 +366,7 @@
       var $floatContainer = $('<div>').css('overflow', 'hidden').attr('aria-hidden', 'true');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
-      var $sizerRow = $('<tr class="size-row"/>');
+      var $sizerRow = $('<tr class="size-row" aria-hidden="true"/>');
       var $sizerCells = $([]);
       var $tableCells = $([]); //used for sizing - either $sizerCells or $tableColGroup cols. $tableColGroup cols are only created in chrome for borderCollapse:collapse because of a chrome bug.
       var $headerCells = $([]);
@@ -508,11 +507,8 @@
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
-            if (opts.enableAria && (content = $headerColumns.eq(x).text()) ) {
-              cells.push('<th scope="col" class="floatThead-col">' + content + '</th>');
-            } else {
-              cells.push('<th class="floatThead-col"/>');
-            }
+            content = $headerColumns.eq(x).text();
+            cells.push('<th class="floatThead-col" aria-label="'+content+'"/>');
             cols.push('<col/>');
             psuedo.push(
               $('<fthtd>').css({
@@ -1033,6 +1029,9 @@
             window.matchMedia && window.matchMedia("print").removeListener
                               && window.matchMedia("print").removeListener(printEvent);
             beforePrint = afterPrint = function(){};
+          }
+          return function reinit(){
+            return $table.floatThead(opts);
           }
         },
         reflow: function(){
