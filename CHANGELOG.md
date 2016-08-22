@@ -1,3 +1,10 @@
+### 1.4.3
+
+- #316 - ie9 cant use matchmedia properly
+- #321 - do not require Content Security Policy (CSP) style-src 'unsafe-inline'
+- `enableAria` option has been removed. It is now always enabled. 
+
+
 ### 1.4.2
 bug fixes:
 - https://github.com/mkoryak/floatThead/issues/313 - afterPrint not getting called
