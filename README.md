@@ -1,4 +1,4 @@
-jquery.floatThead v1.4.2
+jquery.floatThead v1.4.3
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
@@ -20,7 +20,7 @@ npm install floatthead
 bower install floatThead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.4.2.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/v1.4.3.zip)
 
 #### Via CDN
 [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)
