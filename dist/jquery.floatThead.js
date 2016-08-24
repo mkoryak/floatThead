@@ -808,10 +808,18 @@
         var oldScrollLeft = null;
         return function(pos, setWidth, setHeight){
           if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
+            var transform = '';
+            if (pos.top) {
+              transform += 'translateY(' + pos.top + 'px)';
+            }
+            if (pos.left) {
+              transform += ' translateX(' + pos.left + 'px)';
+            }
             $floatContainer.css({
-                                  top: pos.top,
-                                  left: pos.left
-                                });
+              transform: transform,
+              top: 0,
+              left: 0
+            });
             oldTop = pos.top;
             oldLeft = pos.left;
           }
