@@ -808,18 +808,29 @@
         var oldScrollLeft = null;
         return function(pos, setWidth, setHeight){
           if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
-            var transform = '';
-            if (pos.top) {
-              transform += 'translateY(' + pos.top + 'px)';
+            if(ieVersion <= 8){
+              $floatContainer.css({
+                top: pos.top,
+                left: pos.left
+              });
+            }else {
+              var transform = '';
+              if (pos.top) {
+                transform += 'translateY(' + pos.top + 'px)';
+              }
+              if (pos.left) {
+                transform += ' translateX(' + pos.left + 'px)';
+              }
+              $floatContainer.css({
+                '-webkit-transform' : transform,
+                '-moz-transform'    : transform,
+                '-ms-transform'     : transform,
+                '-o-transform'      : transform,
+                'transform'         : transform,
+                'top': 0,
+                'left': 0
+              });
             }
-            if (pos.left) {
-              transform += ' translateX(' + pos.left + 'px)';
-            }
-            $floatContainer.css({
-              transform: transform,
-              top: 0,
-              left: 0
-            });
             oldTop = pos.top;
             oldLeft = pos.left;
           }
