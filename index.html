@@ -220,12 +220,6 @@ $table.floatThead({
                 <td>Should the table's class attribute be copied to the floated table? This make the styles written for the table's class selector apply also to the floated header. However, if you are later selecting this table by class you may be surprised to find 2 tables.</td>
             </tr>
             <tr>
-                <td>enableAria</td>
-                <td>boolean</td>
-                <td>false</td>
-                <td>Copy the floated header's text back into original table for screen readers. This may cause css layout issues because that text might be styled in unforeseen ways. (aria-* attributes are always used even when set to false). </td>
-            </tr>
-            <tr>
                 <td>autoReflow</td>
                 <td>boolean</td>
                 <td>false</td>
@@ -239,13 +233,15 @@ $table.floatThead({
     <div class='span12' id='methods'>
         <h1>Methods</h1>
         <h4><code>.floatThead('destroy')</code></h4>
-        <p>        Removes the widget from the table
+        <p>        Removes the widget from the table, returns a function to reinit the plugin with original options
 {% highlight js %}
 var $table = $('table.demo1');
-//float the headers
-$table.floatThead();
-//unfloat the headers
-$table.floatThead('destroy');
+// float the headers
+$table.floatThead({top: 25});
+// unfloat the headers
+var reinit = $table.floatThead('destroy');
+// ... later you want to re-float the headers with same options
+reinit();
 {% endhighlight %}
         </p>
         <br/>
