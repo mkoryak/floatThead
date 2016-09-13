@@ -193,7 +193,8 @@ $('table').floatThead({
             $("#makeFixed").on("click", function(e){
                 e.preventDefault();
                 useAbs = !useAbs;
-                $('table').floatThead('destroy').floatThead({
+                $('table').floatThead('destroy');
+                $('table').floatThead({
                     top: pageTop,
                     position: useAbs ? 'absolute': 'fixed'
                 });
