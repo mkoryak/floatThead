@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.4dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -795,7 +795,7 @@
             }
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           }
-          return {top: top, left: left};
+          return {top: Math.round(top), left: Math.round(left)};
         };
       }
       /**
@@ -808,19 +808,13 @@
         var oldScrollLeft = null;
         return function(pos, setWidth, setHeight){
           if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
-            if(ieVersion <= 8){
+            if(ieVersion === 8){ 
               $floatContainer.css({
                 top: pos.top,
                 left: pos.left
               });
-            }else {
-              var transform = '';
-              if (pos.top) {
-                transform += 'translateY(' + pos.top + 'px)';
-              }
-              if (pos.left) {
-                transform += ' translateX(' + pos.left + 'px)';
-              }
+            } else {
+              var transform = 'translateX(' + pos.left + 'px) translateY(' + pos.top + 'px)';
               $floatContainer.css({
                 '-webkit-transform' : transform,
                 '-moz-transform'    : transform,
@@ -831,8 +825,6 @@
                 'left': 0
               });
             }
-            oldTop = pos.top;
-            oldLeft = pos.left;
           }
           if(setWidth){
             setFloatWidth();
