@@ -523,6 +523,7 @@
           cells = cells.join('');
 
           if(createElements){
+            $fthRow.empty();
             $fthRow.append(psuedo);
             $fthCells = $fthRow.find('fthtd');
           }
