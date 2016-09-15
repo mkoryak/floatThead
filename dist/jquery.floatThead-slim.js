@@ -523,6 +523,7 @@
           cells = cells.join('');
 
           if(createElements){
+            $fthRow.empty();
             $fthRow.append(psuedo);
             $fthCells = $fthRow.find('fthtd');
           }
@@ -825,6 +826,8 @@
                 'left': 0
               });
             }
+            oldTop = pos.top;
+            oldLeft = pos.left;
           }
           if(setWidth){
             setFloatWidth();
