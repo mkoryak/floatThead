@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.4dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -88,7 +88,6 @@
   var $window = $(window);
 
   if(!window.matchMedia) {
-    //these will be used by the plugin to go into print mode (destroy and remake itself)
     var _beforePrint = window.onbeforeprint;
     var _afterPrint = window.onafterprint;
     window.onbeforeprint = function () {
@@ -808,10 +807,23 @@
         var oldScrollLeft = null;
         return function(pos, setWidth, setHeight){
           if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
-            $floatContainer.css({
-                                  top: pos.top,
-                                  left: pos.left
-                                });
+            if(ieVersion === 8){
+              $floatContainer.css({
+                top: pos.top,
+                left: pos.left
+              });
+            } else {
+              var transform = 'translateX(' + pos.left + 'px) translateY(' + pos.top + 'px)';
+              $floatContainer.css({
+                '-webkit-transform' : transform,
+                '-moz-transform'    : transform,
+                '-ms-transform'     : transform,
+                '-o-transform'      : transform,
+                'transform'         : transform,
+                'top': 0,
+                'left': 0
+              });
+            }
             oldTop = pos.top;
             oldLeft = pos.left;
           }
@@ -910,10 +922,10 @@
 
       /////// printing stuff
       var beforePrint = function(){
-        $table.floatThead('destroy', true);
+        unfloat();
       };
       var afterPrint = function(){
-        $table.floatThead(opts);
+        refloat();
       };
       var printEvent = function(mql){
         //make printing the table work properly on IE10+
@@ -990,7 +1002,7 @@
 
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
-        destroy: function(isPrintEvent){
+        destroy: function(){
           var ns = '.fth-'+floatTheadId;
           unfloat();
           $table.css(layoutAuto);
@@ -1024,12 +1036,10 @@
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           $window.off(ns);
-          if(!isPrintEvent){
-            //if we are in the middle of printing, we want this event to re-create the plugin
-            window.matchMedia && window.matchMedia("print").removeListener
-                              && window.matchMedia("print").removeListener(printEvent);
-            beforePrint = afterPrint = function(){};
-          }
+          window.matchMedia && window.matchMedia("print").removeListener
+                            && window.matchMedia("print").removeListener(printEvent);
+          beforePrint = afterPrint = function(){};
+
           return function reinit(){
             return $table.floatThead(opts);
           }
