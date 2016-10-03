@@ -1,8 +1,14 @@
+### 1.4.4
+
+- #323 - use css transform (GPU) to float the header. (IE9+)
+- #325 - fix bug introduced in 1.4.3 which caused issues on lots of resizing
+- #327 - fix bug where reflowed event was being unbound after print
+
 ### 1.4.3
 
 - #316 - ie9 cant use matchmedia properly
 - #321 - do not require Content Security Policy (CSP) style-src 'unsafe-inline'
-- `enableAria` option has been removed. It is now always enabled. 
+- `enableAria` option has been removed. It is now always enabled.
 
 
 ### 1.4.2
