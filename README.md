@@ -1,4 +1,4 @@
-jquery.floatThead v1.4.4
+jquery.floatThead 1.4.4
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
