@@ -1,4 +1,4 @@
-jquery.floatThead v1.4.4
+jquery.floatThead 1.4.4
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
@@ -59,7 +59,7 @@ If you use css and html best practices, this plugin will work. If you are stuck 
 
 How to get help with the floatThead
 ------------
-All issues should be reported through github. Coffee/Beer donations help are welcome ;)
+All issues should be reported through github. Coffee/Beer donations are welcome ;)
 
 Requirements:
 -------------
