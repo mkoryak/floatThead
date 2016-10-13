@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.4 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.5dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -438,7 +438,8 @@
                             position: useAbsolutePositioning ? 'absolute' : 'fixed',
                             marginTop: 0,
                             top:  useAbsolutePositioning ? 0 : 'auto',
-                            zIndex: opts.zIndex
+                            zIndex: opts.zIndex,
+                            willChange: 'transform'
                           });
       $floatContainer.addClass(opts.floatContainerClass);
       updateScrollingOffsets();
