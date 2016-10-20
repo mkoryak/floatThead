@@ -937,8 +937,11 @@
           afterPrint();
         }
       };
+
+      var matchMediaPrint;
       if(window.matchMedia && window.matchMedia('print').addListener){
-        window.matchMedia("print").addListener(printEvent);
+        matchMediaPrint = window.matchMedia("print");
+        matchMediaPrint.addListener(printEvent);
       } else {
         $window.on('beforeprint', beforePrint);
         $window.on('afterprint', afterPrint);
@@ -1038,8 +1041,9 @@
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           $window.off(ns);
-          window.matchMedia && window.matchMedia("print").removeListener
-                            && window.matchMedia("print").removeListener(printEvent);
+          if (matchMediaPrint) {
+            matchMediaPrint.removeListener(printEvent);
+          }
           beforePrint = afterPrint = function(){};
 
           return function reinit(){
