@@ -684,7 +684,10 @@
         }
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
-        var scrollContainerLeft =  (isResponsiveContainerActive() ? $responsiveContainer : $scrollContainer).scrollLeft();
+        var scrollContainerLeft = (
+            isResponsiveContainerActive() ?  $responsiveContainer :
+            (locked ? $scrollContainer : $window)
+        ).scrollLeft();
 
         return function(eventType){
           responsive = isResponsiveContainerActive();
