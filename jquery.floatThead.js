@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.4dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.5dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -438,7 +438,8 @@
                             position: useAbsolutePositioning ? 'absolute' : 'fixed',
                             marginTop: 0,
                             top:  useAbsolutePositioning ? 0 : 'auto',
-                            zIndex: opts.zIndex
+                            zIndex: opts.zIndex,
+                            willChange: 'transform'
                           });
       $floatContainer.addClass(opts.floatContainerClass);
       updateScrollingOffsets();
@@ -522,6 +523,7 @@
           cells = cells.join('');
 
           if(createElements){
+            $fthRow.empty();
             $fthRow.append(psuedo);
             $fthCells = $fthRow.find('fthtd');
           }
@@ -682,7 +684,10 @@
         }
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
-        var scrollContainerLeft =  (isResponsiveContainerActive() ? $responsiveContainer : $scrollContainer).scrollLeft();
+        var scrollContainerLeft = (
+            isResponsiveContainerActive() ?  $responsiveContainer :
+            (locked ? $scrollContainer : $window)
+        ).scrollLeft();
 
         return function(eventType){
           responsive = isResponsiveContainerActive();
@@ -794,7 +799,7 @@
             }
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           }
-          return {top: top, left: left};
+          return {top: Math.round(top), left: Math.round(left)};
         };
       }
       /**
@@ -935,8 +940,11 @@
           afterPrint();
         }
       };
+
+      var matchMediaPrint;
       if(window.matchMedia && window.matchMedia('print').addListener){
-        window.matchMedia("print").addListener(printEvent);
+        matchMediaPrint = window.matchMedia("print");
+        matchMediaPrint.addListener(printEvent);
       } else {
         $window.on('beforeprint', beforePrint);
         $window.on('afterprint', afterPrint);
@@ -1036,8 +1044,9 @@
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           $window.off(ns);
-          window.matchMedia && window.matchMedia("print").removeListener
-                            && window.matchMedia("print").removeListener(printEvent);
+          if (matchMediaPrint) {
+            matchMediaPrint.removeListener(printEvent);
+          }
           beforePrint = afterPrint = function(){};
 
           return function reinit(){

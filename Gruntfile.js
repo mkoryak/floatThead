@@ -83,6 +83,7 @@ module.exports = function(grunt) {
 		}
 	});
 
+    //TODO: this task is broken since jsfiddle changed stuff. maybe ill fix it some day
   grunt.registerTask('jsfiddle', 'A sample task that logs stuff.', function(url, issue) {
     var done = this.async();
     if(arguments.length == 0){
@@ -129,28 +130,16 @@ issue: "+issue+"\n\
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jekyll');
 	grunt.loadNpmTasks('grunt-bg-shell');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('build', ['concat', 'copy',  'uglify']);
+    grunt.registerTask('build', ['concat', 'copy',  'uglify']);
 
-	// For development - run a server and watch for changes
-	grunt.registerTask('sandbox', ['clean:dist', 'build', 'bgShell:jekyll', 'watch']);
+    // For development - run a server and watch for changes
+    grunt.registerTask('default', ['help', 'clean:dist', 'build', 'bgShell:jekyll', 'watch']);
 
-	// Run jekyll serve without a build
-	grunt.registerTask('serve', ['bgShell:jekyll', 'watch']);
+    // Run jekyll serve without a build
+    grunt.registerTask('serve', ['bgShell:jekyll', 'watch']);
 
-	grunt.registerTask('default', function(){
-		console.log("");
-		console.log("jquery.floatThead.js by Misha Koryak");
-		console.log("------------------------------------");
-		console.log("To run project in sandbox mode (with file watcher and server) run: grunt sandbox");
-		console.log("The sandbox mode requires jekyll 2.x - http://jekyllrb.com/");
-		console.log("");
-		console.log("commands:");
-		console.log("grunt sandbox");
-		console.log("grunt jsfiddle ex: grunt jsfiddle:Gp3yV/13:56");
-		console.log("grunt serve");
-	})
 }
