@@ -1,3 +1,9 @@
+### 1.4.5
+
+- #334 - fix memory leaks from print events
+- #335 - absolute position on overflow scrolling was broken if used with `top` option
+- added rudementary commonjs support to require jquery
+
 ### 1.4.4
 
 - #323 - use css transform (GPU) to float the header. (IE9+)

@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.5dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.5 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -684,7 +684,10 @@
         }
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
-        var scrollContainerLeft =  (isResponsiveContainerActive() ? $responsiveContainer : $scrollContainer).scrollLeft();
+        var scrollContainerLeft = (
+            isResponsiveContainerActive() ?  $responsiveContainer :
+            (locked ? $scrollContainer : $window)
+        ).scrollLeft();
 
         return function(eventType){
           responsive = isResponsiveContainerActive();
@@ -1070,7 +1073,14 @@
     });
     return this;
   };
-})(jQuery);
+})((function(){
+  var $ = window.jQuery;
+  if(typeof module !== 'undefined' && module.exports && !$) {
+    // only use cjs if they dont have a jquery for me to use, and we have commonjs
+    $ = require('jquery');
+  }
+  return $;
+})());
 
 /* jQuery.floatThead.utils - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
  * License: MIT
