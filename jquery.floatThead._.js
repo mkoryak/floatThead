@@ -8,17 +8,20 @@
  *
  */
 
-(function($){
+(function(arr){
+
+  var $ = arr[0];
+  var _ = arr[1];
 
   $.floatThead = $.floatThead || {};
 
-  $.floatThead._  = window._ || (function(){
+  $.floatThead._  = _ || (function(){
     var that = {};
     var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
     that.has = function(obj, key) {
       return hasOwnProperty.call(obj, key);
     };
-    that.keys = function(obj) {
+    that.keys = Object.keys || function(obj) {
       if (obj !== Object(obj)) throw new TypeError('Invalid object');
       var keys = [];
       for (var key in obj) if (that.has(obj, key)) keys.push(key);
@@ -60,5 +63,18 @@
     };
     return that;
   })();
-})(jQuery);
+})((function(){
+  var $ = window.jQuery;
+  var _ = window._;
+  if(typeof module !== 'undefined' && module.exports && !$) {
+    // only use cjs if they dont have a jquery for me to use, and we have commonjs
+    $ = require('jquery');
+    try {
+      _ = require('underscore');
+    } catch (moduleNotFound) {
+      _ = window._;  //fallback on this maybe existing
+    }
+  }
+  return [$, _];
+})());
 
