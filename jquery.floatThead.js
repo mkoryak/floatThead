@@ -684,10 +684,13 @@
         }
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
-        var scrollContainerLeft = (
-            isResponsiveContainerActive() ?  $responsiveContainer :
-            (locked ? $scrollContainer : $window)
-        ).scrollLeft();
+        var getScrollContainerLeft = function(){
+          return (
+              isResponsiveContainerActive() ?  $responsiveContainer :
+              (locked ? $scrollContainer : $window)
+          ).scrollLeft();
+        };
+        var scrollContainerLeft = getScrollContainerLeft();
 
         return function(eventType){
           responsive = isResponsiveContainerActive();
@@ -724,7 +727,7 @@
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
             scrollingContainerTop = $scrollContainer.scrollTop();
-            scrollContainerLeft =  (responsive ? $responsiveContainer : $scrollContainer).scrollLeft();
+            scrollContainerLeft =  getScrollContainerLeft();
           }
           if(isWebkit && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
             return;
