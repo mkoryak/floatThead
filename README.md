@@ -1,4 +1,4 @@
-jquery.floatThead 1.4.5
+jquery.floatThead 2.0.0
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
@@ -20,11 +20,11 @@ npm install floatthead
 bower install floatThead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/1.4.5.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.0.0.zip)
 
 #### Via CDN
-[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)  
-[http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)  
+[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)
+[http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)
 [https://unpkg.com/floatthead](https://unpkg.com/floatthead)
 
 #### For java people
@@ -80,7 +80,7 @@ Change Log
 
 ## Who is using floatThead ?
 
-### [around 20K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
+### [around 45K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
 ### [http://kangax.github.io/compat-table/](http://kangax.github.io/compat-table/es6/)
 
@@ -95,15 +95,6 @@ Change Log
 ### [django-sql-explorer](https://github.com/epantry/django-sql-explorer)
 - https://github.com/epantry/django-sql-explorer/commit/34ae345325a1e07ff952800fcd6dc5bddac5e3f2-
 
-
-# You are still reading this?
-
-Like clicking on things? Check out these great domains:
-
-- http://guthib.com
-- http://soundbutt.com
-- http://guthub.com
-- http://programmingdrunk.com
 
 License
 -------

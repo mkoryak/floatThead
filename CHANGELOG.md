@@ -1,3 +1,16 @@
+### 2.0.0
+
+Breaking changes:
+- slim version no longer provided. Will use underscore, or shim the things we need
+- removed allowing deprecated options from 1.3.x
+- moved development version into /src dir and no longer use grunt here
+
+nothing big and exciting in version 2, just semvar and breaking changes.
+
+bug fixes:
+- #348 - headers Stay stuck after reposition
+- commonjs support works now, i promise
+
 ### 1.4.5
 
 - #334 - fix memory leaks from print events

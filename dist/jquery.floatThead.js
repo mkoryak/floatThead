@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.5 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+/** @preserve jQuery.floatThead 2.0.0 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2017 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -12,6 +12,8 @@
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
  *
  */
+
+
 (function( $ ) {
   /**
    * provides a default config object. You can modify this after including this script if you want to change the init defaults
@@ -49,7 +51,57 @@
     }
   };
 
-  var util = window._;
+
+
+
+  var util = window._ || (function underscoreShim(){
+    var that = {};
+    var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
+    that.has = function(obj, key) {
+      return hasOwnProperty.call(obj, key);
+    };
+    that.keys = Object.keys || function(obj) {
+      if (obj !== Object(obj)) throw new TypeError('Invalid object');
+      var keys = [];
+      for (var key in obj) if (that.has(obj, key)) keys.push(key);
+      return keys;
+    };
+    var idCounter = 0;
+    that.uniqueId = function(prefix) {
+      var id = ++idCounter + '';
+      return prefix ? prefix + id : id;
+    };
+    $.each(isThings, function(){
+      var name = this;
+      that['is' + name] = function(obj) {
+        return Object.prototype.toString.call(obj) == '[object ' + name + ']';
+      };
+    });
+    that.debounce = function(func, wait, immediate) {
+      var timeout, args, context, timestamp, result;
+      return function() {
+        context = this;
+        args = arguments;
+        timestamp = new Date();
+        var later = function() {
+          var last = (new Date()) - timestamp;
+          if (last < wait) {
+            timeout = setTimeout(later, wait - last);
+          } else {
+            timeout = null;
+            if (!immediate) result = func.apply(context, args);
+          }
+        };
+        var callNow = immediate && !timeout;
+        if (!timeout) {
+          timeout = setTimeout(later, wait);
+        }
+        if (callNow) result = func.apply(context, args);
+        return result;
+      };
+    };
+    return that;
+  })();
 
   var canObserveMutations = typeof MutationObserver !== 'undefined';
 
@@ -155,25 +207,14 @@
    * @return {Number}
    */
   function scrollbarWidth() {
-    var $div = $('<div>').css({ //borrowed from anti-scroll
-      'width': 50,
-      'height': 50,
-      'overflow-y': 'scroll',
-      'position': 'absolute',
-      'top': -200,
-      'left': -200
-    }).append(
-      $('<div>').css({
-        'height': 100,
-        'width': '100%'
-      })
-    );
-    $('body').append($div);
-    var w1 = $div.innerWidth();
-    var w2 = $('div', $div).innerWidth();
-    $div.remove();
-    return w1 - w2;
+    var d = document.createElement("scrolltester");
+    d.style.cssText = 'width:100px;height:100px;overflow:scroll!important;position:absolute;top:-9999px;display:block';
+    document.body.appendChild(d);
+    var result = d.offsetWidth - d.clientWidth;
+    document.body.removeChild(d);
+    return result;
   }
+
   /**
    * Check if a given table has been datatableized (http://datatables.net)
    * @param $table
@@ -210,12 +251,6 @@
   }
   $.fn.floatThead = function(map){
     map = map || {};
-    if(!util){ //may have been included after the script? lets try to grab it again.
-      util = window._ || $.floatThead._;
-      if(!util){
-        throw new Error("jquery.floatThead-slim.js requires underscore. You should use the non-lite version since you do not have underscore.");
-      }
-    }
 
     if(ieVersion < 8){
       return this; //no more crappy browser support.
@@ -301,21 +336,7 @@
       var responsive = isResponsiveContainerActive();
 
       var useAbsolutePositioning = null;
-      if(typeof opts.useAbsolutePositioning !== 'undefined'){
-        opts.position = 'auto';
-        if(opts.useAbsolutePositioning){
-          opts.position = opts.useAbsolutePositioning ? 'absolute' : 'fixed';
-        }
-        debug("option 'useAbsolutePositioning' has been removed in v1.3.0, use `position:'"+opts.position+"'` instead. See docs for more info: http://mkoryak.github.io/floatThead/#options")
-      }
-      if(typeof opts.scrollingTop !== 'undefined'){
-        opts.top = opts.scrollingTop;
-        debug("option 'scrollingTop' has been renamed to 'top' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
-      }
-      if(typeof opts.scrollingBottom !== 'undefined'){
-        opts.bottom = opts.scrollingBottom;
-        debug("option 'scrollingBottom' has been renamed to 'bottom' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
-      }
+
 
 
       if (opts.position == 'auto') {
@@ -584,8 +605,8 @@
         if(useAbsolutePositioning != isAbsolute){
           useAbsolutePositioning = isAbsolute;
           $floatContainer.css({
-                                position: useAbsolutePositioning ? 'absolute' : 'fixed'
-                              });
+            position: useAbsolutePositioning ? 'absolute' : 'fixed'
+          });
         }
       }
       function getSizingRow($table, $cols, $fthCells, ieVersion){
@@ -684,10 +705,13 @@
         }
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
-        var scrollContainerLeft = (
-            isResponsiveContainerActive() ?  $responsiveContainer :
-            (locked ? $scrollContainer : $window)
-        ).scrollLeft();
+        var getScrollContainerLeft = function(){
+          return (
+              isResponsiveContainerActive() ?  $responsiveContainer :
+              (locked ? $scrollContainer : $window)
+          ).scrollLeft();
+        };
+        var scrollContainerLeft = getScrollContainerLeft();
 
         return function(eventType){
           responsive = isResponsiveContainerActive();
@@ -724,7 +748,7 @@
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
             scrollingContainerTop = $scrollContainer.scrollTop();
-            scrollContainerLeft =  (responsive ? $responsiveContainer : $scrollContainer).scrollLeft();
+            scrollContainerLeft =  getScrollContainerLeft();
           }
           if(isWebkit && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
             return;
@@ -1082,83 +1106,4 @@
   return $;
 })());
 
-/* jQuery.floatThead.utils - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
- * License: MIT
- *
- * This file is required if you do not use underscore in your project and you want to use floatThead.
- * It contains functions from underscore that the plugin uses.
- *
- * YOU DON'T NEED TO INCLUDE THIS IF YOU ALREADY INCLUDE UNDERSCORE!
- *
- */
-
-(function(arr){
-
-  var $ = arr[0];
-  var _ = arr[1];
-
-  $.floatThead = $.floatThead || {};
-
-  $.floatThead._  = _ || (function(){
-    var that = {};
-    var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
-    that.has = function(obj, key) {
-      return hasOwnProperty.call(obj, key);
-    };
-    that.keys = Object.keys || function(obj) {
-      if (obj !== Object(obj)) throw new TypeError('Invalid object');
-      var keys = [];
-      for (var key in obj) if (that.has(obj, key)) keys.push(key);
-      return keys;
-    };
-    var idCounter = 0;
-    that.uniqueId = function(prefix) {
-      var id = ++idCounter + '';
-      return prefix ? prefix + id : id;
-    };
-    $.each(isThings, function(){
-      var name = this;
-      that['is' + name] = function(obj) {
-        return Object.prototype.toString.call(obj) == '[object ' + name + ']';
-      };
-    });
-    that.debounce = function(func, wait, immediate) {
-      var timeout, args, context, timestamp, result;
-      return function() {
-        context = this;
-        args = arguments;
-        timestamp = new Date();
-        var later = function() {
-          var last = (new Date()) - timestamp;
-          if (last < wait) {
-            timeout = setTimeout(later, wait - last);
-          } else {
-            timeout = null;
-            if (!immediate) result = func.apply(context, args);
-          }
-        };
-        var callNow = immediate && !timeout;
-        if (!timeout) {
-          timeout = setTimeout(later, wait);
-        }
-        if (callNow) result = func.apply(context, args);
-        return result;
-      };
-    };
-    return that;
-  })();
-})((function(){
-  var $ = window.jQuery;
-  var _ = window._;
-  if(typeof module !== 'undefined' && module.exports && !$) {
-    // only use cjs if they dont have a jquery for me to use, and we have commonjs
-    $ = require('jquery');
-    try {
-      _ = require('underscore');
-    } catch (moduleNotFound) {
-      _ = window._;  //fallback on this maybe existing
-    }
-  }
-  return [$, _];
-})());
 
