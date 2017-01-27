@@ -1,4 +1,6 @@
+.github
 .idea
-compiled-docs/
-node_modules/
 build/
+compiled-docs/
+license.txt
+node_modules/
