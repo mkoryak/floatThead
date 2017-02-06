@@ -306,10 +306,10 @@
       if($header.length == 0 || $tbody.length == 0){
         if(opts.debug) {
           if($header.length == 0){
-            debug('The thead element is either missing or empty.');
+            debug('The thead element is missing.');
           }
           else{
-            debug('The tbody element is either missing or empty.');
+            debug('The tbody element is missing.');
           }
         }
         $table.data('floatThead-lazy', opts);
