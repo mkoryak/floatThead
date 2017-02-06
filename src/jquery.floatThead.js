@@ -304,6 +304,14 @@
       var $header = $table.children('thead:first');
       var $tbody = $table.children('tbody:first');
       if($header.length == 0 || $tbody.length == 0){
+        if(opts.debug) {
+          if($header.length == 0){
+            debug('The thead element is missing.');
+          }
+          else{
+            debug('The tbody element is missing.');
+          }
+        }
         $table.data('floatThead-lazy', opts);
         $table.unbind("reflow").one('reflow', function(){
           $table.floatThead(opts);
