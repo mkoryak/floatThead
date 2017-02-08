@@ -724,7 +724,7 @@
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
             scrollingContainerTop = $scrollContainer.scrollTop();
-            scrollContainerLeft =  (responsive ? $responsiveContainer : $scrollContainer).scrollLeft();
+            scrollContainerLeft =  (responsive ? $responsiveContainer : $scrollContainer).scrollLeft() || 0;
           }
           if(isWebkit && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
             return;
