@@ -66,7 +66,8 @@ $('table').floatThead({
 <script type="text/javascript">
     $(function(){
 
-        $('table').floatThead({
+        var $table = $('table');
+        $table.floatThead({
             top: pageTop, //this is a global fn defined on the demo site, you dont need it!
             position: 'absolute',
             scrollContainer: true
@@ -76,7 +77,8 @@ $('table').floatThead({
         $("#makeFixed").on("click", function(e){
             e.preventDefault();
             useAbs = !useAbs;
-            $('table').floatThead('destroy').floatThead({
+            $table.floatThead('destroy');
+            $table.floatThead({
                 top: pageTop, //this is a global fn defined on the demo site, you dont need it!
                 position: useAbs ? 'absolute': 'fixed',
                 scrollContainer: true
