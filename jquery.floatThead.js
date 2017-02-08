@@ -1,4 +1,4 @@
-// @preserve jQuery.floatThead 1.4.5dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+/** @preserve jQuery.floatThead 2.0.3dev - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2017 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -49,7 +49,54 @@
     }
   };
 
-  var util = window._;
+  var util = window._ || (function underscoreShim(){
+    var that = {};
+    var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
+    that.has = function(obj, key) {
+      return hasOwnProperty.call(obj, key);
+    };
+    that.keys = Object.keys || function(obj) {
+      if (obj !== Object(obj)) throw new TypeError('Invalid object');
+      var keys = [];
+      for (var key in obj) if (that.has(obj, key)) keys.push(key);
+      return keys;
+    };
+    var idCounter = 0;
+    that.uniqueId = function(prefix) {
+      var id = ++idCounter + '';
+      return prefix ? prefix + id : id;
+    };
+    $.each(isThings, function(){
+      var name = this;
+      that['is' + name] = function(obj) {
+        return Object.prototype.toString.call(obj) == '[object ' + name + ']';
+      };
+    });
+    that.debounce = function(func, wait, immediate) {
+      var timeout, args, context, timestamp, result;
+      return function() {
+        context = this;
+        args = arguments;
+        timestamp = new Date();
+        var later = function() {
+          var last = (new Date()) - timestamp;
+          if (last < wait) {
+            timeout = setTimeout(later, wait - last);
+          } else {
+            timeout = null;
+            if (!immediate) result = func.apply(context, args);
+          }
+        };
+        var callNow = immediate && !timeout;
+        if (!timeout) {
+          timeout = setTimeout(later, wait);
+        }
+        if (callNow) result = func.apply(context, args);
+        return result;
+      };
+    };
+    return that;
+  })();
 
   var canObserveMutations = typeof MutationObserver !== 'undefined';
 
@@ -155,25 +202,14 @@
    * @return {Number}
    */
   function scrollbarWidth() {
-    var $div = $('<div>').css({ //borrowed from anti-scroll
-      'width': 50,
-      'height': 50,
-      'overflow-y': 'scroll',
-      'position': 'absolute',
-      'top': -200,
-      'left': -200
-    }).append(
-      $('<div>').css({
-        'height': 100,
-        'width': '100%'
-      })
-    );
-    $('body').append($div);
-    var w1 = $div.innerWidth();
-    var w2 = $('div', $div).innerWidth();
-    $div.remove();
-    return w1 - w2;
+    var d = document.createElement("scrolltester");
+    d.style.cssText = 'width:100px;height:100px;overflow:scroll!important;position:absolute;top:-9999px;display:block';
+    document.body.appendChild(d);
+    var result = d.offsetWidth - d.clientWidth;
+    document.body.removeChild(d);
+    return result;
   }
+
   /**
    * Check if a given table has been datatableized (http://datatables.net)
    * @param $table
@@ -210,12 +246,6 @@
   }
   $.fn.floatThead = function(map){
     map = map || {};
-    if(!util){ //may have been included after the script? lets try to grab it again.
-      util = window._ || $.floatThead._;
-      if(!util){
-        throw new Error("jquery.floatThead-slim.js requires underscore. You should use the non-lite version since you do not have underscore.");
-      }
-    }
 
     if(ieVersion < 8){
       return this; //no more crappy browser support.
@@ -274,6 +304,14 @@
       var $header = $table.children('thead:first');
       var $tbody = $table.children('tbody:first');
       if($header.length == 0 || $tbody.length == 0){
+        if(opts.debug) {
+          if($header.length == 0){
+            debug('The thead element is missing.');
+          }
+          else{
+            debug('The tbody element is missing.');
+          }
+        }
         $table.data('floatThead-lazy', opts);
         $table.unbind("reflow").one('reflow', function(){
           $table.floatThead(opts);
@@ -301,21 +339,7 @@
       var responsive = isResponsiveContainerActive();
 
       var useAbsolutePositioning = null;
-      if(typeof opts.useAbsolutePositioning !== 'undefined'){
-        opts.position = 'auto';
-        if(opts.useAbsolutePositioning){
-          opts.position = opts.useAbsolutePositioning ? 'absolute' : 'fixed';
-        }
-        debug("option 'useAbsolutePositioning' has been removed in v1.3.0, use `position:'"+opts.position+"'` instead. See docs for more info: http://mkoryak.github.io/floatThead/#options")
-      }
-      if(typeof opts.scrollingTop !== 'undefined'){
-        opts.top = opts.scrollingTop;
-        debug("option 'scrollingTop' has been renamed to 'top' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
-      }
-      if(typeof opts.scrollingBottom !== 'undefined'){
-        opts.bottom = opts.scrollingBottom;
-        debug("option 'scrollingBottom' has been renamed to 'bottom' in v1.3.0. See docs for more info: http://mkoryak.github.io/floatThead/#options");
-      }
+
 
 
       if (opts.position == 'auto') {
@@ -584,8 +608,8 @@
         if(useAbsolutePositioning != isAbsolute){
           useAbsolutePositioning = isAbsolute;
           $floatContainer.css({
-                                position: useAbsolutePositioning ? 'absolute' : 'fixed'
-                              });
+            position: useAbsolutePositioning ? 'absolute' : 'fixed'
+          });
         }
       }
       function getSizingRow($table, $cols, $fthCells, ieVersion){
@@ -684,10 +708,13 @@
         }
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
-        var scrollContainerLeft = (
-            isResponsiveContainerActive() ?  $responsiveContainer :
-            (locked ? $scrollContainer : $window)
-        ).scrollLeft();
+        var getScrollContainerLeft = function(){
+          return (
+              isResponsiveContainerActive() ?  $responsiveContainer :
+              (locked ? $scrollContainer : $window)
+          ).scrollLeft();
+        };
+        var scrollContainerLeft = getScrollContainerLeft();
 
         return function(eventType){
           responsive = isResponsiveContainerActive();
@@ -1073,4 +1100,11 @@
     });
     return this;
   };
-})(jQuery);
+})((function(){
+  var $ = window.jQuery;
+  if(typeof module !== 'undefined' && module.exports && !$) {
+    // only use cjs if they dont have a jquery for me to use, and we have commonjs
+    $ = require('jquery');
+  }
+  return $;
+})());
