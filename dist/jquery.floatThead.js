@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.0.0 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2017 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.0.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2017 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -12,8 +12,6 @@
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
  *
  */
-
-
 (function( $ ) {
   /**
    * provides a default config object. You can modify this after including this script if you want to change the init defaults
@@ -50,9 +48,6 @@
       perfectScrollbar: true
     }
   };
-
-
-
 
   var util = window._ || (function underscoreShim(){
     var that = {};
@@ -309,6 +304,13 @@
       var $header = $table.children('thead:first');
       var $tbody = $table.children('tbody:first');
       if($header.length == 0 || $tbody.length == 0){
+        if(opts.debug) {
+          if($header.length == 0){
+            debug('The thead element is missing.');
+          } else{
+            debug('The tbody element is missing.');
+          }
+        }
         $table.data('floatThead-lazy', opts);
         $table.unbind("reflow").one('reflow', function(){
           $table.floatThead(opts);
@@ -706,10 +708,7 @@
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
         var getScrollContainerLeft = function(){
-          return (
-              isResponsiveContainerActive() ?  $responsiveContainer :
-              (locked ? $scrollContainer : $window)
-          ).scrollLeft();
+          return (isResponsiveContainerActive() ?  $responsiveContainer : $scrollContainer).scrollLeft() || 0;
         };
         var scrollContainerLeft = getScrollContainerLeft();
 
@@ -1105,5 +1104,3 @@
   }
   return $;
 })());
-
-

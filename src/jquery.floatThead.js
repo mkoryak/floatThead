@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.0.0 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2017 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.0.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2017 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -307,8 +307,7 @@
         if(opts.debug) {
           if($header.length == 0){
             debug('The thead element is missing.');
-          }
-          else{
+          } else{
             debug('The tbody element is missing.');
           }
         }
@@ -709,10 +708,7 @@
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
         var getScrollContainerLeft = function(){
-          return (
-              isResponsiveContainerActive() ?  $responsiveContainer :
-              (locked ? $scrollContainer : $window)
-          ).scrollLeft();
+          return (isResponsiveContainerActive() ?  $responsiveContainer : $scrollContainer).scrollLeft() || 0;
         };
         var scrollContainerLeft = getScrollContainerLeft();
 
