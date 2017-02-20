@@ -1,3 +1,10 @@
+### 2.0.2
+- fix issue with horizontal scrollbars + reflow breaking header position #345, #355
+
+### 2.0.1
+
+version skipped because of an npm snafu
+
 ### 2.0.0
 
 Breaking changes:
