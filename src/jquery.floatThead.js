@@ -807,19 +807,14 @@
             }
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           } else if(!locked && !useAbsolutePositioning) { //window scrolling, fixed positioning
-            if(windowTop > floatEnd + tableHeight + captionScrollOffset){
-              top = tableHeight + scrollingTop - windowTop + floatEnd + captionScrollOffset;
-              //scrolled past the bottom of the table
-            } else if (tableOffset.top > windowTop + scrollingTop) {
-              top = tableOffset.top - windowTop;
-              refloat();
-              triggerFloatEvent(false); //this is a weird case, the header never gets unfloated and i have no no way to know
-              //scrolled past the top of the table
-            } else {
-              //scrolling within the table
-              top = scrollingTop;
-              triggerFloatEvent(true);
+            if((tableOffset.top > windowTop + scrollingTop) ||
+               (windowTop > floatEnd + tableHeight + captionScrollOffset)){
+              // scrolling to table or scrolled past the bottom of the table
+              return false;
             }
+            //scrolling within the table
+            top = scrollingTop;
+            triggerFloatEvent(true);
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           }
           return {top: Math.round(top), left: Math.round(left)};
@@ -909,14 +904,29 @@
       var calculateFloatContainerPos = calculateFloatContainerPosFn();
       var repositionFloatContainer = repositionFloatContainerFn();
 
-      repositionFloatContainer(calculateFloatContainerPos('init'), true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
+      var pos = calculateFloatContainerPos('init');
+      if (pos){
+        repositionFloatContainer(pos, true); //this must come after reflow because reflow changes scrollLeft back to 0 when it rips out the thead
+      }
 
       var windowScrollDoneEvent = util.debounce(function(){
-        repositionFloatContainer(calculateFloatContainerPos('windowScrollDone'), false);
+        var pos = calculateFloatContainerPos('windowScrollDone');
+        if (pos){
+          repositionFloatContainer(pos, false);
+        }
       }, 1);
 
+      var hasScrolledInTable = false;
       var windowScrollEvent = function(){
-        repositionFloatContainer(calculateFloatContainerPos('windowScroll'), false);
+        var pos = calculateFloatContainerPos('windowScroll'); 
+        if (! pos){
+            unfloat();
+            return;
+        }
+        if (! hasScrolledInTable) ensureReflow();  // necessary for IE
+        hasScrolledInTable = true;
+        refloat();
+        repositionFloatContainer(pos, false); 
         if(absoluteToFixedOnScroll){
           windowScrollDoneEvent();
         }
@@ -935,7 +945,13 @@
         ensureReflow();
         calculateFloatContainerPos = calculateFloatContainerPosFn();
         repositionFloatContainer = repositionFloatContainerFn();
-        repositionFloatContainer(calculateFloatContainerPos('resize'), true, true);
+        var pos = calculateFloatContainerPos('resize'); 
+        if (! pos){
+            unfloat();
+            return;
+        }
+        refloat();
+        repositionFloatContainer(pos, true, true);
       };
       var reflowEvent = util.debounce(function(){
         if($table.is(":hidden")){
@@ -945,7 +961,13 @@
         updateScrollingOffsets();
         ensureReflow();
         calculateFloatContainerPos = calculateFloatContainerPosFn();
-        repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
+        var pos = calculateFloatContainerPos('reflow');
+        if (! pos){
+            unfloat();
+            return;
+        }
+        refloat();
+        repositionFloatContainer(pos, true);
       }, 1);
 
       /////// printing stuff
@@ -1104,3 +1126,4 @@
   }
   return $;
 })());
+
