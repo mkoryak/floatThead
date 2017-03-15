@@ -237,7 +237,7 @@
         w += parseInt($table.css("borderRight"), 10);
       }
       for(var i=0; i < $fthCells.length; i++){
-        w += $fthCells.get(i).offsetWidth;
+        w += getOffsetWidth($fthCells.get(i));
       }
       return w;
     } else {
