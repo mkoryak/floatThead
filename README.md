@@ -31,7 +31,7 @@ bower install floatThead
 [Webjar](https://github.com/webjars/floatThead)
 
 ### Wrappers
-[vuejs component](https://github.com/tmlee/vue-floatThead)
+[vuejs component](https://github.com/tmlee/vue-floatThead) by @tmlee
 
 [angularjs directive](https://github.com/brandon-barker/angular-floatThead) by @brandon-barker
 
