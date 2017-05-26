@@ -83,9 +83,9 @@ Change Log
 
 ### [around 45K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
-### [http://kangax.github.io/compat-table/](http://kangax.github.io/compat-table/es6/)
-
-### [staticsitegenerators.net](http://staticsitegenerators.net/)
+### [compat-table](https://github.com/kangax/compat-table/) 
+- https://github.com/kangax/compat-table/blob/gh-pages/jquery.floatThead.min.js
+- [online site](http://kangax.github.io/compat-table/es6/) (see floatThead in action here)
 
 ### [netdisco](http://netdisco.org)
 - http://sourceforge.net/p/netdisco/netdisco-ng/ci/213352d54ee8e71cbca5ae2c1c75696800c4216b/
@@ -94,7 +94,7 @@ Change Log
 - https://github.com/omaciel/pylyglot/tree/master/pylyglot/static/js
 
 ### [django-sql-explorer](https://github.com/epantry/django-sql-explorer)
-- https://github.com/epantry/django-sql-explorer/commit/34ae345325a1e07ff952800fcd6dc5bddac5e3f2-
+- https://github.com/groveco/django-sql-explorer#dependencies
 
 
 License
