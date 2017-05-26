@@ -93,7 +93,7 @@ Change Log
 ### [pylyglot](https://github.com/omaciel/pylyglot)
 - https://github.com/omaciel/pylyglot/tree/master/pylyglot/static/js
 
-### [django-sql-explorer](https://github.com/epantry/django-sql-explorer)
+### [django-sql-explorer](https://github.com/groveco/django-sql-explorer)
 - https://github.com/groveco/django-sql-explorer#dependencies
 
 
