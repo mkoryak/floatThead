@@ -49,7 +49,7 @@
     }
   };
 
-  var util = window._ || (function underscoreShim(){
+  var util = (function underscoreShim(){
     var that = {};
     var hasOwnProperty = Object.prototype.hasOwnProperty, isThings = ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'];
     that.has = function(obj, key) {
@@ -94,6 +94,10 @@
         if (callNow) result = func.apply(context, args);
         return result;
       };
+    };
+    that.isFunction = function(obj) {
+      var getType = {};
+      return obj && getType.toString.call(obj) === '[object Function]';  
     };
     return that;
   })();
