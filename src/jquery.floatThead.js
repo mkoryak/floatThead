@@ -849,7 +849,7 @@
                 '-o-transform'      : transform,
                 'transform'         : transform,
                 'top': 0,
-                'left': 0
+                'left'				: -pos.left + 'px'
               });
             }
             oldTop = pos.top;
