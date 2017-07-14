@@ -54,6 +54,7 @@ bower install floatThead
 -  Does not float the footer
 -  Does not let you lock the first column like in excel
 -  **Safari and mobile safari are not supported**. It might work, or it [might not](https://github.com/mkoryak/floatThead/issues/108), depending on your markup and safari version.
+-  Does not support multiple scroll containers controlling X and Y, for example: https://github.com/mkoryak/floatThead/issues/376
 
 Common Pitfalls
 ------
