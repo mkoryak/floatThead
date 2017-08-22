@@ -43,7 +43,7 @@ bower install floatThead
 -   Works with responsive table wrappers
 -   Works with dynamically hidden/added/removed columns
 -   Doesn't clone the thead - so your events stay bound
--   Doesn't mess with your styles, and doesnt require any css
+-   Doesn't mess with your styles, and doesnt require any css (see `fixed` vs `absolute` position modes)
 -   Works with border-collapse variants, weird margins, padding and borders
 -   Works with libs like [datatables](http://datatables.net), [perfect-scrollbar](http://mkoryak.github.io/floatThead/examples/perfect-scrollbar/), [bootstrap3](http://mkoryak.github.io/floatThead/examples/bootstrap3/), and many more
 -   Header can be floated with `position:absolute` which adds a wrapper, or `position:fixed` which does not. Both have their pros and cons. By default the best option is chosen based on your configuration
