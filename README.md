@@ -23,9 +23,9 @@ bower install floatThead
 [Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.0.3.zip)
 
 #### Via CDN
-[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)
-[http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)
-[https://unpkg.com/floatthead](https://unpkg.com/floatthead)
+[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/) .  
+[http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead) .  
+[https://unpkg.com/floatthead](https://unpkg.com/floatthead) .  
 
 #### For java people
 [Webjar](https://github.com/webjars/floatThead)
@@ -82,7 +82,13 @@ Change Log
 
 ## Who is using floatThead ?
 
-### [around 45K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
+### [around 75K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
+
+### google 
+- internally, I happen to know
+
+### [samsung](https://github.com/Samsung/iotjscode/blob/3d4de15ea32d27dce5885b2c8c9e3a783c846311/www/scripts/app/main.js#L234)
+- For the internet of things!
 
 ### [compat-table](https://github.com/kangax/compat-table/) 
 - https://github.com/kangax/compat-table/blob/gh-pages/jquery.floatThead.min.js
