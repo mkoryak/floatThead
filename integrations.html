@@ -1,0 +1,200 @@
+---
+layout: bootstrap3
+slug: integrations
+base_url: "./.."
+---
+
+<h1>Integrations</h1>
+<div class="row">
+    <p>
+        You can use floatThead with various other languages and frameworks. Here are the ones that I know "work well".
+    </p>
+</div>
+<h2>Javascript</h2>
+<div class="row">
+    <ul>
+        <li><a href="https://github.com/brandon-barker/angular-floatThead" target="_blank>AngularJS directive</a></li>
+        <li><a href="https://github.com/tmlee/vue-floatThead" target="_blank>VueJS component</a></li>
+    </ul>
+</div>
+<h2>Java</h2>
+<div class="row">
+  <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapseOne">
+                    PrimeFaces DataTable widget with column resizing
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <p>
+                    The information here is taken from <a href="https://github.com/mkoryak/floatThead/issues/378" target="_blank">Issue 378</a>
+                </p>
+                <p>
+                First you need to modify the PrimeFaces javascript lib implementation a bit:<br/>
+                <div class='alert alert-warning>
+                 This is not tested with ColumnGroups, neither scrollable, nor liveResize, ONLY with expandMode = expand
+                </div>
+                    {% highlight js %}
+PrimeFaces.widget.DataTable.prototype.resize = function(event, ui) {
+  var columnHeader, nextColumnHeader,
+      change = null, newWidth = null, nextColumnWidth = null,
+      expandMode = (this.cfg.resizeMode === 'expand'),
+      table = this.thead.closest('.ui-datatable-tablewrapper').find('table');
+
+  if (this.hasColumnGroup) {
+    var groupResizer = this.findGroupResizer(ui);
+    if (!groupResizer) {
+      return;
+    }
+
+    columnHeader = groupResizer.parent();
+  } else {
+    columnHeader = ui.helper.parent();
+  }
+
+  var nextColumnHeader = columnHeader.nextAll(':visible:first');
+
+  if (this.cfg.liveResize) {
+    change =
+        columnHeader.outerWidth() - (event.pageX - columnHeader.offset().left),
+    newWidth = (columnHeader.width() - change),
+    nextColumnWidth = (nextColumnHeader.width() + change);
+  } else {
+    change = (ui.position.left - ui.originalPosition.left),
+    newWidth = (columnHeader.width() + change),
+    nextColumnWidth = (nextColumnHeader.width() - change);
+  }
+
+  var minWidth = parseInt(columnHeader.css('min-width'));
+  minWidth = (minWidth == 0) ? 15 : minWidth;
+
+  if ((newWidth > minWidth && nextColumnWidth > minWidth) ||
+      (expandMode && newWidth > minWidth)) {
+    if (expandMode) {
+      table.width(table.width() + change);
+      setTimeout(function() {
+        columnHeader.width(newWidth);
+      }, 1);
+    } else {
+      columnHeader.width(newWidth);
+      nextColumnHeader.width(nextColumnWidth);
+    }
+
+    if (this.cfg.scrollable) {
+      var cloneTable = this.theadClone.parent(),
+          colIndex = columnHeader.index();
+
+      if (expandMode) {
+        var $this = this;
+
+        // body
+        cloneTable.width(cloneTable.width() + change);
+
+        // footer
+        this.footerTable.width(this.footerTable.width() + change);
+
+        setTimeout(function() {
+          if ($this.hasColumnGroup) {
+            $this.theadClone.find('> tr:first')
+                .children('th')
+                .eq(colIndex)
+                .width(newWidth);  // body
+            $this.footerTable.find('> tfoot > tr:first')
+                .children('th')
+                .eq(colIndex)
+                .width(newWidth);  // footer
+          } else {
+            $this.theadClone
+                .find(PrimeFaces.escapeClientId(
+                    columnHeader.attr('id') + '_clone'))
+                .width(newWidth);                           // body
+            $this.footerCols.eq(colIndex).width(newWidth);  // footer
+          }
+        }, 1);
+      } else {
+        if (this.hasColumnGroup) {
+          // body
+          this.theadClone.find('> tr:first')
+              .children('th')
+              .eq(colIndex)
+              .width(newWidth);
+          this.theadClone.find('> tr:first')
+              .children('th')
+              .eq(colIndex + 1)
+              .width(nextColumnWidth);
+
+          // footer
+          this.footerTable.find('> tfoot > tr:first')
+              .children('th')
+              .eq(colIndex)
+              .width(newWidth);
+          this.footerTable.find('> tfoot > tr:first')
+              .children('th')
+              .eq(colIndex + 1)
+              .width(nextColumnWidth);
+        } else {
+          // body
+          this.theadClone
+              .find(
+                  PrimeFaces.escapeClientId(columnHeader.attr('id') + '_clone'))
+              .width(newWidth);
+          this.theadClone
+              .find(PrimeFaces.escapeClientId(
+                  nextColumnHeader.attr('id') + '_clone'))
+              .width(nextColumnWidth);
+
+          // footer
+          if (this.footerCols.length > 0) {
+            var footerCol = this.footerCols.eq(colIndex),
+                nextFooterCol = footerCol.next();
+
+            footerCol.width(newWidth);
+            nextFooterCol.width(nextColumnWidth);
+          }
+        }
+      }
+    }
+  }
+}
+
+                    {% endhighlight %}
+Then in the html:
+{% highlight html %}
+<p:ajax event="colResize" onstart="var activeTable = $('div.ui-tabs-panel:visible').find('table'); activeTable.on('reflowed', function(e, $floatContainer){getColumnWidths();}); activeTable.trigger('reflow');"
+ oncomplete="$('div.ui-tabs-panel:visible').find('table').off('reflowed')" />
+{% endhighlight %}
+
+In a seperate javascript file add:
+{% highlight js %}
+function getColumnWidths() {
+  var currentDataTableHeaders = $('div.ui-tabs-panel:visible').find('table th');
+  currentDataTableHeaders.each(function() {
+    saveColumnWidth([{name:'column', value:$(this).text()}, {name:'width', value:$(this).outerWidth()}]);
+  });
+}
+{% endhighlight %}
+
+And under the DataTable add:
+
+{% highlight html %}
+<p:remoteCommand name="saveColumnWidth" process="@this"
+			actionListener="#{bean.saveColumnWidth(param.column, param.width)}" />
+{% endhighlight %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<h2>PHP</h2>
+<div class="row">
+  <ul><li><a href="https://github.com/bluezed/yii2-floatThead" target="_blank">Yii2 component</a><li></ul>
+</div>
+
+<h2>Anything else?</h2>
+<div class="row">
+  <p>If I am missing something that you made, or something that you know works, please open a new issue and I will add it to this page.
+  </p>
+</div>
