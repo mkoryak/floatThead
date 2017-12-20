@@ -162,14 +162,19 @@ PrimeFaces.widget.DataTable.prototype.resize = function(event, ui) {
 Then in the html:
 		    </p>
 {% highlight html %}
-<p:ajax event="colResize" onstart="var activeTable = $('div.ui-tabs-panel:visible').find('table'); activeTable.on('reflowed', function(e, $floatContainer){getColumnWidths();}); activeTable.trigger('reflow');"
- oncomplete="$('div.ui-tabs-panel:visible').find('table').off('reflowed')" />
+<p:ajax 
+  event="colResize" 
+  onstart="$('div.ui-tabs-panel:visible').find('table').on('reflowed', getColumnWidths).trigger('reflow');"
+  oncomplete="$('div.ui-tabs-panel:visible').find('table').off('reflowed')" 
+/>
 {% endhighlight %}
 <p>
 In a seperate javascript file add:
 		    </p>
 {% highlight js %}
 function getColumnWidths() {
+  // @mkoryak note: in this function $(this) is the reference to the table that was just reflowed 
+  // It is not used, however by @Vyling who wrote this code. 		    
   var currentDataTableHeaders = $('div.ui-tabs-panel:visible').find('table th');
   currentDataTableHeaders.each(function() {
     saveColumnWidth([{name:'column', value:$(this).text()}, {name:'width', value:$(this).outerWidth()}]);
@@ -181,9 +186,13 @@ And under the DataTable add:
 		    </p>
 {% highlight html %}
 <p:remoteCommand name="saveColumnWidth" process="@this"
-			actionListener="#{bean.saveColumnWidth(param.column, param.width)}" />
+ actionListener="#{bean.saveColumnWidth(param.column, param.width)}" />
 {% endhighlight %}
-                </p>
+                <p>
+			This logic assumes one table on page, but it can certainly be improved to work with any number of them. </p>
+		    <p class="alert alert-warning">Also note that I modified the original code from the issue linked but did not test my changes. Hopefully I can still 
+			    make changes blindly and not break anything - if however that is not the case, please see original issue for working code. -mkoryak
+		    </p>
 		</div>
 	</div>
 </div>
