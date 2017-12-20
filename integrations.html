@@ -25,14 +25,15 @@ base_url: "./.."
 			</a></li></ul>
         <div id="collapseOne" class="collapse">
             <div class="col-lg-12">
-                <p>
-                    The information here is taken from <a href="https://github.com/mkoryak/floatThead/issues/378" target="_blank">Issue 378</a>
-                </p>
-              
-                First you need to modify the PrimeFaces javascript lib implementation a bit:<br/>
-                <div class='alert alert-warning'>
+		<div class='alert alert-warning'>
                  This is not tested with ColumnGroups, neither scrollable, nor liveResize, ONLY with expandMode = expand
                 </div>
+                <p>
+                    The information here is taken from <a href="https://github.com/mkoryak/floatThead/issues/378" target="_blank">Issue 378</a>
+               
+                First you need to modify the PrimeFaces javascript lib implementation a bit:<br/>
+                 </p>
+              
                     {% highlight js %}
 PrimeFaces.widget.DataTable.prototype.resize = function(event, ui) {
   var columnHeader, nextColumnHeader,
