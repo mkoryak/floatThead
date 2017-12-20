@@ -133,8 +133,10 @@
   var createElements = !isFF && !ieVersion; //FF can read width from <col> elements, but webkit cannot
 
   var $window = $(window);
+  
+  var buggyMatchMedia = isFF && window.matchMedia; // TODO remove when fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=774398
 
-  if(!window.matchMedia) {
+  if(!window.matchMedia || buggyMatchMedia) {
     var _beforePrint = window.onbeforeprint;
     var _afterPrint = window.onafterprint;
     window.onbeforeprint = function () {
@@ -964,8 +966,8 @@
         }
       };
 
-      var matchMediaPrint;
-      if(window.matchMedia && window.matchMedia('print').addListener){
+      var matchMediaPrint = null;
+      if(window.matchMedia && window.matchMedia('print').addListener && !buggyMatchMedia){
         matchMediaPrint = window.matchMedia("print");
         matchMediaPrint.addListener(printEvent);
       } else {
