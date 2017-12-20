@@ -13,8 +13,8 @@ base_url: "./.."
 <h2>Javascript</h2>
 <div class="row">
     <ul>
-        <li><a href="https://github.com/brandon-barker/angular-floatThead" target="_blank>AngularJS directive</a></li>
-        <li><a href="https://github.com/tmlee/vue-floatThead" target="_blank>VueJS component</a></li>
+        <li><a href="https://github.com/brandon-barker/angular-floatThead" target="_blank">AngularJS directive</a></li>
+        <li><a href="https://github.com/tmlee/vue-floatThead" target="_blank">VueJS component</a></li>
     </ul>
 </div>
 <h2>Java</h2>
@@ -27,14 +27,14 @@ base_url: "./.."
                 </a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
+        <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
                 <p>
                     The information here is taken from <a href="https://github.com/mkoryak/floatThead/issues/378" target="_blank">Issue 378</a>
                 </p>
-                <p>
+              
                 First you need to modify the PrimeFaces javascript lib implementation a bit:<br/>
-                <div class='alert alert-warning>
+                <div class='alert alert-warn'>
                  This is not tested with ColumnGroups, neither scrollable, nor liveResize, ONLY with expandMode = expand
                 </div>
                     {% highlight js %}
@@ -160,7 +160,7 @@ PrimeFaces.widget.DataTable.prototype.resize = function(event, ui) {
   }
 }
 
-                    {% endhighlight %}
+{% endhighlight %}
 Then in the html:
 {% highlight html %}
 <p:ajax event="colResize" onstart="var activeTable = $('div.ui-tabs-panel:visible').find('table'); activeTable.on('reflowed', function(e, $floatContainer){getColumnWidths();}); activeTable.trigger('reflow');"
