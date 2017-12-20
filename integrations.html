@@ -30,7 +30,7 @@ base_url: "./.."
                 </div>
                 <p>
                     The information here is taken from <a href="https://github.com/mkoryak/floatThead/issues/378" target="_blank">Issue 378</a>
-               
+		    </p><p>
                 First you need to modify the PrimeFaces javascript lib implementation a bit:<br/>
                  </p>
               
@@ -158,13 +158,16 @@ PrimeFaces.widget.DataTable.prototype.resize = function(event, ui) {
 }
 
 {% endhighlight %}
+		    <p>
 Then in the html:
+		    </p>
 {% highlight html %}
 <p:ajax event="colResize" onstart="var activeTable = $('div.ui-tabs-panel:visible').find('table'); activeTable.on('reflowed', function(e, $floatContainer){getColumnWidths();}); activeTable.trigger('reflow');"
  oncomplete="$('div.ui-tabs-panel:visible').find('table').off('reflowed')" />
 {% endhighlight %}
-
+<p>
 In a seperate javascript file add:
+		    </p>
 {% highlight js %}
 function getColumnWidths() {
   var currentDataTableHeaders = $('div.ui-tabs-panel:visible').find('table th');
@@ -173,9 +176,9 @@ function getColumnWidths() {
   });
 }
 {% endhighlight %}
-
+<p>
 And under the DataTable add:
-
+		    </p>
 {% highlight html %}
 <p:remoteCommand name="saveColumnWidth" process="@this"
 			actionListener="#{bean.saveColumnWidth(param.column, param.width)}" />
