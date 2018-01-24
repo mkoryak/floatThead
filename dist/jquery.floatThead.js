@@ -148,7 +148,7 @@
   }
 
   /**
-   * @param debounceMs
+   * @param eventName
    * @param cb
    */
   function windowResize(eventName, cb){
