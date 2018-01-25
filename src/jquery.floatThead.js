@@ -947,7 +947,7 @@
         updateScrollingOffsets();
         ensureReflow();
         calculateFloatContainerPos = calculateFloatContainerPosFn();
-        repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
+        repositionFloatContainer(calculateFloatContainerPos('reflow'), true, true);
       }, 1);
 
       /////// printing stuff
