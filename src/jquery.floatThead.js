@@ -327,7 +327,10 @@
       var headerFloated = true;
       var scrollingTop, scrollingBottom;
       var scrollbarOffset = {vertical: 0, horizontal: 0};
-      var scWidth = scrollbarWidth();
+      if(util.isFunction(scrollbarWidth)) {
+        scrollbarWidth = scrollbarWidth();
+      }
+
       var lastColumnCount = 0; //used by columnNum()
 
       if(opts.scrollContainer === true){
@@ -880,18 +883,18 @@
             scrollbarOffset = {horizontal:0, vertical:0};
           } else {
             if($scrollContainer.css('overflow-x') == 'scroll'){
-              scrollbarOffset.horizontal = scWidth;
+              scrollbarOffset.horizontal = scrollbarWidth;
             } else {
               var sw = $scrollContainer.width(), tw = tableWidth($table, $fthCells);
-              var offsetv = sh < th ? scWidth : 0;
-              scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
+              var offsetv = sh < th ? scrollbarWidth : 0;
+              scrollbarOffset.horizontal = sw - offsetv < tw ? scrollbarWidth : 0;
             }
             if($scrollContainer.css('overflow-y') == 'scroll'){
-              scrollbarOffset.vertical = scWidth;
+              scrollbarOffset.vertical = scrollbarWidth;
             } else {
               var sh = $scrollContainer.height(), th = $table.height();
-              var offseth = sw < tw ? scWidth : 0;
-              scrollbarOffset.vertical = sh - offseth < th ? scWidth : 0;
+              var offseth = sw < tw ? scrollbarWidth : 0;
+              scrollbarOffset.vertical = sh - offseth < th ? scrollbarWidth : 0;
             }
           }
         }
