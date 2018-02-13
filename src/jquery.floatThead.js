@@ -46,7 +46,8 @@
       datatables: true,
       jqueryUI: true,
       perfectScrollbar: true
-    }
+    },
+    overflow: "hidden" // value for css 'overflow' attribute applied to the floatContainer - clips protruding elements by default
   };
 
   var util = (function underscoreShim(){
@@ -133,7 +134,7 @@
   var createElements = !isFF && !ieVersion; //FF can read width from <col> elements, but webkit cannot
 
   var $window = $(window);
-  
+
   var buggyMatchMedia = isFF && window.matchMedia; // TODO remove when fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=774398
 
   if(!window.matchMedia || buggyMatchMedia) {
@@ -387,7 +388,7 @@
         'height': 0,
         'border-collapse': 'collapse'
       });
-      var $floatContainer = $('<div>').css('overflow', 'hidden').attr('aria-hidden', 'true');
+      var $floatContainer = $('<div>').css('overflow', opts.overflow).attr('aria-hidden', 'true');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row" aria-hidden="true"/>');
