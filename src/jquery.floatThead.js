@@ -47,7 +47,7 @@
       jqueryUI: true,
       perfectScrollbar: true
     },
-    overflow: "hidden" // value for css 'overflow' attribute applied to the floatContainer - clips protruding elements by default
+    floatContainerOverflow: "hidden" // value for css 'overflow' attribute applied to the floatContainer - clips protruding elements by default
   };
 
   var util = (function underscoreShim(){
@@ -388,7 +388,7 @@
         'height': 0,
         'border-collapse': 'collapse'
       });
-      var $floatContainer = $('<div>').css('overflow', opts.overflow).attr('aria-hidden', 'true');
+      var $floatContainer = $('<div>').css('overflow', opts.floatContainerOverflow).attr('aria-hidden', 'true');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row" aria-hidden="true"/>');
