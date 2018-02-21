@@ -1,6 +1,6 @@
 ### 2.1.0
 
-- #402 HUGE performance improvement if plugin used on multiple tables on the same page. Over **100x faster** startup time
+- #402 HUGE performance improvement if plugin used on multiple tables on the same page. Over **10x faster** startup time
 on a page with 39 tables. Big props to [@ineuwirth](https://github.com/ineuwirth) for finding this one!
 
 On a side note, the last release was exactly one year ago. I didn't do this on purpose :)
