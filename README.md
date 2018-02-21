@@ -1,4 +1,4 @@
-jquery.floatThead [2.1.0](https://github.com/mkoryak/floatThead/blob/master/CHANGELOG.md)
+jquery.floatThead [2.1.0](https://github.com/mkoryak/floatThead/releases)
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
