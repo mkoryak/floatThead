@@ -1,3 +1,19 @@
+### 2.1.0
+
+- #402 HUGE performance improvement if plugin used on multiple tables on the same page. Over **100x faster** startup time
+on a page with 39 tables. Big props to [@ineuwirth](https://github.com/ineuwirth) for finding this one!
+
+On a side note, the last release was exactly one year ago. I didn't do this on purpose :)
+
+new features:
+- #404 - Adding a 'floatContainerOverflow' option to govern floatContainer CSS
+- #402 - performance improvement with many tables on the same page
+
+bug fixes:
+- #391 - Fix printing on firefox 
+- #399 - Set header size on reflow
+- #361 - Works better on iPad Retina
+         
 ### 2.0.2
 - fix issue with horizontal scrollbars + reflow breaking header position #345, #355
 

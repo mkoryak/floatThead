@@ -1,4 +1,4 @@
-jquery.floatThead 2.0.3
+jquery.floatThead 2.1.0
 =================
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
@@ -8,10 +8,6 @@ Float the table header on scroll. No changes to your HTML/CSS are required, it j
 Supports floating the header while scrolling within the window or while scrolling within a container with overflow.
 Supports responsive tables.
 
-
-:heart_eyes_cat:**My cat loves it**:heart_eyes_cat:
-
-
 ### Install
 
 #### Package managers
@@ -20,7 +16,7 @@ npm install floatthead
 bower install floatThead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.0.3.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.1.0.zip)
 
 #### Via CDN
 [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/) .  
@@ -42,8 +38,9 @@ bower install floatThead
 -   Works on tables within a scrollable container or whole window scrolling
 -   Works with responsive table wrappers
 -   Works with dynamically hidden/added/removed columns
--   Doesn't clone the thead - so your events stay bound
--   Doesn't mess with your styles, and doesnt require any css (see `fixed` vs `absolute` position modes)
+-   Does not clone the thead - so your events stay bound
+-   Does what `position:fixed` cannot do (and on browsers that do not support it)
+-   Does not mess with your styles, and doesnt require any css (see `fixed` vs `absolute` position modes)
 -   Works with border-collapse variants, weird margins, padding and borders
 -   Works with libs like [datatables](http://datatables.net), [perfect-scrollbar](http://mkoryak.github.io/floatThead/examples/perfect-scrollbar/), [bootstrap3](http://mkoryak.github.io/floatThead/examples/bootstrap3/), and many more
 -   Header can be floated with `position:absolute` which adds a wrapper, or `position:fixed` which does not. Both have their pros and cons. By default the best option is chosen based on your configuration
@@ -82,12 +79,12 @@ Change Log
 
 ## Who is using floatThead ?
 
-### [around 75K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
+### [Around 96K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
-### google 
-- internally, I happen to know
+### [Google](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
+- Internally, I happen to know...
 
-### [samsung](https://github.com/Samsung/iotjscode/blob/3d4de15ea32d27dce5885b2c8c9e3a783c846311/www/scripts/app/main.js#L234)
+### [Samsung](https://github.com/Samsung/iotjscode/blob/3d4de15ea32d27dce5885b2c8c9e3a783c846311/www/scripts/app/main.js#L234)
 - For the internet of things!
 
 ### [compat-table](https://github.com/kangax/compat-table/) 

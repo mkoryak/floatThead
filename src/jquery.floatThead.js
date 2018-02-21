@@ -1,8 +1,8 @@
-/** @preserve jQuery.floatThead 2.0.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2017 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.1.0 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
- * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
+ * @projectDescription position:fixed on steroids. Lock a table header in place while scrolling.
  *
  * Dependencies:
  * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
@@ -10,12 +10,11 @@
  * http://mkoryak.github.io/floatThead/
  *
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
- *
  */
 (function( $ ) {
   /**
    * provides a default config object. You can modify this after including this script if you want to change the init defaults
-   * @type {Object}
+   * @type {!Object}
    */
   $.floatThead = $.floatThead || {};
   $.floatThead.defaults = {
