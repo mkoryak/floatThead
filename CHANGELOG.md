@@ -1,3 +1,9 @@
+### 2.1.1
+I goofed, forgot to build dist last release.
+
+- Removed 'floatContainerOverflow' option, removed `overflow-y:hidden` css from scrollContainer.
+
+
 ### 2.1.0
 
 - #402 HUGE performance improvement if plugin used on multiple tables on the same page. Over **10x faster** startup time

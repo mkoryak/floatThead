@@ -1,8 +1,8 @@
-/** @preserve jQuery.floatThead 2.0.3 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2017 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.1.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
- * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
+ * @projectDescription position:fixed on steroids. Lock a table header in place while scrolling.
  *
  * Dependencies:
  * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
@@ -10,12 +10,11 @@
  * http://mkoryak.github.io/floatThead/
  *
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
- *
  */
 (function( $ ) {
   /**
    * provides a default config object. You can modify this after including this script if you want to change the init defaults
-   * @type {Object}
+   * @type {!Object}
    */
   $.floatThead = $.floatThead || {};
   $.floatThead.defaults = {
@@ -46,7 +45,8 @@
       datatables: true,
       jqueryUI: true,
       perfectScrollbar: true
-    }
+    },
+    floatContainerCss: {"overflow-x": "hidden"} // undocumented - css applied to the floatContainer
   };
 
   var util = (function underscoreShim(){
@@ -133,7 +133,7 @@
   var createElements = !isFF && !ieVersion; //FF can read width from <col> elements, but webkit cannot
 
   var $window = $(window);
-  
+
   var buggyMatchMedia = isFF && window.matchMedia; // TODO remove when fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=774398
 
   if(!window.matchMedia || buggyMatchMedia) {
@@ -327,7 +327,10 @@
       var headerFloated = true;
       var scrollingTop, scrollingBottom;
       var scrollbarOffset = {vertical: 0, horizontal: 0};
-      var scWidth = scrollbarWidth();
+      if(util.isFunction(scrollbarWidth)) {
+        scrollbarWidth = scrollbarWidth();
+      }
+
       var lastColumnCount = 0; //used by columnNum()
 
       if(opts.scrollContainer === true){
@@ -343,11 +346,11 @@
 
 
 
-      if (opts.position == 'auto') {
+      if (opts.position === 'auto') {
         useAbsolutePositioning = null;
-      } else if (opts.position == 'fixed') {
+      } else if (opts.position === 'fixed') {
         useAbsolutePositioning = false;
-      } else if (opts.position == 'absolute'){
+      } else if (opts.position === 'absolute'){
         useAbsolutePositioning = true;
       } else if (opts.debug) {
         debug('Invalid value given to "position" option, valid is "fixed", "absolute" and "auto". You passed: ', opts.position);
@@ -387,7 +390,7 @@
         'height': 0,
         'border-collapse': 'collapse'
       });
-      var $floatContainer = $('<div>').css('overflow', 'hidden').attr('aria-hidden', 'true');
+      var $floatContainer = $('<div>').css(opts.floatContainerCss).attr('aria-hidden', 'true');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row" aria-hidden="true"/>');
@@ -422,7 +425,7 @@
       if(!locked){
         $floatTable.css('width', 'auto');
       }
-      if(tableDisplayCss == 'none'){
+      if(tableDisplayCss === 'none'){
         floatTableHidden = true;
       }
 
@@ -460,12 +463,12 @@
 
 
       $floatContainer.css({
-                            position: useAbsolutePositioning ? 'absolute' : 'fixed',
-                            marginTop: 0,
-                            top:  useAbsolutePositioning ? 0 : 'auto',
-                            zIndex: opts.zIndex,
-                            willChange: 'transform'
-                          });
+        position: useAbsolutePositioning ? 'absolute' : 'fixed',
+        marginTop: 0,
+        top:  useAbsolutePositioning ? 0 : 'auto',
+        zIndex: opts.zIndex,
+        willChange: 'transform'
+      });
       $floatContainer.addClass(opts.floatContainerClass);
       updateScrollingOffsets();
 
@@ -528,7 +531,7 @@
             count += parseInt(($(this).attr('colspan') || 1), 10);
           });
         }
-        if(count != lastColumnCount){
+        if(count !== lastColumnCount){
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
@@ -880,18 +883,18 @@
             scrollbarOffset = {horizontal:0, vertical:0};
           } else {
             if($scrollContainer.css('overflow-x') == 'scroll'){
-              scrollbarOffset.horizontal = scWidth;
+              scrollbarOffset.horizontal = scrollbarWidth;
             } else {
               var sw = $scrollContainer.width(), tw = tableWidth($table, $fthCells);
-              var offsetv = sh < th ? scWidth : 0;
-              scrollbarOffset.horizontal = sw - offsetv < tw ? scWidth : 0;
+              var offsetv = sh < th ? scrollbarWidth : 0;
+              scrollbarOffset.horizontal = sw - offsetv < tw ? scrollbarWidth : 0;
             }
             if($scrollContainer.css('overflow-y') == 'scroll'){
-              scrollbarOffset.vertical = scWidth;
+              scrollbarOffset.vertical = scrollbarWidth;
             } else {
               var sh = $scrollContainer.height(), th = $table.height();
-              var offseth = sw < tw ? scWidth : 0;
-              scrollbarOffset.vertical = sh - offseth < th ? scWidth : 0;
+              var offseth = sw < tw ? scrollbarWidth : 0;
+              scrollbarOffset.vertical = sh - offseth < th ? scrollbarWidth : 0;
             }
           }
         }

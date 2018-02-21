@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.1.0 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.1.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -46,7 +46,7 @@
       jqueryUI: true,
       perfectScrollbar: true
     },
-    floatContainerOverflow: "hidden" // value for css 'overflow' attribute applied to the floatContainer - clips protruding elements by default
+    floatContainerCss: {"overflow-x": "hidden"} // undocumented - css applied to the floatContainer
   };
 
   var util = (function underscoreShim(){
@@ -346,11 +346,11 @@
 
 
 
-      if (opts.position == 'auto') {
+      if (opts.position === 'auto') {
         useAbsolutePositioning = null;
-      } else if (opts.position == 'fixed') {
+      } else if (opts.position === 'fixed') {
         useAbsolutePositioning = false;
-      } else if (opts.position == 'absolute'){
+      } else if (opts.position === 'absolute'){
         useAbsolutePositioning = true;
       } else if (opts.debug) {
         debug('Invalid value given to "position" option, valid is "fixed", "absolute" and "auto". You passed: ', opts.position);
@@ -390,7 +390,7 @@
         'height': 0,
         'border-collapse': 'collapse'
       });
-      var $floatContainer = $('<div>').css('overflow', opts.floatContainerOverflow).attr('aria-hidden', 'true');
+      var $floatContainer = $('<div>').css(opts.floatContainerCss).attr('aria-hidden', 'true');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
       var $sizerRow = $('<tr class="size-row" aria-hidden="true"/>');
@@ -425,7 +425,7 @@
       if(!locked){
         $floatTable.css('width', 'auto');
       }
-      if(tableDisplayCss == 'none'){
+      if(tableDisplayCss === 'none'){
         floatTableHidden = true;
       }
 
@@ -463,12 +463,12 @@
 
 
       $floatContainer.css({
-                            position: useAbsolutePositioning ? 'absolute' : 'fixed',
-                            marginTop: 0,
-                            top:  useAbsolutePositioning ? 0 : 'auto',
-                            zIndex: opts.zIndex,
-                            willChange: 'transform'
-                          });
+        position: useAbsolutePositioning ? 'absolute' : 'fixed',
+        marginTop: 0,
+        top:  useAbsolutePositioning ? 0 : 'auto',
+        zIndex: opts.zIndex,
+        willChange: 'transform'
+      });
       $floatContainer.addClass(opts.floatContainerClass);
       updateScrollingOffsets();
 
@@ -531,7 +531,7 @@
             count += parseInt(($(this).attr('colspan') || 1), 10);
           });
         }
-        if(count != lastColumnCount){
+        if(count !== lastColumnCount){
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
