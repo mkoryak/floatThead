@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.1.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.1.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -501,7 +501,7 @@
       function setFloatWidth(){
         var tw = tableWidth($table, $fthCells, true);
         var $container = responsive ? $responsiveContainer : $scrollContainer;
-        var width = $container.width() || tw;
+        var width = $container.length ? $container[0].getBoundingClientRect().width : tw;
         var floatContainerWidth = $container.css("overflow-y") != 'hidden' ? width - scrollbarOffset.vertical : width;
         $floatContainer.width(floatContainerWidth);
         if(locked){
