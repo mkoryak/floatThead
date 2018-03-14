@@ -501,7 +501,7 @@
       function setFloatWidth(){
         var tw = tableWidth($table, $fthCells, true);
         var $container = responsive ? $responsiveContainer : $scrollContainer;
-        var width = $container.length ? $container[0].getBoundingClientRect().width : tw;
+        var width = $container.length ? getOffsetWidth($container[0]) : tw;
         var floatContainerWidth = $container.css("overflow-y") != 'hidden' ? width - scrollbarOffset.vertical : width;
         $floatContainer.width(floatContainerWidth);
         if(locked){
