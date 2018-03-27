@@ -19,9 +19,8 @@ bower install floatThead
 [Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.1.1.zip)
 
 #### Via CDN
-[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/) .  
-[http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead) .  
-[https://unpkg.com/floatthead](https://unpkg.com/floatthead) .  
+[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)   [http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)  
+[https://unpkg.com/floatthead](https://unpkg.com/floatthead)  
 
 #### For java people
 [Webjar](https://github.com/webjars/floatThead)
