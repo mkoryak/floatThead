@@ -847,15 +847,16 @@
               });
             } else {
               var transform = 'translateX(' + pos.left + 'px) translateY(' + pos.top + 'px)';
-              $floatContainer.css({
+              var cssObj = {
                 '-webkit-transform' : transform,
                 '-moz-transform'    : transform,
                 '-ms-transform'     : transform,
                 '-o-transform'      : transform,
                 'transform'         : transform,
                 'top': 0,
-                'left': 0
-              });
+              };
+              cssObj[(/rtl/i.test(document.documentElement.dir || '') ? 'right': 'left'] = 0;
+              $floatContainer.css(cssObj);
             }
             oldTop = pos.top;
             oldLeft = pos.left;
