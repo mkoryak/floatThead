@@ -855,7 +855,7 @@
                 'transform'         : transform,
                 'top': 0,
               };
-              cssObj[(/rtl/i.test(document.documentElement.dir || '') ? 'right': 'left'] = 0;
+              cssObj[/rtl/i.test(document.documentElement.dir || '') ? 'right': 'left'] = 0;
               $floatContainer.css(cssObj);
             }
             oldTop = pos.top;
