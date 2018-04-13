@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.1.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.1.2 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -7,7 +7,7 @@
  * Dependencies:
  * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
  *
- * http://mkoryak.github.io/floatThead/
+ * https://mkoryak.github.io/floatThead/
  *
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
  */
@@ -213,7 +213,7 @@
   }
 
   /**
-   * Check if a given table has been datatableized (http://datatables.net)
+   * Check if a given table has been datatableized (https://datatables.net)
    * @param $table
    * @return {Boolean}
    */
