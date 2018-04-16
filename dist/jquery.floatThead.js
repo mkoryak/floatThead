@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.1.1 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.1.2 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2018 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -7,7 +7,7 @@
  * Dependencies:
  * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
  *
- * http://mkoryak.github.io/floatThead/
+ * https://mkoryak.github.io/floatThead/
  *
  * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
  */
@@ -213,7 +213,7 @@
   }
 
   /**
-   * Check if a given table has been datatableized (http://datatables.net)
+   * Check if a given table has been datatableized (https://datatables.net)
    * @param $table
    * @return {Boolean}
    */
@@ -501,7 +501,7 @@
       function setFloatWidth(){
         var tw = tableWidth($table, $fthCells, true);
         var $container = responsive ? $responsiveContainer : $scrollContainer;
-        var width = $container.width() || tw;
+        var width = $container.length ? getOffsetWidth($container[0]) : tw;
         var floatContainerWidth = $container.css("overflow-y") != 'hidden' ? width - scrollbarOffset.vertical : width;
         $floatContainer.width(floatContainerWidth);
         if(locked){
@@ -847,15 +847,16 @@
               });
             } else {
               var transform = 'translateX(' + pos.left + 'px) translateY(' + pos.top + 'px)';
-              $floatContainer.css({
+              var cssObj = {
                 '-webkit-transform' : transform,
                 '-moz-transform'    : transform,
                 '-ms-transform'     : transform,
                 '-o-transform'      : transform,
                 'transform'         : transform,
                 'top': 0,
-                'left': 0
-              });
+              };
+              cssObj[/rtl/i.test(document.documentElement.dir || '') ? 'right': 'left'] = 0;
+              $floatContainer.css(cssObj);
             }
             oldTop = pos.top;
             oldLeft = pos.left;
