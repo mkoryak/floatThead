@@ -19,8 +19,9 @@ bower install floatThead
 [Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.1.2.zip)
 
 #### Via CDN
-[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)   [http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)  
-[https://unpkg.com/floatthead](https://unpkg.com/floatthead)  
+[http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)    
+[http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)    
+[https://unpkg.com/floatthead](https://unpkg.com/floatthead)    
 
 #### For java people
 [Webjar](https://github.com/webjars/floatThead)
@@ -50,6 +51,7 @@ bower install floatThead
 -  Does not float the footer
 -  Does not let you lock the first column like in excel
 -  **Safari and mobile safari are not supported**. It might work, or it [might not](https://github.com/mkoryak/floatThead/issues/108), depending on your markup and safari version.
+-  RTL is not really supported - it might work in overflow scrolling more, if you are lucky. Expects `dir` on `html` element. 
 
 
 Common Pitfalls
