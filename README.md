@@ -14,7 +14,7 @@
 
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
-# Documentation & Examples: http://mkoryak.github.io/floatThead/
+## Documentation & Examples: http://mkoryak.github.io/floatThead/
 
 Float the table header on scroll. No changes to your HTML/CSS are required, it just works.
 Supports floating the header while scrolling within the window or while scrolling within a container with overflow.
@@ -23,7 +23,7 @@ Supports responsive tables.
 ### Install
 
 #### Package managers
-```bash
+```console
 npm install floatthead
 bower install floatThead
 ```
@@ -34,6 +34,14 @@ bower install floatThead
 [http://cdnjs.com/libraries/floatthead/](http://cdnjs.com/libraries/floatthead/)    
 [http://www.jsdelivr.com/#!jquery.floatthead](http://www.jsdelivr.com/#!jquery.floatthead)    
 [https://unpkg.com/floatthead](https://unpkg.com/floatthead)    
+
+```html
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://unpkg.com/floatthead"></script>
+<script>
+  $(() => $('table').floatThead());
+</script>
+```
 
 #### For java people
 [Webjar](https://github.com/webjars/floatThead)
