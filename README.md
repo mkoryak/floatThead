@@ -1,5 +1,17 @@
-jquery.floatThead [2.1.2](https://github.com/mkoryak/floatThead/releases)
-=================
+<p align="left">
+<h1>
+    <a href="https://github.com/mkoryak/floatThead/releases">jquery.floatThead [2.1.2]</a>
+    <a href="https://unpkg.com/floatthead/dist/jquery.floatThead.min.js"><img
+            src="http://img.badgesize.io/https://unpkg.com/floatthead/dist/jquery.floatThead.min.js?compression=gzip&style=flat-square"
+            alt="Gzip Size"></a>
+    <a href="https://www.npmjs.com/package/floatthead"><img src="https://img.shields.io/npm/v/floatthead.svg?style=flat-square"
+                                                       alt="NPM Version"></a>
+    <a href="https://github.com/mkoryak/floatThead/blob/master/LICENSE"><img
+            src="https://img.shields.io/npm/l/floatthead.svg?style=flat-square" alt="License"></a>
+</h1>
+</p>
+
+
 [![woot](http://giant.gfycat.com/AnyGloriousAlpaca.gif "or just click")](http://mkoryak.github.io/floatThead/)
 
 # Documentation & Examples: http://mkoryak.github.io/floatThead/
