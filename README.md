@@ -1,6 +1,6 @@
 <p align="left">
 <h1>
-    <a href="https://github.com/mkoryak/floatThead/releases">jquery.floatThead [2.1.2]</a>
+    <a href="https://github.com/mkoryak/floatThead/releases">jquery.floatThead</a>
     <a href="https://unpkg.com/floatthead/dist/jquery.floatThead.min.js"><img
             src="http://img.badgesize.io/https://unpkg.com/floatthead/dist/jquery.floatThead.min.js?compression=gzip&style=flat-square"
             alt="Gzip Size"></a>
