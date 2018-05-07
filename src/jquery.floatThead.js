@@ -1053,7 +1053,7 @@
             mObs.disconnect();
             mObs = null;
           }
-          $table.off('reflow reflowed fth-beforeprint fth-afterprint');
+          $table.off('reflow reflowed');
           $scrollContainer.off(ns);
           $responsiveContainer.off(ns);
           if (wrappedContainer) {
@@ -1073,6 +1073,7 @@
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           $window.off(ns);
+          $window.off('fth-beforeprint fth-afterprint'); // Not bound with id, so cant use ns.
           if (matchMediaPrint) {
             matchMediaPrint.removeListener(printEvent);
           }
