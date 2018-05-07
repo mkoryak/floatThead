@@ -780,6 +780,9 @@
               var gap = tableContainerGap - scrollingContainerTop + tableTopGap;
               top = gap > 0 ? gap : 0;
               triggerFloatEvent(false);
+            } else if(scrollingContainerTop - tableContainerGap > tableHeight - floatContainerHeight){
+              // scrolled past table but there is space in the container under it..
+              top = tableHeight - floatContainerHeight - scrollingContainerTop - tableContainerGap;
             } else {
               top = wrappedContainer ? tableTopGap : scrollingContainerTop;
               //headers stop at the top of the viewport
