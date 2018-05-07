@@ -141,11 +141,11 @@
     var _afterPrint = window.onafterprint;
     window.onbeforeprint = function () {
       _beforePrint && _beforePrint();
-      $window.triggerHandler("beforeprint");
+      $window.triggerHandler("fth-beforeprint");
     };
     window.onafterprint = function () {
       _afterPrint && _afterPrint();
-      $window.triggerHandler("afterprint");
+      $window.triggerHandler("fth-afterprint");
     };
   }
 
@@ -975,8 +975,8 @@
         matchMediaPrint = window.matchMedia("print");
         matchMediaPrint.addListener(printEvent);
       } else {
-        $window.on('beforeprint', beforePrint);
-        $window.on('afterprint', afterPrint);
+        $window.on('fth-beforeprint', beforePrint);
+        $window.on('fth-afterprint', afterPrint);
       }
       ////// end printing stuff
 
@@ -1053,7 +1053,7 @@
             mObs.disconnect();
             mObs = null;
           }
-          $table.off('reflow reflowed');
+          $table.off('reflow reflowed fth-beforeprint fth-afterprint');
           $scrollContainer.off(ns);
           $responsiveContainer.off(ns);
           if (wrappedContainer) {
