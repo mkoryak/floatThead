@@ -788,7 +788,7 @@
             left = tableLeftGap;
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
-              top = tableHeight - floatContainerHeight + captionScrollOffset; //scrolled past table
+              top = tableHeight - floatContainerHeight + captionScrollOffset + scrollingBottom; //scrolled past table
             } else if (tableOffset.top >= windowTop + scrollingTop) {
               top = 0; //scrolling to table
               unfloat();
