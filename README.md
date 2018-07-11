@@ -71,7 +71,8 @@ bower install floatThead
 -  Does not float the footer
 -  Does not let you lock the first column like in excel
 -  **Safari and mobile safari are not supported**. It might work, or it [might not](https://github.com/mkoryak/floatThead/issues/108), depending on your markup and safari version.
--  RTL is not really supported - it might work in overflow scrolling more, if you are lucky. Expects `dir` on `html` element. 
+-  RTL is not really supported - it might work in overflow scrolling more, if you are lucky. Expects `dir` on `html` element.
+-  Layout issues resulting from document zoom not being 100% are not supported.
 
 
 Common Pitfalls
