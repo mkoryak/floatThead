@@ -508,7 +508,7 @@
           var percent = 100 * tw / (floatContainerWidth);
           $floatTable.css('width', percent+'%');
         } else {
-          $floatTable.outerWidth(tw);
+          $floatTable.css('width', tw+'px');
         }
       }
 
