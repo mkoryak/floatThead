@@ -1,3 +1,21 @@
+### 2.1.3
+Maintenance release. 
+
+bug fixes:
+- #409 - inf recursion printing on FireFox
+- #385 - bottom offset not respected in 'absolute' mode
+- #303 - scrollContainer with other content inside wrapper, header won't scroll out
+- #424 - table header fractional width set incorrectly. 
+
+### 2.1.2
+Maintenance release. 
+
+bug fixes:
+- #363 - scroll container assigned incorrect width because of a jquery 3.2.0 bug
+
+new features:
+- bad rtl support (only works with internal scrolling, not window scrolling)
+
 ### 2.1.1
 I goofed, forgot to build dist last release.
 
@@ -33,6 +51,7 @@ Breaking changes:
 - slim version no longer provided. Will use underscore, or shim the things we need
 - removed allowing deprecated options from 1.3.x
 - moved development version into /src dir and no longer use grunt here
+
 
 nothing big and exciting in version 2, just semvar and breaking changes.
 

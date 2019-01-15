@@ -141,11 +141,11 @@
     var _afterPrint = window.onafterprint;
     window.onbeforeprint = function () {
       _beforePrint && _beforePrint();
-      $window.triggerHandler("beforeprint");
+      $window.triggerHandler("fth-beforeprint");
     };
     window.onafterprint = function () {
       _afterPrint && _afterPrint();
-      $window.triggerHandler("afterprint");
+      $window.triggerHandler("fth-afterprint");
     };
   }
 
@@ -508,7 +508,7 @@
           var percent = 100 * tw / (floatContainerWidth);
           $floatTable.css('width', percent+'%');
         } else {
-          $floatTable.outerWidth(tw);
+          $floatTable.css('width', tw+'px');
         }
       }
 
@@ -780,6 +780,9 @@
               var gap = tableContainerGap - scrollingContainerTop + tableTopGap;
               top = gap > 0 ? gap : 0;
               triggerFloatEvent(false);
+            } else if(scrollingContainerTop - tableContainerGap > tableHeight - floatContainerHeight){
+              // scrolled past table but there is space in the container under it..
+              top = tableHeight - floatContainerHeight - scrollingContainerTop - tableContainerGap;
             } else {
               top = wrappedContainer ? tableTopGap : scrollingContainerTop;
               //headers stop at the top of the viewport
@@ -788,7 +791,7 @@
             left = tableLeftGap;
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
-              top = tableHeight - floatContainerHeight + captionScrollOffset; //scrolled past table
+              top = tableHeight - floatContainerHeight + captionScrollOffset + scrollingBottom; //scrolled past table
             } else if (tableOffset.top >= windowTop + scrollingTop) {
               top = 0; //scrolling to table
               unfloat();
@@ -975,8 +978,8 @@
         matchMediaPrint = window.matchMedia("print");
         matchMediaPrint.addListener(printEvent);
       } else {
-        $window.on('beforeprint', beforePrint);
-        $window.on('afterprint', afterPrint);
+        $window.on('fth-beforeprint', beforePrint);
+        $window.on('fth-afterprint', afterPrint);
       }
       ////// end printing stuff
 
@@ -1073,6 +1076,7 @@
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           $window.off(ns);
+          $window.off('fth-beforeprint fth-afterprint'); // Not bound with id, so cant use ns.
           if (matchMediaPrint) {
             matchMediaPrint.removeListener(printEvent);
           }

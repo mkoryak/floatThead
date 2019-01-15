@@ -1,6 +1,6 @@
 {
   "name": "floatthead",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "fixed table header plugin that works",
   "main": "dist/jquery.floatThead.min.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "fixed table header",
     "table",
     "thead",
+    "the cat is cute",	
     "floatThead",
     "scrolling table",
     "jQuery plugin"
