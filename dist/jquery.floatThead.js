@@ -105,6 +105,7 @@
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];a = 1+a,b.innerHTML="<!--[if gt IE "+ a +"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
   var isFF = /Gecko\//.test(navigator.userAgent);
   var isWebkit = /WebKit\//.test(navigator.userAgent);
+  var isRTL = /rtl/i.test(document.documentElement.dir || '');
 
   if(!(ieVersion || isFF || isWebkit)){
     ieVersion = 11; //yey a hack!
@@ -754,7 +755,8 @@
             scrollingContainerTop = $scrollContainer.scrollTop();
             scrollContainerLeft =  getScrollContainerLeft();
           }
-          if(isWebkit && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
+          if(isWebkit && (windowTop < 0 || (isRTL && windowLeft > 0 ) || ( !isRTL && windowLeft < 0 )) ){
+            //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
             return;
           }
 
@@ -857,8 +859,8 @@
                 '-o-transform'      : transform,
                 'transform'         : transform,
                 'top': 0,
+                'left': 0,
               };
-              cssObj[/rtl/i.test(document.documentElement.dir || '') ? 'right': 'left'] = 0;
               $floatContainer.css(cssObj);
             }
             oldTop = pos.top;
