@@ -1,6 +1,6 @@
 How to get help with the floatThead
 ------------
-**I just had a kid, and I work at a startup,**  
+**I am old, and I work at Google,**  
 I don't have time to reproduce your issue on my own, so please provide a **jsfiddle!!!**
 
 ----
