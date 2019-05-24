@@ -4,7 +4,7 @@
   "authors": [
     "Misha Koryak"
   ],
-  "description": "Unobtrusively float any table's header without breaking styles or events",
+  "description": "Fixed <thead>. Doesn't need any custom css/html. Does what position:sticky can't",
   "main": [
     "dist/jquery.floatThead.js",
     "dist/jquery.floatThead.min.js"
