@@ -55,6 +55,7 @@ bower install floatThead
 
 # Things this plugin does:
 ---------
+-   In prod @ big corporations and opensource projects. Maintained. See open issues.
 -   Works on tables within a scrollable container or whole window scrolling
 -   Works with responsive table wrappers
 -   Works with dynamically hidden/added/removed columns
