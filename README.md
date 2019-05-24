@@ -13,7 +13,7 @@ This gives you the ability to have a filewatcher recompile the docs site when yo
 Saves a ton of time spent restarting jekyll. 
 
   - run the following commands in the project root (of the gh-pages branch)
-  - `npm install grunt-cli -g`
+  - `npm install grunt-cli -g`   (yeah this is old!)
   - `npm install` 
   - `grunt sandbox` to start the jekyll server and file watcher
   - start making changes and see them immediately in your browser at `http://localhost:9002/floatThead/`
