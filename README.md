@@ -102,7 +102,7 @@ Change Log
 
 ## Who is using floatThead ?
 
-### [Around 96K hits on guthub cod search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
+### [Around 128K hits on guthub code search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
 ### [Google](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
 - Internally, I happen to know...
