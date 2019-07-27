@@ -536,7 +536,7 @@
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
-            content = $headerColumns.eq(x).text();
+            content = $headerColumns.eq(x).html();
             cells.push('<th class="floatThead-col" aria-label="'+content+'"/>');
             cols.push('<col/>');
             psuedo.push(
