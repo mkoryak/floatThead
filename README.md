@@ -104,6 +104,9 @@ Change Log
 
 ### [Around 128K hits on guthub code search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
+### [WheresTheGig.com](https://WheresTheGig.com) 
+- A free service for the musical community 
+
 ### [Google](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
 - Internally, I happen to know...
 
