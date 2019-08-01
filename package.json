@@ -1,6 +1,6 @@
 {
   "name": "floatthead",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "fixed table header plugin that works",
   "main": "dist/jquery.floatThead.min.js",
   "scripts": {
