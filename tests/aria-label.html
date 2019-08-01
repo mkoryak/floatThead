@@ -23,7 +23,7 @@ desc: "Shows why you might want to override the ariaLabel function"
 
 $(function(){
     
-$("table").floatThead({
+var $table = $("table").floatThead({
   scrollContainer: function($table){
       return $table.parent()  
   },
@@ -32,7 +32,7 @@ $("table").floatThead({
   }
 });
 
-console.log('Here is what the real table\'s header now looks like', $("table").find('thead').html());
+console.log('Here is what the real table\'s header now looks like', $table.find('thead').html());
 });
 
 
