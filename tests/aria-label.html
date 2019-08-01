@@ -5,6 +5,7 @@ slug: tests
 issue: 440
 desc: "Shows why you might want to override the ariaLabel function"
 ---
+<link rel="stylesheet/less" type="text/css" href="{{ page.base_url }}/lib/pigments.css">
 
 <style>
     table.floatThead-table {
@@ -14,6 +15,10 @@ desc: "Shows why you might want to override the ariaLabel function"
     thead th {
         background-color: #eee;
         font-weight: bold;
+    }
+    .center {
+        margin: 10vw auto;
+        width: 90vw;
     }
     
   </style>
@@ -46,6 +51,7 @@ console.log('Here is what the real table\'s header now looks like', $table.find(
                         <tbody> <tr> <td>hi</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr></tbody>
         </table></div>
     <br><br>
+<div class="center">
 <h2>Using <code>ariaLabel</code></h2>
 <p>
 You will need to provide a custom <code>ariaLabel</code> impl if your table's first header row does not contain the same number
@@ -69,5 +75,5 @@ Open console to see the html of the real table after the plugin runs.
 <p>
 Please note, that the header cells that contain the aria-labels are not visible to the user, only to screen readers. 
 </p>
-
+</div>
 </div>
