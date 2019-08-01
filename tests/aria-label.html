@@ -33,7 +33,7 @@ var $table = $("table").floatThead({
       return $table.parent()  
   },
   ariaLabel: function($table, $headerCell, columnIndex){
-      return $table.find(`thead>tr:nth-child(1)>th:nth-child(${columnIndex})`).text();
+      return $table.find(`thead>tr:nth-child(2)>th:nth-child(${columnIndex+1})`).text();
   }
 });
 
@@ -65,7 +65,7 @@ You need to tell the plugin to use the 2nd table row to get <code>aria-label</co
 {% highlight js %}
 $("table").floatThead({
   ariaLabel: function($table, $headerCell, columnIndex){
-      return $table.find(`thead > tr:nth-child(1) > th:nth-child(${columnIndex})`).text();
+      return $table.find(`thead > tr:nth-child(2) > th:nth-child(${columnIndex + 1})`).text();
   }
 });
 {% endhighlight %}
