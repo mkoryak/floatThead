@@ -1,0 +1,67 @@
+---
+layout: lite
+base_url: './../..'
+slug: tests
+issue: 440
+desc: "Shows why you might want to override the ariaLabel function"
+---
+
+<style>
+    table.floatThead-table {
+    background-color: white;
+}
+  </style>
+
+
+<script type='text/javascript'>
+
+$(function(){
+    
+$("table").floatThead({
+  scrollContainer: function($table){
+      return $table.parent()  
+  },
+  ariaLabel: function($table, $headerCell, columnIndex){
+      return $table.find(`thead>tr:nth-child(1)>th:nth-child(${columnIndex})`).text();
+  }
+});
+
+console.log('Here is what the real table's header now looks like', $("table").find('thead').html());
+});
+
+
+</script>
+
+    <div style="overflow:auto; height: 200px;">
+    <table class="demo">
+                        <thead> 
+                            <tr><th colspan="3">title of the table</th></tr>
+                            <tr> <th><a href="#" id="demoHeader1">Header 1</a></th> <th><a href="#" id="demoHeader2">Header 2</a></th> <th><a href="#" id="demoHeader3">Header...3</a></th> </tr> </thead>
+                        <tbody> <tr> <td>hi</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr> <tr> <td>And Repeat 1</td> <td>And Repeat 2</td> <td>And Repeat 3</td> </tr> <tr> <td>Cell Content 1</td> <td>Cell Content 2</td> <td>Cell Content 3</td> </tr> <tr> <td>More Cell Content 1</td> <td>More Cell Content 2</td> <td>More Cell Content 3</td> </tr> <tr> <td>Even More Cell Content 1</td> <td>Even More Cell Content 2</td> <td>Even More Cell Content 3</td> </tr></tbody>
+        </table></div>
+    <br><br>
+<h2>Using <code>ariaLabel</code></h2>
+<p>
+You will need to provide a custom <code>ariaLabel</code> impl if your table's first header row does not contain the same number
+of cells as the number of columns in your table. </p>
+<p>
+Check out the table above, its first header row contains a single cell with colspan=3. If you do not customize ariaLabel, you will end up with a table having an aria label on the first header cell only.
+</p>
+<p>
+You need to tell the plugin to use the 2nd table row to get <code>aria-label</code>s it needs:
+</p>
+{% highlight js %}
+$("table").floatThead({
+  ariaLabel: function($table, $headerCell, columnIndex){
+      return $table.find(`thead > tr:nth-child(1) > th:nth-child(${columnIndex})`).text();
+  }
+});
+{% endhighlight %}
+<p>
+Open console to see the html of the real table after the plugin runs.
+</p>
+<p>
+Please note, that the header cells that contain the aria-labels are not visible to the user, only to screen readers. 
+</p>
+
+</div>
