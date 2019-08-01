@@ -1,3 +1,13 @@
+### 2.1.4
+This release is dedicated to my cat. May he rest in catnip and meats.
+
+new features:
+- Added `ariaLabel` function to the config object to give more flexibilty on the values the plugin uses. (doc site updated).
+
+bug fixes:
+- #432 - Improve RTL support.
+- #440 - Aria label does not work with quotes.
+
 ### 2.1.3
 Maintenance release. 
 
