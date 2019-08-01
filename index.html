@@ -169,6 +169,11 @@ $table.floatThead({
                 <td>null</td>
                 <td>Defines a responsive container element inside of which the table scrolls horizontally (at some resolutions), everything else behaves like window scrolling. This option cannot be used together with <code>scrollContainer</code> option. <small><a href="{{ site.base_url }}/examples/bootstrap3/">bootstrap3 example</a></small></td>
             </tr><tr>
+                <td>ariaLabel</td>
+                <td>function</td>
+                <td>($table, $headerCell, columnIndex) => $headerCell.text()</td>
+                <td>This function returns the <code>aria-label</code> to use for every header cell in the real table. Override to customize.</td>
+            </tr><tr>
                 <td>headerCellSelector</td>
                 <td>string</td>
                 <td>tr:first>th:visible</td>
