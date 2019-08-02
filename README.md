@@ -2,12 +2,10 @@
 <h1>
     <a href="https://github.com/mkoryak/floatThead/releases">jquery.floatThead</a>
     <a href="https://unpkg.com/floatthead/dist/jquery.floatThead.min.js"><img
-            src="http://img.badgesize.io/https://unpkg.com/floatthead/dist/jquery.floatThead.min.js?compression=gzip&style=flat-square"
-            alt="Gzip Size"></a>
-    <a href="https://www.npmjs.com/package/floatthead"><img src="https://img.shields.io/npm/v/floatthead.svg?style=flat-square"
-                                                       alt="NPM Version"></a>
+            src="http://img.badgesize.io/https://unpkg.com/floatthead/dist/jquery.floatThead.min.js?compression=gzip&style=flat-square"></a>
+    <a href="https://www.npmjs.com/package/floatthead"><img src="https://img.shields.io/npm/v/floatthead.svg?style=flat-square"></a>
     <a href="https://github.com/mkoryak/floatThead/blob/master/LICENSE"><img
-            src="https://img.shields.io/npm/l/floatthead.svg?style=flat-square" alt="License"></a>
+            src="https://img.shields.io/npm/l/floatthead.svg?style=flat-square"></a>
 </h1>
 </p>
 
@@ -28,7 +26,7 @@ npm install floatthead
 bower install floatThead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.1.3.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.1.4.zip)
 
 #### Via CDN
 [https://cdnjs.com/libraries/floatthead/](https://cdnjs.com/libraries/floatthead/)    
@@ -82,7 +80,7 @@ If you use css and html best practices, this plugin will work. If you are stuck 
 
 How to get help with the floatThead
 ------------
-All issues should be reported through github. Coffee/Beer donations are welcome ;)
+All issues should be reported through github. [Coffee/Beer](https://ko-fi.com/floatthead) donations are welcome ;)
 
 Requirements:
 -------------
@@ -102,7 +100,8 @@ Change Log
 
 ## Who is using floatThead ?
 
-### [Around 128K hits on guthub code search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
+### [Ctrl O](https://ctrlo.com)
+- Ctrl O provides simple and innovative products to help an organization's business processes. Linkspace, its flagship product, helps share information between teams and individuals, in a simple and effective manner.
 
 ### [WheresTheGig.com](https://WheresTheGig.com) 
 - A free service for the musical community 
@@ -117,15 +116,7 @@ Change Log
 - https://github.com/kangax/compat-table/blob/gh-pages/jquery.floatThead.min.js
 - [online site](http://kangax.github.io/compat-table/es6/) (see floatThead in action here)
 
-### [netdisco](http://netdisco.org)
-- http://sourceforge.net/p/netdisco/netdisco-ng/ci/213352d54ee8e71cbca5ae2c1c75696800c4216b/
-
-### [pylyglot](https://github.com/omaciel/pylyglot)
-- https://github.com/omaciel/pylyglot/tree/master/pylyglot/static/js
-
-### [django-sql-explorer](https://github.com/groveco/django-sql-explorer)
-- https://github.com/groveco/django-sql-explorer#dependencies
-
+### [Around 135,000 hits on github code search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
 License
 -------
