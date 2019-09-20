@@ -391,6 +391,7 @@
         $tableColGroup = $("<colgroup/>");
         existingColGroup = false;
       }
+      var colSelector = existingColGroup ? "col:visible" : "col";
       var $fthRow = $('<fthtr>').css({ //created unstyled elements (used for sizing the table because chrome can't read <col> width)
         'display': 'table-row',
         'border-spacing': 0,
@@ -531,7 +532,7 @@
         var count;
         var $headerColumns = $header.find(opts.headerCellSelector);
         if(existingColGroup){
-          count = $tableColGroup.find('col').length;
+          count = $tableColGroup.find(colSelector).length;
         } else {
           count = 0;
           $headerColumns.each(function () {
@@ -557,7 +558,11 @@
             );
           }
 
-          cols = cols.join('');
+          if(existingColGroup){
+            cols = $tableColGroup.html();
+          } else {
+            cols = cols.join('');
+          }
   
           if(createElements){
             $fthRow.empty();
@@ -569,9 +574,9 @@
           if(!existingColGroup){
             $tableColGroup.html(cols);
           }
-          $tableCells = $tableColGroup.find('col');
+          $tableCells = $tableColGroup.find(colSelector);
           $floatColGroup.html(cols);
-          $headerCells = $floatColGroup.find("col");
+          $headerCells = $floatColGroup.find(colSelector);
 
         }
         return count;
@@ -645,7 +650,7 @@
         return function(){
           //Cache the current scrollLeft value so that it can be reset post reflow
           var scrollLeft = $floatContainer.scrollLeft();
-          $tableCells = $tableColGroup.find('col');
+          $tableCells = $tableColGroup.find(colSelector);
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
 
           if($rowCells.length === numCols && numCols > 0){
