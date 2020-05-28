@@ -1,3 +1,13 @@
+### 2.2.0
+The Covid Release
+
+bug fixes:
+- #454 - Fix destroy function when using autoReflow with multiple tables
+
+new features:
+- #445 - Support hidden columns in tables that have an existing colgroup 
+- #458 - TypeScript definitions 
+
 ### 2.1.4
 This release is dedicated to my cat. May he rest in catnip and meats.
 
