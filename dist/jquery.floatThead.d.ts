@@ -19,6 +19,6 @@ interface JQuery {
     floatThead(floatTheadOptions?: floatTheadOptions): JQuery;
     floatThead(action: string): JQuery;
     trigger(action: string): JQuery;
-    on(events: string, handler: (event: Event, $floatContainer: JQuery) => void): JQuery;
-    on(events: string, handler: (event: Event, isFloated: boolean, $floatContainer: JQuery) => void): JQuery;
+    on(events: string, handler: (event: Event, $floatContainer: JQuery) => void|boolean): JQuery;
+    on(events: string, handler: (event: Event, isFloated: boolean, $floatContainer: JQuery) => void|boolean): JQuery;
 }
