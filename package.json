@@ -5,7 +5,7 @@
   "main": "dist/jquery.floatThead.min.js",
   "type": "dist/jquery.floatThead.d.ts",
   "scripts": {
-    "build": "cp src/* dist/ && uglifyjs  dist/jquery.floatThead.js --compress --mangle  --comments  -o dist/jquery.floatThead.min.js"
+    "build": "cp src/jquery.floatThead.js dist/jquery.floatThead.js && uglifyjs  dist/jquery.floatThead.js --compress --mangle  --comments  -o dist/jquery.floatThead.min.js"
   },
   "dependencies": {},
   "devDependencies": {
@@ -22,7 +22,7 @@
     "fixed table header",
     "table",
     "thead",
-    "fixed position",
+    "fixed position"
     "the cat is cute",
     "floatThead",
     "scrolling table",
