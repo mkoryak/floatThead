@@ -1,15 +1,15 @@
-/** @preserve jQuery.floatThead 2.2.0 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2019 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.2.0 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2020 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
  * @projectDescription position:fixed on steroids. Lock a table header in place while scrolling.
  *
  * Dependencies:
- * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
+ * jquery 1.9.0+ [required] OR jquery 1.7.0+ jquery UI core
  *
  * https://mkoryak.github.io/floatThead/
  *
- * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
+ * Tested on FF13+, Chrome 21+, IE9, IE10, IE11, EDGE
  */
 (function( $ ) {
   /**
@@ -104,7 +104,7 @@
     return that;
   })();
 
-  var canObserveMutations = typeof MutationObserver !== 'undefined';
+  var globalCanObserveMutations = typeof MutationObserver !== 'undefined';
 
 
   //browser stuff
@@ -260,8 +260,6 @@
       return this; //no more crappy browser support.
     }
 
-    var mObs = null; //mutation observer lives in here if we can use it / make it
-
     if(util.isFunction(isTableWidthBug)) {
       isTableWidthBug = isTableWidthBug();
     }
@@ -309,7 +307,8 @@
       if(!$table.is('table')){
         throw new Error('jQuery.floatThead must be run on a table element. ex: $("table").floatThead();');
       }
-      canObserveMutations = opts.autoReflow && canObserveMutations; //option defaults to false!
+      var canObserveMutations = opts.autoReflow && globalCanObserveMutations; //option defaults to false!
+      var mObs = null; //mutation observer lives in here if we can use it / make it
       var $header = $table.children('thead:first');
       var $tbody = $table.children('tbody:first');
       if($header.length === 0 || $tbody.length === 0){
