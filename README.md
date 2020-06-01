@@ -26,7 +26,7 @@ npm install floatthead
 bower install floatThead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.2.0.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.2.1.zip)
 
 #### Via CDN
 [https://cdnjs.com/libraries/floatthead/](https://cdnjs.com/libraries/floatthead/)    
@@ -80,7 +80,7 @@ If you use css and html best practices, this plugin will work. If you are stuck 
 
 How to get help with the floatThead
 ------------
-All issues should be reported through github. [Coffee/Beer](https://ko-fi.com/floatthead) donations are welcome ;)
+All issues should be reported through github.
 
 Requirements:
 -------------

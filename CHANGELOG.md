@@ -1,3 +1,6 @@
+### 2.2.1
+Fix typescript defs
+
 ### 2.2.0
 The Covid Release
 
