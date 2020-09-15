@@ -10,7 +10,7 @@
 </p>
 
 
-[![gif showing plugin in action](https://gfycat.com/AnyGloriousAlpaca.gif)](http://mkoryak.github.io/floatThead/)
+[![gif showing plugin in action](https://thumbs.gfycat.com/AnyGloriousAlpaca-size_restricted.gif)](http://mkoryak.github.io/floatThead/)
 
 ## Documentation & Examples: http://mkoryak.github.io/floatThead/
 
