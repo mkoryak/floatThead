@@ -112,11 +112,7 @@ Change Log
 ### [Samsung](https://github.com/Samsung/iotjscode/blob/3d4de15ea32d27dce5885b2c8c9e3a783c846311/www/scripts/app/main.js#L234)
 - For the internet of things!
 
-### [compat-table](https://github.com/kangax/compat-table/) 
-- https://github.com/kangax/compat-table/blob/gh-pages/jquery.floatThead.min.js
-- [online site](http://kangax.github.io/compat-table/es6/) (see floatThead in action here)
-
-### [Around 135,000 hits on github code search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
+### [Around 153,000 hits on github code search](https://github.com/search?q=floatThead&ref=reposearch&type=Code&utf8=%E2%9C%93)
 
 License
 -------
