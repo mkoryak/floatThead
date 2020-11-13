@@ -544,7 +544,9 @@
           $sizerRow.empty();
           for(var x = 0; x < count; x++){
             var cell = document.createElement('th');
-            cell.setAttribute('aria-label', opts.ariaLabel($table, $headerColumns.eq(x), x));
+            var span = document.createElement('span');
+            span.setAttribute('aria-label', opts.ariaLabel($table, $headerColumns.eq(x), x));
+            cell.appendChild(span);
             cell.className = 'floatThead-col';
             $sizerRow[0].appendChild(cell);
             cols.push('<col/>');

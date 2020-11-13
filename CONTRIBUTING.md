@@ -22,7 +22,7 @@ Pull requests
 Pull requests are welcome. Please create your pull request against master and make modifications to `jquery.floatThead.js` 
 in the project root, not in `/dist`  
 
-If you have grunt and can build your changes into dist by running `grunt` - that would be super, but if not, ill do it, no big deal.  
+If you have npm and can build your changes into dist by running `npm install && npm run-script build` - that would be super, but if not, ill do it, no big deal.  
 
 Changes landing on master will not be released on bower (as a new version) until there is a big enough critical mass of new features, or if 
 a critical bug gets fixed, or if you buy me a beer ;)  
