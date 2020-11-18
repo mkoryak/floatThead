@@ -51,6 +51,18 @@ bower install floatThead
 
 [yii2 framework wrapper](https://github.com/bluezed/yii2-floatThead) by @bluezed
 
+# Why not just use `position:sticky`?
+---------
+You probably should! This plugin was created years before that existed. There are still a few reasons why you might want to use this plugin:  
+
+- Your code runs in the real world, where [some browsers](https://caniuse.com/css-sticky) don't support `position: sticky`.
+- Any kind of non-standard scroll parent scenario, where the thing that you scroll with is not supported by `position: sticky`. 
+  - Your table's scroll parent isn't the body, but the body is what scrolls and you can't change this.
+  - Your table scrolls horizontally within a container, but vertically within the page. 
+- Your sticky `top` position is dynamic, or you want to know when the header becomes sticky and you don't want to write code to do this.
+- You don't want to learn these newfangled CSS things, you want a proven solution that works and uses jQuery, the greatest thing ever!
+
+
 # Things this plugin does:
 ---------
 -   In prod @ big corporations and opensource projects. Maintained. See open issues.
