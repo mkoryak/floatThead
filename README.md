@@ -120,6 +120,9 @@ Change Log
 
 ### [Google](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
 - Internally, I happen to know...
+ 
+### [tld-list.com](https://tld-list.com/)
+- The first table you see.
 
 ### [Samsung](https://github.com/Samsung/iotjscode/blob/3d4de15ea32d27dce5885b2c8c9e3a783c846311/www/scripts/app/main.js#L234)
 - For the internet of things!
