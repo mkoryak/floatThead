@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.2.1 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2020 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.2.2 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2021 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
