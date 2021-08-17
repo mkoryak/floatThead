@@ -1,3 +1,6 @@
+### 2.2.2
+Fix jQuery 3+ warnings
+
 ### 2.2.1
 Fix typescript defs
 
