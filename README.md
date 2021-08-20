@@ -26,7 +26,7 @@ npm install floatthead
 bower install floatThead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.2.2.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.2.3.zip)
 
 #### Via CDN
 [https://cdnjs.com/libraries/floatthead/](https://cdnjs.com/libraries/floatthead/)    
