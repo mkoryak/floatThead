@@ -17,7 +17,7 @@ interface floatTheadOptions {
 
 interface JQuery {
     floatThead(floatTheadOptions?: floatTheadOptions): JQuery;
-    floatThead(action: ("destroy"|"reflow"|"getRowGroups")): JQuery|() => JQuery;
+    floatThead(action: "destroy"|"reflow"|"getRowGroups"): JQuery|(() => JQuery);
     trigger(action: string): JQuery;
     on(events: string, handler: (event: Event, $floatContainer: JQuery) => void|boolean): JQuery;
     on(events: string, handler: (event: Event, isFloated: boolean, $floatContainer: JQuery) => void|boolean): JQuery;
