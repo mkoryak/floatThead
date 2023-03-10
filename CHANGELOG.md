@@ -1,3 +1,9 @@
+### 2.2.5
+Fixed #487, a scroll container bug that existed since 2015 :)
+
+### 2.2.3, 2.2.4
+Typescript types were added and fixed
+
 ### 2.2.2
 Fix jQuery 3+ warnings
 

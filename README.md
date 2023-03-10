@@ -26,7 +26,7 @@ npm install floatthead
 bower install floatThead
 ```
 #### Download code
-[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.2.3.zip)
+[Latest Release (zip)](https://github.com/mkoryak/floatThead/archive/2.2.5.zip)
 
 #### Via CDN
 [https://cdnjs.com/libraries/floatthead/](https://cdnjs.com/libraries/floatthead/)    
@@ -101,8 +101,8 @@ Requirements:
 
 Supported Browsers:
 -------------
--   IE8 or better (**must read** [this for ANY Internet Exploder integrations](http://mkoryak.github.io/floatThead/examples/row-groups/))
--   Chrome, Firefox (all versions from last 3 years)
+-   IE9 or better  (**must read** [this for ANY Internet Exploder integrations](http://mkoryak.github.io/floatThead/examples/row-groups/))
+-   Chrome, Firefox (all versions from last 10+ years)
 
 
 Change Log
