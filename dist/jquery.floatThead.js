@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.2.2 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2021 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.2.3 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2023 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -106,7 +106,6 @@
 
   var globalCanObserveMutations = typeof MutationObserver !== 'undefined';
 
-
   //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];a = 1+a,b.innerHTML="<!--[if gt IE "+ a +"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
   var isFF = /Gecko\//.test(navigator.userAgent);
@@ -194,7 +193,6 @@
     }
     return $(parent);
   }
-
 
   function debug(str){
     window && window.console && window.console.error && window.console.error("jQuery.floatThead: " + str);
@@ -350,8 +348,6 @@
 
       var useAbsolutePositioning = null;
 
-
-
       if (opts.position === 'auto') {
         useAbsolutePositioning = null;
       } else if (opts.position === 'fixed') {
@@ -468,7 +464,6 @@
         $table.before($floatContainer);
       }
 
-
       $floatContainer.css({
         position: useAbsolutePositioning ? 'absolute' : 'fixed',
         marginTop: '0',
@@ -503,7 +498,6 @@
         $sizerRow.outerHeight(headerHeight);
         $sizerCells.outerHeight(headerHeight);
       }
-
 
       function setFloatWidth(){
         var tw = tableWidth($table, $fthCells, true);
@@ -797,7 +791,7 @@
               triggerFloatEvent(false);
             } else if(scrollingContainerTop - tableContainerGap > tableHeight - floatContainerHeight){
               // scrolled past table but there is space in the container under it..
-              top = tableHeight - floatContainerHeight - scrollingContainerTop - tableContainerGap;
+              top = tableHeight - floatContainerHeight - scrollingContainerTop + tableContainerGap;
             } else {
               top = wrappedContainer ? tableTopGap : scrollingContainerTop;
               //headers stop at the top of the viewport
@@ -998,7 +992,6 @@
       }
       ////// end printing stuff
 
-
       if(locked){ //internal scrolling
         if(useAbsolutePositioning){
           $scrollContainer.on(eventName('scroll'), containerScrollEvent);
@@ -1028,7 +1021,6 @@
       if(opts.support && opts.support.jqueryUI) {
         $window.on(eventName('tabsactivate'), reflowEvent); // same thing for jqueryui
       }
-
 
       if (canObserveMutations) {
         var mutationElement = null;
