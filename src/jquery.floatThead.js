@@ -1,4 +1,4 @@
-/** @preserve jQuery.floatThead 2.2.5 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2023 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.2.6 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2026 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
@@ -455,7 +455,7 @@
         };
         if(locked){
           $wrapper = makeRelative($scrollContainer, true);
-          $wrapper.prepend($floatContainer);
+          $scrollContainer.before($floatContainer); //preserve init order for multiple tables sharing one scrollContainer - #242
         } else {
           $wrapper = makeRelative($table);
           $table.before($floatContainer);
@@ -801,6 +801,7 @@
           } else if(!locked && useAbsolutePositioning) { //window scrolling, absolute positioning
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight - floatContainerHeight + captionScrollOffset + scrollingBottom; //scrolled past table
+              triggerFloatEvent(false);
             } else if (tableOffset.top >= windowTop + scrollingTop) {
               top = 0; //scrolling to table
               unfloat();
@@ -827,6 +828,7 @@
             if(windowTop > floatEnd + tableHeight + captionScrollOffset){
               top = tableHeight + scrollingTop - windowTop + floatEnd + captionScrollOffset;
               //scrolled past the bottom of the table
+              triggerFloatEvent(false);
             } else if (tableOffset.top > windowTop + scrollingTop) {
               top = tableOffset.top - windowTop;
               refloat();
@@ -987,8 +989,8 @@
         matchMediaPrint = window.matchMedia("print");
         matchMediaPrint.addListener(printEvent);
       } else {
-        $window.on('fth-beforeprint', beforePrint);
-        $window.on('fth-afterprint', afterPrint);
+        $window.on(eventName('fth-beforeprint'), beforePrint);
+        $window.on(eventName('fth-afterprint'), afterPrint);
       }
       ////// end printing stuff
 
@@ -1082,8 +1084,7 @@
           $table.css('minWidth', originalTableMinWidth);
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
-          $window.off(ns);
-          $window.off('fth-beforeprint fth-afterprint'); // Not bound with id, so cant use ns.
+          $window.off(ns); //also unbinds this table's fth-beforeprint/fth-afterprint fallback listeners
           if (matchMediaPrint) {
             matchMediaPrint.removeListener(printEvent);
           }
